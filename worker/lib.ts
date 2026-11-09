@@ -13,6 +13,7 @@ export interface Env {
   EMAIL_FROM?: string;
   RESEND_API_KEY?: string; // optional production email provider
   SEND_EMAIL?: { send: (m: unknown) => Promise<unknown> }; // optional Cloudflare Email binding
+  TTS_ENABLED?: string; // 'false' turns off natural (Workers AI) narration
 }
 export interface Account { id: string; username: string; email: string | null; email_verified: number; role: 'parent' | 'educator' | 'admin'; sec_question: number; pass_hash: string; sec_answer_hash: string }
 export interface SessionRow { id: string; account_id: string; persistent: number; created_at: number; last_seen: number; expires_at: number; idle_limit_sec: number; verified_until: number; rotated_to: string | null; rotated_at: number | null; revoked_at: number | null; device_label: string | null }

@@ -9,7 +9,7 @@ type H = Hono<{ Bindings: Env; Variables: Vars }>;
 export const profiles: H = new Hono();
 export const learner: H = new Hono();
 
-const SAFE_PREF_KEYS = ['language', 'theme', 'textSize', 'reduceMotion', 'mute', 'volume', 'narration', 'pressureMode', 'manualIntensity', 'calibration', 'lastActivity', 'timers', 'keepFullscreen', 'artPalettes', 'readingSpeed'];
+const SAFE_PREF_KEYS = ['language', 'theme', 'textSize', 'reduceMotion', 'mute', 'volume', 'narration', 'pressureMode', 'manualIntensity', 'calibration', 'lastActivity', 'timers', 'keepFullscreen', 'artPalettes', 'readingSpeed', 'voiceEn', 'voiceTe', 'naturalVoice', 'naturalSpeaker'];
 const PARENT_PREF_KEYS = ['breakMinutes', 'breakEnabled'];
 const MAX_PROFILES = 8;
 

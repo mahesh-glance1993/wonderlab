@@ -6,13 +6,14 @@ import { auth, account } from './auth';
 import { profiles, learner } from './learner';
 import { content, admin } from './content';
 import { PACKS } from '../src/shared/packs';
+import { tts } from './tts';
 
 const app = new Hono<{ Bindings: Env; Variables: Vars }>();
 
 // Security headers + no caching of private API responses
 app.use('/api/*', async (c, next) => {
   await next();
-  c.header('Cache-Control', 'no-store');
+  if (!c.req.path.startsWith('/api/tts')) c.header('Cache-Control', 'no-store');
   c.header('X-Content-Type-Options', 'nosniff');
   c.header('Referrer-Policy', 'same-origin');
 });
@@ -35,6 +36,7 @@ app.route('/api/profiles', profiles);
 app.route('/api/p', learner);
 app.route('/api/content', content);
 app.route('/api/admin', admin);
+app.route('/api/tts', tts);
 app.get('/api/packs', (c) => c.json({ packs: PACKS }));
 
 // Local email sink so password recovery can be tested without a mail provider.

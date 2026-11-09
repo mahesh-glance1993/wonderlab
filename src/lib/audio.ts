@@ -2,8 +2,9 @@
 // Narration always has a written equivalent on screen; callers pass the same text they display.
 
 export type Lang = 'en' | 'te';
-interface AudioPrefs { mute: boolean; volume: number; rate: number; repeat: boolean }
-let prefs: AudioPrefs = { mute: false, volume: 0.8, rate: 0.8, repeat: false };
+interface AudioPrefs { mute: boolean; volume: number; rate: number; repeat: boolean; voiceEn?: string; voiceTe?: string; natural: boolean; speaker: string }
+let prefs: AudioPrefs = { mute: false, volume: 0.8, rate: 0.8, repeat: false, natural: true, speaker: 'luna' };
+let naturalBroken = 0; // timestamp of last natural-voice failure (back off for a minute)
 let unlocked = false;
 let actx: AudioContext | null = null;
 let lastSaid: { text: string; lang: Lang; clipId?: string; fallbackEn?: string } | null = null;
@@ -52,19 +53,58 @@ function loadVoices(): Promise<void> {
 }
 if (typeof window !== 'undefined') void loadVoices();
 
-export function voiceFor(lang: Lang): SpeechSynthesisVoice | null {
-  if (!('speechSynthesis' in window)) return null;
-  const vs = speechSynthesis.getVoices();
-  const want = lang === 'te' ? ['te-IN', 'te'] : ['en-IN', 'en-GB', 'en-US', 'en'];
-  for (const w of want) {
-    const matches = vs.filter((x) => x.lang.replace('_', '-').toLowerCase().startsWith(w.toLowerCase()));
-    // prefer on-device voices (network voices can fail silently on poor connections)
-    const v = matches.find((x) => x.localService) || matches[0];
-    if (v) return v;
-  }
-  return null;
+const LOCALE_RANK: Record<Lang, string[]> = { te: ['te-in', 'te'], en: ['en-in', 'en-gb', 'en-us', 'en-au', 'en'] };
+const langOf = (v: SpeechSynthesisVoice) => v.lang.replace('_', '-').toLowerCase();
+/**
+ * Higher = more natural. Neural/"Natural" (Edge), Google (Chrome/Android) and Apple enhanced voices
+ * sound far less robotic than the old desktop voices (Microsoft David/Zira/Mark, eSpeak).
+ */
+export function voiceQuality(v: SpeechSynthesisVoice, lang: Lang): number {
+  const n = v.name.toLowerCase();
+  let q = 0;
+  if (/natural|neural/.test(n)) q += 100;
+  if (/google/.test(n)) q += 60;
+  if (/premium|enhanced|siri/.test(n)) q += 55;
+  if (/online/.test(n)) q += 30;
+  if (/david|zira|mark|hazel|george|ravi|heera|espeak|desktop|microsoft .* - english (united states)$/.test(n) && !/natural|online/.test(n)) q -= 40;
+  const rank = LOCALE_RANK[lang].findIndex((p) => langOf(v).startsWith(p));
+  q += rank < 0 ? -1000 : (LOCALE_RANK[lang].length - rank) * 8;
+  return q;
 }
+/** Voices for a language, most natural first. */
+export function listVoices(lang: Lang): SpeechSynthesisVoice[] {
+  if (!('speechSynthesis' in window)) return [];
+  return speechSynthesis.getVoices().filter((v) => voiceQuality(v, lang) > -500).sort((a, b) => voiceQuality(b, lang) - voiceQuality(a, lang));
+}
+export function voiceFor(lang: Lang): SpeechSynthesisVoice | null {
+  const list = listVoices(lang);
+  const chosen = lang === 'te' ? prefs.voiceTe : prefs.voiceEn;
+  return (chosen && list.find((v) => v.voiceURI === chosen)) || list[0] || null;
+}
+export { loadVoices };
 export const hasVoice = (lang: Lang) => !!voiceFor(lang);
+const hasVoiceSync = (lang: Lang) => ('speechSynthesis' in window) && !!voiceFor(lang);
+
+/** Plays server-generated natural speech. Resolves false (so the caller falls back) if it can't start. */
+function playNatural(text: string): Promise<boolean> {
+  return new Promise((resolve) => {
+    const url = `/api/tts?v=${encodeURIComponent(prefs.speaker)}&text=${encodeURIComponent(text.replace(/<[^>]+>/g, ' ').slice(0, 400))}`;
+    const el = new Audio(url);
+    el.preload = 'auto';
+    el.volume = prefs.volume;
+    // reading speed: the natural voice speaks at a calm pace already; slow it gently, keeping pitch
+    el.playbackRate = Math.max(0.75, Math.min(1, prefs.rate / 0.92));
+    (el as HTMLAudioElement & { preservesPitch?: boolean }).preservesPitch = true;
+    let settled = false;
+    const fail = () => { if (!settled) { settled = true; naturalBroken = Date.now(); if (currentClip === el) currentClip = null; resolve(false); } };
+    const timer = setTimeout(fail, 6000); // too slow to start → use the device voice
+    el.onerror = fail;
+    el.onplaying = () => { if (!settled) { settled = true; clearTimeout(timer); resolve(true); } listeners.forEach((l) => l(true)); };
+    el.onended = () => { if (currentClip === el) currentClip = null; listeners.forEach((l) => l(false)); };
+    currentClip = el;
+    el.play().catch(() => { clearTimeout(timer); fail(); });
+  });
+}
 
 let current: SpeechSynthesisUtterance | null = null; // keep a reference: Chrome can garbage-collect and cut speech
 let keepAlive: ReturnType<typeof setInterval> | null = null;
@@ -93,6 +133,12 @@ export async function speak(text: string, lang: Lang = 'en', clipId?: string, fa
     await currentClip.play().catch(() => listeners.forEach((l) => l(false)));
     return true;
   }
+  // Natural (neural) English voice from the server, cached; device voice is the fallback.
+  const enText = lang === 'en' ? text : (!hasVoiceSync('te') ? fallbackEn : undefined);
+  if (enText && prefs.natural && navigator.onLine && Date.now() - naturalBroken > 60_000) {
+    const ok = await playNatural(enText);
+    if (ok) return true;
+  }
   if (!('speechSynthesis' in window)) return false;
   await loadVoices();
   let useLang = lang, useText = text;
@@ -105,10 +151,19 @@ export async function speak(text: string, lang: Lang = 'en', clipId?: string, fa
   if (v) u.voice = v;
   u.lang = v?.lang || (useLang === 'te' ? 'te-IN' : 'en-IN');
   u.rate = prefs.rate;
-  u.pitch = 1.05;
+  u.pitch = 1;
   u.volume = prefs.volume;
   u.onstart = () => listeners.forEach((l) => l(true));
-  u.onend = u.onerror = () => { if (keepAlive) { clearInterval(keepAlive); keepAlive = null; } listeners.forEach((l) => l(false)); };
+  u.onend = () => { if (keepAlive) { clearInterval(keepAlive); keepAlive = null; } listeners.forEach((l) => l(false)); };
+  u.onerror = (ev) => {
+    if (keepAlive) { clearInterval(keepAlive); keepAlive = null; }
+    listeners.forEach((l) => l(false));
+    // online (natural) voices can fail on a poor connection: retry once with the best on-device voice
+    if (v && !v.localService && (ev.error === 'network' || ev.error === 'synthesis-failed' || ev.error === 'synthesis-unavailable')) {
+      const local = listVoices(useLang).find((x) => x.localService);
+      if (local) { const r = new SpeechSynthesisUtterance(u.text); r.voice = local; r.lang = local.lang; r.rate = u.rate; r.pitch = u.pitch; r.volume = u.volume; current = r; speechSynthesis.speak(r); }
+    }
+  };
   current = u;
   // Chrome drops an utterance queued in the same tick as cancel(); give it a moment.
   if (wasBusy) await new Promise((r) => setTimeout(r, 80));
@@ -176,3 +231,6 @@ export function tone(kind: 'correct' | 'wrong' | 'tap' | 'complete') {
     });
   } catch { /* audio unavailable */ }
 }
+
+/** Current audio preferences (used by the sound-effects library). */
+export const getAudioPrefs = () => prefs;

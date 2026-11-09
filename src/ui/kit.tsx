@@ -175,7 +175,6 @@ export function ReportProblem({ lessonId, questionId, contentVersion }: { lesson
 /** Page frame used by learner screens: back, title, fullscreen, sync badge. */
 export function Page({ title, back = '/', actions, wide, fullscreen, children }: { title: string; back?: string | false; actions?: ReactNode; wide?: boolean; fullscreen?: boolean; children: ReactNode }) {
   const nav = useNavigate();
-  const fs = useFullscreen();
   useEffect(() => { document.title = `${title} · WonderLab`; }, [title]);
   return (
     <>
@@ -187,9 +186,6 @@ export function Page({ title, back = '/', actions, wide, fullscreen, children }:
         {actions}
         {fullscreen && <FullscreenButton />}
       </header>
-      {fs.active && fullscreen && (
-        <button className="btn small" style={{ position: 'fixed', top: 8, right: 8, zIndex: 50 }} onClick={() => { sessionStorage.setItem('wl.fsOff', '1'); void fs.exit(); }} aria-label="Exit full screen"><Icon name="min" /></button>
-      )}
       <main id="main" className={`main ${wide ? 'wide' : ''}`} tabIndex={-1}>{children}</main>
     </>
   );

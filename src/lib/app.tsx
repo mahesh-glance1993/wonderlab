@@ -19,6 +19,10 @@ export interface Prefs {
   lastActivity?: { path: string; label: string; at: number }; timers?: boolean;
   /** narration speed: 'slow' | 'normal' (default chosen by class) */
   readingSpeed?: 'slower' | 'slow' | 'normal';
+  /** chosen speech voices (voiceURI) */
+  voiceEn?: string; voiceTe?: string;
+  /** natural (online, neural) English voice; device voice is used when off/offline */
+  naturalVoice?: boolean; naturalSpeaker?: string;
   /** re-enter full screen on the next tap if the browser leaves it (default on) */
   keepFullscreen?: boolean;
   artPalettes?: unknown;
@@ -124,7 +128,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     root.dataset.tier = presentation?.tier || 'none';
     const tier = presentation?.tier;
     const speed = prefs.readingSpeed || (tier === 'early' ? 'slower' : tier === 'primary' ? 'slow' : 'normal');
-    setAudioPrefs({ mute: prefs.mute, volume: prefs.volume, rate: speed === 'slower' ? 0.7 : speed === 'slow' ? 0.8 : 0.92, repeat: !!presentation?.readAloud || tier === 'early' || tier === 'primary' });
+    setAudioPrefs({ mute: prefs.mute, volume: prefs.volume, rate: speed === 'slower' ? 0.7 : speed === 'slow' ? 0.8 : 0.92, repeat: !!presentation?.readAloud || tier === 'early' || tier === 'primary', voiceEn: prefs.voiceEn, voiceTe: prefs.voiceTe, natural: prefs.naturalVoice !== false, speaker: prefs.naturalSpeaker || 'luna' });
   }, [prefs, lang, presentation]);
 
   // load learner state (server, else offline snapshot) and merge local queue

@@ -22,6 +22,14 @@ const noErr = (n) => { ok(!errors.length, `${n}: no JS errors`, errors.slice(0, 
 
 /** Answers the current practice question by trying choices until one is correct. */
 async function answerByChoices(max = 8) {
+  // tap-to-count questions: tap every object, then Check
+  const objs = page.locator('.lq-countobj');
+  if (await objs.count()) {
+    for (let i = 0; i < await objs.count(); i++) await objs.nth(i).click();
+    await page.getByRole('button', { name: /^(Check|చూడు)/ }).first().click().catch(() => {});
+    await sleep(400);
+    if (await page.locator('.feedback.good').count()) return true;
+  }
   for (let i = 0; i < max; i++) {
     const choices = page.locator('.choice:not(.is-wrong):not([aria-disabled="true"])');
     const n = await choices.count();
