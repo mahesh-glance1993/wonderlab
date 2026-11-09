@@ -1,0 +1,37 @@
+// Telugu UI strings (Nursery–Class 3). Narration uses these texts; written text is always shown with audio.
+// NOTE: translations should be reviewed by a native-speaker educator before release (tracked in docs/VERIFICATION.md).
+import type { StringKey } from './en';
+
+export const te: Partial<Record<StringKey, string>> = {
+  appName: 'వండర్‌ల్యాబ్',
+  continueLearning: 'నేర్చుకోవడం కొనసాగించు',
+  whatNext: 'తర్వాత ఏమి నేర్చుకోవాలి?',
+  math: 'గణితం',
+  physicsLab: 'భౌతిక శాస్త్ర ప్రయోగశాల',
+  artStudio: 'ఆర్ట్ స్టూడియో',
+  games: 'ఆటలు మరియు పజిల్స్',
+  downloads: 'డౌన్‌లోడ్‌లు',
+  myProgress: 'నా ప్రగతి',
+  e_continue: 'ఆట కొనసాగించు',
+  e_next: 'కొత్తది నేర్చుకో',
+  e_math: 'అంకెలు & ఆకారాలు',
+  e_world: 'నా ప్రపంచం',
+  e_art: 'బొమ్మ గీయి & రంగు వేయి',
+  e_games: 'ఆటలు',
+  e_progress: 'నా నక్షత్రాలు',
+  e_play: 'ఆడుతూ నేర్చుకో',
+  englishCourse: 'ఇంగ్లీష్',
+  start: 'మొదలుపెట్టు', next: 'తర్వాత', back: 'వెనక్కి', done: 'అయిపోయింది', check: 'చూడు', tryAgain: 'మళ్ళీ ప్రయత్నించు', hint: 'సూచన', showHint: 'సూచన చూపించు',
+  listen: 'విను', replay: 'మళ్ళీ విను', stop: 'ఆపు', mute: 'శబ్దం ఆపు', unmute: 'శబ్దం ఆన్', close: 'మూసివేయి', save: 'సేవ్ చేయి', cancel: 'రద్దు', restart: 'మళ్ళీ మొదలుపెట్టు',
+  correct: 'సరైనది!', notQuite: 'ఇంకొంచెం ప్రయత్నించు', wellDone: 'చాలా బాగుంది!', greatJob: 'అద్భుతం!', tryThis: 'ఇది ప్రయత్నించు',
+  learn: 'నేర్చుకో', practice: 'సాధన', test: 'పరీక్ష', review: 'సమీక్ష', submit: 'సమర్పించు',
+  enterFullScreen: 'పూర్తి తెర', exitFullScreen: 'పూర్తి తెర నుండి బయటకు',
+  language: 'భాష', english: 'English', telugu: 'తెలుగు',
+  settings: 'అమరికలు', parent: 'తల్లిదండ్రులు', signOut: 'సైన్ అవుట్', switchLearner: 'పిల్లవాడిని మార్చు', whoIsLearning: 'ఈరోజు ఎవరు నేర్చుకుంటున్నారు?',
+  saving: 'సేవ్ అవుతోంది…', saved: 'సేవ్ అయింది', offline: 'ఆఫ్‌లైన్ — ఈ పరికరంలో సేవ్ అయింది', retry: 'మళ్ళీ ప్రయత్నించు', saveFailed: 'సేవ్ కాలేదు',
+  reportProblem: 'సమస్యను తెలియజేయి', breakTime: 'కాసేపు విరామం తీసుకో', breakBody: 'దూరంగా ఉన్న దాన్ని చూడు, ఒళ్ళు విరుచుకో, నెమ్మదిగా కళ్ళు ఆర్పు. నీ పని భద్రంగా ఉంది.', resume: 'కొనసాగించు',
+  reduceMotion: 'కదలికలు తగ్గించు', textSize: 'అక్షరాల పరిమాణం', theme: 'థీమ్', light: 'వెలుగు', dark: 'చీకటి', volume: 'శబ్దం',
+  stars: 'నక్షత్రాలు', level: 'స్థాయి', mastered: 'నేర్చుకున్నావు', needsPractice: 'ఇంకా సాధన కావాలి', inProgress: 'నేర్చుకుంటున్నావు', notStarted: 'ఇంకా మొదలుపెట్టలేదు',
+  countHowMany: 'ఎన్ని ఉన్నాయో లెక్కపెట్టగలవా?', tapTheAnswer: 'సరైన సమాధానాన్ని నొక్కు',
+  canNowDo: 'ఇప్పుడు నువ్వు చేయగలవు…', recommendedBecause: 'ఎందుకు?',
+};

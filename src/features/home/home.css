@@ -1,0 +1,23 @@
+.hello { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; background: var(--c-next); flex-wrap: wrap; }
+.hello h1 { margin: 0; font-size: 1.8rem; }
+.hello p { margin: 0; display: flex; align-items: center; gap: 6px; font-weight: 700; }
+.hello-av { width: 76px; height: 76px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font-size: 2.8rem; box-shadow: var(--shadow-sm); }
+.tile.continue { margin-bottom: 16px; min-height: 0; flex-direction: row; align-items: center; gap: 14px; }
+.tile.continue b { margin-right: 8px; }
+.home-grid.early { grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+.picker { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.picker .who { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 22px 12px; border: 0; border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); font-weight: 800; font-size: 1.15rem; min-height: 180px; justify-content: center; }
+.picker .who .av { font-size: 3.6rem; width: 96px; height: 96px; display: grid; place-items: center; border-radius: 50%; background: var(--surface-2); }
+.picker .who small { color: var(--muted); font-weight: 700; }
+.unit { margin-bottom: 18px; }
+.unit h2 { font-size: 1.3rem; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.obj { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--surface-2); margin-top: 8px; flex-wrap: wrap; }
+.obj .name { flex: 1; min-width: 200px; font-weight: 700; }
+.status { font-size: .8rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; display: inline-flex; gap: 4px; align-items: center; }
+.status.mastered { background: var(--good-bg); color: var(--good); }
+.status.practice { background: var(--warn-bg); color: var(--warn); }
+.status.progress { background: var(--c-math); color: var(--c-math-ink); }
+.status.new { background: var(--surface); color: var(--muted); }
+
+.picker .who.add-who { background: transparent; border: 3px dashed var(--line); box-shadow: none; color: var(--muted); }
+.picker .who.add-who .av { background: var(--surface); color: var(--primary); }

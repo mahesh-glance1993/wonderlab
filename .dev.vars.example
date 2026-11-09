@@ -1,0 +1,3 @@
+# Copy to .dev.vars for local overrides (never commit real secrets).
+# Production email delivery (optional): set with `wrangler secret put RESEND_API_KEY --env production`
+# RESEND_API_KEY=

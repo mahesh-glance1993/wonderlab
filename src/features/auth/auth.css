@@ -1,0 +1,12 @@
+.auth-wrap { min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px; }
+.auth-card { width: 100%; max-width: 520px; padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+.auth-card h1 { font-size: 1.8rem; margin: 0; }
+.auth-card p { margin: 0; }
+.auth-brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-head); font-weight: 800; font-size: 1.3rem; color: var(--primary); }
+.auth-links { justify-content: space-between; }
+.small { font-size: .88rem; }
+.legend { font-family: var(--font-head); font-weight: 700; font-size: 1.1rem; padding: 0 4px; }
+fieldset.card { border: 1px solid var(--line); }
+.codes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 20px; padding-left: 24px; font-size: 1.15rem; }
+.codes code { font-family: ui-monospace, Consolas, monospace; letter-spacing: .06em; font-weight: 700; }
+[role='tab'][aria-selected='true'] { background: var(--primary); color: var(--primary-ink); }

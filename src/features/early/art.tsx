@@ -1,0 +1,210 @@
+// Original SVG illustrations for Play & Learn. Each drawing lives in a -50..50 box.
+// Items without a drawing fall back to their emoji glyph (see data/pictures.ts).
+import type { ReactElement } from 'react';
+import { PIC, COLOUR_NAMES, type ColourId } from './data/pictures';
+import type { Bg } from './data/stories';
+import { SHAPES } from './data/shapes';
+
+type Draw = (v?: string) => ReactElement;
+const K = '#3A3530'; // outline ink
+const SKIN = '#C98E62';
+const o = { stroke: K, strokeWidth: 2.2, strokeLinejoin: 'round' as const, strokeLinecap: 'round' as const };
+
+// ---------- people ----------
+interface PersonOpts { hair: 'short' | 'bun' | 'plaits' | 'bald' | 'baby'; hairColour?: string; top: string; bottom?: string; saree?: boolean; glasses?: boolean; moustache?: boolean; prop?: 'stethoscope' | 'book' | 'turban' | 'stick'; smile?: boolean }
+function person(p: PersonOpts): ReactElement {
+  const hc = p.hairColour || '#2E2622';
+  return (
+    <g>
+      {/* body */}
+      {p.saree
+        ? <path d="M-20 0 L20 0 L26 46 L-26 46 Z" fill={p.top} {...o} />
+        : <><path d="M-18 0 L18 0 L20 28 L-20 28 Z" fill={p.top} {...o} /><path d="M-16 28 H16 L14 46 H2 L0 34 L-2 46 H-14 Z" fill={p.bottom || '#4A5D7A'} {...o} /></>}
+      {p.saree && <path d="M-20 2 L20 30" stroke="#E7B832" strokeWidth={5} />}
+      <path d="M-18 4 L-28 26 M18 4 L28 26" {...o} stroke={SKIN} strokeWidth={6} />
+      {/* head */}
+      {p.hair === 'plaits' && <path d="M-16 -22 Q-24 0 -20 10 M16 -22 Q24 0 20 10" stroke={hc} strokeWidth={6} fill="none" strokeLinecap="round" />}
+      <circle cx={0} cy={-18} r={16} fill={SKIN} {...o} />
+      {p.hair === 'short' && <path d="M-16 -20 Q-16 -36 0 -36 Q16 -36 16 -20 Q8 -28 -16 -20Z" fill={hc} {...o} />}
+      {(p.hair === 'bun' || p.hair === 'plaits') && <path d="M-16 -18 Q-17 -36 0 -36 Q17 -36 16 -18 Q10 -30 0 -28 Q-10 -30 -16 -18Z" fill={hc} {...o} />}
+      {p.hair === 'bun' && <circle cx={0} cy={-38} r={7} fill={hc} {...o} />}
+      {p.hair === 'baby' && <path d="M-4 -34 q4 -6 8 0" stroke={hc} strokeWidth={2.5} fill="none" />}
+      {p.prop === 'turban' && <path d="M-17 -22 Q-18 -40 0 -40 Q18 -40 17 -22 Q0 -30 -17 -22Z" fill="#E8862E" {...o} />}
+      <circle cx={-6} cy={-19} r={2} fill={K} /><circle cx={6} cy={-19} r={2} fill={K} />
+      {p.glasses && <g fill="none" stroke={K} strokeWidth={1.6}><circle cx={-6} cy={-19} r={5} /><circle cx={6} cy={-19} r={5} /><path d="M-1 -19h2" /></g>}
+      {p.moustache && <path d="M-7 -11 q7 -4 14 0" stroke={K} strokeWidth={3} fill="none" />}
+      <path d={p.smile ? 'M-7 -11 Q0 -2 7 -11 Z' : 'M-5 -10 Q0 -6 5 -10'} fill={p.smile ? '#FFFFFF' : 'none'} stroke={K} strokeWidth={1.8} />
+      {p.prop === 'stethoscope' && <path d="M-8 0 Q-8 18 0 18 Q8 18 8 0 M0 18 v6" stroke="#2F6F9A" strokeWidth={2.5} fill="none" />}
+      {p.prop === 'book' && <rect x={20} y={14} width={16} height={20} rx={2} fill="#4F86C6" {...o} />}
+      {p.prop === 'stick' && <path d="M30 20 V48 M30 20 q0 -6 -6 -6" stroke="#8A5A36" strokeWidth={4} fill="none" strokeLinecap="round" />}
+    </g>
+  );
+}
+
+// ---------- small helpers ----------
+const blob = (fill: string) => <path d="M-6 -38 C18 -42 40 -26 38 -2 C36 22 22 40 -2 38 C-26 36 -42 20 -38 -6 C-34 -28 -22 -36 -6 -38Z" fill={fill} {...o} />;
+const wheel = (cx: number, cy: number, r = 9) => <g><circle cx={cx} cy={cy} r={r} fill="#2E2E2E" {...o} /><circle cx={cx} cy={cy} r={r * 0.4} fill="#BDBDBD" /></g>;
+const leaf = (x: number, y: number, rot = 0, s = 1) => <path transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`} d="M0 0 Q10 -12 24 -4 Q12 8 0 0Z" fill="#5E9E62" {...o} strokeWidth={1.6} />;
+const starPts = (r1: number, r2: number) => Array.from({ length: 10 }, (_, i) => { const a = -Math.PI / 2 + (i * Math.PI) / 5; const r = i % 2 ? r2 : r1; return `${(r * Math.cos(a)).toFixed(1)},${(r * Math.sin(a)).toFixed(1)}`; }).join(' ');
+
+export const ART: Record<string, Draw> = {
+  // fruits
+  mango: () => <g><path d="M-6 -34 C22 -36 40 -8 34 14 C28 38 0 46 -18 36 C-36 26 -38 -4 -28 -20 C-22 -30 -14 -33 -6 -34Z" fill="#F2B33D" {...o} /><ellipse cx={14} cy={10} rx={12} ry={14} fill="#E8862E" opacity={0.45} /><path d="M-6 -34 q1 -8 6 -11" {...o} fill="none" />{leaf(0, -44, -10, 1.1)}</g>,
+  banana: () => <g><path d="M-40 -14 C-30 30 18 40 42 14 C44 8 38 6 34 10 C14 26 -18 20 -30 -18 Z" fill="#F2D04B" {...o} /><path d="M-40 -14 l-4 -6 l8 -2 z" fill="#6B4B2A" {...o} strokeWidth={1.5} /><path d="M-24 -2 C-14 18 10 24 30 14" stroke="#C9A93A" strokeWidth={2} fill="none" /></g>,
+  apple: () => <g><path d="M0 -22 C12 -34 40 -30 40 0 C40 26 20 42 8 40 C4 38 -4 38 -8 40 C-20 42 -40 26 -40 0 C-40 -30 -12 -34 0 -22Z" fill="#D2443B" {...o} /><path d="M0 -22 L4 -40" {...o} />{leaf(4, -34, -20)}<ellipse cx={-18} cy={-8} rx={5} ry={9} fill="#fff" opacity={0.35} /></g>,
+  grapes: () => <g><path d="M0 -30 L2 -44" {...o} />{leaf(2, -40, -30, 0.9)}{[[-16, -22], [0, -24], [16, -22], [-22, -6], [-7, -8], [8, -8], [22, -6], [-14, 9], [0, 8], [14, 9], [-7, 24], [7, 24], [0, 38]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={9} fill="#7E4FA6" {...o} strokeWidth={1.6} />)}</g>,
+  orange: () => <g><circle r={36} cy={4} fill="#EE8B2B" {...o} />{[[-12, -6], [10, 8], [-4, 20], [16, -10], [-20, 12]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={1.6} fill="#C46A1B" />)}{leaf(0, -32, -25)}<circle cx={0} cy={-32} r={3} fill="#6B4B2A" /></g>,
+  watermelon: () => <g><path d="M-46 -8 A46 46 0 0 0 46 -8 Z" fill="#4E9A4B" {...o} /><path d="M-40 -8 A40 40 0 0 0 40 -8 Z" fill="#F4F0D8" /><path d="M-36 -8 A36 36 0 0 0 36 -8 Z" fill="#E2524B" />{[[-18, 4], [0, 10], [18, 4], [-8, 20], [10, 20]].map(([x, y], i) => <ellipse key={i} cx={x} cy={y} rx={2.4} ry={4} fill="#2E2E2E" />)}<path d="M-46 -8 H46" {...o} /></g>,
+  coconut: () => <g><circle r={36} fill="#8A5A36" {...o} /><path d="M-26 -14 q10 -6 20 -4 M8 -24 q12 0 18 10 M-28 14 q6 8 16 10" stroke="#5F3C22" strokeWidth={2} fill="none" /><circle cx={-8} cy={-4} r={4} fill="#3B2616" /><circle cx={8} cy={-4} r={4} fill="#3B2616" /><circle cx={0} cy={9} r={4} fill="#3B2616" /></g>,
+  pineapple: () => <g><path d="M0 -20 L-12 -46 L-2 -30 L0 -50 L4 -30 L14 -46 L6 -20Z" fill="#4E9A4B" {...o} /><ellipse cy={14} rx={26} ry={32} fill="#E9B829" {...o} /><path d="M-20 -6 L16 34 M-24 12 L4 42 M-10 -16 L22 18 M20 -6 L-16 34 M24 12 L-4 42 M10 -16 L-22 18" stroke="#B9851E" strokeWidth={1.6} /></g>,
+  // vegetables
+  tomato: () => <g><ellipse cy={6} rx={38} ry={33} fill="#D9453B" {...o} /><polygon points={starPts(16, 6)} transform="translate(0 -24)" fill="#4E9A4B" {...o} strokeWidth={1.5} /><ellipse cx={-16} cy={-2} rx={6} ry={9} fill="#fff" opacity={0.3} /></g>,
+  carrot: () => <g><path d="M-6 -30 Q-2 -48 4 -46 M0 -30 Q10 -48 16 -42 M-10 -30 Q-20 -46 -14 -48" stroke="#4E9A4B" strokeWidth={4} fill="none" strokeLinecap="round" /><path d="M-18 -30 Q0 -36 18 -30 L3 46 Q0 49 -3 46 Z" fill="#E8862E" {...o} /><path d="M-10 -12 h8 M4 2 h8 M-6 18 h7" stroke="#B9601C" strokeWidth={2} /></g>,
+  brinjal: () => <g><ellipse cx={6} cy={10} rx={24} ry={36} transform="rotate(-25 6 10)" fill="#6A3D8C" {...o} /><path d="M-18 -30 q8 -4 16 4 q-2 8 -12 8 q-8 -2 -4 -12z" fill="#4E9A4B" {...o} /><path d="M-14 -32 l-6 -10" {...o} /><ellipse cx={-2} cy={2} rx={4} ry={10} transform="rotate(-25 -2 2)" fill="#fff" opacity={0.25} /></g>,
+  potato: () => <g><path d="M-40 4 C-42 -18 -16 -30 8 -26 C34 -22 44 -4 38 16 C32 34 6 34 -14 30 C-32 26 -38 18 -40 4Z" fill="#C8A06A" {...o} />{[[-20, -6], [6, -12], [20, 8], [-6, 14]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={2.2} fill="#8A6A3E" />)}</g>,
+  onion: () => <g><path d="M0 -42 C6 -26 38 -14 36 12 C34 34 16 42 0 42 C-16 42 -34 34 -36 12 C-38 -14 -6 -26 0 -42Z" fill="#C77A98" {...o} /><path d="M0 -30 C-18 -12 -20 22 0 40 M0 -30 C18 -12 20 22 0 40" stroke="#9B4F6E" strokeWidth={1.6} fill="none" /><path d="M-6 42 l-4 6 M0 42 v7 M6 42 l4 6" {...o} /></g>,
+  chilli: () => <g><path d="M-26 -30 C-10 -6 2 26 38 40 C6 44 -22 16 -34 -22 Z" fill="#3E8E3E" {...o} /><path d="M-30 -26 l-6 -14 l10 4" stroke="#2D6B2D" strokeWidth={4} fill="none" strokeLinecap="round" /></g>,
+  corn: () => <g><path d="M-6 44 C-30 30 -34 -10 -18 -30 C-24 0 -18 24 -6 44Z M6 44 C30 30 34 -10 18 -30 C24 0 18 24 6 44Z" fill="#5E9E62" {...o} /><ellipse cy={0} rx={16} ry={38} fill="#F2CC4B" {...o} />{[-24, -12, 0, 12, 24].map((y) => <path key={y} d={`M-13 ${y} H13`} stroke="#C9A12E" strokeWidth={1.4} />)}<path d="M-6 -36 V36 M6 -36 V36" stroke="#C9A12E" strokeWidth={1.4} /></g>,
+  ladyfinger: () => <g transform="rotate(30)"><path d="M-9 -34 L9 -34 L4 40 Q0 46 -4 40 Z" fill="#5E9E62" {...o} /><path d="M-3 -32 L-1 38 M3 -32 L1 38" stroke="#3E7A44" strokeWidth={1.4} /><path d="M-11 -34 H11 L6 -42 H-6 Z" fill="#3E7A44" {...o} /></g>,
+  // animals
+  cat: () => <g><path d="M22 30 Q46 26 40 0" stroke="#D88A45" strokeWidth={7} fill="none" strokeLinecap="round" /><ellipse cy={22} rx={24} ry={22} fill="#E39B4F" {...o} /><path d="M-18 -24 L-14 -46 L-2 -32 Z M18 -24 L14 -46 L2 -32 Z" fill="#E39B4F" {...o} /><circle cy={-16} r={20} fill="#E39B4F" {...o} /><circle cx={-7} cy={-18} r={2.6} fill={K} /><circle cx={7} cy={-18} r={2.6} fill={K} /><path d="M-3 -11 h6 l-3 3z" fill="#B5544A" /><path d="M-4 -6 q4 3 8 0 M-10 -10 h-14 M-10 -7 l-13 4 M10 -10 h14 M10 -7 l13 4" stroke={K} strokeWidth={1.3} fill="none" /><path d="M-8 6 v8 M8 6 v8" stroke="#C47A3A" strokeWidth={2} /></g>,
+  dog: () => <g><path d="M24 14 q16 -8 18 -22" stroke="#9B6B43" strokeWidth={6} fill="none" strokeLinecap="round" /><ellipse cx={4} cy={20} rx={28} ry={18} fill="#B5814F" {...o} /><path d="M-18 30 v14 M-6 32 v12 M14 32 v12 M24 28 v14" stroke="#9B6B43" strokeWidth={6} strokeLinecap="round" /><circle cx={-18} cy={-12} r={18} fill="#C99460" {...o} /><ellipse cx={-34} cy={-10} rx={7} ry={14} fill="#7A5134" {...o} /><ellipse cx={-2} cy={-10} rx={7} ry={14} fill="#7A5134" {...o} /><ellipse cx={-18} cy={-4} rx={9} ry={7} fill="#E8C9A3" {...o} strokeWidth={1.4} /><circle cx={-18} cy={-7} r={3} fill={K} /><circle cx={-24} cy={-16} r={2.2} fill={K} /><circle cx={-12} cy={-16} r={2.2} fill={K} /></g>,
+  cow: () => <g><rect x={-34} y={-10} width={58} height={32} rx={14} fill="#F7F4EC" {...o} /><path d="M-22 -6 q8 2 6 12 q-8 4 -12 -4z M4 2 q10 -4 12 6 q-6 8 -12 0z" fill="#2E2E2E" /><path d="M-26 20 v20 M-12 22 v18 M6 22 v18 M18 20 v20" stroke={K} strokeWidth={5} strokeLinecap="round" /><path d="M-34 0 q-10 6 -8 18" stroke={K} strokeWidth={2} fill="none" /><ellipse cx={34} cy={-12} rx={13} ry={16} fill="#F7F4EC" {...o} /><ellipse cx={36} cy={0} rx={10} ry={7} fill="#E8B4A6" {...o} strokeWidth={1.4} /><path d="M26 -26 q-6 -8 -2 -12 M42 -26 q6 -8 2 -12" stroke="#8A6A3E" strokeWidth={3} fill="none" strokeLinecap="round" /><circle cx={30} cy={-14} r={2} fill={K} /><circle cx={40} cy={-14} r={2} fill={K} /></g>,
+  frog: () => <g><ellipse cy={14} rx={36} ry={24} fill="#5BAA4F" {...o} /><circle cx={-16} cy={-12} r={12} fill="#5BAA4F" {...o} /><circle cx={16} cy={-12} r={12} fill="#5BAA4F" {...o} /><circle cx={-16} cy={-13} r={6} fill="#fff" /><circle cx={16} cy={-13} r={6} fill="#fff" /><circle cx={-15} cy={-12} r={3} fill={K} /><circle cx={17} cy={-12} r={3} fill={K} /><path d="M-14 12 Q0 22 14 12" stroke={K} strokeWidth={2} fill="none" /><path d="M-34 30 q-10 8 -2 10 h14 M34 30 q10 8 2 10 h-14" fill="#4A9440" {...o} /></g>,
+  hen: () => <g><path d="M24 -2 Q44 -18 40 10 Q34 24 24 18Z" fill="#E7E3D6" {...o} /><ellipse cx={2} cy={10} rx={28} ry={22} fill="#F7F4EC" {...o} /><circle cx={-20} cy={-14} r={13} fill="#F7F4EC" {...o} /><path d="M-26 -26 q2 -8 6 -2 q2 -8 6 -1 q4 -6 4 3" fill="#D9453B" {...o} strokeWidth={1.5} /><path d="M-33 -14 l-9 3 l9 3z" fill="#E9B829" {...o} strokeWidth={1.5} /><path d="M-28 -6 q-2 8 2 8 q2 -4 -2 -8" fill="#D9453B" /><circle cx={-22} cy={-16} r={2.2} fill={K} /><path d="M-2 10 q10 10 22 0" stroke="#C9C2AE" strokeWidth={2} fill="none" /><path d="M-6 30 v12 l-5 4 M-6 42 l5 4 M8 30 v12 l-5 4 M8 42 l5 4" stroke="#E9B829" strokeWidth={2.5} fill="none" strokeLinecap="round" /></g>,
+  chick: () => <g><ellipse cy={14} rx={26} ry={24} fill="#F5D547" {...o} /><circle cx={-10} cy={-14} r={16} fill="#F5D547" {...o} /><path d="M-26 -14 l-10 3 l10 4z" fill="#E8862E" {...o} strokeWidth={1.5} /><circle cx={-12} cy={-17} r={2.4} fill={K} /><path d="M6 10 q8 6 14 -2" stroke="#D6B22F" strokeWidth={2} fill="none" /><path d="M-6 38 v8 M6 38 v8" stroke="#E8862E" strokeWidth={2.5} strokeLinecap="round" /></g>,
+  crow: () => <g><path d="M18 6 L46 -4 L40 10 Z" fill="#2B2B2E" {...o} /><ellipse cx={4} cy={6} rx={26} ry={17} fill="#2F2F33" {...o} /><path d="M-6 0 q14 -4 26 8" stroke="#55555C" strokeWidth={2} fill="none" /><circle cx={-20} cy={-12} r={13} fill="#2F2F33" {...o} /><path d="M-32 -14 L-48 -8 L-32 -6Z" fill="#6B6B70" {...o} strokeWidth={1.5} /><circle cx={-22} cy={-15} r={3} fill="#fff" /><circle cx={-22} cy={-15} r={1.4} fill={K} /><path d="M-2 22 v12 l-5 4 M-2 34 l4 5 M10 22 v12 l-5 4 M10 34 l4 5" stroke="#6B6B70" strokeWidth={2.4} fill="none" strokeLinecap="round" /></g>,
+  bird: () => <g><path d="M16 4 L40 -4 L34 10Z" fill="#8A5A36" {...o} /><ellipse cx={4} cy={8} rx={22} ry={15} fill="#B5814F" {...o} /><ellipse cx={8} cy={14} rx={12} ry={7} fill="#F2E2C6" /><circle cx={-14} cy={-6} r={11} fill="#9B6B43" {...o} /><path d="M-24 -6 l-9 3 l9 2z" fill="#E9B829" {...o} strokeWidth={1.4} /><circle cx={-16} cy={-8} r={2} fill={K} /><path d="M0 22 v8 M8 22 v8" stroke={K} strokeWidth={2} /></g>,
+  parrot: () => <g><path d="M4 22 L18 48 L0 30 Z" fill="#3E8E3E" {...o} /><ellipse cx={4} cy={6} rx={18} ry={26} fill="#4CAF50" {...o} /><path d="M10 -6 q12 12 4 30" stroke="#2D6B2D" strokeWidth={2} fill="none" /><circle cx={-2} cy={-24} r={14} fill="#4CAF50" {...o} /><path d="M-14 -26 q-12 0 -10 12 q6 -2 8 -6z" fill="#D9453B" {...o} strokeWidth={1.6} /><circle cx={-3} cy={-28} r={3} fill="#fff" /><circle cx={-3} cy={-28} r={1.5} fill={K} /></g>,
+  peacock: (v) => <g>{v === 'open' ? <g><path d="M-46 20 A46 46 0 0 1 46 20 Z" fill="#3E8E6B" {...o} />{[-40, -26, -12, 0, 12, 26, 40].map((a, i) => { const r = 36; const x = Math.sin((a * Math.PI) / 90) * r; const y = 20 - Math.cos((a * Math.PI) / 90) * r; return <g key={i}><ellipse cx={x} cy={y} rx={6} ry={8} fill="#2F7FB5" /><circle cx={x} cy={y} r={3} fill="#1F3F6B" /></g>; })}{[-30, 0, 30].map((a, i) => { const x = Math.sin((a * Math.PI) / 90) * 20; const y = 20 - Math.cos((a * Math.PI) / 90) * 20; return <ellipse key={`i${i}`} cx={x} cy={y} rx={5} ry={6} fill="#2F7FB5" />; })}</g>
+    : <path d="M6 18 Q40 22 48 40 Q30 34 0 30Z" fill="#3E8E6B" {...o} />}
+    <ellipse cx={0} cy={22} rx={12} ry={16} fill="#2F6FB5" {...o} /><path d="M-4 10 Q-10 -10 -4 -22" stroke="#2F6FB5" strokeWidth={8} fill="none" strokeLinecap="round" /><circle cx={-4} cy={-24} r={7} fill="#2F6FB5" {...o} /><path d="M-4 -31 l-4 -8 M-4 -31 l0 -9 M-4 -31 l4 -8" stroke="#2F6FB5" strokeWidth={1.6} /><path d="M-11 -24 l-6 2 l6 2z" fill="#C9A93A" /><circle cx={-5} cy={-25} r={1.6} fill="#fff" /><path d="M-4 38 v8 M4 38 v8" stroke="#8A6A3E" strokeWidth={2.4} /></g>,
+  // vehicles
+  bus: () => <g><rect x={-46} y={-28} width={92} height={50} rx={8} fill="#C8453B" {...o} />{[-38, -20, -2, 16].map((x) => <rect key={x} x={x} y={-20} width={14} height={14} rx={2} fill="#BFE3F2" {...o} strokeWidth={1.5} />)}<rect x={32} y={-20} width={10} height={32} rx={2} fill="#BFE3F2" {...o} strokeWidth={1.5} /><path d="M-46 4 H32" stroke="#F2CC4B" strokeWidth={4} />{wheel(-26, 24, 10)}{wheel(24, 24, 10)}</g>,
+  car: () => <g><path d="M-44 14 V0 Q-42 -6 -30 -8 L-18 -24 H16 L30 -8 Q44 -6 44 4 V14 Z" fill="#3E78C2" {...o} /><path d="M-14 -20 H-2 V-8 H-26Z M2 -20 H14 L24 -8 H2Z" fill="#BFE3F2" {...o} strokeWidth={1.5} />{wheel(-24, 16, 10)}{wheel(24, 16, 10)}<circle cx={40} cy={2} r={3} fill="#F2CC4B" /></g>,
+  auto: () => <g><path d="M-30 -30 Q0 -40 30 -30 L34 -6 H-34Z" fill="#2E2E2E" {...o} /><path d="M-36 -6 H36 L40 16 H-40Z" fill="#E9B829" {...o} /><path d="M10 -30 L18 -6" stroke={K} strokeWidth={2} /><rect x={-30} y={-24} width={30} height={16} fill="#BFE3F2" opacity={0.7} /><path d="M-40 6 H40" stroke="#4E9A4B" strokeWidth={4} />{wheel(-26, 20, 10)}{wheel(30, 20, 10)}</g>,
+  bicycle: () => <g><circle cx={-24} cy={16} r={17} fill="none" {...o} strokeWidth={3} /><circle cx={24} cy={16} r={17} fill="none" {...o} strokeWidth={3} /><path d="M-24 16 L-6 -10 H18 L24 16 M-6 -10 L4 16 L18 -10 M-24 16 H4" stroke="#C8453B" strokeWidth={3.5} fill="none" strokeLinejoin="round" /><path d="M-10 -14 H0 M18 -10 L14 -22 H24" {...o} strokeWidth={3} fill="none" /></g>,
+  train: () => <g><rect x={-46} y={-14} width={60} height={34} rx={4} fill="#4F86C6" {...o} /><rect x={12} y={-34} width={30} height={54} rx={4} fill="#C8453B" {...o} /><rect x={18} y={-28} width={18} height={14} fill="#BFE3F2" {...o} strokeWidth={1.5} /><rect x={-38} y={-8} width={14} height={12} fill="#BFE3F2" {...o} strokeWidth={1.5} /><rect x={-18} y={-8} width={14} height={12} fill="#BFE3F2" {...o} strokeWidth={1.5} /><rect x={-4} y={-30} width={8} height={16} fill="#2E2E2E" {...o} />{wheel(-34, 24, 8)}{wheel(-12, 24, 8)}{wheel(18, 24, 8)}{wheel(36, 24, 8)}</g>,
+  aeroplane: () => <g><path d="M-44 0 Q-44 -10 -30 -10 H36 Q48 -6 46 2 Q44 8 36 8 H-30 Q-44 8 -44 0Z" fill="#F2F2F2" {...o} /><path d="M-4 -8 L-20 -40 H-8 L14 -8Z M-4 6 L-20 38 H-8 L14 6Z M-38 -8 L-46 -26 H-38 L-28 -8Z" fill="#3E78C2" {...o} />{[0, 10, 20, 30].map((x) => <circle key={x} cx={x - 10} cy={-2} r={2.4} fill="#BFE3F2" stroke={K} strokeWidth={1} />)}</g>,
+  boat: () => <g><path d="M-44 14 H44 L30 34 H-30Z" fill="#8A5A36" {...o} /><path d="M0 14 V-44" {...o} /><path d="M2 -42 L34 8 H2Z" fill="#F7F4EC" {...o} /><path d="M-2 -32 L-28 8 H-2Z" fill="#E8862E" {...o} /><path d="M-48 40 q8 -6 16 0 t16 0 t16 0 t16 0 t16 0 t16 0" stroke="#3E78C2" strokeWidth={2.4} fill="none" /></g>,
+  tractor: () => <g><path d="M-34 -4 H10 V-30 H34 V14 H-34Z" fill="#4E9A4B" {...o} /><rect x={14} y={-26} width={16} height={16} fill="#BFE3F2" {...o} strokeWidth={1.5} /><path d="M-24 -4 V-22" stroke="#2E2E2E" strokeWidth={4} strokeLinecap="round" />{wheel(-24, 20, 12)}<circle cx={22} cy={16} r={22} fill="#2E2E2E" {...o} /><circle cx={22} cy={16} r={9} fill="#E9B829" /></g>,
+  // body parts
+  eye: () => <g><path d="M-44 0 Q0 -40 44 0 Q0 40 -44 0Z" fill="#fff" {...o} /><circle r={16} fill="#7A5134" {...o} /><circle r={7} fill="#1E1E1E" /><circle cx={-5} cy={-5} r={3} fill="#fff" /><path d="M-30 -14 l-6 -8 M-14 -22 l-3 -9 M2 -24 l0 -9 M18 -22 l3 -9 M32 -14 l6 -8" {...o} /></g>,
+  ear: () => <g><path d="M-10 -40 C24 -46 36 -16 26 4 C18 18 10 18 8 30 C6 44 -14 46 -18 32 C-22 18 -30 -32 -10 -40Z" fill={SKIN} {...o} /><path d="M-6 -26 C14 -30 20 -10 12 0 C6 8 -4 6 -2 18" stroke="#A86F47" strokeWidth={3} fill="none" strokeLinecap="round" /></g>,
+  nose: () => <g><path d="M-4 -44 C-4 -20 -10 0 -26 14 C-34 24 -24 34 -12 30 C-6 36 6 36 12 30 C24 34 34 24 26 14 C14 4 8 -20 8 -44Z" fill={SKIN} {...o} /><ellipse cx={-10} cy={24} rx={4} ry={3} fill="#7A4A2E" /><ellipse cx={10} cy={24} rx={4} ry={3} fill="#7A4A2E" /></g>,
+  mouth: () => <g><path d="M-44 -4 Q-22 -26 0 -14 Q22 -26 44 -4 Q22 34 0 30 Q-22 34 -44 -4Z" fill="#C8453B" {...o} /><path d="M-36 -2 Q0 8 36 -2 Q0 18 -36 -2Z" fill="#fff" {...o} strokeWidth={1.5} /></g>,
+  hand: () => <g><path d="M-26 44 V2 Q-40 -10 -36 -16 Q-30 -20 -22 -8 V-30 Q-22 -38 -14 -38 Q-8 -38 -8 -30 V-40 Q-8 -48 0 -48 Q8 -48 8 -40 V-32 Q8 -40 16 -40 Q22 -40 22 -32 V-22 Q22 -28 28 -28 Q34 -28 34 -20 V14 Q34 32 20 44Z" fill={SKIN} {...o} /><path d="M-8 -30 V-6 M8 -32 V-6 M22 -22 V-4" stroke="#A86F47" strokeWidth={1.6} /></g>,
+  foot: () => <g><path d="M-18 -30 C-6 -34 18 -30 22 -10 C26 10 20 34 4 40 C-14 46 -26 36 -24 18 C-22 4 -30 -24 -18 -30Z" fill={SKIN} {...o} />{[[-18, -38, 7], [-4, -42, 6], [8, -40, 5], [18, -35, 4.5], [26, -28, 4]].map(([x, y, r], i) => <circle key={i} cx={x} cy={y} r={r} fill={SKIN} {...o} strokeWidth={1.6} />)}</g>,
+  teeth: () => <g><path d="M-44 -10 Q0 -40 44 -10 Q30 36 0 38 Q-30 36 -44 -10Z" fill="#C8453B" {...o} /><path d="M-34 -12 Q0 -30 34 -12 L30 -2 Q0 -12 -30 -2Z" fill="#fff" {...o} strokeWidth={1.5} /><path d="M-28 18 Q0 8 28 18 L24 26 Q0 34 -24 26Z" fill="#fff" {...o} strokeWidth={1.5} /><path d="M-18 -20 v12 M-6 -24 v12 M6 -24 v12 M18 -20 v12 M-14 14 v12 M0 12 v14 M14 14 v12" stroke="#BDBDBD" strokeWidth={1.4} /><ellipse cy={6} rx={16} ry={6} fill="#E58FB0" /></g>,
+  // things at home
+  chair: () => <g><path d="M-22 -44 V40 M18 -44 V40 M-22 -44 H18 M-22 -28 H18 M-22 4 H32 M28 4 V40" stroke="#8A5A36" strokeWidth={6} strokeLinecap="round" fill="none" /><rect x={-26} y={-2} width={60} height={9} rx={3} fill="#B5814F" {...o} /></g>,
+  bed: () => <g><rect x={-46} y={-26} width={10} height={60} rx={3} fill="#8A5A36" {...o} /><rect x={-36} y={0} width={80} height={18} rx={4} fill="#F7F4EC" {...o} /><rect x={-34} y={-10} width={22} height={12} rx={5} fill="#BFE3F2" {...o} /><path d="M-10 0 Q16 -6 44 0 V18 H-10Z" fill="#4F86C6" {...o} /><path d="M-40 18 H44 V34" stroke="#8A5A36" strokeWidth={6} fill="none" /></g>,
+  cup: () => <g><path d="M-30 -14 H24 L18 34 Q16 40 10 40 H-16 Q-22 40 -24 34Z" fill="#F7F4EC" {...o} /><path d="M24 -2 Q42 -2 40 14 Q38 26 20 24" stroke={K} strokeWidth={5} fill="none" /><path d="M24 -2 Q42 -2 40 14 Q38 26 20 24" stroke="#F7F4EC" strokeWidth={2} fill="none" /><ellipse cx={-3} cy={-14} rx={27} ry={6} fill="#8A5A36" {...o} /><path d="M-10 -26 q-6 -8 0 -16 M4 -26 q-6 -8 0 -16" stroke="#9AA5AE" strokeWidth={2} fill="none" /><path d="M-26 8 H20" stroke="#4F86C6" strokeWidth={3} /></g>,
+  spoon: () => <g transform="rotate(35)"><ellipse cy={-24} rx={16} ry={22} fill="#C9CED6" {...o} /><ellipse cx={-4} cy={-28} rx={5} ry={9} fill="#fff" opacity={0.6} /><rect x={-4} y={-2} width={8} height={50} rx={4} fill="#C9CED6" {...o} /></g>,
+  clock: () => <g><circle r={42} fill="#F7F4EC" {...o} strokeWidth={4} />{Array.from({ length: 12 }, (_, i) => { const a = (i * Math.PI) / 6; return <path key={i} d={`M${Math.sin(a) * 34} ${-Math.cos(a) * 34} L${Math.sin(a) * 38} ${-Math.cos(a) * 38}`} {...o} />; })}<path d="M0 0 V-26 M0 0 L18 8" stroke={K} strokeWidth={4} strokeLinecap="round" /><circle r={4} fill="#C8453B" /></g>,
+  fan: () => <g><path d="M0 -50 V-20" {...o} strokeWidth={4} />{[0, 120, 240].map((a) => <path key={a} transform={`rotate(${a})`} d="M0 -6 Q10 -10 44 -4 Q46 4 40 6 Q12 6 0 6Z" fill="#9FC7D9" {...o} />)}<circle r={10} fill="#4F86C6" {...o} /></g>,
+  umbrella: (v) => v === 'closed'
+    ? <g><path d="M0 -46 V36 Q0 46 -8 44" stroke={K} strokeWidth={3} fill="none" strokeLinecap="round" /><path d="M0 -40 L10 20 L0 26 L-10 20Z" fill="#3E78C2" {...o} /></g>
+    : <g><path d="M-46 0 Q-46 -40 0 -42 Q46 -40 46 0 Q38 -8 30 0 Q22 -8 15 0 Q8 -8 0 0 Q-8 -8 -15 0 Q-22 -8 -30 0 Q-38 -8 -46 0Z" fill="#3E78C2" {...o} /><path d="M-15 0 Q-12 -30 0 -42 M15 0 Q12 -30 0 -42" stroke="#2C5E9C" strokeWidth={1.6} fill="none" /><path d="M0 0 V36 Q0 46 -8 44" stroke={K} strokeWidth={3} fill="none" strokeLinecap="round" /></g>,
+  diya: (v) => <g><path d="M-38 10 Q0 44 38 10 Q30 8 0 10 Q-30 8 -38 10Z" fill="#C2693E" {...o} /><path d="M-38 10 Q0 4 38 10" stroke="#8A4A26" strokeWidth={2} fill="none" /><path d="M-24 22 h6 M-6 26 h6 M12 22 h6" stroke="#F2CC4B" strokeWidth={2.4} />{v !== 'off' && <g><path d="M30 8 Q22 -14 34 -30 Q46 -12 30 8Z" fill="#F2B33D" {...o} strokeWidth={1.6} /><path d="M32 4 Q28 -8 34 -16 Q38 -6 32 4Z" fill="#FBE7A1" /></g>}{v === 'off' && <path d="M30 8 v-6" stroke={K} strokeWidth={2} />}</g>,
+  ball: () => <g><circle r={38} fill="#D2443B" {...o} /><path d="M-38 0 Q0 -16 38 0 M-38 0 Q0 16 38 0" stroke="#F7F4EC" strokeWidth={5} fill="none" /><path d="M0 -38 V38" stroke="#F2CC4B" strokeWidth={5} /><circle r={38} fill="none" {...o} /></g>,
+  // people
+  mother: () => person({ hair: 'bun', top: '#C8453B', saree: true }),
+  adult: () => person({ hair: 'bun', top: '#3E78C2', saree: true }),
+  father: () => person({ hair: 'short', top: '#4E9A4B', bottom: '#F7F4EC', moustache: true }),
+  grandmother: () => person({ hair: 'bun', hairColour: '#D7D7D7', top: '#7E4FA6', saree: true, glasses: true, smile: true }),
+  grandfather: () => person({ hair: 'bald', top: '#F7F4EC', bottom: '#F7F4EC', glasses: true, moustache: true, prop: 'stick' }),
+  teacher: () => person({ hair: 'plaits', top: '#E8862E', saree: true, prop: 'book', glasses: true }),
+  doctor: () => person({ hair: 'short', top: '#F7F4EC', bottom: '#4F86C6', prop: 'stethoscope' }),
+  farmer: () => person({ hair: 'short', top: '#F7F4EC', bottom: '#F7F4EC', moustache: true, prop: 'turban' }),
+  baby: () => <g><ellipse cy={22} rx={24} ry={24} fill="#F2C9D6" {...o} /><circle cy={-12} r={22} fill={SKIN} {...o} /><path d="M-4 -32 q4 -6 8 0" stroke="#2E2622" strokeWidth={2.5} fill="none" /><circle cx={-8} cy={-14} r={2.4} fill={K} /><circle cx={8} cy={-14} r={2.4} fill={K} /><path d="M-6 -4 Q0 2 6 -4" stroke={K} strokeWidth={2} fill="none" /><circle cx={-14} cy={-6} r={4} fill="#E58FB0" opacity={0.5} /><circle cx={14} cy={-6} r={4} fill="#E58FB0" opacity={0.5} /></g>,
+  child: (v) => v === 'girl'
+    ? person({ hair: 'plaits', top: '#E58FB0', bottom: '#E58FB0', smile: true })
+    : person({ hair: 'short', top: '#E9B829', bottom: '#4A5D7A', smile: true }),
+  // nature
+  sun: () => <g>{Array.from({ length: 8 }, (_, i) => <path key={i} transform={`rotate(${i * 45})`} d="M0 -30 V-46" stroke="#E9A92A" strokeWidth={5} strokeLinecap="round" />)}<circle r={24} fill="#F2C14E" {...o} /><circle cx={-8} cy={-4} r={2.4} fill={K} /><circle cx={8} cy={-4} r={2.4} fill={K} /><path d="M-9 6 Q0 14 9 6" stroke={K} strokeWidth={2} fill="none" /></g>,
+  moon: () => <g><path d="M10 -40 A40 40 0 1 0 30 26 A32 32 0 1 1 10 -40Z" fill="#F4E3A1" {...o} /><circle cx={-14} cy={0} r={4} fill="#E2CC80" /><circle cx={-4} cy={20} r={3} fill="#E2CC80" /></g>,
+  star: () => <polygon points={starPts(44, 18)} transform="translate(0 4)" fill="#F2C94E" {...o} />,
+  tree: () => <g><path d="M-8 44 L-6 0 H6 L8 44Z" fill="#8A5A36" {...o} /><path d="M-2 10 L-16 -2 M2 4 L14 -6" {...o} stroke="#8A5A36" strokeWidth={4} /><path d="M-34 -6 C-48 -16 -40 -40 -22 -38 C-20 -52 2 -54 8 -42 C22 -50 40 -38 34 -22 C46 -12 38 8 22 4 C14 14 -6 14 -12 6 C-26 12 -42 6 -34 -6Z" fill="#5E9E62" {...o} /></g>,
+  flower: () => <g><path d="M0 8 V46" stroke="#4E9A4B" strokeWidth={4} />{leaf(0, 32, -30)}{Array.from({ length: 6 }, (_, i) => <ellipse key={i} transform={`rotate(${i * 60}) translate(0 -18)`} rx={10} ry={15} fill="#E58FB0" {...o} strokeWidth={1.6} />)}<circle r={10} fill="#F2C14E" {...o} /></g>,
+  cloud: (v) => <path d="M-36 18 C-50 18 -50 -4 -34 -4 C-34 -24 -10 -28 -4 -14 C2 -32 32 -28 30 -6 C48 -8 50 18 34 18Z" fill={v === 'grey' ? '#9AA5AE' : '#FFFFFF'} {...o} />,
+  rain: () => <g><path d="M-36 4 C-50 4 -50 -18 -34 -18 C-34 -38 -10 -42 -4 -28 C2 -46 32 -42 30 -20 C48 -22 50 4 34 4Z" fill="#9AA5AE" {...o} />{[[-24, 18], [-6, 26], [12, 18], [28, 28], [-16, 38], [4, 42]].map(([x, y], i) => <path key={i} d={`M${x} ${y} q-3 6 0 8 q3 -2 0 -8`} fill="#3E8ED0" stroke="#2C6EA8" strokeWidth={1.4} />)}</g>,
+  rainbow: () => <g fill="none" strokeWidth={6}>{['#D9453B', '#E8862E', '#F2C14E', '#4E9A4B', '#3E78C2', '#7E4FA6'].map((c, i) => <path key={c} d={`M${-44 + i * 6} 30 A${44 - i * 6} ${44 - i * 6} 0 0 1 ${44 - i * 6} 30`} stroke={c} />)}</g>,
+  mountain: () => <g><path d="M-48 40 L-12 -30 L10 6 L24 -14 L48 40Z" fill="#7FA88A" {...o} /><path d="M-12 -30 L-22 -10 Q-12 -14 -4 -14Z" fill="#fff" {...o} strokeWidth={1.5} /></g>,
+  // story props
+  pot: (v) => { const lvl = Math.max(0, Math.min(4, Number(v || 1))); const top = 38 - lvl * 14; return <g><rect x={-30} y={-22} width={60} height={64} rx={24} fill="#B5654A" {...o} /><rect x={-15} y={-38} width={30} height={18} rx={4} fill="#A85A40" {...o} /><ellipse cx={0} cy={-38} rx={17} ry={5} fill="#5A2E20" {...o} strokeWidth={1.6} /><rect x={-24} y={Math.max(-36, top)} width={48} height={38 - Math.max(-36, top) + 2} rx={lvl >= 4 ? 8 : 18} fill="#5DA9DA" opacity={0.9} /><path d={`M-22 ${Math.max(-36, top) + 2} q6 -3 11 0 t11 0 t11 0 t11 0`} stroke="#fff" strokeWidth={1.6} fill="none" /><path d="M-30 -2 H30" stroke="#8A4A30" strokeWidth={2} /></g>; },
+  pebble: () => <g><ellipse cx={-10} cy={6} rx={20} ry={14} fill="#9A9690" {...o} /><ellipse cx={14} cy={10} rx={14} ry={10} fill="#B8B2A8" {...o} /><ellipse cx={-14} cy={0} rx={5} ry={3} fill="#fff" opacity={0.4} /></g>,
+  seed: () => <g><path d="M-44 20 Q0 4 44 20 V30 H-44Z" fill="#7A5134" {...o} /><ellipse cy={10} rx={14} ry={9} fill="#C9A06A" {...o} /></g>,
+  sprout: () => <g><path d="M-30 30 Q0 22 30 30 V36 H-30Z" fill="#7A5134" {...o} /><path d="M0 28 V-4" stroke="#4E9A4B" strokeWidth={4} />{leaf(0, -4, -150, 1.2)}{leaf(0, -4, -30, 1.2)}</g>,
+  mangotree: (v) => { const s = v === 'small' ? 0.45 : v === 'mid' ? 0.7 : 1; return <g transform={`translate(0 ${44 * (1 - s)}) scale(${s})`}><path d="M-8 44 L-6 0 H6 L8 44Z" fill="#8A5A36" {...o} /><path d="M-40 -2 C-52 -18 -42 -44 -20 -42 C-16 -58 14 -58 18 -44 C38 -50 52 -30 42 -14 C52 0 36 14 22 8 C12 18 -12 18 -18 8 C-34 16 -48 8 -40 -2Z" fill="#4E8F52" {...o} />{v === 'big' && [[-20, -18], [10, -30], [24, -6]].map(([x, y], i) => <ellipse key={i} cx={x} cy={y} rx={6} ry={8} fill="#F2B33D" {...o} strokeWidth={1.4} />)}</g>; },
+  drops: () => <g>{[[-30, -20], [-10, 0], [10, -24], [28, -4], [-22, 22], [4, 24], [26, 30]].map(([x, y], i) => <path key={i} d={`M${x} ${y} q-5 9 0 12 q5 -3 0 -12`} fill="#3E8ED0" stroke="#2C6EA8" strokeWidth={1.4} />)}</g>,
+  puddle: () => <ellipse cy={10} rx={46} ry={12} fill="#7DB7D9" {...o} />,
+  paperboat: () => <g><path d="M-36 0 H36 L24 18 H-24Z" fill="#F7F4EC" {...o} /><path d="M-16 0 L0 -30 L16 0Z" fill="#E7E3D6" {...o} /></g>,
+  house: (v) => <g><path d="M-46 -6 L0 -44 L46 -6Z" fill={v === 'red' ? '#A33A32' : '#8E5A3C'} {...o} /><rect x={-38} y={-6} width={76} height={50} fill={v === 'red' ? '#D9534F' : '#EBCB94'} {...o} /><rect x={-10} y={12} width={20} height={32} fill="#7A5134" {...o} /><circle cx={5} cy={28} r={1.8} fill="#F2CC4B" /><rect x={-32} y={4} width={16} height={14} fill={v === 'lit' ? '#F2D16B' : '#BFE3F2'} {...o} strokeWidth={1.5} /><rect x={16} y={4} width={16} height={14} fill={v === 'lit' ? '#F2D16B' : '#BFE3F2'} {...o} strokeWidth={1.5} /></g>,
+  ladoo: () => <g><circle r={30} fill="#F0A33A" {...o} />{[[-12, -10], [8, -14], [14, 6], [-6, 10], [-16, 6], [4, -2], [0, 18]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r={2.4} fill="#C9781E" />)}<ellipse cx={-10} cy={-14} rx={6} ry={3} fill="#fff" opacity={0.35} /></g>,
+  plate: () => <g><ellipse cy={6} rx={46} ry={14} fill="#C9CED6" {...o} /><ellipse cy={4} rx={34} ry={9} fill="#E2E5EA" /></g>,
+  sign: () => <g><path d="M0 46 V-10" stroke="#5B5B5B" strokeWidth={5} /><rect x={-26} y={-44} width={52} height={36} rx={6} fill="#3E78C2" {...o} /><rect x={-16} y={-36} width={32} height={18} rx={3} fill="#fff" /><circle cx={-8} cy={-16} r={3} fill="#fff" /><circle cx={8} cy={-16} r={3} fill="#fff" /></g>,
+  toothbrush: (v) => <g transform="rotate(-20)"><rect x={-46} y={-5} width={66} height={10} rx={5} fill="#3E78C2" {...o} /><rect x={18} y={-16} width={26} height={12} rx={2} fill="#F7F4EC" {...o} /><path d="M22 -16 v-4 M28 -16 v-4 M34 -16 v-4 M40 -16 v-4" stroke="#BDBDBD" strokeWidth={2} />{v === 'paste' && <path d="M20 -22 q6 -10 12 -4 q6 -8 10 2 q-10 4 -22 2Z" fill="#E6F2FA" stroke="#7DB7D9" strokeWidth={1.6} />}</g>,
+  germ: () => <g><path d="M-24 0 C-30 -18 -10 -26 0 -20 C12 -28 30 -16 24 0 C30 16 12 26 0 20 C-12 26 -30 16 -24 0Z" fill="#B59A6A" {...o} /><circle cx={-6} cy={-2} r={2.4} fill={K} /><circle cx={6} cy={-2} r={2.4} fill={K} /></g>,
+  sparkle: () => <path d="M0 -40 Q4 -4 40 0 Q4 4 0 40 Q-4 4 -40 0 Q-4 -4 0 -40Z" fill="#F2D16B" {...o} />,
+  box: () => <g><path d="M-38 -10 H38 V36 H-38Z" fill="#C8A06A" {...o} /><path d="M-38 -10 L-46 -26 H-6 L0 -10 M38 -10 L46 -26 H6 L0 -10" fill="#D8B27A" {...o} /></g>,
+};
+// shapes: icons in the -50..50 box, keeping each shape's aspect
+SHAPES.forEach((sh) => {
+  const w = sh.aspect >= 1 ? 84 : 84 * sh.aspect, h = sh.aspect >= 1 ? 84 / sh.aspect : 84;
+  ART[`shape-${sh.id}`] = () => <path d={sh.path} transform={`translate(${-w / 2} ${-h / 2}) scale(${w / 100} ${h / 100})`} fill={sh.colour} stroke={K} strokeWidth={2.2} vectorEffect="non-scaling-stroke" strokeLinejoin="round" />;
+});
+ART.sparrow = ART.bird;
+// colours: paint splashes
+(Object.keys(COLOUR_NAMES) as ColourId[]).forEach((c) => { ART[`c-${c}`] = () => blob(COLOUR_NAMES[c].hex); });
+
+/** Picture / prop: original SVG when available, otherwise the item's emoji. `label` makes it an accessible image. */
+export function Art({ id, v, label, shadow, className = '' }: { id: string; v?: string; label?: string; shadow?: boolean; className?: string }) {
+  const a11y = label ? { role: 'img' as const, 'aria-label': label } : { 'aria-hidden': true as const };
+  if (id.startsWith('num:')) {
+    const n = Number(id.slice(4));
+    return (
+      <svg viewBox="-50 -50 100 100" className={`el-art ${className}`} {...a11y}>
+        <text y={-6} textAnchor="middle" fontSize={44} fontWeight={800} fill="currentColor" fontFamily="var(--font-kid)">{n}</text>
+        {Array.from({ length: n }, (_, i) => <circle key={i} cx={(i - (n - 1) / 2) * 16} cy={30} r={6} fill="#E0A63A" stroke={K} strokeWidth={1.5} />)}
+      </svg>
+    );
+  }
+  const draw = ART[id];
+  return (
+    <svg viewBox="-50 -50 100 100" className={`el-art ${shadow ? 'el-shadow' : ''} ${className}`} {...a11y}>
+      {draw ? draw(v) : <text textAnchor="middle" dominantBaseline="central" fontSize={70}>{PIC[id]?.emoji ?? '❓'}</text>}
+    </svg>
+  );
+}
+export const hasDrawing = (id: string) => !!ART[id];
+
+/** Story backgrounds on a 400×260 stage. */
+export function Backdrop({ bg }: { bg: Bg }) {
+  const sky = { day: '#CFE6F2', hot: '#F6E3B0', garden: '#D6ECF2', rain: '#AEB9C2', village: '#D9ECF3', festival: '#5A3D52', night: '#26304F', road: '#D3E7F0', river: '#D3E7F0', room: '#F1E4CF', bathroom: '#DCEBEF' }[bg];
+  const ground = { day: '#A9CF95', hot: '#D8C27A', garden: '#9CC98A', rain: '#86A579', village: '#B9D79E', festival: '#8A5A46', night: '#344536', road: '#9CC98A', river: '#9CC98A', room: '#C9A87E', bathroom: '#BFD6DC' }[bg];
+  return (
+    <g aria-hidden="true">
+      <rect width={400} height={260} fill={sky} />
+      {(bg === 'room' || bg === 'bathroom' || bg === 'festival') ? (
+        <>
+          <rect y={200} width={400} height={60} fill={ground} />
+          {bg === 'room' && <g><rect x={50} y={30} width={90} height={80} fill="#CFE6F2" stroke={K} strokeWidth={3} /><path d="M95 30 V110 M50 70 H140" stroke={K} strokeWidth={2} /></g>}
+          {bg === 'bathroom' && <g>{Array.from({ length: 8 }, (_, i) => <path key={i} d={`M${i * 50} 0 V200`} stroke="#C3D9DF" strokeWidth={2} />)}<rect x={300} y={40} width={70} height={60} rx={8} fill="#E6F2FA" stroke={K} strokeWidth={2} /></g>}
+          {bg === 'festival' && <g>{Array.from({ length: 9 }, (_, i) => <path key={i} d={`M${i * 50} 10 q25 22 50 0`} stroke="#F2B33D" strokeWidth={3} fill="none" />)}{Array.from({ length: 9 }, (_, i) => <circle key={`b${i}`} cx={i * 50 + 25} cy={21} r={4} fill={['#E8862E', '#D0577A', '#F2C14E'][i % 3]} />)}<g transform="translate(200 236)"><ellipse rx={60} ry={14} fill="none" stroke="#F2E2C6" strokeWidth={3} /><ellipse rx={36} ry={8} fill="none" stroke="#E58FB0" strokeWidth={3} /></g></g>}
+        </>
+      ) : (
+        <>
+          {bg === 'night' && Array.from({ length: 14 }, (_, i) => <circle key={i} cx={(i * 73) % 400} cy={(i * 37) % 120 + 10} r={1.4} fill="#F4EBC2" />)}
+          {(bg === 'village' || bg === 'garden') && <path d="M0 170 Q80 120 160 160 T320 150 T400 160 V260 H0Z" fill="#8FBF7F" />}
+          <rect y={bg === 'river' ? 150 : 190} width={400} height={bg === 'river' ? 110 : 70} fill={ground} />
+          {bg === 'road' && <g><rect y={215} width={400} height={30} fill="#7D7D7D" /><path d="M0 230 H400" stroke="#F2F2F2" strokeWidth={3} strokeDasharray="20 16" /></g>}
+          {bg === 'river' && <g><rect y={180} width={400} height={80} fill="#7DB7D9" /><path d="M0 200 q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" stroke="#fff" strokeWidth={2} fill="none" opacity={0.6} /><path d="M40 140 H360 V150 H40Z M80 150 V180 M200 150 V180 M320 150 V180" fill="#9B8B7A" stroke="#6B5B4B" strokeWidth={4} /></g>}
+          {bg === 'village' && <path d="M20 190 L50 160 L80 190Z" fill="#C98B5B" stroke={K} strokeWidth={1.5} />}
+          {bg === 'rain' && Array.from({ length: 22 }, (_, i) => <path key={i} d={`M${(i * 53) % 400} ${(i * 29) % 170} l-4 12`} stroke="#5E8FB5" strokeWidth={2} strokeLinecap="round" />)}
+          {bg === 'hot' && <path d="M0 200 q50 -6 100 0 t100 0 t100 0 t100 0" stroke="#C9A65A" strokeWidth={2} fill="none" />}
+        </>
+      )}
+    </g>
+  );
+}
