@@ -73,7 +73,7 @@ export function useStoryMotion(pm: PageMotion | undefined, svgRef: RefObject<SVG
     cancelAnimationFrame(raf.current);
     anims.current.forEach((a) => a.pause());
     setStatus('paused');
-  }, [setStatus, stopSounds]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [setStatus, stopSounds]);
 
   const resume = useCallback(() => {
     extra.current.forEach((a) => { if (a.playState === 'paused') a.play(); });

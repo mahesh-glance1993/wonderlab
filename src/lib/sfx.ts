@@ -47,7 +47,10 @@ function noise(c: AudioContext) {
 type Pt = [number, number]; // [time offset s, value]
 function ramp(p: AudioParam, t0: number, pts: Pt[], exp = false) {
   p.setValueAtTime(pts[0][1], t0 + pts[0][0]);
-  for (const [t, v] of pts.slice(1)) exp && v > 0 ? p.exponentialRampToValueAtTime(v, t0 + t) : p.linearRampToValueAtTime(v, t0 + t);
+  for (const [t, v] of pts.slice(1)) {
+    if (exp && v > 0) p.exponentialRampToValueAtTime(v, t0 + t);
+    else p.linearRampToValueAtTime(v, t0 + t);
+  }
 }
 interface Voice { type?: OscillatorType | 'noise'; f?: Pt[]; g: Pt[]; filter?: { type: BiquadFilterType; f: Pt[]; q?: number }; vib?: { rate: number; depth: number }; trem?: { rate: number; depth: number }; at?: number }
 

@@ -6,6 +6,7 @@ import PictureFun from './PictureFun';
 import { StoryList, StoryReader } from './StoryTime';
 import ShapePlay from './ShapePlay';
 import SortMatch from './SortMatch';
+import BuildIt from './BuildIt';
 import { L } from './data/pictures';
 import './early.css';
 
@@ -14,6 +15,7 @@ const TILES = [
   { to: '/play/stories', title: UI.stories, art: 'crow', tint: 'var(--c-math)' },
   { to: '/play/shapes', title: UI.shapes, art: 'shape-star', tint: 'var(--c-lab)' },
   { to: '/play/sort', title: UI.sort, art: 'box', tint: 'var(--c-next)' },
+  { to: '/play/build', title: UI.build, art: 'tractor', tint: 'var(--c-art)' },
 ];
 
 function Menu() {
@@ -39,6 +41,7 @@ export default function Early() {
       <Route path="stories/:storyId" element={<StoryReader />} />
       <Route path="shapes" element={<ShapePlay />} />
       <Route path="sort" element={<SortMatch />} />
+      <Route path="build" element={<BuildIt />} />
       <Route path="*" element={<Navigate to="/play" replace />} />
     </Routes>
   );

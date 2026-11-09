@@ -2,11 +2,12 @@
 import { useCallback, useEffect, useRef, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../lib/app';
-import { tone } from '../../lib/audio';
+import { onSpeaking, tone } from '../../lib/audio';
+import { sfx, sfxFor, type SfxName } from '../../lib/sfx';
 import { Feedback, toast } from '../../ui/kit';
 import { Icon } from '../../ui/Icon';
 import { Art } from './art';
-import { L } from './data/pictures';
+import { L, PIC } from './data/pictures';
 
 /** UI words (TELUGU REVIEW NEEDED — first drafts, not yet checked by a native speaker). */
 export const UI = {
@@ -15,6 +16,7 @@ export const UI = {
   stories: L('Story Time', 'కథల సమయం'),
   shapes: L('Shape Play', 'ఆకారాల ఆట'),
   sort: L('Sort & Match', 'వేరుచేద్దాం, జతచేద్దాం'),
+  build: L('Build It', 'తయారు చేద్దాం'),
   wellDone: L('Well done!', 'భలే!'),
   tryAgain: L('Try again!', 'మళ్ళీ ప్రయత్నించు!'),
   lookHere: L('Look — this one!', 'చూడు — ఇదే!'),
@@ -70,11 +72,34 @@ export function useNarrate(l: L | null, dep: unknown) {
   }, [dep]); // eslint-disable-line react-hooks/exhaustive-deps
 }
 
+/** The sound effect for a picture (animals, birds, vehicles, nature), if it has one. */
+export function itemSfx(id: string): SfxName | null {
+  const p = PIC[id];
+  if (!p || !['animal', 'bird', 'vehicle', 'nature'].includes(p.cat)) return null;
+  return sfxFor(p.id) || sfxFor(p.en);
+}
+export const playItemSfx = (id: string) => { const n = itemSfx(id); if (n) sfx(n); };
+
+/** Play a sound effect once the narration started with `dep` has finished (or soon, if nothing is spoken). */
+export function useSfxAfterNarration(name: SfxName | null, dep: unknown) {
+  useEffect(() => {
+    if (!name) return;
+    let started = false, fired = false;
+    const fire = () => { if (!fired) { fired = true; sfx(name); } };
+    const off = onSpeaking((on) => { if (on) started = true; else if (started) window.setTimeout(fire, 250); });
+    const t = window.setTimeout(() => { if (!started) fire(); }, 1600);
+    return () => { off(); window.clearTimeout(t); };
+  }, [dep]); // eslint-disable-line react-hooks/exhaustive-deps
+}
+
 export const BADGES: Record<string, L> = {
   'play:first-story': L('First story', 'మొదటి కథ'),
   'play:5-stories': L('Five stories', 'ఐదు కథలు'),
   'play:50-pictures': L('50 pictures', '50 బొమ్మలు'),
   'play:all-shapes': L('Shape finder', 'ఆకారాల వేటగాడు'),
+  'play:build-first': L('First build', 'మొదటి నిర్మాణం'),
+  'play:build-5': L('Five builds', 'ఐదు నిర్మాణాలు'),
+  'play:build-all': L('Master builder', 'గొప్ప నిర్మాత'),
 };
 export function useBadge() {
   const { award } = useApp();

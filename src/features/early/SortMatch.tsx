@@ -1,6 +1,7 @@
 // Sort & Match: sort by colour / size / kind (tap a picture, then tap a basket), and match pairs (mother & baby, object & shadow).
 import { useState } from 'react';
 import { tone } from '../../lib/audio';
+import { sfx } from '../../lib/sfx';
 import { celebrate, Page } from '../../ui/kit';
 import { Icon } from '../../ui/Icon';
 import { Art } from './art';
@@ -62,7 +63,7 @@ function Sorter({ kind, st, save, onAgain }: { kind: SortKind; st: SortState; sa
   const itemLabel = (i: SortRound['items'][number]) => kind === 'size' ? `${tx(i.big ? L('Big', 'పెద్ద') : L('Small', 'చిన్న'))} ${nameOf(i.art)}` : nameOf(i.art);
 
   const chooseItem = (key: string) => {
-    tone('tap'); setSel(key);
+    tone('tap'); sfx('pop'); setSel(key);
     const it = round.items.find((i) => i.key === key)!;
     say(PIC[it.art] ? (kind === 'size' ? L(`${it.big ? 'Big' : 'Small'} ${PIC[it.art].en.toLowerCase()}`, `${it.big ? 'పెద్ద' : 'చిన్న'} ${PIC[it.art].te}`) : PIC[it.art]) : L(it.art, it.art));
   };
@@ -76,9 +77,9 @@ function Sorter({ kind, st, save, onAgain }: { kind: SortKind; st: SortState; sa
       const p = { ...placed, [sel]: b };
       setPlaced(p); setSel(null);
       const text = L(`Yes! ${PIC[it.art]?.en ?? it.art} goes in ${basket.label.en}.`, `అవును! ${PIC[it.art]?.te ?? it.art} — ${basket.label.te}.`);
-      setMsg({ ok: true, text: tx(text) }); say(text);
+      setMsg({ ok: true, text: tx(text) }); say(text); sfx('snap');
       if (Object.keys(p).length === round.items.length) {
-        celebrate();
+        celebrate(); sfx('success');
         save((s) => ({ played: [...new Set([...s.played, kind])], level: mistakes <= 1 ? Math.min(2, s.level + 1) : mistakes >= 4 ? Math.max(0, s.level - 1) : s.level }));
       }
     } else {
@@ -138,7 +139,7 @@ function Matcher({ kind, st, save, onAgain }: { kind: MatchKind; st: SortState; 
     const lk = side === 'l' ? key : leftOfRight(key);
     if (matched.includes(lk)) return;
     const card = (side === 'l' ? round.left : round.right).find((c) => c.key === key)!;
-    if (!sel || sel.side === side) { tone('tap'); setSel({ side, key }); say(card.label); return; }
+    if (!sel || sel.side === side) { tone('tap'); sfx('pop'); setSel({ side, key }); say(card.label); return; }
     const l = side === 'l' ? key : sel.key;
     const r = side === 'r' ? key : sel.key;
     const ok = round.pairs[l] === r;
@@ -148,9 +149,9 @@ function Matcher({ kind, st, save, onAgain }: { kind: MatchKind; st: SortState; 
       setMatched(m); setSel(null);
       const lc = round.left.find((c) => c.key === l)!, rc = round.right.find((c) => c.key === r)!;
       const text = kind === 'baby' ? L(`${lc.label.en} and ${rc.label.en.toLowerCase()}!`, `${lc.label.te}, ${rc.label.te}!`) : L(`Yes! That is the ${lc.label.en.toLowerCase()}’s shadow.`, `అవును! అది ${lc.label.te} నీడ.`);
-      setMsg({ ok: true, text: tx(text), n: m.length }); say(text);
+      setMsg({ ok: true, text: tx(text), n: m.length }); say(text); sfx('snap');
       save((s) => ({ adapt: adapt(s.adapt, true, (wrong[l] ?? 0) === 0) }));
-      if (m.length === round.left.length) { celebrate(); save((s) => ({ played: [...new Set([...s.played, kind])] })); }
+      if (m.length === round.left.length) { celebrate(); sfx('success'); save((s) => ({ played: [...new Set([...s.played, kind])] })); }
     } else {
       setWrong((w) => ({ ...w, [l]: (w[l] ?? 0) + 1 }));
       save((s) => ({ adapt: adapt(s.adapt, false) }));

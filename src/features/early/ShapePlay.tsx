@@ -1,6 +1,7 @@
 // Shape Play: meet the shapes, find shapes in a scene, build a picture from shapes, what comes next?
 import { useState, type KeyboardEvent } from 'react';
 import { tone } from '../../lib/audio';
+import { sfx } from '../../lib/sfx';
 import { celebrate, Page } from '../../ui/kit';
 import { Icon } from '../../ui/Icon';
 import { L } from './data/pictures';
@@ -78,7 +79,7 @@ function Learn({ st, save }: { st: ShapesState; save: Save }) {
   const [cur, setCur] = useState<ShapeId | null>(null);
   const [n, setN] = useState(0);
   const open = (id: ShapeId) => {
-    tone('tap'); setCur(id); setN((x) => x + 1);
+    tone('tap'); sfx('pop'); setCur(id); setN((x) => x + 1);
     const s = SHAPE[id];
     say(L(`${s.name.en}. ${s.hint.en}`, `${s.name.te}. ${s.hint.te}`));
     if (!st.seen.includes(id)) save((x) => ({ seen: [...new Set([...x.seen, id])] }));
@@ -130,13 +131,13 @@ function FindScene({ scene, st, save, onAgain, onMenu }: { scene: ShapeScene; st
       record(`find:${scene.id}:${i}`, true, misses >= 2 ? 1 : 0);
       if (f.length === targets.length) {
         const msg = L(`You found all ${targets.length} ${plural(scene.target).en}!`, `${targets.length} ${plural(scene.target).te} అన్నీ కనిపెట్టావు!`);
-        setLast({ ok: true, text: tx(msg) }); say(msg); celebrate();
+        setLast({ ok: true, text: tx(msg) }); say(msg); celebrate(); sfx('success');
         const allFound = [...new Set([...st.found, scene.target])];
         save({ found: allFound });
         if (SHAPE_IDS.every((s) => allFound.includes(s))) void badge('play:all-shapes');
       } else {
         const msg = L(`${f.length}! A ${SHAPE[scene.target].name.en.toLowerCase()} — the ${label.en}.`, `${f.length}! ${label.te} — ${SHAPE[scene.target].name.te}.`);
-        setLast({ ok: true, text: tx(msg) }); say(msg);
+        setLast({ ok: true, text: tx(msg) }); say(msg); sfx('snap');
       }
     } else {
       setMisses((m) => m + 1);
@@ -194,10 +195,10 @@ function Build({ puzzle, st, save, onAgain, onMenu }: { puzzle: BuildPuzzle; st:
     record(`build:${puzzle.id}:${step}`, ok, wrong.length >= 2 ? 1 : 0);
     save((x) => ({ adapt: adapt(x.adapt, ok, ok && wrong.length === 0) }));
     if (!ok) { setWrong((w) => [...w, s]); say(L(`That is a ${SHAPE[s].name.en.toLowerCase()}. ${UI.tryAgain.en}`, `అది ${SHAPE[s].name.te}. ${UI.tryAgain.te}`)); return; }
-    tone('correct');
+    tone('correct'); sfx('snap');
     const ns = step + 1;
     setStep(ns); setWrong([]);
-    if (ns >= puzzle.slots.length) { celebrate(); save((x) => ({ builds: [...new Set([...x.builds, puzzle.id])] })); }
+    if (ns >= puzzle.slots.length) { celebrate(); sfx('success'); save((x) => ({ builds: [...new Set([...x.builds, puzzle.id])] })); }
     else { say(L(`${SHAPE[s].name.en}! ${UI.wellDone.en}`, `${SHAPE[s].name.te}! ${UI.wellDone.te}`)); setChoices(buildChoices(rng(seed + ns * 101), puzzle.slots[ns].shape, adapt(st.adapt, true).choices)); }
   };
   const stateOf = (s: ShapeId): PickState => (wrong.includes(s) ? 'wrong' : wrong.length >= 2 && s === slot.shape ? 'hint' : undefined);
@@ -244,11 +245,11 @@ function Patterns({ st, save, onAgain }: { st: ShapesState; save: Save; onAgain:
       const up = streak >= 3;
       return { adapt: adapt(x.adapt, ok, first), patternStreak: up ? 0 : streak, patternLevel: up ? Math.min(2, x.patternLevel + 1) : !ok && wrong.length >= 1 ? Math.max(0, x.patternLevel - 1) : x.patternLevel };
     });
-    if (ok) { setSolved(true); say(L(`${SHAPE[s].name.en}! ${UI.wellDone.en}`, `${SHAPE[s].name.te}! ${UI.wellDone.te}`)); }
+    if (ok) { setSolved(true); sfx('snap'); say(L(`${SHAPE[s].name.en}! ${UI.wellDone.en}`, `${SHAPE[s].name.te}! ${UI.wellDone.te}`)); }
     else { setWrong((w) => [...w, s]); say(UI.tryAgain); }
   };
   const next = () => {
-    if (idx + 1 >= PATTERN_ROUNDS) { setFinished(true); celebrate(); return; }
+    if (idx + 1 >= PATTERN_ROUNDS) { setFinished(true); celebrate(); sfx('success'); return; }
     setRound(patternRound(rng(seed + (idx + 1) * 31), st.patternLevel, st.adapt.choices));
     setIdx(idx + 1); setWrong([]); setSolved(false);
   };

@@ -6,6 +6,13 @@ import {
   ADAPT0, MAX_CHOICES, MIN_CHOICES, adapt, findRound, whatRound, oddRound, soundRound, picRound, sortRound, matchRound, rng, sample, shuffle,
   type Adapt, type PicMode,
 } from '../src/features/early/logic';
+import { SFX_NAMES } from '../src/lib/sfx';
+import { MOTION, MIN_DUR, MAX_DUR, motionIssues, toKeyframes, finalV, initialV, isRest, finalPose, poseCss, due, autoTurnReady, tapDuration } from '../src/features/early/data/motion';
+import {
+  MODELS, LEVEL_RANGE, SNAP, MAGNET, MIN_SLOT_GAP, levelParts, prebuilt, shapeKey, dropPart, tapPlace, magnet, startOrient, rotate, flip, fits, modelSfx, placeSfx,
+  recordBuild, badgesFor, BUILD_INIT, partName, type Level,
+} from '../src/features/early/data/builds';
+import { BADGES, itemSfx } from '../src/features/early/common';
 
 const SEEDS = Array.from({ length: 200 }, (_, i) => i * 7919 + 17);
 const isNum = (c: string) => /^num:\d+$/.test(c);
@@ -249,5 +256,178 @@ describe('sort & match', () => {
       expect(new Set(Object.values(r.pairs)).size).toBe(n);
       for (const l of r.left) expect(r.right.some((c) => c.key === r.pairs[l.key])).toBe(true);
     }
+  });
+});
+
+// ---------------- Story Time animations, picture sounds, Build It ----------------
+describe('story animations', () => {
+  it('every page of every story has a calm 3–8 s animation with a description', () => {
+    for (const s of STORIES) {
+      const pages = MOTION[s.id];
+      expect(pages, s.id).toBeDefined();
+      expect(pages.length, s.id).toBe(s.pages.length);
+      pages.forEach((m, i) => {
+        expect(m.dur).toBeGreaterThanOrEqual(MIN_DUR);
+        expect(m.dur).toBeLessThanOrEqual(MAX_DUR);
+        expect(m.tracks.length, `${s.id} p${i}`).toBeGreaterThan(0);
+        expect(/[ఀ-౿]/.test(m.what.te), `${s.id} p${i} Telugu caption`).toBe(true);
+        expect(motionIssues(m, s.pages[i].actors.map((a) => a.id)), `${s.id} p${i}`).toEqual([]);
+      });
+    }
+  });
+  it('story actors settle at their resting place, so reduced motion shows the same final picture', () => {
+    for (const s of STORIES) MOTION[s.id].forEach((m, i) => {
+      const extras = new Set((m.extras || []).map((e) => e.id));
+      for (const t of m.tracks) if (!extras.has(t.actor)) expect(isRest(finalPose(t)), `${s.id} p${i} ${t.actor}`).toBe(true);
+    });
+  });
+  it('sound cues use real effects and fall inside the animation', () => {
+    const names = new Set(SFX_NAMES);
+    for (const s of STORIES) for (const m of MOTION[s.id]) {
+      for (const c of m.cues || []) { expect(names.has(c.sfx), c.sfx).toBe(true); expect(c.t).toBeLessThanOrEqual(m.dur); }
+      for (const tm of Object.values(m.tap || {})) for (const c of tm.cues || []) expect(names.has(c.sfx), c.sfx).toBe(true);
+    }
+    for (const s of STORIES) expect(MOTION[s.id].every((m) => (m.cues || []).length > 0), s.id).toBe(true);
+  });
+  it('tap mini animations point at real actors and are short', () => {
+    for (const s of STORIES) MOTION[s.id].forEach((m, i) => {
+      for (const [k, tm] of Object.entries(m.tap || {})) {
+        if (k !== '@done') expect(s.pages[i].actors.some((a) => a.id === k), `${s.id} p${i} ${k}`).toBe(true);
+        expect(tapDuration(tm)).toBeLessThanOrEqual(3000);
+      }
+    });
+  });
+  it('keyframes run from offset 0 to 1 and never go backwards', () => {
+    for (const s of STORIES) for (const m of MOTION[s.id]) for (const t of m.tracks) {
+      const kf = toKeyframes(t, m.dur);
+      expect(kf[0].offset).toBe(0);
+      expect(kf[kf.length - 1].offset).toBe(1);
+      for (let i = 1; i < kf.length; i++) expect(kf[i].offset as number).toBeGreaterThanOrEqual(kf[i - 1].offset as number);
+      for (const f of kf) expect(typeof f.transform === 'string' && typeof f.opacity === 'number').toBe(true);
+    }
+  });
+  it('the crow’s pot fills up between the start and the final pose', () => {
+    const m = MOTION['thirsty-crow'][3];
+    expect(initialV(m).pot).toBe('2');
+    expect(finalV(m).pot).toBe('4');
+    expect(finalV(undefined)).toEqual({});
+  });
+  it('helpers: pose css, due items and auto-turn rules', () => {
+    expect(poseCss({}).transform).toBe('translate(0px, 0px) rotate(0deg) scale(1, 1)');
+    expect(poseCss({ x: 5, s: 2, o: 0.5 })).toEqual({ transform: 'translate(5px, 0px) rotate(0deg) scale(2, 2)', opacity: 0.5 });
+    const done = new Set<number>();
+    const items = [{ t: 0 }, { t: 500 }, { t: 1000 }];
+    expect(due(items, 600, done).length).toBe(2);
+    expect(due(items, 600, done).length).toBe(0);
+    expect(due(items, 2000, done).length).toBe(1);
+    expect(autoTurnReady({ enabled: true, animDone: true, speaking: false, paused: false })).toBe(true);
+    expect(autoTurnReady({ enabled: false, animDone: true, speaking: false, paused: false })).toBe(false);
+    expect(autoTurnReady({ enabled: true, animDone: true, speaking: true, paused: false })).toBe(false);
+    expect(autoTurnReady({ enabled: true, animDone: false, speaking: false, paused: false })).toBe(false);
+    expect(autoTurnReady({ enabled: true, animDone: true, speaking: false, paused: true })).toBe(false);
+  });
+  it('flags fast, flickery or unfinished motion', () => {
+    const base = { dur: 4000, what: { en: 'x', te: 'క' }, tracks: [] };
+    expect(motionIssues({ ...base, dur: 9000 }, [])).toContain('duration 9000');
+    expect(motionIssues({ ...base, tracks: [{ actor: 'a', keys: [{ t: 0, x: -400 }, { t: 500 }] }] }, ['a']).some((x) => x.includes('speed'))).toBe(true);
+    expect(motionIssues({ ...base, tracks: [{ actor: 'a', keys: [{ t: 0, o: 0 }, { t: 400, o: 1 }, { t: 800, o: 0 }, { t: 1200, o: 1 }] }] }, ['a']).some((x) => x.includes('flicker'))).toBe(true);
+    expect(motionIssues({ ...base, tracks: [{ actor: 'a', keys: [{ t: 0 }, { t: 500, x: 10 }] }] }, ['a']).some((x) => x.includes('rest'))).toBe(true);
+  });
+});
+
+describe('picture sounds', () => {
+  it('every animal, bird and vehicle that "says" something has a sound effect', () => {
+    for (const p of PICTURES.filter((x) => x.sound && ['animal', 'bird', 'vehicle'].includes(x.cat))) expect(itemSfx(p.id), p.id).not.toBeNull();
+    expect(itemSfx('mango')).toBeNull();
+  });
+});
+
+describe('build it', () => {
+  const LEVELS: Level[] = [1, 2, 3];
+  it('has the 15 models, each sounding with real effects', () => {
+    expect(MODELS.length).toBeGreaterThanOrEqual(15);
+    expect(new Set(MODELS.map((m) => m.id)).size).toBe(MODELS.length);
+    for (const id of ['car', 'scooter', 'bicycle', 'aeroplane', 'helicopter', 'cart', 'auto', 'bus', 'train', 'boat', 'tractor', 'rocket', 'crane', 'windmill', 'gears']) expect(MODELS.some((m) => m.id === id), id).toBe(true);
+    for (const m of MODELS) {
+      expect(m.name.en && /[ఀ-౿]/.test(m.name.te), m.id).toBeTruthy();
+      expect(modelSfx(m).length, m.id).toBeGreaterThan(0);
+      for (const s of modelSfx(m)) expect(SFX_NAMES, `${m.id} ${s}`).toContain(s);
+      for (const p of m.parts) { expect(SFX_NAMES).toContain(placeSfx(p)); expect(partName(p).en && partName(p).te, `${m.id}.${p.id}`).toBeTruthy(); }
+    }
+  });
+  it('part counts per level stay within range', () => {
+    for (const m of MODELS) for (const lv of LEVELS) {
+      const n = levelParts(m, lv).length;
+      expect(n, `${m.id} L${lv}`).toBeGreaterThanOrEqual(LEVEL_RANGE[lv][0]);
+      expect(n, `${m.id} L${lv}`).toBeLessThanOrEqual(LEVEL_RANGE[lv][1]);
+      expect(n + prebuilt(m, lv).length).toBe(m.parts.length);
+    }
+  });
+  it('slots are apart and inside the board, with unique part ids', () => {
+    for (const m of MODELS) {
+      expect(new Set(m.parts.map((p) => p.id)).size, m.id).toBe(m.parts.length);
+      for (const p of m.parts) expect(p.x >= 0 && p.x <= 400 && p.y >= 0 && p.y <= 260, `${m.id}.${p.id}`).toBe(true);
+      for (let i = 0; i < m.parts.length; i++) for (let j = i + 1; j < m.parts.length; j++) {
+        const a = m.parts[i], b = m.parts[j];
+        expect(Math.hypot(a.x - b.x, a.y - b.y), `${m.id}: ${a.id}/${b.id}`).toBeGreaterThanOrEqual(MIN_SLOT_GAP);
+      }
+    }
+  });
+  it('every part has exactly one matching slot of its own (identical parts may swap)', () => {
+    for (const m of MODELS) for (const lv of LEVELS) {
+      const parts = levelParts(m, lv);
+      for (const p of parts) {
+        expect(dropPart(m, lv, {}, p, { rot: 0, flip: !!p.mirror }, p.x, p.y), `${m.id} L${lv} ${p.id}`).toEqual({ slot: p.id });
+        for (const s of parts) {
+          const r = tapPlace(m, lv, {}, p, { rot: 0, flip: !!s.mirror }, s.id);
+          expect(r !== null, `${m.id} ${p.id}->${s.id}`).toBe(shapeKey(p) === shapeKey(s));
+        }
+      }
+      const filled: Record<string, string> = {};
+      for (const p of parts) { expect(tapPlace(m, lv, filled, p, { rot: 0, flip: !!p.mirror }, p.id)).toEqual({ slot: p.id }); filled[p.id] = p.id; }
+      expect(Object.keys(filled).length).toBe(parts.length);
+    }
+  });
+  it('snapping gets tighter and the magnet weaker at higher levels; far drops do not snap', () => {
+    expect(SNAP[1]).toBeGreaterThan(SNAP[2]); expect(SNAP[2]).toBeGreaterThan(SNAP[3]);
+    expect(MAGNET[1]).toBeGreaterThan(MAGNET[2]); expect(MAGNET[2]).toBeGreaterThan(MAGNET[3]);
+    const car = MODELS.find((m) => m.id === 'car')!;
+    const body = car.parts.find((p) => p.id === 'body')!;
+    expect(dropPart(car, 1, {}, body, startOrient(body, 1), body.x + SNAP[1] - 1, body.y)).toEqual({ slot: 'body' });
+    expect(dropPart(car, 3, {}, body, startOrient(body, 3), body.x + SNAP[1] - 1, body.y)).toBeNull();
+    expect(dropPart(car, 1, {}, body, startOrient(body, 1), 5, 5)).toBeNull();
+    const pulled = magnet(car, 1, {}, body, body.x + 30, body.y);
+    expect(pulled.x).toBeLessThan(body.x + 30);
+    expect(pulled.near).toBe('body');
+    expect(magnet(car, 1, {}, body, 5, 5)).toEqual({ x: 5, y: 5 });
+    expect(dropPart(car, 1, { body: 'body' }, body, startOrient(body, 1), body.x, body.y)).toBeNull();
+  });
+  it('level 3 has parts that must be turned or flipped first', () => {
+    for (const m of MODELS) {
+      for (const p of levelParts(m, 3)) {
+        if (!p.turn && !p.mirror) continue;
+        const o = startOrient(p, 3);
+        expect(fits(o, p, 3), `${m.id}.${p.id} starts wrong`).toBe(false);
+        expect(dropPart(m, 3, {}, p, o, p.x, p.y), `${m.id}.${p.id}`).toEqual({ turn: p.id });
+        let fixed = o;
+        for (let i = 0; i < 4 && fixed.rot !== 0; i++) fixed = rotate(fixed);
+        if (p.mirror) fixed = flip(fixed);
+        expect(fits(fixed, p, 3)).toBe(true);
+      }
+      for (const lv of [1, 2] as Level[]) for (const p of levelParts(m, lv)) expect(fits(startOrient(p, lv), p, lv)).toBe(true);
+    }
+    expect(MODELS.filter((m) => levelParts(m, 3).some((p) => p.turn || p.mirror)).length).toBeGreaterThanOrEqual(6);
+  });
+  it('saves progress and earns the build badges', () => {
+    let s = BUILD_INIT;
+    expect(badgesFor(s)).toEqual([]);
+    s = recordBuild(recordBuild(s, 'car', 2), 'car', 1);
+    expect(s.done.car).toBe(2);
+    expect(badgesFor(s)).toEqual(['play:build-first']);
+    for (const m of MODELS.slice(0, 5)) s = recordBuild(s, m.id, 1);
+    expect(badgesFor(s)).toContain('play:build-5');
+    for (const m of MODELS) s = recordBuild(s, m.id, 1);
+    expect(badgesFor(s)).toContain('play:build-all');
+    for (const b of ['play:build-first', 'play:build-5', 'play:build-all']) expect(BADGES[b]).toBeDefined();
   });
 });

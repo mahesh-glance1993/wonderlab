@@ -6,7 +6,8 @@ import { Icon } from '../../ui/Icon';
 import { Art } from './art';
 import { PIC, PIC_SETS, CAT_NAMES, L, type PicSet } from './data/pictures';
 import { ADAPT0, adapt, newSeed, picRound, rng, type Adapt, type PicMode, type PicRound } from './logic';
-import { BackRow, BigTile, DonePanel, EarlyFeedback, PicButton, Prompt, RoundDots, SayButton, UI, useActivity, useBadge, useLastActivity, useNarrate, useRecord, useTx, type PickState } from './common';
+import { sfx } from '../../lib/sfx';
+import { BackRow, BigTile, DonePanel, EarlyFeedback, PicButton, Prompt, RoundDots, SayButton, UI, useActivity, useBadge, useLastActivity, useNarrate, useRecord, useTx, itemSfx, playItemSfx, useSfxAfterNarration, type PickState } from './common';
 
 const ROUNDS = 6;
 interface PicState { adapt: Adapt; recognised: number; played: string[]; lastSet?: string }
@@ -87,10 +88,14 @@ function Session({ mode, set, st, save, onAgain, onDoneSay }: { mode: PicMode; s
   const [finished, setFinished] = useState(false);
   const prompt = promptFor(round);
   useNarrate(finished ? null : prompt, `${idx}`);
+  // "Who says ___?" plays the real sound after the question is read
+  const roundSfx = mode === 'sound' && !finished ? itemSfx(round.target) : null;
+  useSfxAfterNarration(roundSfx, `${idx}-${round.target}`);
 
   const pick = (id: string) => {
     if (solved) return;
     const ok = id === round.target;
+    playItemSfx(id);
     record(`${mode}:${round.target}`, ok, wrong.length >= 2 ? 1 : 0);
     save((s) => ({ adapt: adapt(s.adapt, ok, ok && wrong.length === 0, mode === 'what' ? 3 : 4) }));
     if (ok) {
@@ -121,9 +126,16 @@ function Session({ mode, set, st, save, onAgain, onDoneSay }: { mode: PicMode; s
     <div className="el-play">
       <RoundDots done={idx} total={ROUNDS} />
       <Prompt l={prompt} />
+      {roundSfx && (
+        <div className="el-row center">
+          <button type="button" className="btn el-big" onClick={() => sfx(roundSfx)}><Icon name="speaker" />{tx(L('Hear the sound', 'శబ్దం విను'))}</button>
+        </div>
+      )}
       {mode === 'what' ? (
         <>
-          <div className="el-hero"><Art id={round.target} label={tx(L('A picture', 'ఒక బొమ్మ'))} /></div>
+          {itemSfx(round.target)
+            ? <button type="button" className="el-hero el-hero-btn" onClick={() => playItemSfx(round.target)} aria-label={tx(L('A picture. Tap to hear its sound.', 'ఒక బొమ్మ. దాని శబ్దం వినడానికి తాకు.'))}><Art id={round.target} /></button>
+            : <div className="el-hero"><Art id={round.target} label={tx(L('A picture', 'ఒక బొమ్మ'))} /></div>}
           <div className="el-words">
             {round.choices.map((id) => {
               const it = PIC[id];

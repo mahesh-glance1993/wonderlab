@@ -1,15 +1,19 @@
 // Story Time: interactive picture stories with read-aloud, karaoke highlight, tap moments and picture questions.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { onSpeaking, tone } from '../../lib/audio';
+import { onSpeaking, stopSpeaking, tone } from '../../lib/audio';
+import { sfx, sfxFor } from '../../lib/sfx';
+import { useApp } from '../../lib/app';
 import { celebrate, Page } from '../../ui/kit';
 import { Icon } from '../../ui/Icon';
-import { ART, Art, Backdrop } from './art';
+import { ART, Art, Backdrop, Lids } from './art';
+import { AUTO_TURN_MS, autoTurnReady, MOTION, poseCss, finalPose, type PageMotion } from './data/motion';
+import { useStoryMotion } from './useStoryMotion';
 import { PIC, L } from './data/pictures';
 import { PROP_NAMES, STORIES, STORY, wordsOf, wordTimings, type Actor, type Story, type StoryPage } from './data/stories';
 import { BigTile, EarlyFeedback, PicButton, Prompt, RoundDots, SayButton, UI, useActivity, useBadge, useLastActivity, useNarrate, useRecord, useTx, type PickState } from './common';
 
-interface StoriesState { pages: Record<string, number>; done: string[] }
+interface StoriesState { pages: Record<string, number>; done: string[]; autoTurn?: boolean }
 const INIT: StoriesState = { pages: {}, done: [] };
 const NUM_WORDS: L[] = [L('zero', 'సున్నా'), L('one', 'ఒకటి'), L('two', 'రెండు'), L('three', 'మూడు'), L('four', 'నాలుగు'), L('five', 'ఐదు'), L('six', 'ఆరు')];
 const reduceMotion = () => document.documentElement.classList.contains('reduce-motion');
@@ -81,7 +85,8 @@ function Reader({ story }: { story: Story }) {
           </div>
         </div>
       ) : page < n ? (
-        <StoryPageView key={`${page}-${lang}`} page={story.pages[page]} index={page} total={n}
+        <StoryPageView key={`${page}-${lang}`} page={story.pages[page]} motion={MOTION[story.id]?.[page]} index={page} total={n}
+          autoTurn={!!st.autoTurn} onAutoTurn={(on) => save({ autoTurn: on })}
           onBack={page > 0 ? () => go(page - 1) : undefined} onNext={() => go(page + 1)} />
       ) : (
         <Questions story={story} onBack={() => go(n - 1)} onDone={() => void finish()} />
@@ -111,19 +116,76 @@ function useKaraoke(text: string) {
 
 interface PlayState { shown: string[]; hidden: string[]; v: Record<string, string>; moved: Record<string, { dx: number; dy: number }>; counted: string[]; done: boolean; react?: { id: string; n: number } }
 
-function StoryPageView({ page, index, total, onBack, onNext }: { page: StoryPage; index: number; total: number; onBack?: () => void; onNext: () => void }) {
+const ANIM_FALLBACK_MS = 900; // start the animation anyway if narration does not begin (muted / no voice)
+
+function StoryPageView({ page, motion, index, total, autoTurn, onAutoTurn, onBack, onNext }: {
+  page: StoryPage; motion?: PageMotion; index: number; total: number; autoTurn: boolean; onAutoTurn: (on: boolean) => void; onBack?: () => void; onNext: () => void;
+}) {
   const { tx, say } = useTx();
+  const { prefs } = useApp();
   const text = tx(page.text);
   const { word, arm } = useKaraoke(text);
   const [ps, setPs] = useState<PlayState>({ shown: [], hidden: [], v: {}, moved: {}, counted: [], done: false });
   const [bubble, setBubble] = useState<string | null>(null);
-  const read = () => { arm(); say(page.text); };
-  useEffect(() => { const id = window.setTimeout(read, 300); return () => window.clearTimeout(id); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const svgRef = useRef<SVGSVGElement>(null);
+  const [reduced] = useState(() => prefs.reduceMotion || reduceMotion());
+  const anim = useStoryMotion(motion, svgRef, reduced);
+  const [speaking, setSpeaking] = useState(false);
+  const [held, setHeld] = useState(false); // paused by the Play/Pause button
+  const animArm = useRef(false);
+  const narrCut = useRef(false); // narration was stopped by Pause, so Play reads it again
+  const fallback = useRef(0);
+  const startAnim = anim.start;
+
+  const read = () => {
+    arm();
+    animArm.current = true;
+    window.clearTimeout(fallback.current);
+    fallback.current = window.setTimeout(() => { if (animArm.current) { animArm.current = false; startAnim(); } }, ANIM_FALLBACK_MS);
+    say(page.text);
+  };
+  useEffect(() => { const id = window.setTimeout(read, 300); return () => { window.clearTimeout(id); window.clearTimeout(fallback.current); }; }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // the page animation starts when its narration starts
+  useEffect(() => onSpeaking((on) => {
+    setSpeaking(on);
+    if (on && animArm.current) { animArm.current = false; startAnim(); }
+  }), [startAnim]);
+
+  const pauseAll = () => {
+    narrCut.current = speaking;
+    animArm.current = false;
+    window.clearTimeout(fallback.current);
+    stopSpeaking();
+    anim.pause();
+    setHeld(true);
+  };
+  const playAll = () => {
+    setHeld(false);
+    if (anim.status === 'paused') { anim.resume(); if (narrCut.current) { narrCut.current = false; arm(); say(page.text); } return; }
+    replay();
+  };
+  const replay = () => {
+    setHeld(false);
+    narrCut.current = false;
+    stopSpeaking();
+    anim.reset();
+    read();
+  };
+  const busy = !held && (anim.status === 'running' || speaking);
+
+  // optional auto-turn a few seconds after the animation and narration have finished
+  const animDone = anim.status === 'done';
+  useEffect(() => {
+    if (!autoTurnReady({ enabled: autoTurn, animDone, speaking, paused: held })) return;
+    const id = window.setTimeout(onNext, AUTO_TURN_MS);
+    return () => window.clearTimeout(id);
+  }, [autoTurn, animDone, speaking, held, ps]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const act = page.act;
   const visible = (a: Actor) => (a.hidden ? ps.shown.includes(a.id) : !ps.hidden.includes(a.id));
   const tappable = useMemo(() => new Set(act ? (act.kind === 'tap' ? [act.actor] : act.actors) : []), [act]);
   const nameOf = (a: Actor) => tx(PROP_NAMES[a.id] || PIC[a.art] || PROP_NAMES[a.art] || L(a.art, a.art));
+  const tapSound = (a: Actor) => { if (!anim.tap(a.id)) { const n = sfxFor(a.id) || sfxFor(a.art); if (n) sfx(n); } };
 
   const tapActor = (a: Actor) => {
     if (!act) return;
@@ -134,6 +196,7 @@ function StoryPageView({ page, index, total, onBack, onNext }: { page: StoryPage
         shown: [...new Set([...s.shown, ...(act.show || [])])], hidden: [...new Set([...s.hidden, ...(act.hide || [])])],
         v: { ...s.v, ...(act.set || {}) }, moved: act.move ? { ...s.moved, [act.move.actor]: { dx: act.move.dx, dy: act.move.dy } } : s.moved,
       }));
+      tapSound(a);
       say(act.say); setBubble(tx(act.say));
       return;
     }
@@ -146,28 +209,45 @@ function StoryPageView({ page, index, total, onBack, onNext }: { page: StoryPage
       v: { ...s.v, ...(act.each === 'set' && act.eachV ? { [a.id]: act.eachV } : {}), ...(act.level ? { [act.level]: String(counted.length + 1) } : {}) },
       shown: all && act.show ? [...s.shown, ...act.show] : s.shown,
     }));
-    if (all) { say(act.say); setBubble(tx(act.say)); }
+    tapSound(a);
+    if (all) { anim.tap('@done'); say(act.say); setBubble(tx(act.say)); }
     else say(NUM_WORDS[counted.length] || L(String(counted.length), String(counted.length)));
   };
+
+  const drawActor = (a: Actor & { back?: boolean }, i: number, isExtra: boolean) => {
+    const m = ps.moved[a.id] || { dx: 0, dy: 0 };
+    const show = isExtra || visible(a);
+    const reacting = ps.react?.id === a.id ? `el-react-${act && act.kind === 'tap' ? act.react : ''} k${ps.react.n % 2}` : '';
+    const track = motion?.tracks.find((t) => t.actor === a.id);
+    const delay = anim.tapDelay(a.id); // let a tap animation finish before the actor fades away
+    const still = reduced && isExtra && track ? poseCss(finalPose(track)) : undefined;
+    return (
+      <g key={a.id} className="el-actor" aria-hidden={isExtra || undefined}
+        style={{ transform: `translate(${a.x + m.dx}px, ${a.y + m.dy}px)`, opacity: show ? 1 : 0, ...(delay && !show ? { transitionDelay: `0s, ${delay}ms` } : {}) }}>
+        <g className={`el-anim ${track?.origin === 'bottom' ? 'ob' : ''}`} data-anim={a.id} style={still}>
+          <g className={`el-react ${reacting}`}>
+            <g transform={`scale(${(a.s ?? 1) * 0.8 * (a.flip ? -1 : 1)} ${(a.s ?? 1) * 0.8})`}>
+              {(ART[a.art] ?? ART.star)(ps.v[a.id] ?? anim.v[a.id] ?? a.v)}
+              {!isExtra && <Lids art={a.art} i={i} />}
+            </g>
+          </g>
+        </g>
+      </g>
+    );
+  };
+  const extras = motion?.extras || [];
+  const whatId = `el-what-${index}`;
+  const autoLabel = tx(L('Turn pages by itself', 'పేజీలు తానే తిరగాలి'));
 
   return (
     <div className="el-story">
       <RoundDots done={index} total={total} />
-      <div className="el-stage">
-        <svg viewBox="0 0 400 260" role="img" aria-label={text}>
+      <div className={`el-stage ${held ? 'is-paused' : ''} ${anim.status === 'running' ? 'is-playing' : ''}`}>
+        <svg ref={svgRef} viewBox="0 0 400 260" role="img" aria-label={text} aria-describedby={motion ? whatId : undefined}>
           <Backdrop bg={page.bg} />
-          {page.actors.map((a) => {
-            const m = ps.moved[a.id] || { dx: 0, dy: 0 };
-            const show = visible(a);
-            const reacting = ps.react?.id === a.id ? `el-react-${act && act.kind === 'tap' ? act.react : ''} k${ps.react.n % 2}` : '';
-            return (
-              <g key={a.id} className="el-actor" style={{ transform: `translate(${a.x + m.dx}px, ${a.y + m.dy}px)`, opacity: show ? 1 : 0 }}>
-                <g className={`el-react ${reacting}`}>
-                  <g transform={`scale(${(a.s ?? 1) * 0.8 * (a.flip ? -1 : 1)} ${(a.s ?? 1) * 0.8})`}>{(ART[a.art] ?? ART.star)(ps.v[a.id] ?? a.v)}</g>
-                </g>
-              </g>
-            );
-          })}
+          {extras.filter((e) => e.back).map((e, i) => drawActor(e, i, true))}
+          {page.actors.map((a, i) => drawActor(a, i, false))}
+          {extras.filter((e) => !e.back).map((e, i) => drawActor(e, i, true))}
         </svg>
         {page.actors.filter((a) => tappable.has(a.id) && visible(a)).map((a) => {
           const m = ps.moved[a.id] || { dx: 0, dy: 0 };
@@ -182,6 +262,16 @@ function StoryPageView({ page, index, total, onBack, onNext }: { page: StoryPage
           );
         })}
         {bubble && <div className="el-bubble" role="status" aria-live="polite">{bubble}</div>}
+      </div>
+      {motion && <p id={whatId} className="sr-only">{tx(L('What’s happening:', 'ఏం జరుగుతోంది:'))} {tx(motion.what)}</p>}
+      <div className="el-controls" role="group" aria-label={tx(L('Story controls', 'కథ నియంత్రణలు'))}>
+        <button type="button" className="btn el-ctl" onClick={busy ? pauseAll : playAll}>
+          <Icon name={busy ? 'pause' : 'play'} />{tx(busy ? L('Pause', 'ఆపు') : L('Play', 'ఆడించు'))}
+        </button>
+        <button type="button" className="btn el-ctl" onClick={replay}><Icon name="reset" />{tx(L('Replay page', 'మళ్ళీ చూపించు'))}</button>
+        <button type="button" className={`btn el-ctl ${autoTurn ? 'is-on' : ''}`} aria-pressed={autoTurn} onClick={() => onAutoTurn(!autoTurn)}>
+          <Icon name={autoTurn ? 'check' : 'next'} />{autoLabel}
+        </button>
       </div>
       <div className="el-text">
         <SayButton l={page.text} />
