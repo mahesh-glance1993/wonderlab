@@ -16,13 +16,16 @@
     "build": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.worker.json && vite build",
     "start": "npm run build && wrangler dev --port 8787",
     "deploy": "npm run build && wrangler d1 migrations apply wonderlab --env production --remote && wrangler deploy --env production",
-    "docs:coverage": "vite-node scripts/gen-coverage.ts"
+    "docs:coverage": "vite-node scripts/gen-coverage.ts",
+    "db:backup": "node scripts/backup-db.mjs",
+    "icons": "node scripts/gen-icons.mjs",
+    "check": "npm run typecheck && npm run lint && npm test && vite build"
   },
   "dependencies": {
-    "hono": "^4.6.14",
+    "hono": "^4.13.17",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^6.30.6"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261109.1",

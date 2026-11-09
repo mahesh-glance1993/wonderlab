@@ -1,6 +1,7 @@
 // Sound effects synthesised in the browser with Web Audio — animals, vehicles, nature, machines, UI.
 // No recorded/copyrighted audio. Respects mute + volume, and ducks under narration so speech stays clear.
 import { getAudioPrefs, onSpeaking } from './audio';
+import { NATURE, NATURE_SR, impulseResponse, renderNature, type AmbienceName, type NatureName } from './nature';
 
 export type SfxName =
   // animals & birds
@@ -8,7 +9,8 @@ export type SfxName =
   // vehicles
   | 'car' | 'horn' | 'bike' | 'bicycle' | 'bus' | 'train' | 'aeroplane' | 'helicopter' | 'boat' | 'siren' | 'tractor' | 'auto' | 'cart' | 'rocket' | 'truck'
   // nature
-  | 'rain' | 'thunder' | 'wind' | 'water' | 'splash' | 'birds' | 'fire' | 'leaves' | 'sea'
+  | 'rain' | 'drizzle' | 'storm' | 'thunder' | 'wind' | 'breeze' | 'water' | 'stream' | 'waterfall' | 'splash' | 'birds' | 'fire' | 'leaves' | 'sea'
+  | 'crickets' | 'night' | 'forest' | 'garden'
   // machines & making
   | 'motor' | 'gears' | 'drill' | 'hammer' | 'screw' | 'crane' | 'clock' | 'bell'
   // UI
@@ -28,7 +30,7 @@ const ac = () => {
   if (ctx.state === 'suspended') void ctx.resume();
   return ctx;
 };
-const setMaster = () => { if (master && ctx) master.gain.setTargetAtTime(getAudioPrefs().volume * 0.7 * duck, ctx.currentTime, 0.08); };
+const setMaster = () => { if (master && ctx) master.gain.setTargetAtTime((getAudioPrefs().mute ? 0 : getAudioPrefs().volume) * 0.7 * duck, ctx.currentTime, 0.08); };
 // duck effects to 35% while narration is speaking so words are always easy to hear
 onSpeaking((s) => { duck = s ? 0.35 : 1; setMaster(); });
 
@@ -94,12 +96,137 @@ function play(voices: Voice[], length: number): SfxHandle {
 const env = (a: number, hold: number, rel: number, peak = 1): Pt[] => [[0, 0], [a, peak], [a + hold, peak * 0.8], [a + hold + rel, 0]];
 const repeatAt = (v: Voice, times: number, gap: number): Voice[] => Array.from({ length: times }, (_, i) => ({ ...v, at: (v.at || 0) + i * gap }));
 
+
+// ---------- rendered nature sounds (see nature.ts) ----------
+const natBufs = new Map<NatureName, AudioBuffer>();
+const natWaiting = new Map<NatureName, ((b: AudioBuffer | null) => void)[]>();
+let natWorker: Worker | null | undefined;
+/** keep at most 14 rendered sounds (about 2–4 MB each) */
+function remember(name: NatureName, b: AudioBuffer) {
+  natBufs.delete(name);
+  natBufs.set(name, b);
+  while (natBufs.size > 14) natBufs.delete(natBufs.keys().next().value!);
+}
+function toBuffer(c: AudioContext, l: Float32Array, r: Float32Array) {
+  const b = c.createBuffer(2, l.length, NATURE_SR);
+  b.copyToChannel(l as Float32Array<ArrayBuffer>, 0); b.copyToChannel(r as Float32Array<ArrayBuffer>, 1);
+  return b;
+}
+function worker(c: AudioContext): Worker | null {
+  if (natWorker === undefined) {
+    try {
+      natWorker = new Worker(new URL('./nature.worker.ts', import.meta.url), { type: 'module' });
+      natWorker.onmessage = (e: MessageEvent<{ name: NatureName; l?: Float32Array; r?: Float32Array }>) => {
+        const { name, l, r } = e.data;
+        const b = l && r ? toBuffer(c, l, r) : null;
+        if (b) remember(name, b);
+        (natWaiting.get(name) || []).forEach((f) => f(b));
+        natWaiting.delete(name);
+      };
+    } catch { natWorker = null; }
+  }
+  return natWorker;
+}
+/** Gets a rendered nature sound; renders in a background worker (or inline if workers are unavailable). */
+function natureBuffer(c: AudioContext, name: NatureName, cb: (b: AudioBuffer | null) => void) {
+  const have = natBufs.get(name);
+  if (have) { remember(name, have); cb(have); return; }
+  const list = natWaiting.get(name);
+  if (list) { list.push(cb); return; }
+  natWaiting.set(name, [cb]);
+  const w = worker(c);
+  if (w) { w.postMessage({ name, sr: NATURE_SR }); return; }
+  try { const [l, r] = renderNature(name, NATURE_SR); remember(name, toBuffer(c, l, r)); } catch { /* unsupported */ }
+  (natWaiting.get(name) || []).forEach((f) => f(natBufs.get(name) || null));
+  natWaiting.delete(name);
+}
+/** Renders sounds ahead of time (after the first tap) so they start instantly later. */
+export function prewarmSfx(names: (SfxName | undefined)[]) {
+  const nat = [...new Set(names)].filter((n): n is NatureName => !!n && n in NATURE);
+  if (!nat.length || getAudioPrefs().mute) return;
+  const c = ac();
+  nat.forEach((n) => natureBuffer(c, n, () => undefined));
+}
+let verbIn: GainNode | null = null;
+function reverb(c: AudioContext) {
+  if (!verbIn) {
+    const conv = c.createConvolver(), [l, r] = impulseResponse(NATURE_SR), ib = c.createBuffer(2, l.length, NATURE_SR);
+    ib.copyToChannel(l, 0); ib.copyToChannel(r, 1);
+    conv.buffer = ib;
+    verbIn = c.createGain();
+    verbIn.connect(conv).connect(master!);
+  }
+  return verbIn;
+}
+/** One-shot (or, with forever, a looping bed that plays until stopped). */
+function playNature(name: NatureName, opts: { forever?: boolean; level?: number } = {}): SfxHandle {
+  const c = ac();
+  setMaster();
+  const spec = NATURE[name], level = opts.level ?? 1;
+  const g = c.createGain();
+  g.gain.value = 0;
+  g.connect(master!);
+  if (spec.reverb > 0) { const send = c.createGain(); send.gain.value = spec.reverb; g.connect(send).connect(reverb(c)); }
+  let src: AudioBufferSourceNode | null = null, stopped = false, timer: ReturnType<typeof setTimeout> | undefined;
+  let resolve!: () => void;
+  const done = new Promise<void>((r) => { resolve = r; });
+  const begin = (buf: AudioBuffer | null) => {
+    if (stopped || !buf) { resolve(); return; }
+    const s = c.createBufferSource(), t0 = c.currentTime + 0.02;
+    src = s;
+    s.buffer = buf;
+    s.connect(g);
+    let length = Infinity;
+    if (spec.loop) {
+      s.loop = true;
+      s.start(t0, Math.random() * buf.duration); // a different slice each time
+      g.gain.setValueAtTime(0, t0);
+      g.gain.linearRampToValueAtTime(level, t0 + (opts.forever ? 1.5 : 0.35));
+      if (!opts.forever) {
+        length = spec.shot;
+        g.gain.setValueAtTime(level, t0 + length - 0.9);
+        g.gain.linearRampToValueAtTime(0, t0 + length);
+        s.stop(t0 + length + 0.05);
+      }
+    } else {
+      s.playbackRate.value = 1 + (Math.random() - 0.5) * 0.06; // natural variation
+      g.gain.setValueAtTime(level, t0);
+      length = buf.duration / s.playbackRate.value;
+      s.start(t0);
+    }
+    if (Number.isFinite(length)) timer = setTimeout(resolve, (length + 0.1) * 1000);
+  };
+  natureBuffer(c, name, begin);
+  return {
+    done,
+    stop: () => {
+      if (stopped) return;
+      stopped = true;
+      clearTimeout(timer);
+      const now = c.currentTime, fade = opts.forever ? 1 : 0.12;
+      g.gain.cancelScheduledValues(now);
+      g.gain.setValueAtTime(g.gain.value, now);
+      g.gain.linearRampToValueAtTime(0, now + fade);
+      try { src?.stop(now + fade + 0.05); } catch { /* already stopped */ }
+      resolve();
+    },
+  };
+}
+
+/** Quiet looping background (rain, forest, night...) until stop() is called. */
+export function ambience(name: AmbienceName, level = 0.4): SfxHandle | null {
+  if (getAudioPrefs().mute) return null;
+  try { return playNature(name, { forever: true, level }); } catch { return null; }
+}
+/** Re-apply volume/mute (call after changing audio settings). */
+export const refreshSfxVolume = () => setMaster();
+
 const LIB: Record<SfxName, () => SfxHandle> = {
   // ---------- animals ----------
   cow: () => play([{ type: 'sawtooth', f: [[0, 120], [0.4, 128], [1.3, 95]], g: env(0.25, 0.8, 0.4, 0.5), filter: { type: 'bandpass', f: [[0, 400], [0.5, 700], [1.4, 450]], q: 2 }, vib: { rate: 5, depth: 2 } }], 1.6),
   cat: () => play([{ type: 'sawtooth', f: [[0, 480], [0.25, 820], [0.7, 560]], g: env(0.06, 0.45, 0.25, 0.35), filter: { type: 'bandpass', f: [[0, 900], [0.25, 2200], [0.7, 1200]], q: 4 } }], 0.8),
   dog: () => play(repeatAt({ type: 'square', f: [[0, 340], [0.1, 220]], g: env(0.01, 0.06, 0.08, 0.35), filter: { type: 'bandpass', f: [[0, 900], [0.15, 600]], q: 3 } }, 2, 0.32).concat(repeatAt({ type: 'noise', g: env(0.005, 0.04, 0.06, 0.2), filter: { type: 'bandpass', f: [[0, 1400]], q: 2 } }, 2, 0.32)), 0.8),
-  bird: () => play(repeatAt({ type: 'sine', f: [[0, 2600], [0.06, 4200], [0.12, 3000]], g: env(0.01, 0.08, 0.04, 0.25) }, 4, 0.18), 0.85),
+  bird: () => playNature('bird'),
   duck: () => play(repeatAt({ type: 'sawtooth', f: [[0, 260], [0.15, 230]], g: env(0.01, 0.12, 0.05, 0.35), filter: { type: 'bandpass', f: [[0, 1300]], q: 9 } }, 3, 0.24), 0.8),
   rooster: () => play([{ type: 'sawtooth', f: [[0, 420], [0.2, 760], [0.8, 700], [1.3, 480]], g: env(0.05, 1.1, 0.25, 0.35), filter: { type: 'bandpass', f: [[0, 1200], [0.4, 2000], [1.3, 1200]], q: 5 }, vib: { rate: 9, depth: 15 } }], 1.5),
   hen: () => play(repeatAt({ type: 'sawtooth', f: [[0, 600], [0.08, 900]], g: env(0.01, 0.06, 0.05, 0.3), filter: { type: 'bandpass', f: [[0, 1500]], q: 5 } }, 4, 0.15), 0.8),
@@ -134,15 +261,24 @@ const LIB: Record<SfxName, () => SfxHandle> = {
   rocket: () => play([{ type: 'noise', g: env(0.4, 1.8, 0.6, 0.55), filter: { type: 'lowpass', f: [[0, 200], [0.6, 1600], [2.8, 400]] } }, { type: 'sawtooth', f: [[0, 40], [2.8, 30]], g: env(0.4, 1.8, 0.6, 0.3), filter: { type: 'lowpass', f: [[0, 200]] } }], 3.0),
   truck: () => LIB.bus(),
   // ---------- nature ----------
-  rain: () => play([{ type: 'noise', g: env(0.6, 3.0, 1.0, 0.35), filter: { type: 'bandpass', f: [[0, 2600]], q: 0.5 } }, ...Array.from({ length: 30 }, (_, i): Voice => ({ type: 'noise', g: env(0.002, 0.005, 0.03, 0.18), filter: { type: 'bandpass', f: [[0, 3000 + (i * 397) % 2500]], q: 8 }, at: 0.3 + ((i * 0.137) % 3.8) }))], 4.6),
-  thunder: () => play([{ type: 'noise', g: [[0, 0], [0.03, 0.7], [0.3, 0.4], [3.0, 0]], filter: { type: 'lowpass', f: [[0, 900], [0.3, 160], [3.0, 80]], q: 1 }, trem: { rate: 6, depth: 0.4 } }], 3.2),
-  wind: () => play([{ type: 'noise', g: env(1.0, 1.8, 1.2, 0.3), filter: { type: 'bandpass', f: [[0, 350], [1.4, 900], [2.6, 500], [4.0, 700]], q: 3 } }], 4.1),
-  water: () => play([{ type: 'noise', g: env(0.4, 2.2, 0.6, 0.18), filter: { type: 'bandpass', f: [[0, 1200]], q: 1 } }, ...Array.from({ length: 10 }, (_, i): Voice => ({ type: 'sine', f: [[0, 500 + (i * 173) % 600], [0.06, 900 + (i * 211) % 800]], g: env(0.005, 0.03, 0.03, 0.12), at: 0.2 + i * 0.27 }))], 3.3),
-  splash: () => play([{ type: 'noise', g: [[0, 0], [0.01, 0.6], [0.45, 0]], filter: { type: 'bandpass', f: [[0, 2500], [0.4, 900]], q: 1 } }, ...Array.from({ length: 4 }, (_, i): Voice => ({ type: 'sine', f: [[0, 400 + i * 120], [0.08, 1000 + i * 150]], g: env(0.005, 0.03, 0.04, 0.15), at: 0.2 + i * 0.09 }))], 0.8),
-  birds: () => play(Array.from({ length: 9 }, (_, i): Voice => ({ type: 'sine', f: [[0, 2600 + (i * 331) % 1400], [0.07, 3800 + (i * 211) % 1200], [0.14, 3000]], g: env(0.01, 0.08, 0.05, 0.16), at: (i * 0.41) % 3.4 })), 3.7),
-  fire: () => play([{ type: 'noise', g: env(0.3, 2.2, 0.5, 0.15), filter: { type: 'lowpass', f: [[0, 700]] } }, ...Array.from({ length: 18 }, (_, i): Voice => ({ type: 'noise', g: env(0.001, 0.004, 0.02, 0.3), filter: { type: 'highpass', f: [[0, 2500]] }, at: (i * 0.163) % 2.9 }))], 3.1),
-  leaves: () => play([{ type: 'noise', g: env(0.3, 1.0, 0.6, 0.2), filter: { type: 'highpass', f: [[0, 3000]] }, trem: { rate: 9, depth: 0.6 } }], 2.0),
-  sea: () => play([{ type: 'noise', g: [[0, 0], [1.5, 0.35], [2.5, 0.1], [4.0, 0.35], [5.0, 0]], filter: { type: 'lowpass', f: [[0, 400], [1.5, 1400], [2.5, 500], [4.0, 1400], [5.0, 400]] } }], 5.2),
+  rain: () => playNature('rain'),
+  drizzle: () => playNature('drizzle'),
+  storm: () => playNature('storm'),
+  thunder: () => playNature('thunder'),
+  wind: () => playNature('wind'),
+  breeze: () => playNature('breeze'),
+  water: () => playNature('water'),
+  stream: () => playNature('stream'),
+  waterfall: () => playNature('waterfall'),
+  splash: () => playNature('splash'),
+  birds: () => playNature('birds'),
+  fire: () => playNature('fire'),
+  leaves: () => playNature('leaves'),
+  sea: () => playNature('sea'),
+  crickets: () => playNature('crickets'),
+  night: () => playNature('night'),
+  forest: () => playNature('forest'),
+  garden: () => playNature('garden'),
   // ---------- machines & making ----------
   motor: () => play([{ type: 'sawtooth', f: [[0, 60], [0.5, 120], [2.0, 120]], g: env(0.3, 1.5, 0.3, 0.2), filter: { type: 'lowpass', f: [[0, 600]] } }, { type: 'sine', f: [[0, 240], [0.5, 480]], g: env(0.3, 1.5, 0.3, 0.06) }], 2.2),
   gears: () => play(repeatAt({ type: 'noise', g: env(0.001, 0.01, 0.03, 0.35), filter: { type: 'bandpass', f: [[0, 2800]], q: 10 } }, 12, 0.12), 1.6),
@@ -179,7 +315,9 @@ const WORDS: Record<string, SfxName> = {
   car: 'car', jeep: 'car', taxi: 'car', bike: 'bike', motorbike: 'bike', scooter: 'bike', bicycle: 'bicycle', cycle: 'bicycle', bus: 'bus', truck: 'truck', lorry: 'truck',
   train: 'train', aeroplane: 'aeroplane', airplane: 'aeroplane', plane: 'aeroplane', helicopter: 'helicopter', boat: 'boat', ship: 'boat', ambulance: 'siren', 'fire engine': 'siren',
   tractor: 'tractor', auto: 'auto', 'auto-rickshaw': 'auto', rickshaw: 'auto', cart: 'cart', 'bullock cart': 'cart', rocket: 'rocket',
-  rain: 'rain', thunder: 'thunder', storm: 'thunder', wind: 'wind', water: 'water', river: 'water', splash: 'splash', sea: 'sea', fire: 'fire', leaves: 'leaves',
+  rain: 'rain', drizzle: 'drizzle', thunder: 'thunder', storm: 'storm', lightning: 'thunder', wind: 'wind', breeze: 'breeze', water: 'water', river: 'stream', stream: 'stream', pond: 'stream', waterfall: 'waterfall',
+  splash: 'splash', sea: 'sea', ocean: 'sea', waves: 'sea', beach: 'sea', fire: 'fire', campfire: 'fire', leaves: 'leaves', tree: 'leaves', cricket: 'crickets', crickets: 'crickets',
+  night: 'night', moon: 'night', forest: 'forest', jungle: 'forest', garden: 'garden', park: 'garden', birds: 'birds',
   clock: 'clock', bell: 'bell', hammer: 'hammer', drill: 'drill', gears: 'gears', crane: 'crane', machine: 'motor', fan: 'motor', motor: 'motor',
 };
 /** Finds a sound for a word or id (e.g. "cow", "bullock-cart", "Aeroplane"). */

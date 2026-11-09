@@ -4,7 +4,7 @@ import { mulberry32 } from './rng';
 import type { PaperId } from './project';
 
 export const GRAIN = 256;
-export const PAPER_COLORS: Record<PaperId, string> = { smooth: '#ffffff', sketch: '#fcfbf7', watercolor: '#fbf8f0', canvas: '#f6f2e8', kraft: '#c8a679' };
+export const PAPER_COLORS: Record<PaperId, string> = { smooth: '#ffffff', warm: '#faf6ec', sketch: '#fcfbf7', watercolor: '#fbf8f0', canvas: '#f6f2e8', kraft: '#c8a679' };
 
 /** Tileable value noise with `cells` lattice cells across the tile. */
 function valueNoise(cells: number, seed: number): Float32Array {
@@ -31,7 +31,7 @@ export function grainTile(kind: PaperId): Float32Array {
   const g = new Float32Array(GRAIN * GRAIN);
   const add = (n: Float32Array, w: number) => { for (let i = 0; i < g.length; i++) g[i] += n[i] * w; };
   switch (kind) {
-    case 'smooth': add(valueNoise(128, 11), 0.7); add(valueNoise(64, 12), 0.3); break;
+    case 'smooth': case 'warm': add(valueNoise(128, 11), 0.7); add(valueNoise(64, 12), 0.3); break;
     case 'sketch': add(valueNoise(128, 21), 0.55); add(valueNoise(64, 22), 0.3); add(valueNoise(16, 23), 0.15); break;
     case 'watercolor': add(valueNoise(32, 31), 0.45); add(valueNoise(64, 32), 0.3); add(valueNoise(128, 33), 0.25); break;
     case 'canvas': {

@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import { api, ApiError } from './api';
 import { idb } from './idb';
 import { setAudioPrefs, speak as speakRaw, type Lang } from './audio';
+import { refreshSfxVolume } from './sfx';
 import {
   setSyncScope, queueAttempt, queueLessonState, queueActivityState, queueReward, saveSnapshot, loadSnapshot, clearAccountData, flush, type QueuedAttempt,
 } from './sync';
@@ -129,6 +130,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const tier = presentation?.tier;
     const speed = prefs.readingSpeed || (tier === 'early' ? 'slower' : tier === 'primary' ? 'slow' : 'normal');
     setAudioPrefs({ mute: prefs.mute, volume: prefs.volume, rate: speed === 'slower' ? 0.7 : speed === 'slow' ? 0.8 : 0.92, repeat: !!presentation?.readAloud || tier === 'early' || tier === 'primary', voiceEn: prefs.voiceEn, voiceTe: prefs.voiceTe, natural: prefs.naturalVoice !== false, speaker: prefs.naturalSpeaker || 'luna' });
+    refreshSfxVolume();
   }, [prefs, lang, presentation]);
 
   // load learner state (server, else offline snapshot) and merge local queue

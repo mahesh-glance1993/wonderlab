@@ -1,7 +1,7 @@
 // Runs a story page animation with the Web Animations API (transform/opacity only) and plays its
 // sound cues on the same clock. Pauses when the tab is hidden; reduced motion jumps to the final pose.
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react';
-import { sfx, type SfxHandle } from '../../lib/sfx';
+import { ambience, prewarmSfx, sfx, type SfxHandle } from '../../lib/sfx';
 import { due, finalPose, finalV, initialV, poseCss, tapDuration, toKeyframes, type Cue, type PageMotion, type Track, type VSet } from './data/motion';
 
 export type MotionStatus = 'ready' | 'running' | 'paused' | 'done';
@@ -124,6 +124,19 @@ export function useStoryMotion(pm: PageMotion | undefined, svgRef: RefObject<SVG
     document.addEventListener('visibilitychange', onVis);
     return () => document.removeEventListener('visibilitychange', onVis);
   }, [pause, resume]);
+
+  // quiet looping background (rain, forest, night...) for the whole page, silent while paused
+  // render this page's nature sounds in the background so they start on time
+  useEffect(() => {
+    if (pm) prewarmSfx([pm.bed, ...(pm.cues || []).map((c) => c.sfx), ...Object.values(pm.tap || {}).flatMap((t) => (t.cues || []).map((c) => c.sfx))]);
+  }, [pm]);
+  const bed = pm?.bed;
+  const paused = status === 'paused';
+  useEffect(() => {
+    if (!bed || paused) return;
+    const h = ambience(bed);
+    return () => h?.stop();
+  }, [bed, paused]);
 
   // stop sounds and mini animations when the page goes away
   useEffect(() => () => { stopSounds(); cancelAnimationFrame(raf.current); extra.current.forEach((a) => a.cancel()); }, [stopSounds]);

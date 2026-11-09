@@ -4,7 +4,13 @@ import { Icon } from '../../../ui/Icon';
 import { colorName, hsvToRgb, normalizeHex, parseHex, rgbToHsv, toHex } from '../engine/color';
 import type { Palette } from '../engine/project';
 import { shortId } from '../engine/rng';
+import { ColorWheel } from './ColorWheel';
 
+/** Built-in colour sets (always available alongside the colour wheel). */
+export const PRESETS: { id: string; en: string; te: string; colors: string[] }[] = [
+  { id: 'crayons', en: 'Classic Crayons', te: 'క్రేయాన్ రంగులు', colors: ['#D64545', '#F28C28', '#F2C94C', '#34A853', '#3675D3', '#8054C7', '#8B5A3C', '#20242E', '#FFFFFF'] },
+  { id: 'watercolors', en: 'Soft Watercolours', te: 'మెత్తని వాటర్ కలర్స్', colors: ['#E8A5B7', '#F6BC9B', '#F4D889', '#A9C5A0', '#A5CCE8', '#B8ACE0'] },
+];
 export const KID_SWATCHES = ['#e53935', '#fb8c00', '#fdd835', '#9ccc65', '#43a047', '#26a69a', '#81d4fa', '#1e88e5', '#8e24aa', '#ec407a', '#6d4c41', '#ffccbc'];
 
 function Swatch({ hex, selected, onPick, big, lang }: { hex: string; selected: boolean; onPick: (h: string) => void; big?: boolean; lang: 'en' | 'te' }) {
@@ -34,14 +40,6 @@ export function ColorPanel({ color, onChange, recent, palettes, onPalettes, earl
     lastOut.current = out;
     onChange(out);
   };
-  const padRef = useRef<HTMLDivElement>(null);
-  const padPointer = (e: React.PointerEvent) => {
-    if (e.type === 'pointerdown') (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
-    if (e.type === 'pointermove' && !e.buttons) return;
-    const r = padRef.current!.getBoundingClientRect();
-    const s = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), v = Math.min(1, Math.max(0, 1 - (e.clientY - r.top) / r.height));
-    setFromHsv(hsv[0], s, v);
-  };
   const name = colorName(color, lang);
   const pick = (h: string) => { lastOut.current = ''; onChange(h); };
 
@@ -49,9 +47,17 @@ export function ColorPanel({ color, onChange, recent, palettes, onPalettes, earl
     return (
       <div className="stack" style={{ gap: 8 }}>
         <div className="art-current"><span className="art-chip" style={{ background: color }} aria-hidden="true" /><b>{name}</b></div>
+        <div className="art-sub">{lang === 'te' ? 'ఏ రంగైనా ఎంచుకో' : 'Pick any colour'}</div>
+        <ColorWheel hsv={hsv} onChange={setFromHsv} size={230} lang={lang} />
         <div className="art-swatches early" role="group" aria-label="Colours">
           {['#000000', '#ffffff', ...KID_SWATCHES].map((h) => <Swatch key={h} hex={h} big selected={h === color} onPick={pick} lang={lang} />)}
         </div>
+        {PRESETS.map((ps) => (
+          <div key={ps.id}>
+            <div className="art-sub">{lang === 'te' ? ps.te : ps.en}</div>
+            <div className="art-swatches early" role="group" aria-label={lang === 'te' ? ps.te : ps.en}>{ps.colors.map((h) => <Swatch key={h} hex={h} big selected={h.toLowerCase() === color.toLowerCase()} onPick={pick} lang={lang} />)}</div>
+          </div>
+        ))}
       </div>
     );
   }
@@ -62,25 +68,16 @@ export function ColorPanel({ color, onChange, recent, palettes, onPalettes, earl
   return (
     <div className="stack" style={{ gap: 10 }}>
       <div className="art-current"><span className="art-chip" style={{ background: color }} aria-hidden="true" /><b>{name}</b><span className="muted">{color}</span></div>
+      <ColorWheel hsv={hsv} onChange={setFromHsv} size={240} lang={lang} />
       <div className="art-swatches" role="group" aria-label="Quick colours">
         {['#000000', '#ffffff', ...KID_SWATCHES].map((h) => <Swatch key={h} hex={h} selected={h === color} onPick={pick} lang={lang} />)}
       </div>
-      <div
-        ref={padRef} className="art-svpad" role="presentation"
-        style={{ background: `linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, hsl(${hsv[0]}, 100%, 50%))` }}
-        onPointerDown={padPointer} onPointerMove={padPointer}
-      >
-        <i style={{ left: `${hsv[1] * 100}%`, top: `${(1 - hsv[2]) * 100}%` }} />
-      </div>
-      <label className="art-range">Hue <span>{Math.round(hsv[0])}°</span>
-        <input type="range" min={0} max={359} value={Math.round(hsv[0])} className="hue" onChange={(e) => setFromHsv(Number(e.target.value), hsv[1], hsv[2])} />
-      </label>
-      <label className="art-range">Saturation <span>{Math.round(hsv[1] * 100)}%</span>
-        <input type="range" min={0} max={100} value={Math.round(hsv[1] * 100)} onChange={(e) => setFromHsv(hsv[0], Number(e.target.value) / 100, hsv[2])} />
-      </label>
-      <label className="art-range">Brightness <span>{Math.round(hsv[2] * 100)}%</span>
-        <input type="range" min={0} max={100} value={Math.round(hsv[2] * 100)} onChange={(e) => setFromHsv(hsv[0], hsv[1], Number(e.target.value) / 100)} />
-      </label>
+      {PRESETS.map((ps) => (
+        <div key={ps.id}>
+          <div className="art-sub">{lang === 'te' ? ps.te : ps.en}</div>
+          <div className="art-swatches" role="group" aria-label={ps.en}>{ps.colors.map((h) => <Swatch key={h} hex={h} selected={h.toLowerCase() === color.toLowerCase()} onPick={pick} lang={lang} />)}</div>
+        </div>
+      ))}
       {allowTyping && (
         <form className="row" style={{ gap: 6, flexWrap: 'nowrap' }} onSubmit={(e) => { e.preventDefault(); const n = normalizeHex(hex); if (n) pick(n); else setHex(color); }}>
           <label htmlFor="art-hex" className="muted" style={{ fontWeight: 800 }}>HEX</label>

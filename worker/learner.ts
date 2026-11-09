@@ -12,6 +12,7 @@ export const learner: H = new Hono();
 const SAFE_PREF_KEYS = ['language', 'theme', 'textSize', 'reduceMotion', 'mute', 'volume', 'narration', 'pressureMode', 'manualIntensity', 'calibration', 'lastActivity', 'timers', 'keepFullscreen', 'artPalettes', 'readingSpeed', 'voiceEn', 'voiceTe', 'naturalVoice', 'naturalSpeaker'];
 const PARENT_PREF_KEYS = ['breakMinutes', 'breakEnabled'];
 const MAX_PROFILES = 8;
+const MAX_PREFS_BYTES = 32 * 1024; // prefs are free-form values under allowed keys; keep rows small
 
 function cleanPrefs(input: Record<string, unknown>, allowParent: boolean) {
   const out: Record<string, unknown> = {};
@@ -43,6 +44,7 @@ profiles.post('/', async (c) => {
   if (!AVATARS.includes(b?.avatar as never)) fields.avatar = 'Choose an avatar.';
   if (!(Number.isInteger(b?.classLevel) && b!.classLevel >= 0 && b!.classLevel <= 12)) fields.classLevel = 'Choose a class.';
   if (!AGE_BANDS.some((x) => x.id === b?.ageBand)) fields.ageBand = 'Choose an age band.';
+  if (JSON.stringify(cleanPrefs(b?.prefs || {}, true)).length > MAX_PREFS_BYTES) fields.prefs = 'Settings are too large.';
   if (Object.keys(fields).length) return err(c, 422, 'invalid', 'Please check the highlighted fields.', { fields });
   const id = uid(), t = now();
   await c.env.DB.prepare('INSERT INTO profiles (id, account_id, nickname, avatar, class_level, age_band, prefs, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?)')
@@ -81,6 +83,7 @@ learner.patch('/:pid/profile', async (c) => {
   }
   if (b.prefs) {
     const merged = { ...JSON.parse(String(cur!.prefs || '{}')), ...cleanPrefs(b.prefs, verified) };
+    if (JSON.stringify(merged).length > MAX_PREFS_BYTES) return err(c, 422, 'too-big', 'Settings are too large.');
     sets.push('prefs = ?'); vals.push(JSON.stringify(merged));
   }
   if (sets.length) await c.env.DB.prepare(`UPDATE profiles SET ${sets.join(', ')}, updated_at = ? WHERE id = ?`).bind(...vals, now(), pid).run();
@@ -198,6 +201,13 @@ learner.put('/:pid/artworks/:id', async (c) => {
     return c.json({ id, version: 1 });
   }
   if (cur.version !== b.baseVersion) {
+    // Idempotent retry: an offline device re-sends a save whose first response was lost (the server
+    // already applied it). Same content → report success instead of inventing a conflict copy.
+    const same = await db.prepare('SELECT version FROM artworks WHERE id = ? AND profile_id = ? AND deleted_at IS NULL AND title = ? AND data = ?').bind(id, pid, title, data).first<{ version: number }>();
+    if (same && cur.version > b.baseVersion) return c.json({ id, version: same.version });
+    // A retried conflicting save: the preserved copy already exists → return it, don't add another.
+    const prevCopy = await db.prepare('SELECT id FROM artworks WHERE profile_id = ? AND conflict_of = ? AND deleted_at IS NULL AND data = ? LIMIT 1').bind(pid, id, data).first<{ id: string }>();
+    if (prevCopy) return c.json({ error: { code: 'conflict', message: 'This artwork was changed on another device. Both versions were kept.' }, conflictCopyId: prevCopy.id, serverVersion: cur.version }, 409);
     // Someone (another device) saved first. Keep theirs AND ours: ours becomes a separate copy.
     const copyId = uid();
     await db.prepare('INSERT INTO artworks (id, profile_id, title, data, thumb, version, conflict_of, created_at, updated_at) VALUES (?,?,?,?,?,1,?,?,?)').bind(copyId, pid, `${title} (other device)`, data, thumb, id, t, t).run();

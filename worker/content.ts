@@ -18,9 +18,12 @@ content.get('/overrides', async (c) => {
 });
 /** Any historical version (so reviews show the exact wording a learner saw). */
 content.get('/items/:id/versions/:v', async (c) => {
-  if (!c.get('account')) return err(c, 401, 'auth', 'Please sign in.');
+  const a = c.get('account');
+  if (!a) return err(c, 401, 'auth', 'Please sign in.');
   const r = await c.env.DB.prepare('SELECT version, data, status FROM content_versions WHERE item_id = ? AND version = ?').bind(c.req.param('id'), +c.req.param('v')).first<Record<string, unknown>>();
-  if (!r) return err(c, 404, 'notfound', 'Version not found.');
+  // Families may only see versions that were live at some point; unpublished drafts stay with educators.
+  const staff = a.role === 'educator' || a.role === 'admin';
+  if (!r || (!staff && r.status !== 'published' && r.status !== 'archived')) return err(c, 404, 'notfound', 'Version not found.');
   return c.json({ id: c.req.param('id'), version: r.version, data: JSON.parse(String(r.data)) });
 });
 

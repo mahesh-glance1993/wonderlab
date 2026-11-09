@@ -180,6 +180,8 @@ export function Page({ title, back = '/', actions, wide, fullscreen, children }:
     <>
       <header className="topbar">
         {back !== false && <IconButton icon="back" label="Back" onClick={() => nav(back)} />}
+        {/* one tap straight to the learner's home screen from anywhere */}
+        {back !== false && back !== '/' && <IconButton icon="home" label="Home" onClick={() => nav('/')} />}
         <span className="title">{title}</span>
         <span className="spacer" />
         <SyncBadge />

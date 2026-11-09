@@ -1,0 +1,33 @@
+# Security + caching headers for static assets (Workers static assets `_headers`).
+# /api/* is handled by the Worker (run_worker_first) and sets its own headers in worker/index.ts.
+# CSP notes:
+#  - fonts: Google Fonts stylesheet (fonts.googleapis.com) + font files (fonts.gstatic.com);
+#    connect-src lists them too because the service worker re-fetches fonts for offline use.
+#  - img-src data:/blob: — colouring pages are data: SVGs, art exports/previews use blob:/data: URLs.
+#  - media-src 'self' — narration audio from /api/tts and /audio/*; blob:/data: for generated clips.
+#  - React `style={{…}}` props are applied through the CSSOM, which style-src does not restrict,
+#    so no 'unsafe-inline' is needed. No inline <script> exists in the production index.html.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), serial=(), bluetooth=(), hid=(), midi=(), browsing-topics=(), fullscreen=(self), clipboard-write=(self)
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin
+
+# Content-hashed build output never changes.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Must always be revalidated so new deploys reach every device.
+/sw.js
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/version.json
+  Cache-Control: no-cache
+/packs.json
+  Cache-Control: no-cache
+/shell.json
+  Cache-Control: no-cache

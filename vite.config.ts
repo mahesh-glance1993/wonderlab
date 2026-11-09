@@ -1,6 +1,22 @@
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
+import { execSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { PACKS } from './src/shared/packs';
+
+// Build identity: package version + short commit (CI sets GITHUB_SHA; locally ask git; else "dev").
+const pkgVersion = (JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf-8')) as { version: string }).version;
+function commitSha() {
+  if (process.env.GITHUB_SHA) return process.env.GITHUB_SHA.slice(0, 7);
+  try { return execSync('git rev-parse --short HEAD', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch { return 'dev'; }
+}
+const BUILD = { version: pkgVersion, commit: commitSha(), builtAt: new Date().toISOString() };
+const BUILD_ID = `${BUILD.commit}-${createHash('sha1').update(BUILD.builtAt).digest('hex').slice(0, 8)}`;
+/** dist/version.json — read by /api/health through the assets binding. */
+function versionFile(): Plugin {
+  return { name: 'wonderlab-version', apply: 'build', generateBundle() { this.emitFile({ type: 'asset', fileName: 'version.json', source: JSON.stringify({ ...BUILD, buildId: BUILD_ID }) }); } };
+}
 
 /** Resolves each offline pack's module patterns to real output files + sizes → dist/packs.json */
 function packsManifest(): Plugin {
@@ -35,7 +51,8 @@ function packsManifest(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), packsManifest()],
+  plugins: [react(), packsManifest(), versionFile()],
+  define: { __APP_VERSION__: JSON.stringify(`${BUILD.version}+${BUILD.commit}`), __BUILD_ID__: JSON.stringify(BUILD_ID) },
   server: { proxy: { '/api': 'http://127.0.0.1:8787' } },
   build: { sourcemap: false, chunkSizeWarningLimit: 900 },
 });

@@ -15,7 +15,7 @@ import { BigTile, EarlyFeedback, PicButton, Prompt, RoundDots, SayButton, UI, us
 
 interface StoriesState { pages: Record<string, number>; done: string[]; autoTurn?: boolean }
 const INIT: StoriesState = { pages: {}, done: [] };
-const NUM_WORDS: L[] = [L('zero', 'సున్నా'), L('one', 'ఒకటి'), L('two', 'రెండు'), L('three', 'మూడు'), L('four', 'నాలుగు'), L('five', 'ఐదు'), L('six', 'ఆరు')];
+const NUM_WORDS: L[] = [L('zero', 'సున్నా'), L('one', 'ఒకటి'), L('two', 'రెండు'), L('three', 'మూడు'), L('four', 'నాలుగు'), L('five', 'ఐదు'), L('six', 'ఆరు'), L('seven', 'ఏడు'), L('eight', 'ఎనిమిది'), L('nine', 'తొమ్మిది'), L('ten', 'పది')];
 const reduceMotion = () => document.documentElement.classList.contains('reduce-motion');
 
 export function StoryList() {

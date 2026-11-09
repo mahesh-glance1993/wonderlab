@@ -1,9 +1,22 @@
 {
-  "name": "WonderLab",
+  "id": "/",
+  "name": "WonderLab — learn, explore, create",
   "short_name": "WonderLab",
+  "description": "Maths, physics, art, languages and games for Nursery to Class 10. No ads, no tracking.",
+  "lang": "en",
+  "dir": "ltr",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#F3EFE4",
-  "theme_color": "#3F6F58",
-  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "any",
+  "background_color": "#F6F7FC",
+  "theme_color": "#F6F7FC",
+  "categories": ["education", "kids"],
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
 }

@@ -7,6 +7,8 @@ import {
   type Adapt, type PicMode,
 } from '../src/features/early/logic';
 import { SFX_NAMES } from '../src/lib/sfx';
+import { AMBIENCES } from '../src/lib/nature';
+import { ART } from '../src/features/early/art';
 import { MOTION, MIN_DUR, MAX_DUR, motionIssues, toKeyframes, finalV, initialV, isRest, finalPose, poseCss, due, autoTurnReady, tapDuration } from '../src/features/early/data/motion';
 import {
   MODELS, LEVEL_RANGE, SNAP, MAGNET, MIN_SLOT_GAP, levelParts, prebuilt, shapeKey, dropPart, tapPlace, magnet, startOrient, rotate, flip, fits, modelSfx, placeSfx,
@@ -44,9 +46,16 @@ describe('picture data', () => {
 });
 
 describe('stories', () => {
-  it('has at least 8 stories with unique ids', () => {
-    expect(STORIES.length).toBeGreaterThanOrEqual(8);
+  it('has at least 16 stories with unique ids', () => {
+    expect(STORIES.length).toBeGreaterThanOrEqual(16);
     expect(new Set(STORIES.map((s) => s.id)).size).toBe(STORIES.length);
+  });
+  it('every cover, actor and picture answer has an original drawing', () => {
+    for (const s of STORIES) {
+      expect(ART[s.cover], `${s.id} cover`).toBeDefined();
+      for (const p of s.pages) for (const a of p.actors) expect(ART[a.art], `${s.id}: ${a.art}`).toBeDefined();
+      for (const q of s.questions) for (const c of q.choices) if (!isNum(c)) expect(ART[c], `${s.id}: ${c}`).toBeDefined();
+    }
   });
   it('each story has 4–8 pages with English (and Telugu) text', () => {
     for (const s of STORIES) {
@@ -288,6 +297,14 @@ describe('story animations', () => {
       for (const tm of Object.values(m.tap || {})) for (const c of tm.cues || []) expect(names.has(c.sfx), c.sfx).toBe(true);
     }
     for (const s of STORIES) expect(MOTION[s.id].every((m) => (m.cues || []).length > 0), s.id).toBe(true);
+  });
+  it('background beds are real ambiences, and outdoor pages use them', () => {
+    const beds = new Set<string>(AMBIENCES);
+    const outdoor = new Set(['forest', 'riverbank', 'river', 'sea', 'garden', 'rain', 'village', 'night', 'evening']);
+    for (const s of STORIES) MOTION[s.id].forEach((m, i) => {
+      if (m.bed) expect(beds.has(m.bed), `${s.id} p${i} ${m.bed}`).toBe(true);
+      if (outdoor.has(s.pages[i].bg)) expect(m.bed, `${s.id} p${i} outdoor page has a bed`).toBeTruthy();
+    });
   });
   it('tap mini animations point at real actors and are short', () => {
     for (const s of STORIES) MOTION[s.id].forEach((m, i) => {

@@ -6,6 +6,7 @@ import { BreakReminder } from './features/home/BreakReminder';
 import { ArtConflictWatcher } from './features/home/ArtConflictWatcher';
 import { FullscreenKeeper } from './features/home/FullscreenKeeper';
 import { clearRepeat } from './lib/audio';
+import { RouteErrorBoundary } from './ui/ErrorBoundary';
 
 const Auth = lazy(() => import('./features/auth'));
 const Home = lazy(() => import('./features/home/Home'));
@@ -67,6 +68,7 @@ export default function App() {
         <a href="#main" className="skip-link">Skip to content</a>
         <RouteFocus />
         <div className="app">
+          <RouteErrorBoundary>
           <Suspense fallback={<Loading />}>
             <Routes>
               <Route path="/signin" element={<Auth />} />
@@ -92,6 +94,7 @@ export default function App() {
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
+          </RouteErrorBoundary>
         </div>
         <BreakReminder />
         <ArtConflictWatcher />

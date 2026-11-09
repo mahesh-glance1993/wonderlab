@@ -1,13 +1,13 @@
 /* WonderLab design tokens — calm, low-glare palette; WCAG AA text pairs; light & dark. */
 :root {
-  --bg: #F3EFE4; --surface: #FBF8F1; --surface-2: #EEE8DA; --text: #2F3A35; --muted: #5C6861; --line: #D8CFBC;
-  --primary: #3F6F58; --primary-ink: #FBF8F1; --accent: #A5643E; --focus: #2F6F9A;
+  --bg: #F6F7FC; --surface: #FFFFFF; --surface-2: #EEF0F8; --text: #1D2540; --muted: #4F5B76; --line: #D6DAE8;
+  --primary: #5145CD; --primary-ink: #FFFFFF; --accent: #92400E; --focus: #4338CA; --art-bar: #F0EEEB;
   --good: #2F6B4F; --good-bg: #DCEBDF; --bad: #94473B; --bad-bg: #F4DED7; --warn: #7A5A12; --warn-bg: #F3E7C4;
-  --paper: #FBFAF6; --ink: #2F3A35;
-  --c-math: #DCE7EE; --c-math-ink: #2F5F80; --c-lab: #F2EBCF; --c-lab-ink: #6E5512; --c-art: #F1E2D3; --c-art-ink: #8A4E26;
-  --c-games: #E3DEEE; --c-games-ink: #5E4E8A; --c-next: #DCE9E0; --c-next-ink: #2F6B4F; --c-dl: #D9E6E6; --c-dl-ink: #2B6363; --c-prog: #EEDDE2; --c-prog-ink: #84475A;
-  --shadow: 0 10px 24px -12px rgba(47, 58, 53, .28), inset 0 -3px 0 rgba(47, 58, 53, .06), inset 0 1px 0 rgba(255, 255, 255, .7);
-  --shadow-sm: 0 4px 10px -6px rgba(47, 58, 53, .3), inset 0 -2px 0 rgba(47, 58, 53, .07);
+  --paper: #FFFFFF; --ink: #1D2540;
+  --c-math: #E8E7FF; --c-math-ink: #4338CA; --c-lab: #DDF5F0; --c-lab-ink: #0F766E; --c-art: #FCE7F0; --c-art-ink: #9D174D;
+  --c-games: #FFF1D6; --c-games-ink: #92400E; --c-next: #DCEBDF; --c-next-ink: #2F6B4F; --c-dl: #E2EEF6; --c-dl-ink: #1F5C80; --c-prog: #E5EFFF; --c-prog-ink: #1D4ED8;
+  --shadow: 0 10px 24px -12px rgba(29, 37, 64, .28), inset 0 -3px 0 rgba(29, 37, 64, .06), inset 0 1px 0 rgba(255, 255, 255, .7);
+  --shadow-sm: 0 4px 10px -6px rgba(29, 37, 64, .3), inset 0 -2px 0 rgba(29, 37, 64, .07);
   --radius: 22px; --radius-sm: 14px;
   --text-scale: 1; --target: 48px;
   --font: 'Nunito', system-ui, 'Segoe UI', 'Noto Sans Telugu', sans-serif;
@@ -17,12 +17,12 @@
   color-scheme: light;
 }
 :root[data-theme='dark'] {
-  --bg: #1B2023; --surface: #252C2F; --surface-2: #2F383C; --text: #DDE4DF; --muted: #A7B2AC; --line: #3D484C;
-  --primary: #8BBBA1; --primary-ink: #14201A; --accent: #DDAA86; --focus: #8FC1E0;
+  --bg: #101426; --surface: #1A2136; --surface-2: #232B44; --text: #F2F4FF; --muted: #B7C0D8; --line: #333D5A;
+  --primary: #B7AEFF; --primary-ink: #201846; --accent: #FCD34D; --focus: #C4B5FD; --art-bar: #20242E;
   --good: #9CD3B4; --good-bg: #284034; --bad: #EBA89A; --bad-bg: #4A3430; --warn: #E8CF8A; --warn-bg: #3F3624;
   --paper: #E8E3D7; --ink: #2F3A35;
-  --c-math: #29343B; --c-math-ink: #A9CDE6; --c-lab: #37342A; --c-lab-ink: #E6D08E; --c-art: #3A312B; --c-art-ink: #E8BC98;
-  --c-games: #312E3B; --c-games-ink: #C8BCEB; --c-next: #29372F; --c-next-ink: #A6D6BB; --c-dl: #283636; --c-dl-ink: #9FD2D2; --c-prog: #3A2E33; --c-prog-ink: #E8B4C3;
+  --c-math: #252A4D; --c-math-ink: #A5B4FC; --c-lab: #15333A; --c-lab-ink: #5EEAD4; --c-art: #3A1F33; --c-art-ink: #F9A8D4;
+  --c-games: #3A2E18; --c-games-ink: #FCD34D; --c-next: #1D3A2E; --c-next-ink: #A6D6BB; --c-dl: #1C3247; --c-dl-ink: #9FD2F2; --c-prog: #1E2D4D; --c-prog-ink: #93C5FD;
   --shadow: 0 10px 24px -12px rgba(0, 0, 0, .6), inset 0 -3px 0 rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 255, .04);
   --shadow-sm: 0 4px 10px -6px rgba(0, 0, 0, .5), inset 0 -2px 0 rgba(0, 0, 0, .2);
   color-scheme: dark;

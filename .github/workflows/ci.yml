@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Typecheck, lint, test, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck (app)
+        run: npx tsc -p tsconfig.app.json --noEmit
+      - name: Typecheck (worker)
+        run: npx tsc -p tsconfig.worker.json
+      - name: Lint
+        run: npx eslint .
+      - name: Unit + content tests
+        run: npx vitest run
+      - name: Build
+        run: npx vite build
+      - name: Check build output
+        run: |
+          test -f dist/index.html
+          test -f dist/_headers
+          test -f dist/version.json
+          cat dist/version.json
+      - name: Validate Worker bundle (no deploy)
+        run: npx wrangler deploy --dry-run --env production --outdir .wrangler/dry-run

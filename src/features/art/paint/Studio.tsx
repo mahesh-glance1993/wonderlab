@@ -538,7 +538,7 @@ export default function Studio() {
             <IconButton icon="zoomIn" label="Zoom in" onClick={() => zoomBy(1.25)} />
           </div>
           <span className="spacer" />
-          <button type="button" className="btn art-tool" aria-expanded={panelOpen} aria-controls="art-panel" onClick={() => setPanelOpen(!panelOpen)}><Icon name="palette" /><span>{panelOpen ? 'Hide panel' : 'Colours'}</span></button>
+          <button type="button" className="btn art-tool" aria-expanded={panelOpen} aria-controls="art-panel" onClick={() => setPanelOpen(!panelOpen)}><span className="art-chip" style={{ background: color, width: 22, height: 22 }} aria-hidden="true" /><Icon name="palette" /><span>{panelOpen ? 'Hide panel' : 'Colours'}</span></button>
         </div>
 
         <div className="art-body">

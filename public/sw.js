@@ -1,6 +1,6 @@
 // WonderLab service worker — app shell + downloaded packs for offline use.
 // Private API responses are never cached here (the app keeps its own scoped IndexedDB data).
-const SHELL = 'wl-shell-v2';
+const SHELL = 'wl-shell-v3';
 const RUNTIME = 'wl-runtime-v1';
 
 self.addEventListener('install', (e) => {

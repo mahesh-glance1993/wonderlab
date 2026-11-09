@@ -171,6 +171,11 @@ Totals: **24 units, 38 objectives, 314 items**, 13 passages (38 questions), 3 tr
    A teacher should confirm or replace it with authored stroke-start points per letter.
 10. **English course**: needs a primary/secondary English teacher's review for class placement, the phonics word
     list, and grammar answers that have regional variation (e.g. collective nouns, "bread and butter is").
+11. **Play & Learn → Story Time** (`src/features/early/data/stories.ts`, captions in `data/motion.ts`): all 16
+    picture stories' Telugu (page text, tap prompts/replies, questions, answer labels, animation captions) are
+    first drafts. The 8 newer stories (తెలివైన కుందేలు, చీమ–పావురం, కోతి–మొసలి, చిన్ని ఏనుగు స్నానం,
+    చందమామ–చుక్కలు, సంక్రాంతి గాలిపటాలు, చేపల పడవ, పొలంలో ఉదయం) need a check for child-level wording, sound
+    words (గర్ర్, కొక్కొరొకో, గణ గణ, చప్), festival terms (ముగ్గు, కనుమ, పొంగలి, "పొంగలో పొంగల్") and కీచురాళ్ళు.
 
 ## Shared changes requested (not made — outside this module)
 

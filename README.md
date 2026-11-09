@@ -66,6 +66,9 @@ In development, emails are written to an outbox instead of being sent. Open
 | `npm run test:e2e -- http://127.0.0.1:8787` | API journeys (server must be running, fresh DB via `npm run db:reset`) |
 | `npm run build` | Type checks + production bundle in `dist/` (+ `packs.json` with offline pack sizes) |
 | `npm run db:reset` | Wipe local DB, migrate, seed |
+| `npm run check` | Typecheck + lint + tests + build (what CI runs) |
+| `npm run db:backup` | Export the production D1 database to `backups/` (gitignored) |
+| `npm run icons` | Re-render PWA PNG icons from `public/icon.svg` |
 
 ## Production (Cloudflare)
 
@@ -93,5 +96,10 @@ In development, emails are written to an outbox instead of being sent. Open
 - Parent verification (password re-entry, 10 minutes) for account settings, sessions, recovery codes, export, deletion, profile class/age changes, downloads.
 - Every `/api/p/:profileId/*` route checks the profile belongs to the signed-in account; other accounts get `404`. Editor routes require the `educator`/`admin` role. CSRF: custom header + same-origin check on all mutating requests.
 - Minimal data: learners have a nickname, avatar, class and age band — no birth date.
+
+- Static responses carry a strict Content-Security-Policy, HSTS, frame denial and Permissions-Policy (`public/_headers`); API responses set their own in `worker/index.ts`.
+- Browser errors are reported to `POST /api/client-error` without personal data; `GET /api/health` checks D1 and reports the build version.
+
+CI: `.github/workflows/ci.yml` (every push/PR). Deploy, rollback, backups, secrets, monitoring and incident steps: **`docs/OPERATIONS.md`**.
 
 See `docs/VERIFICATION.md` for the latest build/test results and pending checks.

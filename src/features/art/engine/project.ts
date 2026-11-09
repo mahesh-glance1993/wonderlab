@@ -11,7 +11,7 @@ import type { BrushId } from './brushes';
 import { shortId, uid } from './rng';
 
 export const PROJECT_VERSION = 1;
-export type PaperId = 'smooth' | 'sketch' | 'watercolor' | 'canvas' | 'kraft';
+export type PaperId = 'smooth' | 'warm' | 'sketch' | 'watercolor' | 'canvas' | 'kraft';
 export type Point = [number, number, number, number]; // x, y, pressure/intensity 0..1, tilt degrees
 
 export interface StrokeOp { t: 'stroke'; id: string; brush: BrushId; color: string; size: number; opacity: number; seed: number; pts: Point[] }
@@ -56,7 +56,7 @@ export const CANVAS_SIZES = [
   { id: 'a4', label: 'A4 portrait', w: 1240, h: 1754 },
 ] as const;
 export const PAPERS: { id: PaperId; label: string }[] = [
-  { id: 'smooth', label: 'Smooth white' }, { id: 'sketch', label: 'Sketch paper' }, { id: 'watercolor', label: 'Watercolour paper' },
+  { id: 'smooth', label: 'Smooth white' }, { id: 'warm', label: 'Warm cream' }, { id: 'sketch', label: 'Sketch paper' }, { id: 'watercolor', label: 'Watercolour paper' },
   { id: 'canvas', label: 'Canvas' }, { id: 'kraft', label: 'Brown kraft' },
 ];
 export const MAX_UNDO = 250;
