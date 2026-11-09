@@ -1,0 +1,25 @@
+/* Offline status bar + Downloads screen (owned by the offline feature). */
+.offline-bar {
+  position: fixed; left: 50%; bottom: max(12px, env(safe-area-inset-bottom)); transform: translateX(-50%);
+  z-index: 60; width: min(720px, calc(100vw - 24px));
+  display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center;
+  padding: 10px 14px; border-radius: var(--radius-sm, 12px);
+  background: var(--surface, #fff); color: var(--ink, #222); box-shadow: 0 6px 24px rgba(0, 0, 0, .18);
+  font-size: .92rem;
+}
+.offline-bar > span:first-of-type { flex: 1 1 260px; min-width: 0; }
+.offline-bar.warn { background: var(--warn-bg, #fff4d6); color: var(--warn, #7a5200); }
+.offline-bar.good { background: var(--good-bg, #e3f6e8); color: var(--good, #1d6b34); }
+.offline-meter { flex: 1 1 120px; height: 8px; border-radius: 999px; background: var(--surface-2, #eee); overflow: hidden; }
+.offline-meter i { display: block; height: 100%; background: var(--accent, #3a7bd5); transition: width .2s; }
+@media print { .offline-bar { display: none; } }
+
+.dl-section { margin-top: 20px; }
+.dl-section h2 { margin: 0 0 8px; font-size: 1.15rem; }
+.dl-ready { display: inline-flex; gap: 8px; align-items: center; font-weight: 800; }
+.dl-errors { max-height: 120px; overflow: auto; font-size: .8rem; margin: 6px 0 0; padding-left: 18px; }
+.dl-switch { display: flex; gap: 10px; align-items: flex-start; }
+.dl-profile { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.dl-profile b { min-width: 120px; }
+.picker-offline { text-align: center; margin: 0 auto 12px; max-width: 520px; }
+.who .dl-need { display: block; font-size: .72rem; font-weight: 800; color: var(--warn, #7a5200); }

@@ -1,5 +1,13 @@
-// Minimal IndexedDB key-value store. Every key is scoped to account (and usually profile)
-// by the callers, so one family member's drafts are never visible to another.
+// Minimal IndexedDB key-value store. Every private key is scoped to account (and usually profile)
+// by the callers, so one family member's drafts are never visible to another:
+//   q:<account>:<profile>:…      unsynced attempts / lesson + activity state / rewards
+//   art:<account>:<profile>:<id> artwork drafts (artr:… = conflicted draft → preserved copy)
+//   snap:<account>:…             offline snapshots (account + profiles, learner state per profile)
+//   dl:<account>:<profile>:…     per-learner download choices
+//   ent:<account>                offline entitlement (see lib/offline.ts)
+//   meta:… / pk:…                device-level, not private (device id, installed static packs)
+// The schema (one 'kv' store, version 1) is deliberately never changed destructively, so pending
+// work survives app and service-worker updates.
 
 const DB_NAME = 'wonderlab';
 const STORE = 'kv';
@@ -36,6 +44,13 @@ export const idb = {
   keys: async (prefix: string) => {
     const all = (await tx<IDBValidKey[]>('readonly', (s) => s.getAllKeys())) || [];
     return all.map(String).filter((k) => k.startsWith(prefix));
+  },
+  /** Removes everything under several prefixes in one transaction. */
+  clearPrefixes: async (prefixes: string[]) => {
+    const all = ((await tx<IDBValidKey[]>('readonly', (s) => s.getAllKeys())) || []).map(String);
+    const ks = all.filter((k) => prefixes.some((p) => k.startsWith(p)));
+    if (ks.length) await tx('readwrite', (s) => { ks.forEach((k) => s.delete(k)); });
+    return ks.length;
   },
   /** Removes everything under a prefix (used on sign-out / profile removal). */
   clearPrefix: async (prefix: string) => {

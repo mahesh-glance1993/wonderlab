@@ -5,6 +5,7 @@ import { Toasts } from './ui/kit';
 import { BreakReminder } from './features/home/BreakReminder';
 import { ArtConflictWatcher } from './features/home/ArtConflictWatcher';
 import { FullscreenKeeper } from './features/home/FullscreenKeeper';
+import { OfflineBar } from './features/downloads/OfflineBar';
 import { clearRepeat } from './lib/audio';
 import { RouteErrorBoundary } from './ui/ErrorBoundary';
 
@@ -99,6 +100,7 @@ export default function App() {
         <BreakReminder />
         <ArtConflictWatcher />
         <FullscreenKeeper />
+        <OfflineBar />
         <Toasts />
       </BrowserRouter>
     </AppProvider>

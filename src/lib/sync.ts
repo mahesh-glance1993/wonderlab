@@ -1,21 +1,51 @@
 // Offline-first sync. Progress and artwork are written to IndexedDB first (scoped to
 // account + profile), then flushed to the server. Retries are safe:
-//  - attempts carry client UUIDs (server INSERT OR IGNORE)
+//  - attempts carry client UUIDs (server INSERT OR IGNORE) and the content version that was shown
 //  - lesson/activity state is last-writer-wins by timestamp
-//  - artwork saves send baseVersion; on conflict the server keeps both copies
+//  - artwork saves send baseVersion; on conflict the server keeps both copies; a retried save whose
+//    first response was lost is recognised by the server (same content) and not duplicated
+// Nothing private is uploaded until the server has confirmed a live session for the SAME account
+// (GET /api/auth/me via the registered revalidator). If the session has expired, sync pauses and
+// the app asks the parent to sign in to that account; another account never sees or uploads it.
 import { api, ApiError } from './api';
 import { idb } from './idb';
+import { privatePrefixes, ALL_PRIVATE_PREFIXES, uploadDecision } from './offline';
 
 export type SyncStatus = 'idle' | 'saving' | 'saved' | 'offline' | 'error';
-type Listener = (s: SyncStatus, info?: { pending: number; message?: string }) => void;
+export interface SyncInfo { pending: number; message?: string; /** waiting for a parent to sign in again */ paused?: boolean }
+type Listener = (s: SyncStatus, info?: SyncInfo) => void;
 const listeners = new Set<Listener>();
 let status: SyncStatus = 'idle';
 let pending = 0;
-export const onSync = (l: Listener) => { listeners.add(l); l(status, { pending }); return () => { listeners.delete(l); }; };
-const emit = (s: SyncStatus, message?: string) => { status = s; listeners.forEach((l) => l(s, { pending, message })); };
+let paused = false;
+let lastMessage: string | undefined;
+export const onSync = (l: Listener) => { listeners.add(l); l(status, { pending, paused, message: lastMessage }); return () => { listeners.delete(l); }; };
+const emit = (s: SyncStatus, message?: string) => { status = s; lastMessage = message; listeners.forEach((l) => l(s, { pending, message, paused })); };
 
 let scope: { accountId: string } | null = null;
-export const setSyncScope = (accountId: string | null) => { scope = accountId ? { accountId } : null; if (scope) void flush(); };
+/** account id the server last confirmed for this tab (null = not yet / expired) */
+let verifiedAccount: string | null = null;
+/**
+ * Sets whose local queue this tab works with. `verified` = the server just confirmed a session for
+ * this account (online /auth/me). Offline starts pass false: work is saved locally, not uploaded.
+ */
+export const setSyncScope = (accountId: string | null, opts: { verified?: boolean } = {}) => {
+  scope = accountId ? { accountId } : null;
+  verifiedAccount = accountId && opts.verified ? accountId : null;
+  paused = false;
+  if (scope) void flush(); else { pending = 0; emit('idle'); }
+};
+export const isSyncVerified = () => !!scope && verifiedAccount === scope.accountId;
+/** Re-count unsynced items (e.g. after work was saved) and notify listeners. */
+export async function refreshPending() { if (scope) { pending = await countPending(scope.accountId); emit(status, lastMessage); } }
+
+/** The app registers GET /auth/me here; sync calls it before uploading after a reconnect/retry. */
+let revalidator: (() => Promise<void>) | null = null;
+export const setRevalidator = (fn: (() => Promise<void>) | null) => { revalidator = fn; };
+let authLost: ((accountId: string) => void) | null = null;
+/** Called when an upload is refused because the session ended (so the app can prompt sign-in). */
+export const onAuthLost = (fn: ((accountId: string) => void) | null) => { authLost = fn; };
+
 const P = (pid: string) => `q:${scope!.accountId}:${pid}:`;
 
 export interface QueuedAttempt {
@@ -43,13 +73,14 @@ export async function listArtDrafts(pid: string) {
 export const deleteArtDraft = (pid: string, id: string) => idb.del(artKey(pid, id));
 
 // ---------------- snapshots for offline start ----------------
-export const OFFLINE_DAYS = 14; // previously authorised devices may work offline this long
+/** @deprecated the offline window now lives in the entitlement (lib/offline.ts); kept for callers */
+export const OFFLINE_DAYS = 14;
 export const snapKey = (accountId: string, what: string) => `snap:${accountId}:${what}`;
 export async function saveSnapshot(accountId: string, what: string, data: unknown) { await idb.set(snapKey(accountId, what), { data, at: Date.now() }); }
-export async function loadSnapshot<T>(accountId: string, what: string, maxAgeDays = OFFLINE_DAYS): Promise<T | null> {
-  const s = await idb.get<{ data: T; at: number }>(snapKey(accountId, what));
-  if (!s || Date.now() - s.at > maxAgeDays * 86400_000) return null;
-  return s.data;
+/** Snapshots are only usable while the offline entitlement is valid (checked by the caller). */
+export async function loadSnapshot<T>(accountId: string, what: string): Promise<T | null> {
+  const s = await idb.get<{ data: T; at: number }>(snapKey(accountId, what)).catch(() => undefined);
+  return s ? s.data : null;
 }
 
 // ---------------- flushing ----------------
@@ -60,10 +91,22 @@ function schedule(delay = 800) {
   if (timer) clearTimeout(timer);
   timer = setTimeout(() => void flush(), delay);
 }
-if (typeof window !== 'undefined') {
-  window.addEventListener('online', () => { backoff = 2000; void flush(); });
+let revalidating: Promise<void> | null = null;
+/** Re-check the server session (same account) and then upload. Used on reconnect, reopen and Retry. */
+export function revalidateAndFlush(): Promise<void> {
+  if (!revalidator) return flush();
+  revalidating ??= revalidator().catch(() => undefined).finally(() => { revalidating = null; });
+  return revalidating.then(() => flush());
+}
+let lastForeground = 0;
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  window.addEventListener('online', () => { backoff = 2000; verifiedAccount = null; void revalidateAndFlush(); });
   window.addEventListener('offline', () => emit('offline'));
-  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') void flush(); });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') { void flush(); return; }
+    // foreground sync when the app is brought back (at most every 20 s)
+    if (navigator.onLine && Date.now() - lastForeground > 20_000) { lastForeground = Date.now(); void revalidateAndFlush(); }
+  });
 }
 
 export async function countPending(accountId: string) {
@@ -72,13 +115,33 @@ export async function countPending(accountId: string) {
   return q.length + arts.length;
 }
 
+let again = false;
+/** Uploads the queue. Only one flush runs at a time (the guard is taken before any await, so two
+ *  triggers — e.g. reconnect + revalidation — can never send the same artwork twice). */
 export async function flush(): Promise<void> {
-  if (!scope || running) return;
+  if (!scope) return;
+  if (running) { again = true; return; }
+  running = true;
+  try { await flushOnce(); } finally {
+    running = false;
+    if (again) { again = false; schedule(50); }
+  }
+}
+
+async function flushOnce(): Promise<void> {
+  if (!scope) return;
   const acct = scope.accountId;
   pending = await countPending(acct);
-  if (!pending) { emit(status === 'saving' ? 'saved' : status === 'offline' && navigator.onLine ? 'saved' : status); return; }
-  if (!navigator.onLine) { emit('offline'); return; }
-  running = true;
+  const decision = uploadDecision({ scopeAccountId: acct, verifiedAccountId: verifiedAccount, online: navigator.onLine });
+  if (!pending) { paused = false; emit(status === 'saving' || status === 'error' || (status === 'offline' && navigator.onLine) ? 'saved' : status); return; }
+  if (decision === 'offline') { emit('offline'); return; }
+  if (decision === 'needs-signin') {
+    // Do not upload private changes until the server confirms this account again.
+    paused = true;
+    emit('error', 'Saved on this device. Waiting for a parent to sign in again before uploading.');
+    return;
+  }
+  paused = false;
   emit('saving');
   try {
     const keys = await idb.keys(`q:${acct}:`);
@@ -108,6 +171,16 @@ export async function flush(): Promise<void> {
       const d = await idb.get<ArtDraft>(k);
       if (!d || !d.dirty) continue;
       const pid = k.split(':')[2];
+      // Continued edits of a draft that already conflicted (e.g. the studio stayed open on it) belong
+      // to the preserved copy: move them there instead of creating yet another conflict copy.
+      const redir = await idb.get<{ copyId: string; staleBase: number }>(`artr:${acct}:${pid}:${d.id}`);
+      if (redir && d.baseVersion <= redir.staleBase) {
+        const copyKey = `art:${acct}:${pid}:${redir.copyId}`;
+        const copy = await idb.get<ArtDraft>(copyKey);
+        await idb.set(copyKey, { ...d, id: redir.copyId, title: copy?.title ?? d.title, baseVersion: copy?.baseVersion ?? 1, dirty: true, conflictOf: d.id });
+        await idb.del(k);
+        continue;
+      }
       try {
         const r = await api<{ version: number }>(`/p/${pid}/artworks/${d.id}`, { method: 'PUT', body: { title: d.title, data: d.data, thumb: d.thumb, baseVersion: d.baseVersion } });
         const cur = await idb.get<ArtDraft>(k);
@@ -118,6 +191,7 @@ export async function flush(): Promise<void> {
           // Server kept both. Our local copy now corresponds to the preserved copy.
           const copyId = String(e.body.conflictCopyId);
           await idb.del(k);
+          await idb.set(`artr:${acct}:${pid}:${d.id}`, { copyId, staleBase: d.baseVersion });
           await idb.set(`art:${acct}:${pid}:${copyId}`, { ...d, id: copyId, baseVersion: 1, dirty: false, conflictOf: d.id });
           window.dispatchEvent(new CustomEvent('wl-art-conflict', { detail: { pid, originalId: d.id, copyId } }));
         } else throw e;
@@ -129,27 +203,42 @@ export async function flush(): Promise<void> {
     if (pending) schedule(500);
   } catch (e) {
     const offline = e instanceof ApiError && e.status === 0;
-    emit(offline ? 'offline' : 'error', offline ? undefined : (e as Error).message);
-    if (e instanceof ApiError && (e.status === 401 || e.status === 403)) { /* signed out: keep queue for next sign-in */ }
-    else { schedule(backoff); backoff = Math.min(backoff * 2, 60_000); }
-  } finally {
-    running = false;
+    if (e instanceof ApiError && e.status === 401) {
+      // Session ended: keep everything, pause, ask a parent to sign in to this account again.
+      verifiedAccount = null;
+      paused = true;
+      pending = await countPending(acct);
+      emit('error', 'Saved on this device. Sign in again to upload.');
+      authLost?.(acct);
+    } else {
+      emit(offline ? 'offline' : 'error', offline ? undefined : (e as Error).message);
+      schedule(backoff); backoff = Math.min(backoff * 2, 60_000);
+    }
   }
 }
-export const retrySync = () => { backoff = 2000; return flush(); };
+/** Explicit Retry: re-check the session first, then upload. */
+export const retrySync = () => { backoff = 2000; return revalidateAndFlush(); };
 
-/** Removes this account's private cached data. Returns false if unsynced work exists and force=false. */
+/** Removes this account's private local data. Returns false if unsynced work exists and force=false. */
 export async function clearAccountData(accountId: string, force = false) {
   if (!force && (await countPending(accountId)) > 0) return false;
-  await idb.clearPrefix(`q:${accountId}:`);
-  await idb.clearPrefix(`art:${accountId}:`);
-  await idb.clearPrefix(`snap:${accountId}:`);
-  await idb.clearPrefix(`dl:${accountId}:`);
+  await idb.clearPrefixes(privatePrefixes(accountId));
+  return true;
+}
+/** Unsynced items of every account on this device. */
+export async function pendingOnDevice() {
+  const ks = await idb.keys('');
+  const accts = new Set(ks.filter((k) => k.startsWith('q:') || k.startsWith('art:')).map((k) => k.split(':')[1]));
+  let n = 0;
+  for (const a of accts) n += await countPending(a);
+  return n;
+}
+/** "Remove this device's data": every account's private records (static packs/TTS handled elsewhere). */
+export async function clearAllPrivateData(force = false) {
+  if (!force && (await pendingOnDevice()) > 0) return false;
+  await idb.clearPrefixes(ALL_PRIVATE_PREFIXES);
   return true;
 }
 export async function clearProfileData(accountId: string, pid: string) {
-  await idb.clearPrefix(`q:${accountId}:${pid}:`);
-  await idb.clearPrefix(`art:${accountId}:${pid}:`);
-  await idb.clearPrefix(`snap:${accountId}:${pid}`);
-  await idb.clearPrefix(`dl:${accountId}:${pid}:`);
+  await idb.clearPrefixes([`q:${accountId}:${pid}:`, `art:${accountId}:${pid}:`, `artr:${accountId}:${pid}:`, `snap:${accountId}:${pid}:`, `dl:${accountId}:${pid}:`]);
 }

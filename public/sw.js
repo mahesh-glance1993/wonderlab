@@ -1,61 +1,173 @@
-// WonderLab service worker — app shell + downloaded packs for offline use.
-// Private API responses are never cached here (the app keeps its own scoped IndexedDB data).
-const SHELL = 'wl-shell-v3';
+// WonderLab service worker — offline app shell + downloaded packs. See docs/OFFLINE.md.
+//
+// Caches (all names start with "wl-"):
+//   wl-build-<buildId>  app shell + downloaded packs + fonts of one build. Filled and VERIFIED by the
+//                       page (src/features/downloads/manager.ts). A new build is staged in its own
+//                       cache; the previous one is kept until the new one verified, so a failed or
+//                       quota-limited update never breaks offline use.
+//   wl-meta             /__wl/ready → { build } — the verified build used for offline navigations.
+//   wl-runtime-v1       opportunistic copies of hashed assets/fonts + the last page seen online.
+//   wl-public-api-v1    published content corrections (/api/content/overrides — public, not per account)
+//                       so offline lessons show the same content version as online ones.
+//   wl-tts-v1           generated narration (not private), bounded LRU.
+// Private API responses are never cached (the app keeps its own account+profile scoped IndexedDB).
+// Pending work lives in IndexedDB, which this worker never touches, so it survives SW/app updates.
 const RUNTIME = 'wl-runtime-v1';
+const PUBLIC_API = 'wl-public-api-v1';
+const TTS = 'wl-tts-v1';
+const TTS_MAX = 300;
+const META = 'wl-meta';
+const NAV_TIMEOUT_MS = 6000;
 
 self.addEventListener('install', (e) => {
+  // Best effort: put this build's shell in its own cache (not marked ready — the page verifies).
   e.waitUntil((async () => {
-    const c = await caches.open(SHELL);
-    const extra = await fetch('/shell.json').then((r) => (r.ok ? r.json() : [])).catch(() => []);
-    await c.addAll(['/', '/index.html', '/manifest.webmanifest', '/icon.svg', '/packs.json', ...extra]);
-    self.skipWaiting();
+    try {
+      const man = await fetch('/packs.json', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null));
+      if (man && man.build && man.shell) {
+        const c = await caches.open(`wl-build-${man.build}`);
+        for (const f of man.shell.files) {
+          if (await c.match(f)) continue;
+          const r = await fetch(f, { cache: 'no-cache' }).catch(() => null);
+          if (r && r.ok) await c.put(f, r);
+        }
+      }
+    } catch { /* offline or quota: the page-driven download retries */ }
+    await self.skipWaiting();
   })());
 });
+
 self.addEventListener('activate', (e) => {
   e.waitUntil((async () => {
-    for (const k of await caches.keys()) if ((k.startsWith('wl-shell-') && k !== SHELL) || (k.startsWith('wl-runtime-') && k !== RUNTIME)) await caches.delete(k);
+    // legacy single shell cache from older workers (its files are re-fetched into wl-build-*)
+    for (const k of await caches.keys()) if (k.startsWith('wl-shell-')) await caches.delete(k);
     await self.clients.claim();
   })());
 });
 
+async function readyBuild() {
+  try {
+    const r = await (await caches.open(META)).match('/__wl/ready');
+    return r ? (await r.json()).build : null;
+  } catch { return null; }
+}
+
+const isFontUrl = (u) => u.startsWith('https://fonts.googleapis.com/') || u.startsWith('https://fonts.gstatic.com/');
+
 async function fromAnyCache(req) {
-  const keys = await caches.keys();
+  const ready = await readyBuild();
+  const keys = (await caches.keys()).filter((k) => k.startsWith('wl-') && k !== META && k !== TTS);
+  if (ready) keys.sort((a, b) => (a === `wl-build-${ready}` ? -1 : b === `wl-build-${ready}` ? 1 : 0));
   for (const k of keys) {
-    if (!k.startsWith('wl-')) continue;
-    const r = await (await caches.open(k)).match(req, { ignoreSearch: true });
+    const r = await (await caches.open(k)).match(req, { ignoreSearch: !isFontUrl(req.url), ignoreVary: true });
+    // an opaque (no-cors) copy cannot answer a CORS request (e.g. the pack downloader's font fetch)
+    if (r && !(r.type === 'opaque' && req.mode === 'cors')) return r;
+  }
+  return null;
+}
+
+/** The page for offline navigations: the verified build first, then the last page seen online. */
+async function offlinePage() {
+  const ready = await readyBuild();
+  if (ready) {
+    const r = await (await caches.open(`wl-build-${ready}`)).match('/__wl/index.html');
+    if (r) return r;
+  }
+  const last = await (await caches.open(RUNTIME)).match('/__wl/last-index.html');
+  if (last) return last;
+  for (const k of await caches.keys()) {
+    if (!k.startsWith('wl-build-')) continue;
+    const r = await (await caches.open(k)).match('/__wl/index.html');
     if (r) return r;
   }
   return null;
 }
 
+function withTimeout(p, ms) {
+  return new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error('timeout')), ms);
+    p.then((v) => { clearTimeout(t); resolve(v); }, (err) => { clearTimeout(t); reject(err); });
+  });
+}
+
+async function trimTts(c) {
+  const ks = await c.keys();
+  for (let i = 0; i < ks.length - TTS_MAX; i++) await c.delete(ks[i]); // oldest first (insertion order)
+}
+
 self.addEventListener('fetch', (e) => {
-  const url = new URL(e.request.url);
-  if (e.request.method !== 'GET') return;
-  // generated narration is not private: keep it so sentences replay offline
-  if (url.origin === location.origin && url.pathname === '/api/tts') {
+  const req = e.request;
+  if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  const same = url.origin === location.origin;
+
+  // generated narration is not private: keep it (LRU) so sentences replay offline
+  if (same && url.pathname === '/api/tts') {
     e.respondWith((async () => {
-      const c = await caches.open('wl-tts-v1');
-      const hit = await c.match(e.request);
-      if (hit) return hit;
-      const res = await fetch(e.request);
-      if (res.ok) c.put(e.request, res.clone());
+      const c = await caches.open(TTS);
+      const hit = await c.match(req);
+      if (hit) {
+        // refresh recency: move to the end of the insertion order
+        const copy = hit.clone();
+        e.waitUntil(c.delete(req).then(() => c.put(req, copy)));
+        return hit;
+      }
+      const res = await fetch(req);
+      if (res.ok) e.waitUntil(c.put(req, res.clone()).then(() => trimTts(c)));
       return res;
     })());
     return;
   }
-  if (url.origin === location.origin && url.pathname.startsWith('/api/')) return; // network only
-  if (e.request.mode === 'navigate') {
-    e.respondWith(fetch(e.request).catch(async () => (await caches.match('/index.html')) || Response.error()));
+  // published content corrections: public; network first, cached copy offline
+  if (same && url.pathname === '/api/content/overrides') {
+    e.respondWith((async () => {
+      const c = await caches.open(PUBLIC_API);
+      try {
+        const res = await withTimeout(fetch(req), NAV_TIMEOUT_MS);
+        if (res.ok) e.waitUntil(c.put('/api/content/overrides', res.clone()));
+        return res;
+      } catch {
+        return (await c.match('/api/content/overrides')) || Response.error();
+      }
+    })());
     return;
   }
-  const isFont = url.hostname.endsWith('fonts.googleapis.com') || url.hostname.endsWith('fonts.gstatic.com');
-  if (url.origin === location.origin || isFont) {
+  if (same && url.pathname.startsWith('/api/')) return; // private: network only, never cached
+
+  if (req.mode === 'navigate') {
+    // network first (fresh deploys reach every device); offline → verified build's page
     e.respondWith((async () => {
-      const hit = await fromAnyCache(e.request);
+      try {
+        const res = await withTimeout(fetch(req), NAV_TIMEOUT_MS);
+        if (res.ok && (res.headers.get('Content-Type') || '').includes('text/html')) {
+          const body = await res.clone().blob();
+          e.waitUntil(caches.open(RUNTIME).then((c) => c.put('/__wl/last-index.html', new Response(body, { headers: { 'Content-Type': 'text/html; charset=utf-8' } }))));
+        }
+        return res;
+      } catch {
+        return (await offlinePage()) || new Response('<!doctype html><meta charset="utf-8"><title>WonderLab</title><p style="font:18px system-ui;padding:24px">WonderLab is not downloaded on this device yet. Connect to the internet and open it once.</p>', { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+      }
+    })());
+    return;
+  }
+
+  // manifests must always be fresh when online
+  if (same && ['/packs.json', '/shell.json', '/version.json', '/sw.js'].includes(url.pathname)) {
+    e.respondWith(fetch(req).catch(async () => (await fromAnyCache(req)) || Response.error()));
+    return;
+  }
+
+  const isFont = url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com';
+  if (same || isFont) {
+    e.respondWith((async () => {
+      const hit = await fromAnyCache(req);
       if (hit) return hit;
-      const res = await fetch(e.request);
+      const res = await fetch(req);
       // hashed build assets and fonts are immutable: keep them for offline use
-      if (res.ok && (url.pathname.startsWith('/assets/') || isFont)) (await caches.open(RUNTIME)).put(e.request, res.clone());
+      if ((res.ok || res.type === 'opaque') && ((same && url.pathname.startsWith('/assets/')) || isFont)) {
+        const copy = res.clone();
+        e.waitUntil(caches.open(RUNTIME).then((c) => c.put(req, copy)).catch(() => undefined));
+      }
       return res;
     })());
   }
