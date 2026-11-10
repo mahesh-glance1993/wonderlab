@@ -15,7 +15,7 @@ shot() { A exec-out screencap -p > "$OUT/$1.png"; }
 waitfor() {
   for _ in $(seq 1 "${2:-40}"); do
     X=$(screen)
-    echo "$X" | grep -q "$1" && return 0
+    echo "$X" | grep -qE "$1" && return 0
     for tip in 'Got it' 'No thanks'; do
       B=$(echo "$X" | grep -o "text=\"$tip\"[^>]*bounds=\"\[[0-9]*,[0-9]*\]\[[0-9]*,[0-9]*\]\"" | grep -o '\[[0-9]*,[0-9]*\]\[[0-9]*,[0-9]*\]' | head -1)
       if [ -n "$B" ]; then set -- "$1" "${2:-40}" $(echo "$B" | tr '[],' '   '); A shell input tap $(( ($3+$5)/2 )) $(( ($4+$6)/2 )); fi
@@ -38,23 +38,24 @@ A shell cmd package resolve-activity --brief -c android.intent.category.LAUNCHER
 
 A shell am force-stop com.android.chrome
 A shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null 2>&1   # same as tapping the icon
-waitfor 'Parent sign in' 60
+READY='Parent sign in|Who is learning|text="(Hi|నమస్తే) '
+waitfor "$READY" 60
 shot 1-launch
 A shell dumpsys activity activities | grep topResumedActivity | grep -q "customtabs"; ok $? "Opens in its own full-screen app window (Trusted Web Activity)"
 echo "$X" | grep -q 'resource-id="com.android.chrome:id/url_bar"'; [ $? -ne 0 ]; ok $? "No browser address bar (domain verified via assetlinks.json)"
-X=$(screen); echo "$X" | grep -q 'Parent sign in'; ok $? "WonderLab sign-in screen rendered (https://learn.maheshglance.com)"
-echo "$X" | grep -q 'Create a parent account'; ok $? "Sign-up link present"
+X=$(screen); echo "$X" | grep -qE "$READY"; ok $? "WonderLab loaded from https://learn.maheshglance.com (sign-in or, if already signed in, home)"
+echo "$X" | grep -q 'WonderLab'; ok $? "WonderLab title shown"
 
 # rotation
 A shell settings put system accelerometer_rotation 0; A shell settings put system user_rotation 1
-waitfor 'Parent sign in' 20; ok $? "Landscape: content still shown"
+waitfor "$READY" 20; ok $? "Landscape: content still shown"
 shot 2-landscape
 A shell settings put system user_rotation 0; sleep 4
 
 # back button leaves the app cleanly, relaunch resumes
 A shell input keyevent KEYCODE_BACK; sleep 3
 A shell monkey -p $PKG -c android.intent.category.LAUNCHER 1 >/dev/null 2>&1
-waitfor 'Parent sign in' 40; ok $? "Relaunch from icon"
+waitfor "$READY" 40; ok $? "Relaunch from icon"
 
 # offline relaunch: the app's own cached page, not a browser error
 A shell svc wifi disable; A shell svc data disable; sleep 3

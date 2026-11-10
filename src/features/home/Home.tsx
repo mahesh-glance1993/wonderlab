@@ -37,7 +37,7 @@ export default function Home() {
       <>
         {presentation.teluguAvailable && (
           <button className="btn small" onClick={() => void updatePrefs({ language: lang === 'te' ? 'en' : 'te' })} aria-label={`${t('language')}: ${lang === 'te' ? 'తెలుగు' : 'English'}. Switch`}>
-            <Icon name="globe" />{lang === 'te' ? 'English' : 'తెలుగు'}
+            <Icon name="globe" /><span className="hide-narrow">{lang === 'te' ? 'English' : 'తెలుగు'}</span>
           </button>
         )}
         <ComfortSettings />

@@ -28,6 +28,18 @@ for (const sz of SIZES) {
           else if ((cs.overflow === 'hidden' || cs.overflowX === 'hidden') && el.scrollWidth > el.clientWidth + 2) out.push(`clipped: "${txt}"`);
           if (r.right > innerWidth + 2 || r.left < -2) if (!el.closest('[style*="overflow"],.art-toolbar,.row-scroll,[class*="scroll"],table')) out.push(`off-screen: "${txt}" (${Math.round(r.left)}..${Math.round(r.right)})`);
         }
+        // a single word must never be split across two lines (e.g. "WonderLa" / "b")
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+          const host = n.parentElement; if (!host || host.closest('svg,.sr-only,[hidden],script,style,textarea,input')) continue;
+          const re = /\S+/g; let m;
+          while ((m = re.exec(n.data))) {
+            if (m[0].length < 3) continue;
+            const r = document.createRange(); r.setStart(n, m.index); r.setEnd(n, m.index + m[0].length);
+            const tops = new Set([...r.getClientRects()].filter((x) => x.width > 0).map((x) => Math.round(x.top)));
+            if (tops.size > 1) out.push(`word split across lines: "${m[0]}"`);
+          }
+        }
         return [...new Set(out)].slice(0, 5);
       });
       if (probs.length) { fail++; console.log(`FAIL [${sz.n}] ${kid} ${r}: ${probs.join(' | ')}`); } else pass++;
