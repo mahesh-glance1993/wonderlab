@@ -3,7 +3,7 @@ import { useEffect, useId, useRef, useState, type ReactNode, type ButtonHTMLAttr
 import { useNavigate } from 'react-router-dom';
 import { Icon, type IconName } from './Icon';
 import { useApp } from '../lib/app';
-import { useFullscreen, fullscreenSupported } from '../lib/fullscreen';
+import { useFullscreen, fullscreenSupported, inAndroidApp } from '../lib/fullscreen';
 import { onSync, retrySync, type SyncStatus } from '../lib/sync';
 import { onSpeaking, replay, stopSpeaking, tone } from '../lib/audio';
 import { api } from '../lib/api';
@@ -140,6 +140,7 @@ export { replay };
 export function FullscreenButton() {
   const fs = useFullscreen();
   const { t } = useApp();
+  if (inAndroidApp()) return null;
   return (
     <Button icon={fs.active ? 'min' : 'max'} onClick={() => { if (fs.active) sessionStorage.setItem('wl.fsOff', '1'); else sessionStorage.removeItem('wl.fsOff'); void fs.toggle(); }} small aria-pressed={fs.active} title={fullscreenSupported() ? undefined : 'Immersive mode'}>
       {fs.active ? t('exitFullScreen') : t('enterFullScreen')}

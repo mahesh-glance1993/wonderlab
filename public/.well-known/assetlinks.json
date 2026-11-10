@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.maheshglance.wonderlab",
+      "sha256_cert_fingerprints": [
+        "5E:53:20:75:5D:CF:B6:C0:13:6A:56:9D:4D:65:01:97:70:60:EC:EA:83:F0:D1:A4:6B:6D:08:FB:81:09:13:D5"
+      ]
+    }
+  }
+]

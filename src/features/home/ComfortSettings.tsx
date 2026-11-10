@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { inAndroidApp } from '../../lib/fullscreen';
 import { listVoices, loadVoices, speak } from '../../lib/audio';
 import { useApp, type Prefs } from '../../lib/app';
 import { IconButton, Modal, Segmented, Field } from '../../ui/kit';
@@ -33,7 +34,7 @@ export function ComfortSettings() {
             <Field label={t('theme')}>{() => <Segmented label={t('theme')} value={prefs.theme} onChange={(theme) => set({ theme })} options={[{ value: 'system', label: 'Auto' }, { value: 'light', label: t('light') }, { value: 'dark', label: t('dark') }]} />}</Field>
             <Field label={t('textSize')}>{() => <Segmented label={t('textSize')} value={prefs.textSize} onChange={(textSize) => set({ textSize })} options={[{ value: 1, label: 'A' }, { value: 1.15, label: <span style={{ fontSize: '1.15em' }}>A</span> }, { value: 1.3, label: <span style={{ fontSize: '1.3em' }}>A</span> }]} />}</Field>
             <label className="check"><input type="checkbox" checked={prefs.reduceMotion} onChange={(e) => set({ reduceMotion: e.target.checked })} />{t('reduceMotion')}</label>
-            <label className="check"><input type="checkbox" checked={prefs.keepFullscreen !== false} onChange={(e) => { sessionStorage.removeItem('wl.fsOff'); set({ keepFullscreen: e.target.checked }); }} />Keep full screen</label>
+            {!inAndroidApp() && <label className="check"><input type="checkbox" checked={prefs.keepFullscreen !== false} onChange={(e) => { sessionStorage.removeItem('wl.fsOff'); set({ keepFullscreen: e.target.checked }); }} />Keep full screen</label>}
             <label className="check"><input type="checkbox" checked={prefs.mute} onChange={(e) => set({ mute: e.target.checked })} />{t('mute')}</label>
             <label className="check"><input type="checkbox" checked={prefs.narration} onChange={(e) => set({ narration: e.target.checked })} />Read instructions aloud</label>
             <Field label="Reading speed">{() => <Segmented label="Reading speed" value={prefs.readingSpeed || (presentation?.tier === 'early' ? 'slower' : presentation?.tier === 'primary' ? 'slow' : 'normal')} onChange={(readingSpeed) => set({ readingSpeed })} options={[{ value: 'slower', label: 'Very slow' }, { value: 'slow', label: 'Slow' }, { value: 'normal', label: 'Normal' }]} />}</Field>
