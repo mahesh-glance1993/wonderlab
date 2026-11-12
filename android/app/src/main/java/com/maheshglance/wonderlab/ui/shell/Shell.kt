@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
@@ -135,7 +136,8 @@ fun HubScaffold(current: String, content: @Composable () -> Unit) {
     if (win.isTablet || win.landscape) {
         Row(Modifier.fillMaxSize()) {
             NavigationRail(containerColor = c.surface, modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Vertical + WindowInsetsSides.Start))) {
-                Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterVertically)) {
+                // fill the height only: fillMaxSize here would stretch the rail across the whole tablet and hide the page
+                Column(Modifier.fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(6.dp, Alignment.CenterVertically)) {
                     tabs.forEach { tab ->
                         NavigationRailItem(
                             selected = current == tab.route,
