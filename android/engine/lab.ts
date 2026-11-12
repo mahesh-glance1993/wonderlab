@@ -269,3 +269,12 @@ export function golden() {
 }
 /** Reference only (Node test): state shapes the checks expect. */
 export const sampleStates = () => ({ motion: initMotion(MOTION_DEFAULTS) as MotionState, forces: initForces() as ForcesState, circuit: initCircuit(), light: initLight() });
+
+/** Runs the TypeScript model n fixed steps from the start (tests compare the native port and challenge goals). */
+export function run(sim: SimId, raw: Any, n: number) {
+  if (sim === 'motion') { const p = sanitizeMotion(raw); const { samples: _s, ...s } = advanceMotion(initMotion(p), p, n); return s; }
+  if (sim === 'forces') { const p = sanitizeForces(raw); return advanceForces(initForces(), p, n); }
+  if (sim === 'circuit') return advanceCircuit(initCircuit(), sanitizeCircuit(raw), n);
+  const p = sanitizeLight(raw);
+  return advanceLight(initLight(), traceRay(p).pathLength, n);
+}
