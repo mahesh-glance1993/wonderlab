@@ -44,6 +44,8 @@ android {
         debug {
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
+            // Test builds can point at a local server:  ./gradlew assembleDebug -PapiBase=http://10.0.2.2:8787
+            (project.findProperty("apiBase") as String?)?.let { buildConfigField("String", "API_BASE", "\"$it\"") }
         }
         release {
             isMinifyEnabled = true
