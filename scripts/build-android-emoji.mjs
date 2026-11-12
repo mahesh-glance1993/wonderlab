@@ -13,9 +13,10 @@ const out = join(root, 'android/app/src/main/assets/emoji');
 mkdirSync(out, { recursive: true });
 
 const files = [];
-const walk = (d) => { for (const f of readdirSync(d)) { const p = join(d, f); if (statSync(p).isDirectory()) walk(p); else if (/\.(ts|tsx)$/.test(f)) files.push(p); } };
+const walk = (d) => { for (const f of readdirSync(d)) { const p = join(d, f); if (statSync(p).isDirectory()) walk(p); else if (/\.(ts|tsx|kt)$/.test(f)) files.push(p); } };
 walk(join(root, 'src'));
 walk(join(root, 'android/engine'));
+walk(join(root, 'android/app/src/main/java'));
 
 const RE = /\p{RI}\p{RI}|(?:\p{Extended_Pictographic}|[#*0-9]️?⃣)(?:️|\p{EMod})?(?:‍\p{Extended_Pictographic}(?:️|\p{EMod})?)*/gu;
 const found = new Set();

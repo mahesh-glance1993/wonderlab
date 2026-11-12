@@ -129,11 +129,11 @@ object Brushes {
         BrushDef("graphite", "Pencil", "పెన్సిల్", 0.18f, BrushTarget.Buffer, 6, 1f, "Grey graphite. Press harder for darker lines; tilt the pen to shade.", usesTilt = true, fixedColor = "#3d4046", emoji = "✏️"),
         BrushDef("colorPencil", "Colour pencil", "రంగు పెన్సిల్", 0.18f, BrushTarget.Buffer, 8, 1f, "Grainy colour that builds up. Tilt to shade.", usesTilt = true, emoji = "✏️"),
         BrushDef("crayon", "Crayon", "క్రేయాన్", 0.15f, BrushTarget.Buffer, 18, 0.95f, "Waxy colour that shows the paper grain. Press harder to fill gaps.", emoji = "🖍️"),
-        BrushDef("oil", "Oil paint", "ఆయిల్ పెయింట్", 0.12f, BrushTarget.Direct, 26, 1f, "Thick, opaque paint that picks up and smears colours underneath.", emoji = "🧴"),
+        BrushDef("oil", "Oil paint", "ఆయిల్ పెయింట్", 0.12f, BrushTarget.Direct, 26, 1f, "Thick, opaque paint that picks up and smears colours underneath.", emoji = "🖌️"),
         BrushDef("watercolor", "Watercolour", "వాటర్ కలర్", 0.14f, BrushTarget.Buffer, 34, 0.6f, "See-through washes with darker wet edges. Layer strokes to build colour.", emoji = "💧"),
         BrushDef("marker", "Marker", "మార్కర్", 0.08f, BrushTarget.Buffer, 16, 0.8f, "Flat, even colour. Overlaps get a little darker.", emoji = "🖊️"),
-        BrushDef("ink", "Ink pen", "ఇంక్ పెన్", 0.08f, BrushTarget.Buffer, 10, 1f, "Crisp lines. Press harder for thicker lines.", emoji = "🪶"),
-        BrushDef("airbrush", "Airbrush", "ఎయిర్ బ్రష్", 0.12f, BrushTarget.Buffer, 50, 1f, "Soft spray. Press harder (or go over again) for more paint.", emoji = "☁️"),
+        BrushDef("ink", "Ink pen", "ఇంక్ పెన్", 0.08f, BrushTarget.Buffer, 10, 1f, "Crisp lines. Press harder for thicker lines.", emoji = "🖋️"),
+        BrushDef("airbrush", "Airbrush", "ఎయిర్ బ్రష్", 0.12f, BrushTarget.Buffer, 50, 1f, "Soft spray. Press harder (or go over again) for more paint.", emoji = "💨"),
         BrushDef("eraser", "Eraser", "రబ్బరు", 0.12f, BrushTarget.Direct, 28, 1f, "Rubs out on the selected layer only. Outlines are safe.", emoji = "🧽"),
     ).associateBy { it.id }
     val ORDER = listOf("graphite", "colorPencil", "crayon", "marker", "watercolor", "oil", "ink", "airbrush", "eraser")
