@@ -242,7 +242,7 @@ private fun TraceBody(course: String, set: LTraceSet) {
             if (wide) Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Column(Modifier.weight(1f).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     controls(); info(); tolerance(Modifier.fillMaxWidth()); VoiceNote(course); resultBox()
-                    Box(Modifier.weight(1f)) { strip(true) }
+                    Box(Modifier.weight(1f)) { strip(!phone) }
                     if (!phone) Text("Use a finger or a pen. The printable sheet is another way to practise.", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted)
                 }
                 val side = minOf(mh - 56.dp, mw * 0.55f)
