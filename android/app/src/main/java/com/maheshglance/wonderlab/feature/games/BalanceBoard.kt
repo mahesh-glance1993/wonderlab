@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.games
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -165,7 +167,7 @@ fun BalanceBoard(b: BoardState) {
                 if (steps.size >= maxShown) Text("…", color = c.muted, style = MaterialTheme.typography.bodySmall)
                 else Text(b.view.j("startText").str() ?: "", style = MaterialTheme.typography.bodySmall, color = c.text)
                 steps.takeLast(maxShown).forEach { s: JsonElement ->
-                    Text("${s.j("op").str()}  →  ${s.j("eq").str()}", style = MaterialTheme.typography.bodySmall, color = c.muted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    FitText("${s.j("op").str()}  →  ${s.j("eq").str()}", style = MaterialTheme.typography.bodySmall, color = c.muted, maxLines = 1)
                 }
             }
         }

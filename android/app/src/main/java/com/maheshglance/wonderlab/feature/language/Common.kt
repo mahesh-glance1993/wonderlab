@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.language
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.animation.core.Animatable
@@ -340,7 +342,7 @@ fun <T> Segmented(value: T, options: List<Pair<T, String>>, onChange: (T) -> Uni
                     .clip(RoundedCornerShape(13.dp)).background(if (on) WL.colors.primary else Color.Transparent)
                     .pressable { onChange(v) }.padding(horizontal = 12.dp),
                 contentAlignment = Alignment.Center,
-            ) { Text(label, color = if (on) WL.colors.primaryInk else WL.colors.text, style = MaterialTheme.typography.labelMedium, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+            ) { FitText(label, color = if (on) WL.colors.primaryInk else WL.colors.text, style = MaterialTheme.typography.labelMedium, maxLines = 1) }
         }
     }
 }

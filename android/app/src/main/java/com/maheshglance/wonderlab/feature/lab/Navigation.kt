@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.lab
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -100,8 +102,8 @@ private fun LabIndex() {
                             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                 EmojiImage(l.j("emoji").str() ?: "🔬", pic)
                                 Text(l.j("title").str() ?: "", style = MaterialTheme.typography.titleMedium, color = WL.colors.labInk)
-                                Text(l.j(if (tier.simple) "descSimple" else "desc").str() ?: "", style = MaterialTheme.typography.bodySmall, color = WL.colors.text, maxLines = 3, overflow = TextOverflow.Ellipsis)
-                                if (roomy) Text("Suits ${l.j("classes").str()}", style = MaterialTheme.typography.labelSmall, color = WL.colors.muted, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                                FitText(l.j(if (tier.simple) "descSimple" else "desc").str() ?: "", style = MaterialTheme.typography.bodySmall, color = WL.colors.text, maxLines = 3)
+                                if (roomy) FitText("Suits ${l.j("classes").str()}", style = MaterialTheme.typography.labelSmall, color = WL.colors.muted, maxLines = 2)
                                 if (done) EmojiPill("👑", "Challenge done", bg = WL.colors.goodBg, fg = WL.colors.good)
                             }
                         }

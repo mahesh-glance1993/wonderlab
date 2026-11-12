@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.art.coloring
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -105,7 +107,7 @@ private fun PageCard(p: ColoringPage, te: Boolean) {
             .pressable { app.go("art/color/${p.id}") }.semantics { contentDescription = "Colour ${p.title}" }) {
             PagePreview(p.id, Modifier.fillMaxSize().padding(4.dp))
         }
-        Text(if (te) p.titleTe else p.title, style = MaterialTheme.typography.titleSmall, color = WL.colors.text, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        FitText(if (te) p.titleTe else p.title, style = MaterialTheme.typography.titleSmall, color = WL.colors.text, maxLines = 1)
         Row(verticalAlignment = Alignment.CenterVertically) {
             Pill(if (p.level == "easy") "Easy" else "Detailed")
             Box(Modifier.weight(1f))

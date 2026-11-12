@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.early
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -97,7 +99,7 @@ private fun BookPage(b: EarlyBundle, src: String, st: StickerState, modifier: Mo
     val name = b.stickerSources[src] ?: L(src, src)
     Column(modifier.clip(RoundedCornerShape(18.dp)).background(c.surface).padding(6.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(name.tx, style = MaterialTheme.typography.titleSmall, color = c.text, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+            FitText(name.tx, style = MaterialTheme.typography.titleSmall, color = c.text, maxLines = 1, modifier = Modifier.weight(1f))
             Text("$got / ${list.size}", style = MaterialTheme.typography.labelMedium, color = c.muted)
             if (got < list.size) SOURCE_ROUTES[src]?.let { route -> IconBtn(Icons.Rounded.PlayArrow, "${SBT.play.tx} ${name.tx}", { app.go(route) }, tint = c.primaryInk, bg = c.primary, size = 36.dp) }
         }

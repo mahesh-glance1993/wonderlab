@@ -167,8 +167,15 @@ fun Tile(
         ) {
             if (emoji != null) EmojiImage(emoji, pic)
             else if (icon != null) Box(Modifier.size(pic).clip(RoundedCornerShape(18.dp)).background(WL.colors.surface), contentAlignment = Alignment.Center) { Icon(icon, null, tint = ink, modifier = Modifier.size(pic * 0.55f)) }
-            Text(title, style = MaterialTheme.typography.titleMedium, color = ink, textAlign = if (centered) TextAlign.Center else TextAlign.Start, maxLines = 2, overflow = TextOverflow.Ellipsis)
-            if (subtitle != null && h > 120.dp) Text(subtitle, style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, textAlign = if (centered) TextAlign.Center else TextAlign.Start, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            // titles wrap between words and shrink to fit the tile — never cut off with "…"
+            androidx.compose.foundation.text.BasicText(
+                title,
+                style = MaterialTheme.typography.titleMedium.copy(color = ink, textAlign = if (centered) TextAlign.Center else TextAlign.Start, lineHeight = androidx.compose.ui.unit.TextUnit(1.12f, androidx.compose.ui.unit.TextUnitType.Em)),
+                maxLines = 2,
+                autoSize = androidx.compose.foundation.text.TextAutoSize.StepBased(minFontSize = androidx.compose.ui.unit.TextUnit(11f, androidx.compose.ui.unit.TextUnitType.Sp), maxFontSize = MaterialTheme.typography.titleMedium.fontSize),
+                modifier = Modifier.fillMaxWidth(),
+            )
+            if (subtitle != null && h > 120.dp) FitText(subtitle, style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, textAlign = if (centered) TextAlign.Center else TextAlign.Start, maxLines = 2)
         }
         if (badge != null) Box(Modifier.align(Alignment.TopEnd).padding(8.dp).clip(RoundedCornerShape(999.dp)).background(WL.colors.primary).padding(horizontal = 8.dp, vertical = 2.dp)) {
             Text(badge, color = WL.colors.primaryInk, style = MaterialTheme.typography.labelSmall)
@@ -284,7 +291,7 @@ fun TopBar(title: String, onBack: (() -> Unit)? = null, modifier: Modifier = Mod
             if (onBack != null) IconBtn(Icons.AutoMirrored.Rounded.ArrowBack, "Back", onBack, size = if (phone) 44.dp else 48.dp)
             Column(Modifier.weight(1f)) {
                 EmojiText(title, style = MaterialTheme.typography.titleLarge.copy(semanticsHeading = true), color = WL.colors.text, maxLines = 2)
-                if (subtitle != null) Text(subtitle, style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                if (subtitle != null) FitText(subtitle, style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, maxLines = 1)
             }
             actions()
         }
@@ -321,3 +328,47 @@ fun Modifier.screenPadding(phone: Boolean) = this
     .padding(if (phone) PaddingValues(12.dp) else PaddingValues(horizontal = 24.dp, vertical = 16.dp))
 
 @Suppress("unused") private val unusedWidth = Modifier.width(0.dp)
+
+/**
+ * Text that always shows in full: it wraps between words up to [maxLines] and shrinks (down to 9 sp) to fit its space,
+ * instead of being cut off with "…". Only if it still cannot fit at the smallest size is it trimmed.
+ * Drop-in for Material Text in labels, tiles, chips and buttons.
+ */
+@Composable
+fun FitText(
+    text: String,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    fontSize: androidx.compose.ui.unit.TextUnit = androidx.compose.ui.unit.TextUnit.Unspecified,
+    fontWeight: FontWeight? = null,
+    fontFamily: androidx.compose.ui.text.font.FontFamily? = null,
+    textAlign: TextAlign? = null,
+    lineHeight: androidx.compose.ui.unit.TextUnit = androidx.compose.ui.unit.TextUnit.Unspecified,
+    maxLines: Int = 2,
+    style: androidx.compose.ui.text.TextStyle = androidx.compose.material3.LocalTextStyle.current,
+) = FitText(androidx.compose.ui.text.AnnotatedString(text), modifier, color, fontSize, fontWeight, fontFamily, textAlign, lineHeight, maxLines, style)
+
+@Composable
+fun FitText(
+    text: androidx.compose.ui.text.AnnotatedString,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    fontSize: androidx.compose.ui.unit.TextUnit = androidx.compose.ui.unit.TextUnit.Unspecified,
+    fontWeight: FontWeight? = null,
+    fontFamily: androidx.compose.ui.text.font.FontFamily? = null,
+    textAlign: TextAlign? = null,
+    lineHeight: androidx.compose.ui.unit.TextUnit = androidx.compose.ui.unit.TextUnit.Unspecified,
+    maxLines: Int = 2,
+    style: androidx.compose.ui.text.TextStyle = androidx.compose.material3.LocalTextStyle.current,
+) {
+    val base = style.merge(
+        color = if (color != Color.Unspecified) color else if (style.color != Color.Unspecified) style.color else androidx.compose.material3.LocalContentColor.current,
+        fontSize = fontSize, fontWeight = fontWeight, fontFamily = fontFamily, textAlign = textAlign ?: TextAlign.Unspecified, lineHeight = lineHeight,
+    )
+    val max = if (base.fontSize.isSp) base.fontSize else androidx.compose.ui.unit.TextUnit(16f, androidx.compose.ui.unit.TextUnitType.Sp)
+    val min = androidx.compose.ui.unit.TextUnit(minOf(9f, max.value), androidx.compose.ui.unit.TextUnitType.Sp)
+    androidx.compose.foundation.text.BasicText(
+        text, modifier, style = base, maxLines = maxLines, overflow = TextOverflow.Ellipsis,
+        autoSize = androidx.compose.foundation.text.TextAutoSize.StepBased(minFontSize = min, maxFontSize = max),
+    )
+}

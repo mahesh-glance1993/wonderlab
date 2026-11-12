@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.parent
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -146,7 +148,7 @@ private fun ContentTab() {
                         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         Pill(i.kind)
-                        Text(i.id, style = MaterialTheme.typography.bodyMedium, color = WL.colors.text, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
+                        FitText(i.id, style = MaterialTheme.typography.bodyMedium, color = WL.colors.text, maxLines = 1, modifier = Modifier.weight(1f))
                         Text("v${i.published ?: "?"}", style = MaterialTheme.typography.labelSmall, color = WL.colors.muted)
                     }
                 }

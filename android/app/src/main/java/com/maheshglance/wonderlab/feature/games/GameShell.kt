@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.games
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
@@ -401,7 +403,11 @@ private fun Instructions(ctl: GameController, maxLines: Int) {
     val lang = WL.lang
     Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(18.dp)).background(WL.colors.games).padding(horizontal = 12.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
         Icon(Icons.Rounded.Info, null, tint = WL.colors.gamesInk, modifier = Modifier.size(20.dp))
-        EmojiText(ctl.instructions.loc(lang), Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium, color = WL.colors.gamesInk, maxLines = maxLines)
+        // the whole instruction always shows: it shrinks to fit instead of being cut off
+            val ins = ctl.instructions.loc(lang)
+            if (com.maheshglance.wonderlab.core.design.EmojiAssets.hasEmoji(ins)) EmojiText(ins, Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium, color = WL.colors.gamesInk, maxLines = maxLines + 2)
+            else androidx.compose.foundation.text.BasicText(ins, Modifier.weight(1f), style = MaterialTheme.typography.bodyMedium.copy(color = WL.colors.gamesInk), maxLines = maxLines,
+                autoSize = androidx.compose.foundation.text.TextAutoSize.StepBased(minFontSize = androidx.compose.ui.unit.TextUnit(10f, androidx.compose.ui.unit.TextUnitType.Sp), maxFontSize = MaterialTheme.typography.bodyMedium.fontSize))
         SpeakButton({ ctl.speakInstructions() }, size = 40.dp)
     }
 }
@@ -425,7 +431,7 @@ private fun Hints(ctl: GameController, sv: GSaved, maxLines: Int) {
         ctl.hintList.take(sv.hints).forEach { h ->
             Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.Top) {
                 Icon(Icons.Rounded.Lightbulb, null, tint = WL.colors.warn, modifier = Modifier.size(16.dp).padding(top = 2.dp))
-                Text(h.loc(lang), style = MaterialTheme.typography.bodySmall, color = WL.colors.warn, maxLines = maxLines, overflow = TextOverflow.Ellipsis)
+                FitText(h.loc(lang), style = MaterialTheme.typography.bodySmall, color = WL.colors.warn, maxLines = maxLines)
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.art.tracing
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -81,7 +83,7 @@ private fun SheetCard(s: SheetSummary, te: Boolean, modifier: Modifier) {
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
-                Text(if (te) s.titleTe else s.title, style = MaterialTheme.typography.titleSmall, color = WL.colors.text, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                FitText(if (te) s.titleTe else s.title, style = MaterialTheme.typography.titleSmall, color = WL.colors.text, maxLines = 1)
                 Text("${s.count} to trace", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted)
             }
             IconBtn(Icons.Rounded.Print, "Print ${s.title} tracing sheet", { app.go("art/print/trace/${s.id}") }, size = 40.dp)

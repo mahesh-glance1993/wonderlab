@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.early
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.Animatable
@@ -374,7 +376,7 @@ private fun StoryPageView(b: EarlyBundle, page: StoryPage, motion: PageMotion?, 
                     append(' ')
                 }
             }
-            Text(annotated, Modifier.weight(1f), style = kidStyle(19, lang), color = WL.colors.text, maxLines = 4, overflow = TextOverflow.Ellipsis)
+            FitText(annotated, Modifier.weight(1f), style = kidStyle(19, lang), color = WL.colors.text, maxLines = 4)
             CtlIcon(Icons.Rounded.MenuBook, L("Read to me", "చదివి వినిపించు").get(lang)) { read() }
         }
     }
@@ -552,7 +554,7 @@ private fun CtlChip(icon: ImageVector, text: String, modifier: Modifier = Modifi
         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally),
     ) {
         Icon(icon, null, tint = if (on) c.good else c.text, modifier = Modifier.size(22.dp))
-        Text(text, style = MaterialTheme.typography.labelMedium, color = if (on) c.good else c.text, maxLines = 2, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center)
+        FitText(text, style = MaterialTheme.typography.labelMedium, color = if (on) c.good else c.text, maxLines = 2, textAlign = TextAlign.Center)
     }
 }
 

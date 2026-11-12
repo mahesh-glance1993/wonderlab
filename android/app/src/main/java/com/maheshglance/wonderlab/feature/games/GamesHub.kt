@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.games
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -112,7 +114,7 @@ private fun DailyCard(d: DailySpec, today: String, modifier: Modifier, onClick: 
     ) {
         EmojiImage("☀️", 48.dp)
         Column(Modifier.weight(1f)) {
-            Text("${sx("dailyPuzzle", lang)} · ${g.title(lang)}", style = MaterialTheme.typography.titleMedium, color = WL.colors.nextInk, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            FitText("${sx("dailyPuzzle", lang)} · ${g.title(lang)}", style = MaterialTheme.typography.titleMedium, color = WL.colors.nextInk, maxLines = 1)
             EmojiText(if (solvedToday) "✅ ${sx("dailyDone", lang)}" else sx("dailyBody", lang), style = MaterialTheme.typography.bodySmall, color = WL.colors.nextInk, maxLines = 2)
         }
         if (streak > 0) EmojiPill("🚩", "$streak ${sx("dayStreak", lang)}")
@@ -140,11 +142,11 @@ private fun GameCard(g: GameInfo, fits: Boolean, modifier: Modifier, onClick: ()
                 Spacer(Modifier.weight(1f))
                 if (stars > 0) EmojiText("⭐".repeat(stars), style = MaterialTheme.typography.labelSmall, emojiScale = 1.2f)
             }
-            Text(g.title(lang), style = MaterialTheme.typography.titleMedium, color = if (fits) WL.colors.gamesInk else WL.colors.text, maxLines = 2, overflow = TextOverflow.Ellipsis)
-            Text("${sx("classes", lang)}: ${g.range(lang)}", style = MaterialTheme.typography.labelSmall, color = WL.colors.muted, maxLines = 1, overflow = TextOverflow.Ellipsis)
-            if (roomy) Text(g.objectives(lang), style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, maxLines = if (tall) 4 else 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
+            FitText(g.title(lang), style = MaterialTheme.typography.titleMedium, color = if (fits) WL.colors.gamesInk else WL.colors.text, maxLines = 2)
+            FitText("${sx("classes", lang)}: ${g.range(lang)}", style = MaterialTheme.typography.labelSmall, color = WL.colors.muted, maxLines = 1)
+            if (roomy) FitText(g.objectives(lang), style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, maxLines = if (tall) 4 else 2, modifier = Modifier.weight(1f, fill = false))
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                if (fits) Text("★ ${sx("greatForClass", lang)}", style = MaterialTheme.typography.labelSmall, color = WL.colors.gamesInk, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
+                if (fits) FitText("★ ${sx("greatForClass", lang)}", style = MaterialTheme.typography.labelSmall, color = WL.colors.gamesInk, maxLines = 1, modifier = Modifier.weight(1f, fill = false))
                 if (st != null && st.stats.rounds > 0) Text("${st.stats.rounds} ${sx("roundsPlayed", lang)}", style = MaterialTheme.typography.labelSmall, color = WL.colors.muted, maxLines = 1)
             }
         }

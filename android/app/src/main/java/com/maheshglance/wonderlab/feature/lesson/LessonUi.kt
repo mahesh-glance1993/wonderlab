@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.lesson
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
@@ -386,7 +388,7 @@ fun HintBox(n: Int, text: String) {
 @Composable
 fun SmallMeterRow(label: String, progress: Float, modifier: Modifier = Modifier) {
     Row(modifier, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text(label, style = MaterialTheme.typography.labelMedium, color = WL.colors.muted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        FitText(label, style = MaterialTheme.typography.labelMedium, color = WL.colors.muted, maxLines = 1)
         Box(Modifier.weight(1f).height(10.dp).clip(RoundedCornerShape(5.dp)).background(WL.colors.surface2)) {
             Box(Modifier.fillMaxWidth(progress.coerceIn(0f, 1f)).height(10.dp).clip(RoundedCornerShape(5.dp)).background(WL.colors.primary))
         }

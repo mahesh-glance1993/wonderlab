@@ -598,7 +598,7 @@ fun TypedInput(
         if (!locked && units.isNotEmpty()) {
             UnitChips(units, value, press)
         }
-        if (!locked && (pad || compact)) Keypad(rows, press, if (compact) null else onSubmit, room, compact)
+        if (!locked && (pad || compact)) Keypad(rows, press, null, room, compact) // Check lives in the bottom action bar (one Check button only)
         if (!locked && pad && !compact) {
             Text(ls("deviceKeyboard"), style = MaterialTheme.typography.labelMedium, color = c.mathInk, modifier = Modifier.clip(RoundedCornerShape(10.dp)).pressable { pad = false }.padding(6.dp))
         }

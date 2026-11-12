@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.early
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -147,7 +149,7 @@ private fun OppGallery(b: EarlyBundle, modifier: Modifier) {
                         val artS = min(maxWidth, maxHeight - labelH) * 0.9f
                         Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                             OppArt(b, s, artS)
-                            Text(s.word.tx, fontFamily = if (WL.lang == "te") WLFonts.telugu else WLFonts.kid, fontSize = if (labelH < 18.dp) 11.sp else 14.sp, color = c.text, maxLines = 1, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center)
+                            FitText(s.word.tx, fontFamily = if (WL.lang == "te") WLFonts.telugu else WLFonts.kid, fontSize = if (labelH < 18.dp) 11.sp else 14.sp, color = c.text, maxLines = 1, textAlign = TextAlign.Center)
                         }
                     }
                 }

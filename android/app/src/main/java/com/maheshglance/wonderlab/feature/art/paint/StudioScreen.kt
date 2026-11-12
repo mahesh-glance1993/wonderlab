@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.art.paint
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import android.graphics.Paint
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -307,7 +309,7 @@ private fun StudioTop(title: String, ctlOrNull: StudioController?, ctl: StudioCo
             val canRename = !early && allowTyping && ctlOrNull != null
             Row(Modifier.weight(1f).clip(RoundedCornerShape(10.dp)).then(if (canRename) Modifier.pressable(onClick = onRename).semantics { contentDescription = "Rename picture: $title" } else Modifier).padding(horizontal = 6.dp, vertical = 4.dp),
                 verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(title, style = MaterialTheme.typography.titleMedium, color = WL.colors.text, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f, fill = false))
+                FitText(title, style = MaterialTheme.typography.titleMedium, color = WL.colors.text, maxLines = 1, modifier = Modifier.weight(1f, fill = false))
                 if (canRename) Icon(Icons.Rounded.Edit, null, tint = WL.colors.muted, modifier = Modifier.size(16.dp))
             }
             if (ctlOrNull != null) {
@@ -461,7 +463,7 @@ private fun ToolButton(t: ToolItem, cell: Dp, vertical: Boolean) {
     ) {
         val pic = cell * 0.46f
         if (t.emoji != null) EmojiImage(t.emoji, pic) else if (t.icon != null) Icon(t.icon, null, tint = if (t.selected) c.artInk else c.text, modifier = Modifier.size(pic * 0.85f))
-        if (cell >= 52.dp) Text(t.label, style = MaterialTheme.typography.labelSmall, color = if (t.selected) c.artInk else c.muted, maxLines = 1, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center)
+        if (cell >= 52.dp) FitText(t.label, style = MaterialTheme.typography.labelSmall, color = if (t.selected) c.artInk else c.muted, maxLines = 1, textAlign = TextAlign.Center)
     }
     @Suppress("UNUSED_EXPRESSION") vertical
 }

@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.art
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import android.graphics.Bitmap
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -201,7 +203,7 @@ private fun GalleryCard(it: GalleryItem, busy: Boolean, allowTyping: Boolean, on
             if (thumb != null) Image(thumb, null, contentScale = ContentScale.Fit, modifier = Modifier.fillMaxSize()) else EmojiImage("🖍️", 56.dp)
             if (busy) androidx.compose.material3.CircularProgressIndicator(Modifier.size(28.dp))
         }
-        Text(it.title, style = MaterialTheme.typography.titleSmall, color = c.text, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        FitText(it.title, style = MaterialTheme.typography.titleSmall, color = c.text, maxLines = 1)
         Text(DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it.updatedAt)), style = MaterialTheme.typography.bodySmall, color = c.muted)
         if (it.unsynced) Pill("On this device — will upload")
         if (it.conflictOf != null) Pill("Copy from another device")

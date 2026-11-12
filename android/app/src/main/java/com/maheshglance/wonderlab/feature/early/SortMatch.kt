@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.early
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -201,7 +203,7 @@ private fun Basket(b: EarlyBundle, bk: SortBasket, inside: List<SortItem>, hint:
                 bk.colour != null -> Swatch(b.colourNames[bk.colour]?.hex ?: "#999999", 34.dp)
                 bk.art != null -> PicArt(bk.art, if (bk.id == "small") 24.dp else 40.dp)
             }
-            Text(label, style = actText(19), color = c.text, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            FitText(label, style = actText(19), color = c.text, maxLines = 1)
             if (hint) Icon(Icons.Rounded.PanTool, null, tint = c.accent)
         }
         Box(Modifier.weight(1f).fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(c.surface), contentAlignment = Alignment.Center) {

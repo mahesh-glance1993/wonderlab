@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.games
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
@@ -160,7 +162,7 @@ fun ShapesBoard(b: BoardState) {
                                 "color" -> ShapeArt("square", value, 20.dp)
                                 "shape" -> ShapeArt(value, "blue", 20.dp)
                             }
-                            Text(label, style = MaterialTheme.typography.labelLarge, color = WL.colors.text, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            FitText(label, style = MaterialTheme.typography.labelLarge, color = WL.colors.text, maxLines = 1)
                         }
                         BoxWithConstraints(Modifier.fillMaxWidth().weight(1f), contentAlignment = Alignment.Center) {
                             val cnt = max(inBin.size, 1)

@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.lesson
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -101,8 +103,8 @@ fun LearnScreen(subject: String?) {
                         Modifier.weight(1f).heightIn(min = 44.dp).clip(RoundedCornerShape(999.dp)).background(if (on) WL.colors.math else WL.colors.surface2).pressable { level = l }.padding(horizontal = 10.dp, vertical = 8.dp),
                         contentAlignment = Alignment.Center,
                     ) {
-                        Text(when { l == own -> "${label(l)} (mine)"; l < own -> "Revisit ${label(l)}"; else -> "Explore ${label(l)}" },
-                            style = MaterialTheme.typography.labelMedium, color = if (on) WL.colors.mathInk else WL.colors.muted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                        FitText(when { l == own -> "${label(l)} (mine)"; l < own -> "Revisit ${label(l)}"; else -> "Explore ${label(l)}" },
+                            style = MaterialTheme.typography.labelMedium, color = if (on) WL.colors.mathInk else WL.colors.muted, maxLines = 1)
                     }
                 }
             }
@@ -133,7 +135,7 @@ private fun UnitCard(u: CUnit, mastery: Map<String, MasteryState>, early: Boolea
             EmojiImage(when (u.subject) { "physics" -> "🔬"; "early" -> "🌍"; else -> "🔢" }, 32.dp)
             Column(Modifier.weight(1f)) {
                 EmojiText(L(u.title), style = MaterialTheme.typography.titleMedium, color = WL.colors.text)
-                u.source?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+                u.source?.let { FitText(it, style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, maxLines = 1) }
             }
             if (u.enrichment) Pill("Enrichment", bg = WL.colors.games, fg = WL.colors.gamesInk)
         }

@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.parent
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -126,7 +128,7 @@ private fun SectionRow(sec: ParentSection, selected: Boolean, chevron: Boolean, 
         }
         Column(Modifier.weight(1f)) {
             Text(sec.title, style = MaterialTheme.typography.titleMedium, color = if (selected) c.mathInk else c.text)
-            Text(sec.desc, style = MaterialTheme.typography.bodySmall, color = c.muted, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            FitText(sec.desc, style = MaterialTheme.typography.bodySmall, color = c.muted, maxLines = 2)
         }
         if (chevron) Icon(Icons.AutoMirrored.Rounded.KeyboardArrowRight, null, tint = c.muted)
     }

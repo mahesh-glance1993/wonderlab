@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.progress
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -223,7 +225,7 @@ private fun BadgeWall(rewards: List<Pair<String, Long>>, early: Boolean) {
                 horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 EmojiImage(BADGE_EMOJI[id.substringBefore(':')] ?: "🎀", if (early) 56.dp else 44.dp)
-                Text(badgeName(id), style = MaterialTheme.typography.labelMedium, color = WL.colors.text, textAlign = TextAlign.Center, maxLines = 3, overflow = TextOverflow.Ellipsis)
+                FitText(badgeName(id), style = MaterialTheme.typography.labelMedium, color = WL.colors.text, textAlign = TextAlign.Center, maxLines = 3)
                 if (at > 0) Text(fmt.format(Date(at * 1000)), style = MaterialTheme.typography.labelSmall, color = WL.colors.muted)
             }
         }

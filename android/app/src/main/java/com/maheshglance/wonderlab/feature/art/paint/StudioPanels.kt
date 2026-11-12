@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.art.paint
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import android.graphics.Bitmap
 import android.view.MotionEvent
 import androidx.compose.foundation.Canvas
@@ -311,7 +313,7 @@ fun BrushPanel(ctl: StudioController, early: Boolean, lang: String, onCalibrate:
                         horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         PaperSwatch(id, Modifier.fillMaxWidth().height(34.dp), corner = 8.dp)
-                        Text(label, style = MaterialTheme.typography.labelSmall, color = c.text, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                        FitText(label, style = MaterialTheme.typography.labelSmall, color = c.text, maxLines = 2)
                     }
                 }
             }
@@ -344,7 +346,7 @@ fun LayersPanel(project: Project, ver: Int, allowTyping: Boolean, onSelect: (Str
                 ) {
                     if (active) Icon(Icons.Rounded.Brush, null, tint = c.artInk, modifier = Modifier.size(18.dp))
                     if (tpl) Icon(Icons.Rounded.Image, null, tint = c.muted, modifier = Modifier.size(18.dp))
-                    Text(l.name, style = MaterialTheme.typography.labelLarge.copy(fontWeight = if (active) FontWeight.Bold else FontWeight.Medium), color = c.text, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    FitText(l.name, style = MaterialTheme.typography.labelLarge.copy(fontWeight = if (active) FontWeight.Bold else FontWeight.Medium), color = c.text, maxLines = 1)
                     if (tpl) Text("outline", style = MaterialTheme.typography.labelSmall, color = c.muted)
                 }
                 val b = 34.dp

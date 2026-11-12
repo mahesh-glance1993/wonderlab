@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.lab
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -257,7 +259,7 @@ fun LabScaffold(
                         Icon(Icons.Rounded.Check, null, tint = WL.colors.mathInk, modifier = Modifier.size(18.dp))
                         Column(Modifier.weight(1f)) {
                             Text("Checking your answer", style = MaterialTheme.typography.labelMedium, color = WL.colors.mathInk)
-                            Text(boldMarkup(b), style = MaterialTheme.typography.bodySmall, color = WL.colors.mathInk, maxLines = 3, overflow = TextOverflow.Ellipsis)
+                            FitText(boldMarkup(b), style = MaterialTheme.typography.bodySmall, color = WL.colors.mathInk, maxLines = 3)
                         }
                         WLButton("Hide", { session.banner = null }, kind = BtnKind.Ghost, small = true)
                     }
@@ -352,7 +354,7 @@ fun NumberSlider(label: String, value: Double, range: LabRange, unit: String, on
     val shown = display?.invoke(value) ?: "${fmt(value)} $unit".trim()
     Column(Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(label, style = MaterialTheme.typography.labelMedium, color = c.text, modifier = Modifier.weight(1f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+            FitText(label, style = MaterialTheme.typography.labelMedium, color = c.text, modifier = Modifier.weight(1f), maxLines = 1)
             if (locked) Row(verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Rounded.Lock, null, tint = c.muted, modifier = Modifier.size(14.dp)); Text("fixed", style = MaterialTheme.typography.labelSmall, color = c.muted) }
             Text(shown, style = MaterialTheme.typography.labelLarge, color = c.primary, modifier = Modifier.clip(RoundedCornerShape(8.dp)).background(c.surface2).pressable(!locked) { typing = true }.padding(horizontal = 8.dp, vertical = 2.dp))
         }

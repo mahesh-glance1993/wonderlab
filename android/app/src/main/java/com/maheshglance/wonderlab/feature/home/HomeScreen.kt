@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.home
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -102,7 +104,7 @@ fun HomeScreen() {
                     ) {
                         EmojiImage(avatar, if (win.isPhone) 52.dp else 68.dp)
                         Column(Modifier.weight(1f)) {
-                            Text(greeting, style = MaterialTheme.typography.headlineSmall, color = WL.colors.text, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            FitText(greeting, style = MaterialTheme.typography.headlineSmall, color = WL.colors.text, maxLines = 1)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                 Text("$classLabel · ", style = MaterialTheme.typography.bodyMedium, color = WL.colors.muted)
                                 EmojiImage("⭐", 18.dp)
@@ -151,7 +153,7 @@ private fun ContinueChip(label: String, early: Boolean, modifier: Modifier = Mod
         Box(Modifier.size(40.dp).clip(RoundedCornerShape(14.dp)).background(c.surface), contentAlignment = Alignment.Center) { Icon(Icons.Rounded.PlayArrow, null, tint = c.nextInk) }
         Column {
             Text(t(if (early) "e_continue" else "continueLearning"), style = MaterialTheme.typography.titleMedium, color = c.nextInk)
-            Text(label, style = MaterialTheme.typography.bodySmall, color = c.muted, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            FitText(label, style = MaterialTheme.typography.bodySmall, color = c.muted, maxLines = 1)
         }
     }
 }

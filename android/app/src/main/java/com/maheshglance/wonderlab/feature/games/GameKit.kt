@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.games
 
+import com.maheshglance.wonderlab.core.design.FitText
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -191,7 +193,7 @@ fun <T> Segmented(options: List<Pair<T, String>>, value: T, onChange: (T) -> Uni
                     .pressable(enabled, role = Role.Tab) { if (!on) onChange(v) }
                     .padding(horizontal = if (small) 10.dp else 14.dp, vertical = 6.dp),
                 contentAlignment = Alignment.Center,
-            ) { Text(label, style = MaterialTheme.typography.labelMedium, color = if (on) c.primary else c.muted, maxLines = 1, overflow = TextOverflow.Ellipsis) }
+            ) { FitText(label, style = MaterialTheme.typography.labelMedium, color = if (on) c.primary else c.muted, maxLines = 1) }
         }
     }
 }
