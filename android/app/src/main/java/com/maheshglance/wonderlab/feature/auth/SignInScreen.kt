@@ -2,6 +2,8 @@ package com.maheshglance.wonderlab.feature.auth
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -53,6 +55,7 @@ import com.maheshglance.wonderlab.ui.LocalApp
 import com.maheshglance.wonderlab.ui.Routes
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SignInScreen() {
     val app = LocalApp.current
@@ -60,54 +63,49 @@ fun SignInScreen() {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var keep by remember { mutableStateOf(true) }
-    var show by remember { mutableStateOf(false) }
-    var busy by remember { mutableStateOf(false) }
-    var error by remember { mutableStateOf<String?>(null) }
+    val form = rememberForm()
     val win = LocalWindow.current
 
     fun submit() {
-        if (username.isBlank() || password.isEmpty()) { error = "Enter your username and password."; return }
-        busy = true; error = null
+        if (username.isBlank() || password.isEmpty()) { form.fail("Enter your username and password."); return }
         scope.launch {
-            try {
+            form.run {
                 app.repo.signIn(username.trim(), password, keep)
                 val s = app.repo.state.value
+                password = ""
                 app.replace(if (s.profiles.isEmpty()) Routes.SETUP else Routes.WHO)
-            } catch (e: ApiError) {
-                error = if (e.status == 0) "You seem to be offline. Connect to the internet to sign in." else e.message
-            } finally { busy = false }
+            }
         }
     }
 
     Box(Modifier.fillMaxSize().imePadding(), contentAlignment = Alignment.Center) {
-        val content = @Composable {
-            WLCard(Modifier.widthIn(max = 460.dp).fillMaxWidth().padding(16.dp), padding = 24.dp) {
-                Column(verticalArrangement = Arrangement.spacedBy(14.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    EmojiImage("🧪", if (win.isPhone) 72.dp else 96.dp)
+        Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+            WLCard(Modifier.widthIn(max = 460.dp).fillMaxWidth().padding(16.dp), padding = if (win.isPhone) 20.dp else 26.dp) {
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    EmojiImage("🦉", if (win.isPhone) 72.dp else 96.dp)
                     Text("WonderLab", style = MaterialTheme.typography.displaySmall, color = WL.colors.text)
                     Text("Parent sign in", style = MaterialTheme.typography.titleMedium, color = WL.colors.muted)
-                    error?.let { AlertBox(it, AlertKind.Bad) }
-                    Field("Username", username, { username = it }, Modifier.semantics { contentType = ContentType.Username }, KeyboardOptions(keyboardType = KeyboardType.Ascii, imeAction = ImeAction.Next, autoCorrectEnabled = false))
-                    Field(
-                        "Password", password, { password = it }, Modifier.semantics { contentType = ContentType.Password },
-                        KeyboardOptions(keyboardType = KeyboardType.Password, imeAction = ImeAction.Done), KeyboardActions(onDone = { submit() }),
-                        if (show) VisualTransformation.None else PasswordVisualTransformation(),
-                        trailing = { IconButton({ show = !show }) { Icon(if (show) Icons.Rounded.VisibilityOff else Icons.Rounded.Visibility, if (show) "Hide password" else "Show password") } },
-                    )
-                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    Text("Sign in once on this device, then each child picks their profile.", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, textAlign = TextAlign.Center)
+                    FormError(form)
+                    UsernameField(username, { username = it }, form.field("username"))
+                    PasswordField("Password", password, { password = it }, form.field("password"), imeAction = ImeAction.Done, onDone = ::submit)
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
                         Checkbox(keep, { keep = it })
-                        Text("Keep me signed in on this device", style = MaterialTheme.typography.bodyMedium)
+                        Column(Modifier.padding(top = 12.dp)) {
+                            Text("Keep me signed in on this device", style = MaterialTheme.typography.bodyMedium)
+                            Text("Use on your family's own device. On a shared or school device, untick this — you'll be signed out after a period of inactivity.", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted)
+                        }
                     }
-                    WLButton("Sign in", ::submit, kind = BtnKind.Primary, loading = busy, modifier = Modifier.fillMaxWidth())
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        WLButton("Create account", { app.go(Routes.SIGNUP) }, kind = BtnKind.Ghost, small = true)
-                        WLButton("Forgot?", { app.go(Routes.FORGOT) }, kind = BtnKind.Ghost, small = true)
+                    WLButton("Sign in", ::submit, kind = BtnKind.Primary, loading = form.busy, modifier = Modifier.fillMaxWidth())
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterHorizontally)) {
+                        WLButton("Forgot password?", { app.go(Routes.FORGOT) }, kind = BtnKind.Ghost, small = true)
+                        WLButton("Forgot username?", { app.go("forgot/username") }, kind = BtnKind.Ghost, small = true)
                     }
-                    Text("Children use WonderLab with a parent's account.", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, textAlign = TextAlign.Center)
+                    WLButton("New here? Create a parent account", { app.go(Routes.SIGNUP) }, kind = BtnKind.Normal, small = true, modifier = Modifier.fillMaxWidth())
+                    Text("Children use WonderLab with a parent's account. You stay signed in until you sign out, the session expires or you reset your password.", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, textAlign = TextAlign.Center)
                 }
             }
         }
-        Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) { content() }
     }
 }
 
