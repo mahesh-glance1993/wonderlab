@@ -50,6 +50,13 @@ fun WonderLabRoot(application: WonderLabApp) {
     val profile = state.profile
     val prefs = state.prefs
 
+    // emailed links (reset password / verify email) arriving while the app is open
+    val link by application.pendingLinks.collectAsState()
+    LaunchedEffect(link, state.ready) {
+        val i = link ?: return@LaunchedEffect
+        if (state.ready && i.data != null) { runCatching { nav.handleDeepLink(i) }; application.pendingLinks.value = null }
+    }
+
     val presKey = profile?.let { "${it.classLevel}|${it.ageBand}" }
     LaunchedEffect(presKey) {
         if (profile != null && presKey != null && presentationCache[presKey] == null)

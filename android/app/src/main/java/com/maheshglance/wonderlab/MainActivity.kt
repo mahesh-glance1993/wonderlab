@@ -21,6 +21,12 @@ class MainActivity : ComponentActivity() {
         setContent { WonderLabRoot(app) }
     }
 
+    override fun onNewIntent(intent: android.content.Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        (application as WonderLabApp).pendingLinks.value = intent
+    }
+
     override fun onStop() {
         super.onStop()
         (application as WonderLabApp).repo.scheduleFlush(0)

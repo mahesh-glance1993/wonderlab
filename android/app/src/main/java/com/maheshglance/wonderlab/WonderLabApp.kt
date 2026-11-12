@@ -9,6 +9,7 @@ import com.maheshglance.wonderlab.core.net.Api
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 /** Manual dependency container (one instance of each service for the whole app). */
 class WonderLabApp : Application() {
@@ -27,5 +28,10 @@ class WonderLabApp : Application() {
         repo = AppRepository(this, api, engine, store, scope)
         speech = Speech(this, api, scope)
         repo.start()
+        // educator-published content corrections (cached for offline use)
+        scope.launch { com.maheshglance.wonderlab.feature.parent.loadContentOverrides(this@WonderLabApp) }
     }
+
+    /** Links opened while the app is running (singleTask): the root NavHost consumes them. */
+    val pendingLinks = kotlinx.coroutines.flow.MutableStateFlow<android.content.Intent?>(null)
 }

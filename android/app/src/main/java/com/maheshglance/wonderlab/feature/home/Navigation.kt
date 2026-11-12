@@ -11,8 +11,8 @@ import com.maheshglance.wonderlab.ui.learnerScreen
 fun NavGraphBuilder.homeGraph() {
     learnerScreen(Routes.HOME) { HomeScreen() }
     composable("${Routes.WHO}?next={next}") { e -> NeedAccount { WhoScreen(e.arg("next")) } }
-    composable(Routes.SETUP) { NeedAccount { Placeholder("Set up learners") } }
+    composable(Routes.SETUP) { com.maheshglance.wonderlab.feature.parent.SetupScreen() }
     learnerScreen("${Routes.LEARN}?subject={subject}") { Placeholder("Lessons") }
     learnerScreen(Routes.NEXT) { Placeholder("What next") }
-    learnerScreen(Routes.PROGRESS) { Placeholder("Progress") }
+    learnerScreen(Routes.PROGRESS) { com.maheshglance.wonderlab.feature.progress.ProgressScreen() }
 }
