@@ -436,7 +436,7 @@ private fun TestMode(vm: LessonViewModel, ctx: QCtx) {
         QuestionLayout(
             Modifier.weight(1f),
             prompt = { vis, w -> QuestionPrompt(v, ctx.autoRead, ctx.tier, vis, w) },
-            answer = { room -> AnswerInput(v, test.answers[curId], { vm.testAnswer(curId, it) }, ctx.tier, room, onSubmit = { if (!last) vm.testGo(test.index + 1) else confirm = true }) },
+            answer = { room -> AnswerInput(v, test.answers[curId], { vm.testAnswer(curId, it) }, ctx.tier, room, onSubmit = { if (!last) vm.testGo(test.index + 1) else if (unanswered > 0) confirm = true else vm.submitTest() }) },
             actions = {
                 WLButton(ls("prev"), { vm.testGo(test.index - 1) }, enabled = test.index > 0, icon = Icons.AutoMirrored.Rounded.ArrowBack)
                 if (!last) WLButton(t("next"), { vm.testGo(test.index + 1) }, kind = BtnKind.Primary, icon = Icons.AutoMirrored.Rounded.ArrowForward)
@@ -444,10 +444,7 @@ private fun TestMode(vm: LessonViewModel, ctx: QCtx) {
             },
         )
     }
-    if (confirm) {
-        if (unanswered > 0) ConfirmDialog(ls("submitTest"), ls("unanswered", "n" to unanswered), ls("submitTest"), { confirm = false; vm.submitTest() }, { confirm = false }, dismiss = t("cancel"))
-        else { confirm = false; vm.submitTest() }
-    }
+    if (confirm) ConfirmDialog(ls("submitTest"), ls("unanswered", "n" to unanswered), ls("submitTest"), { confirm = false; vm.submitTest() }, { confirm = false }, dismiss = t("cancel"))
 }
 
 @Composable

@@ -30,12 +30,15 @@ import kotlinx.serialization.json.JsonObject
 class LessonViewModel(
     private val repo: AppRepository,
     private val eng: LessonEngine,
-    val level: Int,
+    initialLevel: Int,
     val tier: String,
     val unitId: String,
     private val objectiveArg: String?,
     private val urlMode: String?,
 ) : ViewModel() {
+    /** The class whose content holds this objective (the learner's own, or a revisited / explored class). */
+    var level: Int = initialLevel
+        private set
     var status by mutableStateOf("loading") // loading | ready | notfound
         private set
     var info by mutableStateOf<LessonInfo?>(null)
@@ -71,7 +74,11 @@ class LessonViewModel(
 
     init {
         viewModelScope.launch {
-            val i = eng.load(level, unitId, objectiveArg)
+            var i = eng.load(level, unitId, objectiveArg)
+            if (i == null && objectiveArg != null) {
+                val other = eng.levelOf(objectiveArg)
+                if (other >= 0 && other != level) { level = other; i = eng.load(other, unitId, objectiveArg) }
+            }
             if (i == null) { status = "notfound"; return@launch }
             info = i
             ls = fromSaved(repo.state.value.learner.lessons[lessonId]?.state)
