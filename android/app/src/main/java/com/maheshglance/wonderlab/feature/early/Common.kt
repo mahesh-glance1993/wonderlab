@@ -88,6 +88,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.min
 import androidx.compose.ui.unit.sp
 import com.maheshglance.wonderlab.core.data.Localized
@@ -494,15 +495,19 @@ fun PicButton(
             .semantics { contentDescription = label; if (state != null) stateDescription = state.name },
         contentAlignment = Alignment.Center,
     ) {
-        val labelH = if (showLabel) (minOf(maxHeight * 0.24f, 40.dp)) else 0.dp
+        // long labels (e.g. story titles) wrap to two lines and shrink to fit — never cut off with "…"
+        val labelH = if (showLabel) (minOf(maxHeight * 0.3f, 52.dp)) else 0.dp
         val pic = min(maxWidth, maxHeight - labelH) * artScale
         Column(Modifier.fillMaxSize().padding(4.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
                 if (picture != null) picture(pic) else PicArt(art, pic, v = v, shadow = shadow, forceDrawing = forceDrawing)
             }
-            if (showLabel) Text(
-                label, style = MaterialTheme.typography.titleMedium.copy(fontFamily = if (WL.lang == "te") WLFonts.telugu else WLFonts.kid, fontSize = if (labelH < 30.dp) 14.sp else 17.sp),
-                color = c.text, maxLines = 1, overflow = TextOverflow.Ellipsis, textAlign = TextAlign.Center, modifier = Modifier.heightIn(max = labelH),
+            if (showLabel) androidx.compose.foundation.text.BasicText(
+                label,
+                style = MaterialTheme.typography.titleMedium.copy(fontFamily = if (WL.lang == "te") WLFonts.telugu else WLFonts.kid, color = c.text, textAlign = TextAlign.Center, lineHeight = 1.1.em),
+                maxLines = 2,
+                autoSize = androidx.compose.foundation.text.TextAutoSize.StepBased(minFontSize = 10.sp, maxFontSize = if (labelH < 36.dp) 15.sp else 17.sp),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp).heightIn(max = labelH),
             )
         }
         val corner = Modifier.align(Alignment.TopEnd).padding(6.dp).size(30.dp).clip(CircleShape)
@@ -557,13 +562,17 @@ fun BigTile(art: String?, title: Localized, onGo: () -> Unit, modifier: Modifier
             .pressable(role = Role.Button) { say(title); onGo() }.semantics { contentDescription = title.get("en") },
     ) {
         val small = maxHeight < 120.dp
-        val titleH = if (small) 22.dp else 30.dp
+        // room for a two-line title; long titles wrap between words and shrink to fit — never cut off with "…"
+        val titleH = if (small) 32.dp else 44.dp
         val pic = min(maxWidth * 0.72f, maxHeight - titleH - 14.dp).coerceAtLeast(24.dp)
         Column(Modifier.fillMaxSize().padding(6.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterVertically)) {
             Box(Modifier.size(pic), contentAlignment = Alignment.Center) { if (picture != null) picture(pic) else if (art != null) PicArt(art, pic, v = v) }
-            Text(
-                title.tx, style = MaterialTheme.typography.titleMedium.copy(fontFamily = if (WL.lang == "te") WLFonts.telugu else WLFonts.kid, fontSize = if (small) 14.sp else 18.sp, lineHeight = if (small) 16.sp else 21.sp),
-                color = c.text, textAlign = TextAlign.Center, maxLines = 2, overflow = TextOverflow.Ellipsis,
+            androidx.compose.foundation.text.BasicText(
+                title.tx,
+                style = MaterialTheme.typography.titleMedium.copy(fontFamily = if (WL.lang == "te") WLFonts.telugu else WLFonts.kid, color = c.text, textAlign = TextAlign.Center, lineHeight = 1.12.em),
+                maxLines = 2,
+                autoSize = androidx.compose.foundation.text.TextAutoSize.StepBased(minFontSize = 10.sp, maxFontSize = if (small) 14.sp else 18.sp),
+                modifier = Modifier.fillMaxWidth().heightIn(max = titleH),
             )
         }
         if (sub != null) Box(Modifier.align(Alignment.TopEnd).padding(6.dp).clip(RoundedCornerShape(999.dp)).background(c.good).padding(horizontal = 8.dp, vertical = 2.dp)) {

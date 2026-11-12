@@ -125,7 +125,13 @@ fun HubScaffold(current: String, content: @Composable () -> Unit) {
         HubTab(Routes.PROGRESS, if (early) "Stars" else "Progress", "⭐"),
     )
     val c = WL.colors
-    val onTab = { r: String -> if (r != current) app.nav.navigate(r) { popUpTo(Routes.HOME) { saveState = true }; launchSingleTop = true; restoreState = true } }
+    // Tabs always open their own top screen: Home pops back to Home; other tabs sit directly above Home.
+    val onTab = { r: String ->
+        if (r != current) {
+            if (r == Routes.HOME) { if (!app.nav.popBackStack(Routes.HOME, inclusive = false)) app.nav.navigate(Routes.HOME) { launchSingleTop = true } }
+            else app.nav.navigate(r) { popUpTo(Routes.HOME) { inclusive = false }; launchSingleTop = true }
+        }
+    }
     if (win.isTablet || win.landscape) {
         Row(Modifier.fillMaxSize()) {
             NavigationRail(containerColor = c.surface, modifier = Modifier.windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Vertical + WindowInsetsSides.Start))) {

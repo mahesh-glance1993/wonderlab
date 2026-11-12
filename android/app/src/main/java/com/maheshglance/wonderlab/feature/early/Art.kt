@@ -43,6 +43,7 @@ import com.maheshglance.wonderlab.core.design.WLFonts
 
 /** Extra 3D pictures for story props / activity drawings that are not Picture Fun items. */
 private val EXTRA_EMOJI = mapOf(
+    "hub-shapes" to "🔷", "hub-colours" to "🎨", "hub-patterns" to "🧩",
     "child" to "👦", "child2" to "👧", "adult" to "👩", "pebble" to "🪨", "sprout" to "🌱", "drops" to "💧", "kitten" to "🐈",
     "bird" to "🐦", "box" to "📦", "ant" to "🐜", "leaf" to "🍃", "kite" to "🪁", "fish" to "🐟", "rooster" to "🐓", "calf" to "🐄",
     "grass" to "🌾", "lamp" to "🪔", "house" to "🏠", "gift" to "🎁", "rainbow" to "🌈", "water" to "💧",

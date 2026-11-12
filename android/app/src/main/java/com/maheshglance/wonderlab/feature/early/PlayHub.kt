@@ -22,15 +22,15 @@ private data class HubTile(val to: String, val title: L, val art: String, val ti
 private val TILES = listOf(
     HubTile("play/pictures", UI.pictures, "mango", "art"),
     HubTile("play/stories", UI.stories, "crow", "math"),
-    HubTile("play/shapes", UI.shapes, "shape-star", "lab"),
+    HubTile("play/shapes", UI.shapes, "hub-shapes", "lab"),
     HubTile("play/sort", UI.sort, "box", "next"),
     HubTile("play/build", UI.build, "tractor", "art"),
     HubTile("play/daily", L("Daily Surprise", "రోజూ ఆశ్చర్యం"), "rainbow", "math"),
     HubTile("play/memory", L("Memory Match", "జ్ఞాపకాల ఆట"), "parrot", "lab"),
-    HubTile("play/colours", L("Colour Mixing", "రంగులు కలుపుదాం"), "c-purple", "next"),
+    HubTile("play/colours", L("Colour Mixing", "రంగులు కలుపుదాం"), "hub-colours", "next"),
     HubTile("play/rhymes", L("Rhymes & Songs", "పాటలు, గేయాలు"), "star", "art"),
     HubTile("play/opposites", L("Opposites", "వ్యతిరేక పదాలు"), "umbrella", "math"),
-    HubTile("play/patterns", L("Patterns", "నమూనాలు"), "shape-heart", "lab"),
+    HubTile("play/patterns", L("Patterns", "నమూనాలు"), "hub-patterns", "lab"),
     HubTile("play/safari", L("Sound Safari", "శబ్దాల సఫారీ"), "lion", "next"),
     HubTile("play/stickers", L("Sticker Book", "స్టిక్కర్ పుస్తకం"), "flower", "art"),
 )
