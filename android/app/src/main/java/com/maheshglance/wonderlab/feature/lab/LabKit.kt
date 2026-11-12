@@ -554,8 +554,6 @@ fun ToggleChip(label: String, on: Boolean, onChange: (Boolean) -> Unit, modifier
         .pressable { onChange(!on) }.padding(horizontal = 10.dp, vertical = 6.dp), style = MaterialTheme.typography.labelMedium, color = if (on) c.primary else c.text)
 }
 
-@Suppress("unused") private val unusedSpacer = @Composable { Spacer(Modifier.width(0.dp)); BoxWithConstraints { } }
-@Suppress("unused") private fun unusedDbl(e: JsonElement?) = e.dbl()
 
 /** Polite live region for key moments (run finished, goal reached) — never every frame. */
 @Composable

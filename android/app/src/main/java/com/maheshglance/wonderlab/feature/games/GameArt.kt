@@ -182,7 +182,6 @@ fun DrawScope.drawCell(topLeft: Offset, size: Size, label: String? = null) {
     drawRoundRect(Brush.verticalGradient(listOf(Color(0xFFE9A93C), Color(0xFFF6D365), Color(0xFFB9761F)), band.top, band.bottom), band.topLeft, band.size, androidx.compose.ui.geometry.CornerRadius(size.height * .2f))
     drawRoundRect(Brush.verticalGradient(listOf(Color(0xFFBFC4CE), Color(0xFF7E8494)), topLeft.y + size.height * .3f, topLeft.y + size.height * .7f), Offset(body.right, topLeft.y + size.height * .3f), Size(size.width * .1f, size.height * .4f), androidx.compose.ui.geometry.CornerRadius(3f))
     drawLine(Color.White.copy(alpha = .35f), Offset(body.left + 6f, body.top + size.height * .22f), Offset(body.right - 8f, body.top + size.height * .22f), strokeWidth = size.height * .1f, cap = StrokeCap.Round)
-    @Suppress("UNUSED_EXPRESSION") label
 }
 
 /** Arrow from a to b with a filled head. */
@@ -198,4 +197,3 @@ fun DrawScope.drawArrow(a: Offset, b: Offset, color: Color, width: Float, head: 
     drawPath(p, color)
 }
 
-@Suppress("unused") private fun DrawScope.unusedTranslate() = translate(0f, 0f) {}

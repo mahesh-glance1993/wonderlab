@@ -251,9 +251,10 @@ private fun LightStage(m: Modifier, p: LightParams, tr: Trace, target: Target?, 
         val torchPx = 14f * s
         val torch = with(density) { torchPx.toDp() }
         // the 🔦 picture points up-left (135°); rotate it to the beam direction
-        Box(Modifier.offset { IntOffset((X(src) - torchPx / 2).roundToInt(), (Y(src) - torchPx / 2).roundToInt()) }.size(torch)) {
+        // centre the picture a little behind the source so the lamp head sits where the ray starts
+        val back = Vec(src.x - kotlin.math.cos(LabMath.rad(p.aim)) * 4, src.y - kotlin.math.sin(LabMath.rad(p.aim)) * 4)
+        Box(Modifier.offset { IntOffset((X(back) - torchPx / 2).roundToInt(), (Y(back) - torchPx / 2).roundToInt()) }.size(torch)) {
             EmojiImage("🔦", torch, Modifier.rotate((135 - p.aim).toFloat()))
         }
-        @Suppress("UNUSED_EXPRESSION") Path() to Rect.Zero
     }
 }

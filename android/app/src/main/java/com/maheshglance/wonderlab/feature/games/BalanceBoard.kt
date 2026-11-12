@@ -183,5 +183,4 @@ fun BalanceBoard(b: BoardState) {
             builder(Modifier.fillMaxWidth())
         }
     }
-    @Suppress("UNUSED_EXPRESSION") Box(Modifier.height(0.dp))
 }

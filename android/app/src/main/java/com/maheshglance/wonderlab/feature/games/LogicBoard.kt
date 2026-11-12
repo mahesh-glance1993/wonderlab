@@ -100,8 +100,6 @@ fun LogicBoard(b: BoardState) {
                     }
                 }
             }
-            // box borders over the grid are drawn by a canvas overlay below
-            @Suppress("UNUSED_EXPRESSION") Offset.Zero
         }
         val pal = @Composable { perRow: Int, key: Dp ->
             Column(verticalArrangement = Arrangement.spacedBy(6.dp), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -141,7 +139,6 @@ fun LogicBoard(b: BoardState) {
                 pal(perRow, key)
             }
         }
-        @Suppress("UNUSED_EXPRESSION") palCount
     }
 }
 
@@ -169,5 +166,4 @@ private fun SumBadge(s: kotlinx.serialization.json.JsonElement?, total: Int) {
             .semantics { contentDescription = "${s.j("sum").int() ?: 0} of $total" },
         style = MaterialTheme.typography.labelSmall, color = if (!full) c.muted else if (ok) c.good else c.bad,
     )
-    @Suppress("UNUSED_EXPRESSION") Color.Unspecified
 }

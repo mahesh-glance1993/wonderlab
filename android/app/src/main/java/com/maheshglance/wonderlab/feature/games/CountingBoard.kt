@@ -140,7 +140,7 @@ private fun CountBoard(b: BoardState) {
         }
         val tray = @Composable { m: Modifier ->
             Row(m.clip(RoundedCornerShape(16.dp)).background(WL.colors.surface2).padding(8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text("$counted".let { counted.size.toString() }, fontSize = 34.sp, fontWeight = FontWeight.Black, color = WL.colors.primary, modifier = Modifier.semantics { contentDescription = "Counted so far: ${counted.size}" })
+                Text(counted.size.toString(), fontSize = 34.sp, fontWeight = FontWeight.Black, color = WL.colors.primary, modifier = Modifier.semantics { contentDescription = "Counted so far: ${counted.size}" })
                 BoxWithConstraints(Modifier.weight(1f)) {
                     val rows = max(1, ceil(n / groupSize.toDouble()).toInt())
                     val s = min((maxWidth.value / groupSize) - 3, 34f).coerceAtLeast(12f)
@@ -153,7 +153,6 @@ private fun CountBoard(b: BoardState) {
                                 }
                             }
                         }
-                        @Suppress("UNUSED_EXPRESSION") rows
                     }
                 }
             }

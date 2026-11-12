@@ -139,4 +139,3 @@ fun FractionsBoard(b: BoardState) {
     }
 }
 
-@Suppress("unused") private val unusedPad = Modifier.padding(0.dp)

@@ -176,5 +176,4 @@ private fun BadgesDialog(onDismiss: () -> Unit) {
             Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) { WLButton("OK", onDismiss, kind = BtnKind.Primary, small = true) }
         }
     }
-    @Suppress("UNUSED_EXPRESSION") Color.Unspecified
 }
