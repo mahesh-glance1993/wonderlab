@@ -165,7 +165,11 @@ fun StudioScreen(routeId: String, sizeParam: String?, paperParam: String?, pageP
         lifecycle.addObserver(obs)
         onDispose {
             lifecycle.removeObserver(obs)
-            app.application.scope.launch(Dispatchers.Main) { ctl.saveNow(); ctl.dispose() }
+            app.application.scope.launch(Dispatchers.Main) {
+                ctl.endStroke(true)
+                while (ctl.busy) kotlinx.coroutines.delay(50) // never free bitmaps a background replay is using
+                ctl.saveNow(); ctl.dispose()
+            }
         }
     }
     // keep manual intensity in prefs (debounced)

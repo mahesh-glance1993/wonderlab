@@ -59,6 +59,7 @@ fun ArtHomeScreen() {
             }
         }
     }
+    com.maheshglance.wonderlab.feature.art.ui.ArtSyncHost()
 }
 
 @Suppress("FunctionName") private fun WL_LANG(te: Boolean) = if (te) "te" else "en"
