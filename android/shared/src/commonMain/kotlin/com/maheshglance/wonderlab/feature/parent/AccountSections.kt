@@ -335,6 +335,9 @@ fun DataSection() {
         SettingsCard("Report a problem", subtitle = "Something wrong in a lesson, game or translation? Tell us privately — no personal details needed.") {
             WLButton("Report a problem", { report = true }, icon = Icons.Rounded.Flag, small = true, enabled = s.profiles.isNotEmpty())
         }
+        SettingsCard("Picture credits", subtitle = "Real photographs from Wikimedia Commons (CC0, public domain, CC BY, CC BY-SA) and Microsoft Fluent Emoji (MIT) — authors and licences.") {
+            WLButton("Picture credits", { app.go("credits") }, small = true)
+        }
         SettingsCard("This device", subtitle = "Removes saved learner data, queued uploads and offline access for every account on this device, and signs out. Lessons, games and art stay — they are part of the app.") {
             if (s.pending > 0) AlertBox("${s.pending} change(s) on this device haven't synced yet.", AlertKind.Warn)
             WLButton("Remove this device's data", { removeAsk = true }, kind = BtnKind.Danger, icon = Icons.Rounded.Delete, small = true)

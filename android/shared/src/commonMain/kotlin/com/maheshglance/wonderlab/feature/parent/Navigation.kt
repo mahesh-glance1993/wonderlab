@@ -15,4 +15,5 @@ fun NavGraphBuilder.parentGraph() {
     composable("${Routes.PARENT}/{section}") { e -> ParentScreen(e.arg("section")) }
     learnerScreen(Routes.DOWNLOADS) { DownloadsScreen() }
     composable(Routes.EDITOR) { EditorScreen() }
+    composable("credits") { val app = com.maheshglance.wonderlab.ui.LocalApp.current; com.maheshglance.wonderlab.core.design.PictureCreditsScreen { app.back() } }
 }
