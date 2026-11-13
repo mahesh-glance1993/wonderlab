@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
@@ -90,14 +91,21 @@ class AppRepository(private val platform: Platform, val api: Api, val engine: En
     // ---------- start-up ----------
     fun start() {
         watchConnectivity()
+        // the lesson engine loads in parallel; it is only needed once a screen asks for content
+        scope.launch { runCatching { engine.warmUp() } }
         scope.launch {
-            runCatching { engine.warmUp() }
-            store.read("snapshot", Snapshot.serializer())?.let { s ->
-                _state.update { it.copy(account = s.account, session = s.session, profiles = s.profiles, profileId = s.profileId) }
-                s.profileId?.let { loadCachedLearner(s.account.id, it) }
+            val cached = store.read("snapshot", Snapshot.serializer())
+            if (cached != null) {
+                // offline-first: show the saved account at once, then check with the server in the background
+                _state.update { it.copy(account = cached.account, session = cached.session, profiles = cached.profiles, profileId = cached.profileId) }
+                cached.profileId?.let { loadCachedLearner(cached.account.id, it) }
+                _state.update { it.copy(ready = true) }
+                refresh()
+            } else {
+                // first run / signed out: wait for the server, but never longer than 8 s on a bad connection
+                withTimeoutOrNull(8_000) { refresh() }
+                _state.update { it.copy(ready = true) }
             }
-            refresh()
-            _state.update { it.copy(ready = true) }
             countPending()
             scheduleFlush(0)
         }

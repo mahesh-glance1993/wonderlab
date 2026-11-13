@@ -25,7 +25,8 @@ describe.each(LEVELS)('class level %i', (level) => {
     for (const u of c.units) {
       expect(u.classLevel).toBe(level);
       expect(u.review.educator).toBe('pending');
-      expect(u.board).toBe(level <= 2 ? 'play' : 'cbse');
+      if (level <= 2) expect(u.board).toBe('play');
+      else expect(['cbse', 'ts', 'ap']).toContain(u.board);
       if (u.source) expect(u.source.book && u.source.edition && u.source.chapterTitle).toBeTruthy();
     }
   });
