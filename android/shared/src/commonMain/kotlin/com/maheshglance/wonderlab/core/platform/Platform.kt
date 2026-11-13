@@ -22,6 +22,8 @@ interface Platform {
     val dataDir: String
     /** App-private folder for re-creatable files (voice cache). */
     val cacheDir: String
+    /** The device's own "reduce motion / remove animations" accessibility setting. */
+    val systemReduceMotion: Boolean
     /** True while the device has a working internet connection. */
     val online: StateFlow<Boolean>
 

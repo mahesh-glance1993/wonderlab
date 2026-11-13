@@ -1,6 +1,10 @@
 package com.maheshglance.wonderlab.core.design
 
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -39,30 +43,39 @@ fun rememberWindowInfo(): WindowInfo {
 }
 
 /**
- * Keeps a screen on ONE screen: lays the content out at its natural size and, only if it is taller (or wider)
- * than the space available, scales it down to fit — no scrolling, nothing cut off. Content smaller than the
- * space is centred. Use for activity/game/question screens whose parts must be seen together.
+ * Keeps a screen on ONE screen: lays the content out at its natural size and, only if it is taller than the space
+ * available, scales it down to fit. It never shrinks text below a readable size for the learner's age
+ * (pre-primary 55 %, primary 80 %, older 85 %) — if it still does not fit at that size, the content scrolls instead.
+ * Content smaller than the space is centred. Use for activity/game/question screens whose parts belong together.
  */
 @Composable
 fun FitToScreen(modifier: Modifier = Modifier, minScale: Float = 0.55f, alignTop: Boolean = false, content: @Composable () -> Unit) {
-    Layout(content = content, modifier = modifier) { measurables, constraints ->
-        val maxW = constraints.maxWidth
-        val maxH = constraints.maxHeight
-        val loose = Constraints(minWidth = 0, maxWidth = maxW, minHeight = 0, maxHeight = Constraints.Infinity)
-        val placeables = measurables.map { it.measure(loose) }
-        val childW = placeables.maxOfOrNull { it.width } ?: 0
-        val childH = placeables.maxOfOrNull { it.height } ?: 0
-        val boundedH = if (constraints.hasBoundedHeight) maxH else childH
-        val scale = if (childH > boundedH && childH > 0) (boundedH.toFloat() / childH).coerceAtLeast(minScale) else 1f
-        val w = if (constraints.hasBoundedWidth) maxW else childW
-        layout(w, boundedH) {
-            placeables.forEach { p ->
-                val x = (w - p.width) / 2
-                val scaledH = (p.height * scale).toInt()
-                val y = if (alignTop || scale < 1f) 0 else (boundedH - scaledH) / 2
-                p.placeWithLayer(x, y) {
-                    scaleX = scale; scaleY = scale
-                    transformOrigin = TransformOrigin(0.5f, 0f)
+    val floor = maxOf(minScale, when (LocalTier.current.tier) { "early" -> 0.55f; "primary" -> 0.8f; else -> 0.85f })
+    BoxWithConstraints(modifier) {
+        val boxH = constraints.maxHeight
+        val bounded = constraints.hasBoundedHeight
+        Box(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+            Layout(content = content) { measurables, constraints ->
+                val maxW = constraints.maxWidth
+                val loose = Constraints(minWidth = 0, maxWidth = maxW, minHeight = 0, maxHeight = Constraints.Infinity)
+                val placeables = measurables.map { it.measure(loose) }
+                val childW = placeables.maxOfOrNull { it.width } ?: 0
+                val childH = placeables.maxOfOrNull { it.height } ?: 0
+                val target = if (bounded) boxH else childH
+                val scale = if (childH > target && childH > 0) (target.toFloat() / childH).coerceAtLeast(floor) else 1f
+                val scaledH = (childH * scale).toInt()
+                val h = maxOf(target, scaledH)              // taller than the screen only when it must scroll
+                val w = if (constraints.hasBoundedWidth) maxW else childW
+                layout(w, h) {
+                    placeables.forEach { p ->
+                        val x = (w - p.width) / 2
+                        val ph = (p.height * scale).toInt()
+                        val y = if (alignTop || scale < 1f || scaledH > target) 0 else (target - ph) / 2
+                        p.placeWithLayer(x, y) {
+                            scaleX = scale; scaleY = scale
+                            transformOrigin = TransformOrigin(0.5f, 0f)
+                        }
+                    }
                 }
             }
         }

@@ -49,6 +49,8 @@ class AndroidPlatform(private val context: Context, override val apiBase: String
     override val deviceLabel = "WonderLab Android app · ${Build.MANUFACTURER} ${Build.MODEL}"
     override val dataDir: String = context.filesDir.absolutePath
     override val cacheDir: String = context.cacheDir.absolutePath
+    override val systemReduceMotion: Boolean
+        get() = runCatching { android.provider.Settings.Global.getFloat(context.contentResolver, android.provider.Settings.Global.ANIMATOR_DURATION_SCALE, 1f) == 0f }.getOrDefault(false)
     private val main = Handler(Looper.getMainLooper())
 
     /** The visible activity (printing needs an Activity context). Set by MainActivity. */

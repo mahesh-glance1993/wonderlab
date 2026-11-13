@@ -79,7 +79,7 @@ fun Modifier.pressable(enabled: Boolean = true, role: Role = Role.Button, sound:
     val src = remember { MutableInteractionSource() }
     val pressed by src.collectIsPressedAsState()
     val reduce = LocalReduceMotion.current
-    val s by animateFloatAsState(if (pressed && !reduce) 0.96f else 1f, spring(stiffness = 900f), label = "press")
+    val s by animateFloatAsState(if (pressed && !reduce) 0.96f else 1f, Motion.press(), label = "press")
     val haptic = LocalHapticFeedback.current
     return this.scale(s).clickable(src, indication = androidx.compose.material3.ripple(), enabled = enabled, role = role) {
         haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)

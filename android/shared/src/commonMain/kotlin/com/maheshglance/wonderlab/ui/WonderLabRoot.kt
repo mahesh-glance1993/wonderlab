@@ -78,7 +78,7 @@ fun WonderLabRoot(application: WonderLabApp) {
         Tones.muted = prefs.mute; Tones.volume = prefs.volume
     }
 
-    WonderLabTheme(theme = prefs.theme, tier = pres.tier, bigTargets = pres.bigTargets, textScale = prefs.textSize, lang = lang, reduceMotion = prefs.reduceMotion) {
+    WonderLabTheme(theme = prefs.theme, tier = pres.tier, bigTargets = pres.bigTargets, textScale = prefs.textSize, lang = lang, reduceMotion = prefs.reduceMotion || application.platform.systemReduceMotion) {
         CompositionLocalProvider(LocalPlatform provides application.platform, LocalApp provides ctx, LocalStrings provides (strings[lang] ?: strings["en"] ?: JsonObject(emptyMap())), LocalWindow provides rememberWindowInfo(), com.maheshglance.wonderlab.core.design.LocalPictureStyle provides com.maheshglance.wonderlab.core.design.pictureStyleFor(profile?.classLevel)) {
             Column(Modifier.fillMaxSize().background(WL.colors.bg)) {
                 Box(Modifier.weight(1f)) {
@@ -102,6 +102,7 @@ fun WonderLabRoot(application: WonderLabApp) {
             // uploads artwork saved on the device and shows the two-device clash dialog on any screen
             if (state.account != null && state.profile != null) com.maheshglance.wonderlab.feature.art.ui.ArtSyncHost()
             com.maheshglance.wonderlab.core.platform.ToastHost()
+            if (application.platform.name == "ios") com.maheshglance.wonderlab.core.platform.EdgeSwipeBack { ctx.back() }
         }
     }
 }

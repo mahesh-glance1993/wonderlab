@@ -76,7 +76,7 @@ fun FormulaExplorer(spec: JsonObject) {
         (pts.minOrNull() ?: 0.0) to (pts.maxOrNull() ?: 1.0)
     }
     val frac = if (result.isFinite() && range.second > range.first) ((result - range.first) / (range.second - range.first)).toFloat().coerceIn(0.03f, 1f) else 0.5f
-    val gauge by animateFloatAsState(frac, tween(350), label = "gauge")
+    val gauge by animateFloatAsState(frac, com.maheshglance.wonderlab.core.design.Motion.local(), label = "gauge")
 
     Column(
         Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).background(c.surface).padding(16.dp),

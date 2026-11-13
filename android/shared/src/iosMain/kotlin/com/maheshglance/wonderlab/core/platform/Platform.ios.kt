@@ -13,9 +13,18 @@ import platform.Foundation.NSTemporaryDirectory
 import platform.Foundation.NSURL
 import platform.Foundation.dateWithTimeIntervalSince1970
 
-/** iPad has no system back button; screens have their own back buttons. */
+/** iOS: screens' back handlers are honoured by the edge-swipe back gesture (EdgeSwipeBack). */
 @Composable
-actual fun BackHandler(enabled: Boolean, onBack: () -> Unit) {}
+actual fun BackHandler(enabled: Boolean, onBack: () -> Unit) {
+    val owner = remember { Any() }
+    val current = androidx.compose.runtime.rememberUpdatedState(onBack)
+    val on = androidx.compose.runtime.rememberUpdatedState(enabled)
+    androidx.compose.runtime.DisposableEffect(owner) {
+        BackStack.callbacks[owner] = { current.value() }
+        BackStack.push(owner) { on.value }
+        onDispose { BackStack.remove(owner); BackStack.callbacks.remove(owner) }
+    }
+}
 
 /** Saves through the share sheet ("Save to Files", AirDrop, Mail …). */
 @Composable

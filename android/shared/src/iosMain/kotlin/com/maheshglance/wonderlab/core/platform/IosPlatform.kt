@@ -63,6 +63,7 @@ class IosPlatform(override val apiBase: String = "https://learn.maheshglance.com
     override val deviceLabel = "WonderLab ${UIDevice.currentDevice.model} app · iPadOS ${UIDevice.currentDevice.systemVersion}"
     override val dataDir: String = appDir(NSApplicationSupportDirectory, "WonderLab")
     override val cacheDir: String = appDir(NSCachesDirectory, "WonderLab")
+    override val systemReduceMotion: Boolean get() = platform.UIKit.UIAccessibilityIsReduceMotionEnabled()
 
     private val _online = MutableStateFlow(true)
     override val online: StateFlow<Boolean> = _online
