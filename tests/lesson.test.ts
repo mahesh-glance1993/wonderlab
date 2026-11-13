@@ -408,7 +408,7 @@ describe('real curriculum', () => {
         }
       }
     }
-  }, 30000);
+  }, 300000); // whole curriculum (all boards, all classes): grows with content
   it('uses the per-level seeded ids to rebuild the same question (Class 5 fraction resume)', async () => {
     // Class 5 is level 7; while its content is still being authored, use the first fraction objective found.
     let c = await loadClass(7);
