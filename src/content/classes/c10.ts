@@ -1,6 +1,6 @@
 // Class 10 — CBSE Mathematics (NCERT Mathematics, rationalised) and physics chapters of NCERT Science.
 import {
-  buildClass, src, tp, ex, p, tip, f, vis, act, stepsB, num, approx, frac, choose, matching, ordering, tapAll, item,
+  buildClass, src, tp, ex, p, tip, f, vis, act, stepsB, def, explore, keys, remember, L, num, approx, frac, choose, matching, ordering, tapAll, item,
   gcd, lcm, fr, rd, inr, sgn, NAMES, CITIES, isPrime, type USpec, type QSpec,
 } from '../lib/kit';
 import type { Rng } from '../../shared/grading';
@@ -805,6 +805,28 @@ const elec: USpec = {
       intro: [
         p('Current (I) is the rate of flow of charge, measured in amperes (A). Potential difference (V) pushes the charge, measured in volts (V). Resistance (R) opposes the flow, measured in ohms (Ω).'),
         f('V = I × R', 'V equals I times R'),
+        def("Ohm's law", 'At a constant temperature, the current through a conductor is directly proportional to the potential difference across it: V = IR.'),
+        explore({
+          title: L("What if? Play with Ohm's law"),
+          formula: 'I = V / R',
+          result: { sym: 'I', name: L('Current'), unit: 'A', expr: 'V / R', decimals: 3 },
+          vars: [
+            { sym: 'V', name: L('Potential difference'), unit: 'V', min: 1, max: 24, step: 0.5, value: 6 },
+            { sym: 'R', name: L('Resistance'), unit: 'Ω', min: 1, max: 100, step: 1, value: 12 },
+          ],
+          notes: [
+            { sym: 'V', up: L('A bigger push (more cells in the battery) drives more charge per second, so the bulb glows brighter.'), down: L('A smaller push drives less charge per second, so the bulb glows dimmer.') },
+            { sym: 'R', up: L('More resistance (a longer or thinner wire, or more bulbs in series) opposes the flow, so less current flows.'), down: L('Less resistance lets charge flow more easily, so more current flows — too little resistance can overheat a circuit.') },
+          ],
+          mistakes: [
+            { wrong: L('Multiplying: I = V × R'), why: L('Current goes DOWN when resistance goes up, so R must divide: I = V ÷ R.') },
+            { wrong: L('Forgetting to convert kΩ or mA'), why: L('Use base units: 1 kΩ = 1000 Ω and 1 mA = 0.001 A before substituting.') },
+            { wrong: L('Writing the answer without a unit'), why: L('An answer like "0.5" is incomplete — current is 0.5 A.') },
+          ],
+          realWorld: L('A phone charger supplies about 5 V; the phone controls its resistance so a safe current flows into the battery.'),
+        }),
+        keys('V = IR, so I = V/R and R = V/I.', 'Units: V in volts (V), I in amperes (A), R in ohms (Ω).', 'Double V (same R) → I doubles. Double R (same V) → I halves.'),
+        remember('In exams always write the formula, substitute with units, and write the unit in the final answer.'),
         stepsB('Write down what is given, with units.', 'Convert units if needed (mA → A, kΩ → Ω).', 'Rearrange V = IR for the unknown.', 'Substitute, calculate, and write the unit.'),
         act('lab:circuit?cells=2&bulbs=1&closed=1', 'Verify in the Circuit Lab: 2 cells (3 V) and 1 bulb — read the ammeter and check V = IR'),
         act('lab:circuit?cells=4&bulbs=2&closed=1', 'Double the cells and add a bulb in series — does I change as Ohm\'s law predicts?'),

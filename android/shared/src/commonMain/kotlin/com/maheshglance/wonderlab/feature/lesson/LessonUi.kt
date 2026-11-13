@@ -52,6 +52,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.material.icons.rounded.NoteAdd
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
@@ -149,6 +150,15 @@ fun ModeTabs(mode: String, onChange: (String) -> Unit, modifier: Modifier = Modi
 
 // ---------------------------------------------------------------- instruction blocks (Learn mode)
 
+/** Set by the lesson screen: saves a line into this chapter's note ("Save to notes" on key points). Null = not available. */
+val LocalNoteTarget = androidx.compose.runtime.staticCompositionLocalOf<((String) -> Unit)?> { null }
+
+@Composable
+private fun SaveToNotes(text: String) {
+    val save = LocalNoteTarget.current ?: return
+    WLButton("Save to notes", { save(text) }, small = true, icon = androidx.compose.material.icons.Icons.Rounded.NoteAdd)
+}
+
 @Composable
 fun Blocks(blocks: List<JsonObject>, visualSize: Dp, modifier: Modifier = Modifier) {
     val app = LocalApp.current
@@ -156,9 +166,9 @@ fun Blocks(blocks: List<JsonObject>, visualSize: Dp, modifier: Modifier = Modifi
         blocks.forEach { b ->
             when (b.str("type")) {
                 "text" -> EmojiText(L(b.loc("text")), style = MaterialTheme.typography.bodyLarge, color = WL.colors.text)
-                "formula" -> Box(Modifier.fillMaxWidth().clip(SmallShape).background(WL.colors.math).padding(horizontal = 14.dp, vertical = 10.dp).semantics { contentDescription = b.str("say") ?: b.str("tex") ?: "" }, contentAlignment = Alignment.Center) {
+                "formula" -> Column(horizontalAlignment = Alignment.CenterHorizontally) { Box(Modifier.fillMaxWidth().clip(SmallShape).background(WL.colors.math).padding(horizontal = 14.dp, vertical = 10.dp).semantics { contentDescription = b.str("say") ?: b.str("tex") ?: "" }, contentAlignment = Alignment.Center) {
                     Text(b.str("tex") ?: "", style = MaterialTheme.typography.headlineSmall.copy(fontFamily = FontFamily.Serif, fontWeight = FontWeight.SemiBold), color = WL.colors.mathInk, textAlign = TextAlign.Center)
-                }
+                }; SaveToNotes("Formula: " + (b.str("tex") ?: "")) }
                 "visual" -> b.obj("visual")?.let { vis ->
                     Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) { val alt = L(b.loc("alt")); Visual(vis, visualSize, Modifier.semantics { contentDescription = alt }) }
                 }
@@ -170,6 +180,36 @@ fun Blocks(blocks: List<JsonObject>, visualSize: Dp, modifier: Modifier = Modifi
                     EmojiText(L(b.loc("tip") ?: b.loc("text")), style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold), color = WL.colors.text)
                 }
                 "activity" -> b.str("path")?.let { path -> ActivityButton(b.str("activityId") ?: "", L(b.loc("label")), path) { app.go(path) } }
+                "heading" -> Text(L(b.loc("text")), style = MaterialTheme.typography.titleLarge, color = WL.colors.text, modifier = Modifier.padding(top = 6.dp))
+                "definition" -> Column(Modifier.fillMaxWidth().clip(SmallShape).background(WL.colors.math).padding(12.dp)) {
+                    Text(L(b.loc("term")), style = MaterialTheme.typography.titleMedium, color = WL.colors.mathInk)
+                    EmojiText(L(b.loc("text")), style = MaterialTheme.typography.bodyLarge, color = WL.colors.text)
+                    SaveToNotes("${L(b.loc("term"))}: ${L(b.loc("text"))}")
+                }
+                "keypoints" -> Column(Modifier.fillMaxWidth().clip(SmallShape).background(WL.colors.surface2).padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text("Key points", style = MaterialTheme.typography.titleMedium, color = WL.colors.text)
+                    b.locList("points").forEach { pt ->
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text("•", style = MaterialTheme.typography.bodyLarge, color = WL.colors.primary)
+                            EmojiText(L(pt), Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge, color = WL.colors.text)
+                        }
+                    }
+                    val lang = WL.lang
+                    SaveToNotes(b.locList("points").joinToString("\n• ") { it.get(lang) })
+                }
+                "remember" -> Row(Modifier.fillMaxWidth().clip(SmallShape).background(WL.colors.warnBg).padding(12.dp), horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
+                    EmojiImage("📌", 28.dp)
+                    Column {
+                        Text("Remember", style = MaterialTheme.typography.labelLarge, color = WL.colors.warn)
+                        EmojiText(L(b.loc("text")), style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold), color = WL.colors.text)
+                        SaveToNotes("Remember: " + L(b.loc("text")))
+                    }
+                }
+                "photo" -> Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    EmojiImage(b.str("picture") ?: "", visualSize.coerceAtMost(180.dp), label = L(b.loc("caption")))
+                    Text(L(b.loc("caption")), style = MaterialTheme.typography.bodyMedium, color = WL.colors.muted, textAlign = TextAlign.Center)
+                }
+                "explore" -> b.obj("explore")?.let { FormulaExplorer(it) }
             }
         }
     }

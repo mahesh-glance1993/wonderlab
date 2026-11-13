@@ -36,6 +36,7 @@ import com.maheshglance.wonderlab.feature.lab.labGraph
 import com.maheshglance.wonderlab.feature.language.languageGraph
 import com.maheshglance.wonderlab.feature.lesson.lessonGraph
 import com.maheshglance.wonderlab.feature.parent.parentGraph
+import com.maheshglance.wonderlab.feature.notes.notesGraph
 import com.maheshglance.wonderlab.ui.shell.BreakReminder
 import com.maheshglance.wonderlab.ui.shell.OfflineBar
 import kotlinx.serialization.json.JsonObject
@@ -92,6 +93,7 @@ fun WonderLabRoot(application: WonderLabApp) {
                         artGraph()
                         languageGraph()
                         parentGraph()
+                        notesGraph()
                     }
                 }
                 OfflineBar()

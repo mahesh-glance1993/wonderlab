@@ -2,7 +2,8 @@
 // → one independent attempt → review.
 import { useEffect, useState, type ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { Block, Objective, WorkedExample } from '../../shared/content';
+import type { Block, ExploreSpec, Objective, WorkedExample } from '../../shared/content';
+import { evaluate, explainChange } from '../../shared/formula';
 import { useApp, useL } from '../../lib/app';
 import { Icon } from '../../ui/Icon';
 import { Button, Meter, NarrationControls } from '../../ui/kit';
@@ -42,7 +43,9 @@ export function ActivityLinks({ o }: { o: Objective }) {
 const blockSpeech = (blocks: Block[]) => {
   const en: string[] = [], te: string[] = [];
   for (const b of blocks) {
-    if (b.type === 'text' || b.type === 'tip') { en.push(b.text.en); te.push(b.text.te ?? b.text.en); }
+    if (b.type === 'text' || b.type === 'tip' || b.type === 'heading' || b.type === 'remember') { en.push(b.text.en); te.push(b.text.te ?? b.text.en); }
+    if (b.type === 'definition') { en.push(`${b.term.en}: ${b.text.en}`); te.push(`${b.term.te ?? b.term.en}: ${b.text.te ?? b.text.en}`); }
+    if (b.type === 'keypoints') b.points.forEach((x) => { en.push(x.en); te.push(x.te ?? x.en); });
     if (b.type === 'formula') { en.push(b.say ?? b.tex); te.push(b.say ?? b.tex); }
     if (b.type === 'steps') b.steps.forEach((x) => { en.push(x.en); te.push(x.te ?? x.en); });
   }
@@ -65,9 +68,51 @@ export function Blocks({ blocks, autoRead }: { blocks: Block[]; autoRead: boolea
           case 'steps': return <ol key={i} className="lq-blocksteps">{b.steps.map((x, j) => <li key={j}>{L(x)}</li>)}</ol>;
           case 'tip': return <div key={i} className="alert info"><Icon name="bulb" /><span>{L(b.text)}</span></div>;
           case 'activity': return <div key={i}><ActivityButton id={b.activityId} label={b.label} /></div>;
+          case 'heading': return <h3 key={i} className="lq-heading">{L(b.text)}</h3>;
+          case 'definition': return <div key={i} className="alert info"><span><b>{L(b.term)}</b> — {L(b.text)}</span></div>;
+          case 'keypoints': return <ul key={i} className="lq-keypoints">{b.points.map((x, j) => <li key={j}>{L(x)}</li>)}</ul>;
+          case 'remember': return <div key={i} className="alert warn"><Icon name="star" /><span><b>Remember:</b> {L(b.text)}</span></div>;
+          case 'photo': return <figure key={i} className="lq-photo"><span className="lq-photo-pic" aria-hidden="true">{b.picture}</span><figcaption>{L(b.caption)}</figcaption></figure>;
+          case 'explore': return <Explorer key={i} spec={b.explore} />;
         }
       })}
     </div>
+  );
+}
+
+// ---------------------------------------------------------------- "what if?" formula explorer
+
+function Explorer({ spec }: { spec: ExploreSpec }) {
+  const L = useL();
+  const init = Object.fromEntries(spec.vars.map((v) => [v.sym, v.value]));
+  const [vals, setVals] = useState<Record<string, number>>(init);
+  const [why, setWhy] = useState('');
+  let result = NaN;
+  try { result = evaluate(spec.result.expr, vals); } catch { /* shown as — */ }
+  const set = (sym: string, x: number) => {
+    const next = { ...vals, [sym]: x };
+    try { setWhy(explainChange(spec, sym, vals, next, L)); } catch { setWhy(''); }
+    setVals(next);
+  };
+  const shown = isFinite(result) ? String(+result.toFixed(spec.result.decimals ?? 2)) : '—';
+  return (
+    <section className="card stack lq-explore" aria-label={L(spec.title)}>
+      <h3>{L(spec.title)}</h3>
+      <div className="lq-formula"><span>{spec.formula}</span></div>
+      {spec.vars.map((v) => (
+        <label key={v.sym} className="stack-sm">
+          <span><b>{v.sym}</b> — {L(v.name)}: <b>{vals[v.sym]}</b>{v.unit ? ` ${v.unit}` : ''}</span>
+          <input type="range" min={v.min} max={v.max} step={v.step} value={vals[v.sym]} onChange={(e) => set(v.sym, Number(e.target.value))} />
+        </label>
+      ))}
+      <div className="alert good" role="status"><span>{L(spec.result.name)} ({spec.result.sym}) = <b>{shown}</b>{spec.result.unit ? ` ${spec.result.unit}` : ''}</span></div>
+      {why && <p className="lq-text" aria-live="polite">{why}</p>}
+      {spec.realWorld && <p className="muted">{L(spec.realWorld)}</p>}
+      {!!spec.mistakes?.length && (
+        <details><summary>Common mistakes</summary><ul>{spec.mistakes.map((m, j) => <li key={j}><b>{L(m.wrong)}</b> — {L(m.why)}</li>)}</ul></details>
+      )}
+      <div className="row"><Button icon="reset" onClick={() => { setVals(init); setWhy(''); }}>Reset</Button></div>
+    </section>
   );
 }
 

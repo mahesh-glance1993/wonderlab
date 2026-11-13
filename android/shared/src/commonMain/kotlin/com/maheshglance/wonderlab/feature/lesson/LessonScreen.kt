@@ -4,6 +4,9 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
+import androidx.compose.material.icons.rounded.NoteAdd
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -136,6 +139,8 @@ private fun LessonWorkspace(vm: LessonViewModel, autoRead: Boolean) {
     val reportQ = currentQid?.let { vm.views[it] }?.q
     LaunchedEffect(vm.message) { if (vm.message != null) { delay(3500); vm.message = null } }
 
+    val unitTitle = L(info.unit.title)
+    androidx.compose.runtime.CompositionLocalProvider(LocalNoteTarget provides if (vm.tier == "early") null else { line: String -> com.maheshglance.wonderlab.feature.notes.appendToChapterNote(app, info.unit.id, info.unit.subject, unitTitle, line) }) {
     Box(Modifier.fillMaxSize().background(WL.colors.bg)) {
         Column(Modifier.fillMaxSize()) {
             TopBar(title, onBack = { app.back() }, subtitle = L(info.unit.title), actions = {
@@ -144,6 +149,11 @@ private fun LessonWorkspace(vm: LessonViewModel, autoRead: Boolean) {
                     MasteryChip(mastery?.masteredAt != null, progress, Modifier.width(150.dp))
                 }
                 if (senior) IconBtn(Icons.Rounded.Edit, ls("scratch"), { scratch = !scratch }, size = 44.dp, bg = if (scratch) WL.colors.math else WL.colors.surface2)
+                if (vm.tier != "early") {
+                    val openNotes = { app.go(com.maheshglance.wonderlab.feature.notes.chapterNotePath(info.unit.id, info.unit.subject, unitTitle)) }
+                    if (win.isPhone) IconBtn(androidx.compose.material.icons.Icons.Rounded.NoteAdd, "My notes for this chapter", openNotes, size = 44.dp)
+                    else WLButton("Notes", openNotes, small = true, icon = androidx.compose.material.icons.Icons.Rounded.NoteAdd)
+                }
                 ReportProblemButton(vm.lessonId, reportQ?.id, reportQ?.version)
                 IconBtn(Icons.Rounded.Home, ls("home"), { app.go(Routes.HOME) }, size = 44.dp)
             })
@@ -178,6 +188,7 @@ private fun LessonWorkspace(vm: LessonViewModel, autoRead: Boolean) {
             }
         }
         Confetti(vm.celebrate)
+    }
     }
     if (senior && scratch && win.isPhone && !win.landscape) Dialog({ scratch = false }, DialogProperties(usePlatformDefaultWidth = false)) {
         Box(Modifier.fillMaxSize().background(WL.colors.bg).padding(12.dp)) {
@@ -264,7 +275,12 @@ private fun IntroStage(blocks: List<kotlinx.serialization.json.JsonObject>, say:
             val w = maxWidth; val h = maxHeight
             val visuals = blocks.filter { it.str("type") == "visual" }
             val rest = blocks.filter { it.str("type") != "visual" }
-            if (w >= 560.dp && w > h * 1.15f && visuals.isNotEmpty() && rest.isNotEmpty()) {
+            // rich explanations (explorer, definitions, key points…) are read at full size and scroll, never shrunk
+            val rich = blocks.size > 4 || blocks.any { it.str("type") in setOf("explore", "definition", "keypoints", "remember", "heading", "photo") }
+            if (rich) Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+                Blocks(blocks, minOf(w.value * 0.6f, 260f).coerceAtLeast(120f).dp, Modifier.fillMaxWidth())
+            }
+            else if (w >= 560.dp && w > h * 1.15f && visuals.isNotEmpty() && rest.isNotEmpty()) {
                 Row(Modifier.fillMaxSize(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     FitToScreen(Modifier.weight(1f).fillMaxHeight(), minScale = 0.45f) { Blocks(rest, 200.dp, Modifier.width(w * 0.5f)) }
                     FitToScreen(Modifier.weight(1f).fillMaxHeight(), minScale = 0.45f) { Blocks(visuals, minOf(w.value * 0.4f, h.value * 0.8f).dp, Modifier.width(w * 0.45f)) }

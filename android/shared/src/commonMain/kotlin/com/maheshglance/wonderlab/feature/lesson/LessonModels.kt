@@ -131,7 +131,7 @@ data class LessonInfo(
 // ---------------------------------------------------------------- curriculum browser & next
 
 @Serializable data class CObjective(val id: String, val title: Localized = Localized())
-@Serializable data class CUnit(val id: String, val subject: String = "math", val title: Localized = Localized(), val enrichment: Boolean = false, val source: String? = null, val objectives: List<CObjective> = emptyList())
+@Serializable data class CUnit(val id: String, val board: String = "cbse", val subject: String = "math", val title: Localized = Localized(), val enrichment: Boolean = false, val source: String? = null, val objectives: List<CObjective> = emptyList())
 @Serializable data class CurriculumData(val level: Int = 0, val label: String = "", val units: List<CUnit> = emptyList())
 @Serializable data class NextRec(val unitId: String, val objectiveId: String, val kind: String = "start", val reason: Localized = Localized(), val unitTitle: Localized = Localized(), val objectiveTitle: Localized = Localized(), val mode: String = "learn")
 @Serializable data class DueItem(val unitId: String, val objectiveId: String, val title: Localized = Localized())

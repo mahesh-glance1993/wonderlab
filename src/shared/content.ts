@@ -2,8 +2,12 @@
 import type { AnswerSpec, Rng } from './grading';
 import type { ClassLevel } from './levels';
 
-export type Subject = 'early' | 'math' | 'physics';
-export type BoardId = 'cbse' | 'play'; // 'play' = WonderLab pre-primary play curriculum
+export type Subject =
+  | 'early' | 'math' | 'physics'
+  | 'chemistry' | 'biology' | 'science' | 'evs' | 'social'
+  | 'telugu' | 'hindi' | 'english';
+// 'play' = WonderLab pre-primary play curriculum; 'ts' = Telangana SCERT; 'ap' = Andhra Pradesh (NCERT-based + state languages)
+export type BoardId = 'cbse' | 'play' | 'ts' | 'ap';
 
 export interface Localized { en: string; te?: string }
 
@@ -35,7 +39,33 @@ export type Block =
   | { type: 'visual'; visual: VisualSpec; alt: Localized }
   | { type: 'steps'; steps: Localized[] }
   | { type: 'tip'; text: Localized }
-  | { type: 'activity'; activityId: string; label: Localized }; // link to a sim / game / art activity
+  | { type: 'activity'; activityId: string; label: Localized } // link to a sim / game / art activity
+  | { type: 'heading'; text: Localized }
+  | { type: 'definition'; term: Localized; text: Localized }
+  | { type: 'keypoints'; points: Localized[] }
+  | { type: 'remember'; text: Localized } // "Remember" box: key fact / exam point
+  | { type: 'photo'; picture: string; caption: Localized } // real photo; `picture` is a picture key (emoji)
+  | { type: 'explore'; explore: ExploreSpec }; // interactive "what if?" formula explorer
+
+/**
+ * Interactive "what if?" explorer for a formula: the learner moves sliders for the inputs and sees the
+ * result change live, with an explanation of WHY it changed (direct / inverse / square relationships are
+ * detected automatically) and the common mistakes for this formula.
+ * `expr` uses the input symbols with + - * / ^ ( ) and sqrt, sin, cos, tan (degrees), abs, min, max, pi.
+ */
+export interface ExploreSpec {
+  title: Localized;
+  /** shown as written, e.g. "I = V / R" */
+  formula: string;
+  result: { sym: string; name: Localized; unit?: string; expr: string; decimals?: number };
+  vars: { sym: string; name: Localized; unit?: string; min: number; max: number; step: number; value: number }[];
+  /** authored explanations shown when a variable goes up / down (in addition to the automatic ones) */
+  notes?: { sym: string; up: Localized; down: Localized }[];
+  /** common mistakes: what goes wrong and why */
+  mistakes?: { wrong: Localized; why: Localized }[];
+  /** real-world meaning, e.g. "A thinner wire has more resistance, so the bulb glows dimmer." */
+  realWorld?: Localized;
+}
 
 /** Declarative visuals rendered by the lesson workspace (no external images). */
 export type VisualSpec =

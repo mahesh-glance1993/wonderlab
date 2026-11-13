@@ -72,7 +72,7 @@ fun QuestionPanel(
     val canCheck = !st.checked && !isEmptyResponse(resp)
     var busy by remember(q.id) { mutableStateOf(false) }
     val result by produceState<CheckResult?>(null, q.id, st.checked) { value = if (st.checked) eng.check(ctx.level, ctx.objectiveId, q.id, tier, st.draft) else null }
-    val sCorrect = t("correct"); val sNotQuite = t("notQuite")
+    var cheer by remember(q.id) { mutableStateOf<String?>(null) }
 
     val check: () -> Unit = check@{
         if (busy || st.checked || isEmptyResponse(resp)) return@check
@@ -84,7 +84,9 @@ fun QuestionPanel(
             set { it.copy(checked = true, draft = resp) }
             onAnswered(q, r.correct, resp, st.hints)
             if (r.correct) Tones.correct() else Tones.wrong()
-            if (ctx.autoRead) app.say(if (r.correct) sCorrect else sNotQuite, lang)
+            val words = if (r.correct) com.maheshglance.wonderlab.core.design.Cheer.correct(tier, st.hints > 0) else com.maheshglance.wonderlab.core.design.Cheer.tryAgain(tier)
+            cheer = words
+            if (ctx.autoRead || tier == "early") app.say(words.replace(Regex("[🔥🏆🎉]"), "").trim(), "en")
         }
     }
 
@@ -101,7 +103,7 @@ fun QuestionPanel(
             val res = result
             if (st.checked && res != null) {
                 val msg = buildString {
-                    append(if (res.correct) (if (st.hints > 0) t("correct") else t("greatJob")) else t("notQuite"))
+                    append(cheer ?: if (res.correct) (if (st.hints > 0) t("correct") else t("greatJob")) else t("notQuite"))
                     res.mistake?.let { append("\n").append(it.get(lang)) }
                     if (res.showUnderstood && res.understood != null) append("\n").append(ls("weRead", "v" to res.understood))
                 }

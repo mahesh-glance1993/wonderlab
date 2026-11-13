@@ -9,6 +9,7 @@ export const te: Partial<Record<StringKey, string>> = {
   math: 'గణితం',
   physicsLab: 'భౌతిక శాస్త్ర ప్రయోగశాల',
   artStudio: 'ఆర్ట్ స్టూడియో',
+  myNotes: 'నా నోట్స్',
   games: 'ఆటలు మరియు పజిల్స్',
   downloads: 'డౌన్‌లోడ్‌లు',
   myProgress: 'నా ప్రగతి',

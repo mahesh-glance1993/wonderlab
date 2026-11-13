@@ -167,3 +167,11 @@ table.data th, table.data td { padding: 6px 10px; border-bottom: 1px solid var(-
 
 /* "Tap to return to full screen" note */
 .fs-hint { position: fixed; left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 90; display: flex; gap: 8px; align-items: center; background: var(--surface); color: var(--muted); font-weight: 800; padding: 8px 18px; border-radius: 999px; box-shadow: var(--shadow); pointer-events: none; }
+
+/* new lesson blocks: headings, key points, photos, "what if?" explorer */
+.lq-heading { margin: 8px 0 0; font-size: 1.15rem; }
+.lq-keypoints { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.lq-photo { margin: 0; display: grid; justify-items: center; gap: 6px; }
+.lq-photo-pic { font-size: 4rem; line-height: 1; }
+.lq-photo figcaption { color: var(--muted); font-weight: 600; text-align: center; }
+.lq-explore input[type=range] { width: 100%; }

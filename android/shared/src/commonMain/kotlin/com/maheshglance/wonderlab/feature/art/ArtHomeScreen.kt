@@ -20,12 +20,12 @@ import com.maheshglance.wonderlab.ui.LocalApp
 import com.maheshglance.wonderlab.ui.Routes
 import com.maheshglance.wonderlab.ui.shell.HubScaffold
 
-private data class ArtTile(val path: String, val emoji: String, val en: String, val te: String, val descEn: String, val descTe: String)
+private data class ArtTile(val path: String, val emoji: String, val en: String, val te: String, val descEn: String, val descTe: String, val maxLevel: Int = 12)
 
 private val TILES = listOf(
     ArtTile("art/paint", "🖍️", "Paint", "పెయింట్", "Pencils, crayons, watercolour and more", "ఖాళీ కాగితంపై గీయి"),
-    ArtTile("art/color", "🪣", "Colour", "రంగులు వేయి", "Animals, vehicles, patterns, science", "బొమ్మలకు రంగులు"),
-    ArtTile("art/trace", "✏️", "Trace", "దిద్దు", "Lines, shapes, numbers and letters", "గీతలు, అంకెలు, అక్షరాలు"),
+    ArtTile("art/color", "🪣", "Colour", "రంగులు వేయి", "Animals, vehicles, patterns, science", "బొమ్మలకు రంగులు", maxLevel = 7),
+    ArtTile("art/trace", "✏️", "Trace", "దిద్దు", "Lines, shapes, numbers and letters", "గీతలు, అంకెలు, అక్షరాలు", maxLevel = 5),
     ArtTile("art/gallery", "⭐", "My Gallery", "నా గ్యాలరీ", "Your saved pictures", "నీ బొమ్మలు"),
 )
 
@@ -36,6 +36,9 @@ fun ArtHomeScreen() {
     val te = WL.lang == "te"
     val win = LocalWindow.current
     val pres = rememberPresentation()
+    // age-appropriate: colouring pages up to Class 5, tracing up to Class 3; older learners get Sketch + Gallery
+    val level = app.repo.state.value.profile?.classLevel ?: 3
+    val tiles = TILES.filter { level <= it.maxLevel }.map { if (level >= 8 && it.path == "art/paint") it.copy(en = "Sketchbook", descEn = "Draw diagrams, maps and ideas") else it }
     LaunchedEffect(pres.readAloud) {
         if (pres.readAloud) app.say(if (te) "ఆర్ట్ స్టూడియో. పెయింట్, రంగులు, దిద్దడం." else "Art Studio. Paint, colour, trace, or see your gallery.", WL_LANG(te), "Art Studio. Paint, colour, trace, or see your gallery.")
     }
@@ -45,7 +48,7 @@ fun ArtHomeScreen() {
             val cols = if (win.landscape || win.isTablet && win.width > 700.dp) 4 else 2
             val gap = if (win.isPhone) 12.dp else 18.dp
             Column(Modifier.weight(1f).fillMaxWidth().padding(if (win.isPhone) 12.dp else 24.dp), verticalArrangement = Arrangement.spacedBy(gap)) {
-                TILES.chunked(cols).forEach { row ->
+                tiles.chunked(cols).forEach { row ->
                     Row(Modifier.weight(1f).fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(gap)) {
                         row.forEach { t ->
                             Tile(

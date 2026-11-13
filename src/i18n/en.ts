@@ -7,6 +7,7 @@ export const en = {
   math: 'Math',
   physicsLab: 'Physics Lab',
   artStudio: 'Art Studio',
+  myNotes: 'My Notes',
   games: 'Games and Puzzles',
   downloads: 'Downloads',
   myProgress: 'My Progress',

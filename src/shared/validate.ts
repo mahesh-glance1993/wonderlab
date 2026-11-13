@@ -1,4 +1,5 @@
 // Content validation used by tests, the seed script and the educator editor's "Validate" step.
+import { checkExplore } from './formula';
 import type { Question, Objective, Template, Unit } from './content';
 import { grade, rng, type Response } from './grading';
 
@@ -80,6 +81,7 @@ export function validateObjective(o: Objective, templates: Record<string, Templa
   const out: ValidationIssue[] = [];
   if ((o.examples || []).length < 2) out.push({ level: 'error', path: o.id, message: 'needs at least 2 worked examples/demonstrations' });
   if (!o.intro?.length) out.push({ level: 'error', path: o.id, message: 'missing introduction' });
+  for (const b of o.intro || []) if (b.type === 'explore') for (const m of checkExplore(b.explore)) out.push({ level: 'error', path: o.id, message: `explorer: ${m}` });
   const tpl = o.templates.map((id) => templates[id]);
   if (tpl.some((t) => !t)) out.push({ level: 'error', path: o.id, message: `unknown template: ${o.templates.filter((id) => !templates[id]).join(', ')}` });
   const staticCount = (o.items || []).length;

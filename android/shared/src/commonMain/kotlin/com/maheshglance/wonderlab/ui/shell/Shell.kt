@@ -124,7 +124,7 @@ fun HubScaffold(current: String, content: @Composable () -> Unit) {
         HubTab(Routes.HOME, if (early) "Home" else t("appName").let { "Home" }, "🏠"),
         HubTab(Routes.LEARN, if (early) "Learn" else "Lessons", "📚"),
         HubTab(if (early) Routes.PLAY else Routes.GAMES, if (early) "Play" else "Games", if (early) "🧸" else "🧩"),
-        HubTab(Routes.ART, "Art", "🎨"),
+        if ((s.profile?.classLevel ?: 3) >= 8) HubTab("notes", "Notes", "📝") else HubTab(Routes.ART, "Art", "🎨"),
         HubTab(Routes.PROGRESS, if (early) "Stars" else "Progress", "⭐"),
     )
     val c = WL.colors

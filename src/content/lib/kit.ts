@@ -11,7 +11,7 @@
 //    (e.g. "2/7", "35"). Choice-based items may key on the wrong choice id.
 //  - Templates MUST only use the Rng they are given (never Math.random / Date).
 import type {
-  Block, BoardId, Choice, ItemType, Localized, Objective, Question, SourceRef, Subject, Template, Unit, VisualSpec, WorkedExample,
+  Block, BoardId, Choice, ExploreSpec, ItemType, Localized, Objective, Question, SourceRef, Subject, Template, Unit, VisualSpec, WorkedExample,
 } from '../../shared/content';
 import type { AnswerSpec, Rng } from '../../shared/grading';
 import type { ClassLevel } from '../../shared/levels';
@@ -29,6 +29,12 @@ export const f = (tex: string, say?: string): Block => (say ? { type: 'formula',
 export const vis = (visual: VisualSpec, en: string, te?: string): Block => ({ type: 'visual', visual, alt: L(en, te) });
 export const stepsB = (...s: T[]): Block => ({ type: 'steps', steps: s.map(loc) });
 export const act = (activityId: string, en: string, te?: string): Block => ({ type: 'activity', activityId, label: L(en, te) });
+export const h = (en: string, te?: string): Block => ({ type: 'heading', text: L(en, te) });
+export const def = (term: T, text: T): Block => ({ type: 'definition', term: loc(term), text: loc(text) });
+export const keys = (...points: T[]): Block => ({ type: 'keypoints', points: points.map(loc) });
+export const remember = (en: string, te?: string): Block => ({ type: 'remember', text: L(en, te) });
+export const photo = (picture: string, caption: T): Block => ({ type: 'photo', picture, caption: loc(caption) });
+export const explore = (spec: ExploreSpec): Block => ({ type: 'explore', explore: spec });
 
 // ---------------- worked examples ----------------
 export interface ExSpec { problem: T; steps: T[]; answer: T; visual?: VisualSpec }
