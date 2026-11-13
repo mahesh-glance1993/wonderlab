@@ -130,7 +130,7 @@ jobs:
           set +e
           R=$RUNNER_TEMP/results; mkdir -p $R
           cp -R ios/shots $R/ 2>/dev/null
-          for f in ios/*.log; do [ -f "$f" ] && grep -E '^e: |error:|warning: unable|BUILD (SUCCEEDED|FAILED|SUCCESSFUL)|FAILURE|What went wrong' "$f" | head -400 > "$R/$(basename $f .log)-errors.txt"; done
+          for f in ios/*.log; do [ -f "$f" ] && grep -E -A3 '^e: |error:|warning: unable|Undefined symbol|duplicate symbol|ld: |referenced from|BUILD (SUCCEEDED|FAILED|SUCCESSFUL)|FAILURE|What went wrong' "$f" | head -600 > "$R/$(basename $f .log)-errors.txt"; done
           [ -f ios/out/WonderLab-unsigned.ipa ] && cp ios/out/WonderLab-unsigned.ipa $R/ && ls -la ios/out/WonderLab-unsigned.ipa > $R/ipa.txt
           echo "${{ github.sha }} ${{ job.status }} $(date -u)" > $R/RUN.txt
           cd $R && git init -q -b ci-ios-results && git add -A && git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "iOS build results for ${{ github.sha }}"
