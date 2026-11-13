@@ -7,5 +7,5 @@ keystore.properties
 *.aab
 .idea/
 captures/
-app/src/main/assets/engine.js
+shared/src/commonMain/composeResources/files/engine.js
 .kotlin/

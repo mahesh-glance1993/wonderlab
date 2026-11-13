@@ -1,11 +1,11 @@
-// Tests the language-course functions of android/app/src/main/assets/engine.js in Node:
+// Tests the language-course functions of android/shared/src/commonMain/composeResources/files/engine.js in Node:
 // every objective of both courses loads, every item of every objective appears in some round and grades
 // its own answer as correct (and a wrong answer as wrong), every passage / tracing set / unit link resolves,
 // tracing scoring runs, and constants copied from the website's React files still match their source.
 // Usage: node scripts/build-android-engine.mjs && node scripts/test-android-language.cjs
 const path = require('node:path');
 const fs = require('node:fs');
-require(path.resolve(__dirname, '../android/app/src/main/assets/engine.js'));
+require(path.resolve(__dirname, '../android/shared/src/commonMain/composeResources/files/engine.js'));
 const W = globalThis.WL;
 const call = (n, ...a) => JSON.parse(W.call(n, JSON.stringify(a)));
 
@@ -134,7 +134,7 @@ if (!real || real[1] !== b.cvc.real.join(' ')) fail('REAL words differ');
 if (!builders.includes("x !== 'క్ష' && x !== 'ఱ' && x !== 'ఙ' && x !== 'ఞ'") || b.ottuOptions.length !== 32) fail('ottu options differ');
 
 // every picture the course uses has a bundled 3D image
-const idxFile = path.resolve(__dirname, '../android/app/src/main/assets/emoji/index.json');
+const idxFile = path.resolve(__dirname, '../android/shared/src/commonMain/composeResources/files/emoji/index.json');
 if (fs.existsSync(idxFile)) {
   const idx = JSON.parse(fs.readFileSync(idxFile, 'utf8'));
   const norm = (e) => e.replace(/️/g, '');

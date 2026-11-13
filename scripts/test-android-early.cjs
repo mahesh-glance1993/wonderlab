@@ -1,9 +1,9 @@
-// Node test for the Play & Learn part of android/app/src/main/assets/engine.js (feature "early").
+// Node test for the Play & Learn part of android/shared/src/commonMain/composeResources/files/engine.js (feature "early").
 // Checks the static bundle, every round generator, the SVG drawings the app renders natively, and that
 // every picture's 3D emoji image is bundled.  Usage: node scripts/build-android-engine.mjs && node scripts/test-android-early.cjs
 const path = require('node:path');
 const fs = require('node:fs');
-require(path.resolve(__dirname, '../android/app/src/main/assets/engine.js'));
+require(path.resolve(__dirname, '../android/shared/src/commonMain/composeResources/files/engine.js'));
 const W = globalThis.WL;
 const call = (n, ...a) => JSON.parse(W.call(n, JSON.stringify(a)));
 let fails = 0;
@@ -17,7 +17,7 @@ ok(Object.keys(b.motion).length === b.stories.length, 'motion for every story');
 for (const s of b.stories) ok((b.motion[s.id] || []).length === s.pages.length, `motion pages ${s.id}`);
 
 // 3D emoji for every picture
-const idx = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../android/app/src/main/assets/emoji/index.json'), 'utf8'));
+const idx = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../android/shared/src/commonMain/composeResources/files/emoji/index.json'), 'utf8'));
 const norm = (e) => e.replace(/️/g, '');
 const have = new Set(Object.keys(idx).map(norm));
 const missing = b.pictures.filter((p) => !have.has(norm(p.emoji)));

@@ -5,7 +5,7 @@
 // Usage: node scripts/build-android-engine.mjs && node scripts/test-android-games.cjs
 const path = require('node:path');
 const fs = require('node:fs');
-require(path.resolve(__dirname, '../android/app/src/main/assets/engine.js'));
+require(path.resolve(__dirname, '../android/shared/src/commonMain/composeResources/files/engine.js'));
 const W = globalThis.WL;
 const call = (n, ...a) => JSON.parse(W.call(n, JSON.stringify(a)));
 let fails = 0, rounds = 0;

@@ -1,7 +1,7 @@
-// Smoke test for android/app/src/main/assets/engine.js in Node: every class outline loads,
+// Smoke test for android/shared/src/commonMain/composeResources/files/engine.js in Node: every class outline loads,
 // every template generates a question, and grading runs.  Usage: node scripts/test-android-engine.cjs
 const path = require('node:path');
-require(path.resolve(__dirname, '../android/app/src/main/assets/engine.js'));
+require(path.resolve(__dirname, '../android/shared/src/commonMain/composeResources/files/engine.js'));
 const W = globalThis.WL;
 const call = (n, ...a) => JSON.parse(W.call(n, JSON.stringify(a)));
 console.log('modules:', W.list());

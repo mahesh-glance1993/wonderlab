@@ -1,9 +1,9 @@
-// Tests for the Art Studio part of android/app/src/main/assets/engine.js (run after build-android-engine.mjs):
+// Tests for the Art Studio part of android/shared/src/commonMain/composeResources/files/engine.js (run after build-android-engine.mjs):
 // every colouring page converts to native draw commands, every tracing sheet/guide expands, tracing
 // scoring behaves (perfect trace = 3 stars, scribble = low), guided-stroke messages match the website.
 // Usage: node scripts/test-android-art.cjs
 const path = require('node:path');
-require(path.resolve(__dirname, '../android/app/src/main/assets/engine.js'));
+require(path.resolve(__dirname, '../android/shared/src/commonMain/composeResources/files/engine.js'));
 const W = globalThis.WL;
 const call = (n, ...a) => JSON.parse(W.call(n, JSON.stringify(a)));
 let fails = 0;

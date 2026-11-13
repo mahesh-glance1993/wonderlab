@@ -74,41 +74,14 @@ kotlin {
     compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) }
 }
 
-// The curriculum engine (shared TypeScript from ../src) is bundled into assets/engine.js before every build.
-val buildEngine by tasks.registering(Exec::class) {
-    group = "build"
-    description = "Bundles the shared WonderLab TypeScript logic into assets/engine.js"
-    workingDir = rootProject.projectDir.parentFile
-    commandLine(if (System.getProperty("os.name").lowercase().contains("win")) listOf("cmd", "/c", "node", "scripts/build-android-engine.mjs") else listOf("node", "scripts/build-android-engine.mjs"))
-    inputs.dir(rootProject.projectDir.parentFile.resolve("src"))
-    inputs.dir(rootProject.projectDir.resolve("engine"))
-    inputs.file(rootProject.projectDir.parentFile.resolve("scripts/build-android-engine.mjs"))
-    outputs.file(project.file("src/main/assets/engine.js"))
-}
-tasks.named("preBuild") { dependsOn(buildEngine) }
 
 dependencies {
+    implementation(project(":shared"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.process)
-    implementation(libs.androidx.navigation.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.foundation)
-    implementation(libs.androidx.compose.animation)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material3.window)
-    implementation(libs.androidx.compose.material3.navsuite)
-    implementation(libs.androidx.compose.material.icons)
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.ui)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.okhttp)
-    implementation(libs.quickjs)
-    debugImplementation(libs.androidx.compose.ui.tooling)
     testImplementation(libs.junit)
 }

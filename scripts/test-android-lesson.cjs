@@ -3,7 +3,7 @@
 // view, grading with the correct answer works, state restore keeps the website's LessonState shape, the diagnostic
 // runs, and "what next" recommends something.   Usage: node scripts/build-android-engine.mjs && node scripts/test-android-lesson.cjs
 const path = require('node:path');
-require(path.resolve(__dirname, '../android/app/src/main/assets/engine.js'));
+require(path.resolve(__dirname, '../android/shared/src/commonMain/composeResources/files/engine.js'));
 const W = globalThis.WL;
 const call = (n, ...a) => JSON.parse(W.call(n, JSON.stringify(a)));
 let fails = 0, checks = 0;
