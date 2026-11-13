@@ -1,19 +1,22 @@
 package com.maheshglance.wonderlab.feature.art.engine
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffXfermode
-import android.graphics.RadialGradient
-import android.graphics.Rect
-import android.graphics.RectF
-import android.graphics.Shader
-import android.os.Build
-import android.util.Base64
-import java.io.ByteArrayOutputStream
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.Canvas
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.PaintingStyle
+import androidx.compose.ui.graphics.RadialGradientShader
+import androidx.compose.ui.graphics.Shader
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
+import kotlin.concurrent.Volatile
+import kotlin.io.encoding.Base64
 import kotlin.math.PI
 import kotlin.math.atan2
 import kotlin.math.ceil
@@ -27,36 +30,42 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 /*
- * Native renderer — a port of the website's engine/render.ts onto android.graphics:
- * one Bitmap per layer, a stroke buffer, and deterministic replay of ops. The same StrokePainter is
+ * Native renderer — a port of the website's engine/render.ts onto Compose Multiplatform graphics:
+ * one bitmap per layer, a stroke buffer, and deterministic replay of ops. The same StrokePainter is
  * used live (points streamed in as the finger/pen moves) and when replaying a saved project.
  */
 
-private val DST_OUT = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
-private val CLEAR = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
+private val B64 = Base64.Default.withPadding(Base64.PaddingOption.PRESENT_OPTIONAL)
+private val WHITESPACE = Regex("\\s+")
+
+/** Resets a reused Paint to the defaults of a fresh anti-aliased Paint. */
+internal fun Paint.resetArt(): Paint {
+    alpha = 1f; color = Color.Black; blendMode = BlendMode.SrcOver; style = PaintingStyle.Fill
+    strokeWidth = 0f; strokeCap = StrokeCap.Butt; strokeJoin = StrokeJoin.Miter
+    shader = null; colorFilter = null; pathEffect = null; isAntiAlias = true; filterQuality = FilterQuality.None
+    return this
+}
+
+/** A fresh Paint (bitmap filtering off unless asked, like android.graphics.Paint()). */
+internal fun artPaint(filter: Boolean = false) = Paint().apply { filterQuality = if (filter) FilterQuality.Low else FilterQuality.None }
+
+private fun alpha255(a: Int) = a.coerceIn(0, 255) / 255f
 
 object ArtImages {
-    /** Decodes a data: URL (png/webp/jpeg) to a Bitmap. */
-    fun decodeDataUrl(url: String): Bitmap? = runCatching {
+    /** Decodes a data: URL (png/webp/jpeg) to a bitmap. */
+    fun decodeDataUrl(url: String): ImageBitmap? = runCatching {
         val comma = url.indexOf(',')
         if (!url.startsWith("data:") || comma < 0) return null
-        val bytes = Base64.decode(url.substring(comma + 1), Base64.DEFAULT)
-        BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        decodeArtImage(B64.decode(url.substring(comma + 1).replace(WHITESPACE, "")))
     }.getOrNull()
 
-    fun dataUrl(bmp: Bitmap, format: String, quality: Int): String {
-        val out = ByteArrayOutputStream()
-        val (fmt, mime) = when (format) {
-            "jpeg" -> Bitmap.CompressFormat.JPEG to "image/jpeg"
-            "webp" -> (if (Build.VERSION.SDK_INT >= 30) Bitmap.CompressFormat.WEBP_LOSSY else @Suppress("DEPRECATION") Bitmap.CompressFormat.WEBP) to "image/webp"
-            else -> Bitmap.CompressFormat.PNG to "image/png"
-        }
-        bmp.compress(fmt, quality, out)
-        return "data:$mime;base64," + Base64.encodeToString(out.toByteArray(), Base64.NO_WRAP)
+    fun dataUrl(bmp: ImageBitmap, format: String, quality: Int): String {
+        val mime = when (format) { "jpeg" -> "image/jpeg"; "webp" -> "image/webp"; else -> "image/png" }
+        return "data:$mime;base64," + Base64.Default.encode(encodeArtImage(bmp, format, quality))
     }
 }
 
-class StrokePainter(private val st: LayerStack, layer: Bitmap, val op: Op) {
+class StrokePainter(private val st: LayerStack, layer: ImageBitmap, val op: Op) {
     private var last: FloatArray? = null
     private var carry = 0f
     private val rnd = Mulberry32(op.seed)
@@ -68,13 +77,14 @@ class StrokePainter(private val st: LayerStack, layer: Bitmap, val op: Op) {
     private val layerBmp = layer
     private val lc = Canvas(layer)
     private val bc = Canvas(st.buffer)
-    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val paint = artPaint()
     val bbox = floatArrayOf(Float.POSITIVE_INFINITY, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY, Float.NEGATIVE_INFINITY)
 
     /** Alpha to show the live buffer with, approximating the final composite. */
     val previewAlpha get() = def.strokeAlpha * op.opacity * (if (op.brush == "watercolor") 0.55f else 1f)
     val usesBuffer get() = def.target == BrushTarget.Buffer
-    private val baseInt get() = Color.rgb(base[0].roundToInt(), base[1].roundToInt(), base[2].roundToInt())
+    private val baseInt get() = rgb(base[0].roundToInt(), base[1].roundToInt(), base[2].roundToInt())
+    private fun rgb(r: Int, g: Int, b: Int) = (0xFF shl 24) or (r shl 16) or (g shl 8) or b
 
     fun add(pts: List<FloatArray>) {
         for (p in pts) {
@@ -100,7 +110,7 @@ class StrokePainter(private val st: LayerStack, layer: Bitmap, val op: Op) {
         bbox[0] = min(bbox[0], x - r); bbox[1] = min(bbox[1], y - r); bbox[2] = max(bbox[2], x + r); bbox[3] = max(bbox[3], y + r)
     }
     private fun rf() = rnd.next().toFloat()
-    private fun circle(c: Canvas, x: Float, y: Float, r: Float) = c.drawCircle(x, y, max(0.3f, r), paint)
+    private fun circle(c: Canvas, x: Float, y: Float, r: Float) = c.drawCircle(Offset(x, y), max(0.3f, r), paint)
 
     private fun dab(q: FloatArray) {
         val x = q[0]; val y = q[1]
@@ -108,21 +118,24 @@ class StrokePainter(private val st: LayerStack, layer: Bitmap, val op: Op) {
         val r = d.radius
         n++
         grow(x, y, r + 3)
-        paint.reset(); paint.isAntiAlias = true
+        paint.resetArt()
         when (op.brush) {
             "graphite", "colorPencil", "crayon" -> {
                 val jx = (rf() - 0.5f) * r * 0.25f; val jy = (rf() - 0.5f) * r * 0.25f
-                paint.alpha = (d.alpha * 255).roundToInt().coerceIn(0, 255)
+                paint.alpha = alpha255((d.alpha * 255).roundToInt())
                 paint.shader = st.grainShader(base, d.coverage, if (op.brush == "crayon") 0.05f else 0.22f)
                 circle(bc, x + jx, y + jy, r)
             }
-            "marker", "ink", "watercolor" -> { paint.color = baseInt; circle(bc, x, y, r) }
+            "marker", "ink", "watercolor" -> { paint.color = Color(baseInt); circle(bc, x, y, r) }
             "airbrush" -> {
-                paint.alpha = (d.alpha * 255).roundToInt().coerceIn(0, 255)
-                paint.isFilterBitmap = true
-                bc.drawBitmap(st.softSprite(baseInt), null, RectF(x - r, y - r, x + r, y + r), paint)
-                paint.reset(); paint.isAntiAlias = true
-                paint.color = baseInt; paint.alpha = (min(1f, d.alpha * 3) * 255).roundToInt()
+                paint.alpha = alpha255((d.alpha * 255).roundToInt())
+                paint.filterQuality = FilterQuality.Low
+                val sprite = st.softSprite(baseInt)
+                bc.save(); bc.translate(x - r, y - r); bc.scale(2 * r / sprite.width, 2 * r / sprite.height)
+                bc.drawImage(sprite, Offset.Zero, paint)
+                bc.restore()
+                paint.resetArt()
+                paint.color = Color(baseInt); paint.alpha = alpha255((min(1f, d.alpha * 3) * 255).roundToInt())
                 repeat(3) {
                     val a = rf() * PI.toFloat() * 2; val rr = r * sqrt(rf()) * 0.9f
                     val px = x + cos(a) * rr; val py = y + sin(a) * rr
@@ -133,27 +146,30 @@ class StrokePainter(private val st: LayerStack, layer: Bitmap, val op: Op) {
                 if (n % 4 == 1) { // pick up wet paint just ahead of the brush
                     val sx = (x + cos(dir) * r * 0.9).roundToInt(); val sy = (y + sin(dir) * r * 0.9).roundToInt()
                     if (sx >= 0 && sy >= 0 && sx < st.w && sy < st.h) {
-                        val px = layerBmp.getPixel(sx, sy); val pa = px ushr 24
+                        val px = layerBmp.pixel(sx, sy); val pa = px ushr 24
                         if (pa > 30) cur = ArtColor.mix(cur, floatArrayOf(((px shr 16) and 255).toFloat(), ((px shr 8) and 255).toFloat(), (px and 255).toFloat()), 0.2f * (pa / 255f))
                     }
                 }
                 cur = ArtColor.mix(cur, base, 0.06f)
-                paint.color = Color.rgb(cur[0].roundToInt().coerceIn(0, 255), cur[1].roundToInt().coerceIn(0, 255), cur[2].roundToInt().coerceIn(0, 255))
-                paint.alpha = (d.alpha * op.opacity * 255).roundToInt().coerceIn(0, 255)
+                paint.color = Color(rgb(cur[0].roundToInt().coerceIn(0, 255), cur[1].roundToInt().coerceIn(0, 255), cur[2].roundToInt().coerceIn(0, 255)))
+                paint.alpha = alpha255((d.alpha * op.opacity * 255).roundToInt())
                 circle(lc, x, y, r)
                 val nx = -sin(dir).toFloat(); val ny = cos(dir).toFloat(); val tx = cos(dir).toFloat(); val ty = sin(dir).toFloat()
-                paint.style = Paint.Style.STROKE; paint.strokeWidth = max(1f, r * 0.12f); paint.strokeCap = Paint.Cap.ROUND
+                paint.style = PaintingStyle.Stroke; paint.strokeWidth = max(1f, r * 0.12f); paint.strokeCap = StrokeCap.Round
                 repeat(3) {
                     val off = (rf() * 2 - 1) * r * 0.8f
                     val sc = ArtColor.shade(cur, (rf() - 0.5f) * 0.3f)
-                    paint.color = Color.rgb(sc[0].roundToInt().coerceIn(0, 255), sc[1].roundToInt().coerceIn(0, 255), sc[2].roundToInt().coerceIn(0, 255))
-                    paint.alpha = (0.28f * op.opacity * 255).roundToInt().coerceIn(0, 255)
-                    lc.drawLine(x + nx * off - tx * r * 0.5f, y + ny * off - ty * r * 0.5f, x + nx * off + tx * r * 0.5f, y + ny * off + ty * r * 0.5f, paint)
+                    paint.color = Color(rgb(sc[0].roundToInt().coerceIn(0, 255), sc[1].roundToInt().coerceIn(0, 255), sc[2].roundToInt().coerceIn(0, 255)))
+                    paint.alpha = alpha255((0.28f * op.opacity * 255).roundToInt())
+                    lc.drawLine(
+                        Offset(x + nx * off - tx * r * 0.5f, y + ny * off - ty * r * 0.5f),
+                        Offset(x + nx * off + tx * r * 0.5f, y + ny * off + ty * r * 0.5f), paint,
+                    )
                 }
             }
             "eraser" -> {
-                paint.xfermode = DST_OUT; paint.color = Color.BLACK
-                paint.alpha = (op.opacity * 255).roundToInt().coerceIn(0, 255)
+                paint.blendMode = BlendMode.DstOut; paint.color = Color.Black
+                paint.alpha = alpha255((op.opacity * 255).roundToInt())
                 circle(lc, x, y, r)
             }
         }
@@ -167,7 +183,6 @@ class StrokePainter(private val st: LayerStack, layer: Bitmap, val op: Op) {
         val x1 = min(W, ceil(bbox[2]).toInt()); val y1 = min(H, ceil(bbox[3]).toInt())
         val w = x1 - x0; val h = y1 - y0
         if (w <= 0 || h <= 0) { st.clearBuffer(); return }
-        val p = Paint(Paint.ANTI_ALIAS_FLAG)
         if (op.brush == "watercolor") {
             // wet edge: subtract a blurred copy so the middle of the wash gets lighter than its rim
             val k = op.size / 8f
@@ -177,19 +192,19 @@ class StrokePainter(private val st: LayerStack, layer: Bitmap, val op: Op) {
             val bw = min(W, x1 + pad) - bx0; val bh = min(H, y1 + pad) - by0
             val blur = st.blurRegion(bx0, by0, bw, bh, kk)
             if (blur != null) {
-                p.xfermode = DST_OUT; p.alpha = (0.65f * 255).roundToInt(); p.isFilterBitmap = true
-                bc.drawBitmap(blur, null, Rect(bx0, by0, bx0 + bw, by0 + bh), p)
-                blur.recycle()
+                val p = artPaint(filter = true)
+                p.blendMode = BlendMode.DstOut; p.alpha = alpha255((0.65f * 255).roundToInt())
+                bc.drawImageRect(blur, IntOffset.Zero, IntSize(blur.width, blur.height), IntOffset(bx0, by0), IntSize(bw, bh), p)
+                blur.release()
             }
             // granulation: pigment settles in the paper's valleys
-            val g = Paint(); g.xfermode = DST_OUT; g.alpha = (0.3f * 255).roundToInt()
+            val g = artPaint(); g.blendMode = BlendMode.DstOut; g.alpha = alpha255((0.3f * 255).roundToInt())
             g.shader = st.grainShader(floatArrayOf(0f, 0f, 0f), 0.45f, 0.3f)
             bc.drawRect(x0.toFloat(), y0.toFloat(), x1.toFloat(), y1.toFloat(), g)
         }
-        val lp = Paint(); lp.alpha = (def.strokeAlpha * op.opacity * 255).roundToInt().coerceIn(0, 255)
-        val r = Rect(x0, y0, x1, y1)
-        lc.drawBitmap(st.buffer, r, r, lp)
-        st.clearBuffer(r)
+        val lp = artPaint(); lp.alpha = alpha255((def.strokeAlpha * op.opacity * 255).roundToInt())
+        lc.drawImageRect(st.buffer, IntOffset(x0, y0), IntSize(w, h), IntOffset(x0, y0), IntSize(w, h), lp)
+        st.clearBuffer(x0, y0, x1, y1)
     }
 
     /** Throw the stroke away (e.g. a pinch started). Direct brushes need the layer re-rendered. */
@@ -197,17 +212,13 @@ class StrokePainter(private val st: LayerStack, layer: Bitmap, val op: Op) {
 }
 
 class LayerStack(val project: Project, private val templateFor: (TemplateRef) -> DrawList?) {
-    val bitmaps = HashMap<String, Bitmap>()
-    val buffer: Bitmap = Bitmap.createBitmap(project.w, project.h, Bitmap.Config.ARGB_8888)
+    val bitmaps = HashMap<String, ImageBitmap>()
+    val buffer: ImageBitmap = ImageBitmap(project.w, project.h)
     var templateMask: ByteArray? = null
-    private class Checkpoint(val layer: String, val n: Int, val opId: String, val bmp: Bitmap)
+    private class Checkpoint(val layer: String, val n: Int, val opId: String, val bmp: ImageBitmap)
     private val checkpoints = ArrayList<Checkpoint>()
-    private val images = object : LinkedHashMap<String, Bitmap>(4, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, Bitmap>?): Boolean {
-            if (size > 3) { eldest?.value?.recycle(); return true }
-            return false
-        }
-    }
+    /** The last 3 decoded raster images, least recently used first. */
+    private val images = LinkedHashMap<String, ImageBitmap>()
     @Volatile var disposed = false; private set
 
     companion object {
@@ -218,11 +229,12 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
     val w get() = project.w
     val h get() = project.h
 
-    fun bitmap(id: String): Bitmap = bitmaps.getOrPut(id) { Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888) }
+    fun bitmap(id: String): ImageBitmap = bitmaps.getOrPut(id) { ImageBitmap(w, h) }
 
-    fun clearBuffer(r: Rect? = null) {
-        if (r == null) buffer.eraseColor(Color.TRANSPARENT)
-        else Canvas(buffer).drawRect(r, Paint().apply { xfermode = CLEAR })
+    fun clearBuffer() = buffer.erase()
+
+    fun clearBuffer(x0: Int, y0: Int, x1: Int, y1: Int) {
+        Canvas(buffer).drawRect(x0.toFloat(), y0.toFloat(), x1.toFloat(), y1.toFloat(), Paint().apply { blendMode = BlendMode.Clear })
     }
 
     // ---------- shaders & sprites ----------
@@ -233,30 +245,29 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
         return shaderCache.getOrPut(key) { Paper.grainShader(project.paper, r, g, b, coverage, softness) }.also { if (shaderCache.size > 64) shaderCache.clear() }
     }
 
-    private val sprites = HashMap<Int, Bitmap>()
-    fun softSprite(color: Int): Bitmap = sprites.getOrPut(color) {
-        val bmp = Bitmap.createBitmap(64, 64, Bitmap.Config.ARGB_8888)
-        val p = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val sprites = HashMap<Int, ImageBitmap>()
+    fun softSprite(color: Int): ImageBitmap = sprites.getOrPut(color) {
+        val bmp = ImageBitmap(64, 64)
+        val p = artPaint()
         val c0 = color or (0xFF shl 24); val c1 = (color and 0xFFFFFF) or (140 shl 24); val c2 = color and 0xFFFFFF
-        p.shader = RadialGradient(32f, 32f, 32f, intArrayOf(c0, c1, c2), floatArrayOf(0f, 0.5f, 1f), Shader.TileMode.CLAMP)
+        p.shader = RadialGradientShader(Offset(32f, 32f), 32f, listOf(Color(c0), Color(c1), Color(c2)), listOf(0f, 0.5f, 1f), TileMode.Clamp)
         Canvas(bmp).drawRect(0f, 0f, 64f, 64f, p)
-        if (sprites.size > 32) { sprites.values.forEach { it.recycle() }; sprites.clear() }
+        if (sprites.size > 32) { sprites.values.forEach { it.release() }; sprites.clear() }
         bmp
     }
 
     /** Alpha-only blur of a buffer region (downscale → box blur ×2 → upscale), for watercolour wet edges. */
-    fun blurRegion(x: Int, y: Int, bw: Int, bh: Int, k: Float): Bitmap? {
+    fun blurRegion(x: Int, y: Int, bw: Int, bh: Int, k: Float): ImageBitmap? {
         if (bw <= 0 || bh <= 0) return null
         val f = max(1f, k / 2f)
         val sw = max(1, ceil(bw / f).toInt()); val sh = max(1, ceil(bh / f).toInt())
-        val small = Bitmap.createBitmap(sw, sh, Bitmap.Config.ARGB_8888)
-        Canvas(small).drawBitmap(buffer, Rect(x, y, x + bw, y + bh), Rect(0, 0, sw, sh), Paint(Paint.FILTER_BITMAP_FLAG))
-        val px = IntArray(sw * sh)
-        small.getPixels(px, 0, sw, 0, 0, sw, sh)
+        val small = ImageBitmap(sw, sh)
+        Canvas(small).drawImageRect(buffer, IntOffset(x, y), IntSize(bw, bh), IntOffset.Zero, IntSize(sw, sh), artPaint(filter = true))
+        val px = small.pixels()
         var a = IntArray(sw * sh) { px[it] ushr 24 }
         repeat(2) { a = boxBlur(a, sw, sh, 2) }
         for (i in px.indices) px[i] = a[i] shl 24
-        small.setPixels(px, 0, sw, 0, 0, sw, sh)
+        small.writePixels(px, 0, 0, sw, sh)
         return small
     }
 
@@ -287,11 +298,11 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
 
     /** Paper colour + subtle shading of the paper tooth, into the rectangle (0, 0, w, h) of `c`'s current space. */
     fun drawPaper(c: Canvas) {
-        c.drawColor(ArtColor.argb(Paper.COLORS[project.paper] ?: "#ffffff"))
+        c.drawRect(0f, 0f, w.toFloat(), h.toFloat(), artPaint().apply { color = Color(ArtColor.argb(Paper.COLORS[project.paper] ?: "#ffffff")) })
         if (project.paper != "smooth") {
-            val p = Paint()
+            val p = artPaint()
             p.shader = grainShader(paperTint(), 0.55f, 0.45f)
-            p.alpha = ((if (project.paper == "kraft") 0.18f else 0.12f) * 255).roundToInt()
+            p.alpha = alpha255(((if (project.paper == "kraft") 0.18f else 0.12f) * 255).roundToInt())
             c.drawRect(0f, 0f, w.toFloat(), h.toFloat(), p)
         }
     }
@@ -307,31 +318,37 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
     }
 
     // ---------- rendering ----------
-    private fun image(url: String): Bitmap? = images[url] ?: ArtImages.decodeDataUrl(url)?.also { images[url] = it }
+    private fun image(url: String): ImageBitmap? {
+        images.remove(url)?.let { images[url] = it; return it }
+        val img = ArtImages.decodeDataUrl(url) ?: return null
+        images[url] = img
+        while (images.size > 3) images.remove(images.keys.first())?.release()
+        return img
+    }
 
     fun renderLayer(l: Layer) {
         if (disposed) return
         val bmp = bitmap(l.id)
         val c = Canvas(bmp)
-        bmp.eraseColor(Color.TRANSPARENT)
+        bmp.erase()
         if (l.kind == "template") {
             val dl = l.template?.let { templateFor(it) }
             if (dl != null && l.template != null) Templates.draw(c, l.template.id, dl, w * 0.02f, h * 0.02f, w * 0.96f, h * 0.96f)
-            val px = IntArray(w * h)
-            bmp.getPixels(px, 0, w, 0, 0, w, h)
-            templateMask = FloodFill.dilate(FloodFill.outlineMask(px), w, h, 1)
+            templateMask = FloodFill.dilate(FloodFill.outlineMask(bmp.pixels()), w, h, 1)
             return
         }
         // forget checkpoints from a different branch of history
-        checkpoints.removeAll { cp -> (cp.layer == l.id && cp.n <= l.ops.size && l.ops.getOrNull(cp.n - 1)?.id != cp.opId).also { if (it) cp.bmp.recycle() } }
+        checkpoints.removeAll { cp -> (cp.layer == l.id && cp.n <= l.ops.size && l.ops.getOrNull(cp.n - 1)?.id != cp.opId).also { if (it) cp.bmp.release() } }
         val best = checkpoints.filter { it.layer == l.id && it.n <= l.ops.size }.maxByOrNull { it.n }
         val plan = ProjectOps.replayPlan(l)
         val start: Int
         if (best != null && best.n >= plan.start) {
-            c.drawBitmap(best.bmp, 0f, 0f, null)
+            c.drawImage(best.bmp, Offset.Zero, artPaint())
             start = best.n
         } else {
-            plan.url?.let { u -> image(u)?.let { img -> c.drawBitmap(img, null, Rect(0, 0, w, h), Paint(Paint.FILTER_BITMAP_FLAG)) } }
+            plan.url?.let { u ->
+                image(u)?.let { img -> c.drawImageRect(img, IntOffset.Zero, IntSize(img.width, img.height), IntOffset.Zero, IntSize(w, h), artPaint(filter = true)) }
+            }
             start = plan.start
         }
         for (i in start until l.ops.size) {
@@ -348,9 +365,9 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
         if (n == 0 || n % CHECK_EVERY != 0 || l.kind != "paint") return
         val opId = l.ops[n - 1].id
         if (checkpoints.any { it.layer == l.id && it.n == n && it.opId == opId }) return
-        val reuse = if (checkpoints.size >= MAX_CHECKPOINTS) checkpoints.removeAt(0).bmp else Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
-        reuse.eraseColor(Color.TRANSPARENT)
-        Canvas(reuse).drawBitmap(bitmap(l.id), 0f, 0f, null)
+        val reuse = if (checkpoints.size >= MAX_CHECKPOINTS) checkpoints.removeAt(0).bmp else ImageBitmap(w, h)
+        reuse.erase()
+        Canvas(reuse).drawImage(bitmap(l.id), Offset.Zero, artPaint())
         checkpoints.add(Checkpoint(l.id, n, opId, reuse))
     }
 
@@ -359,14 +376,13 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
         val order = project.layers.sortedBy { if (it.kind == "template") 0 else 1 }
         if (order.none { it.kind == "template" }) templateMask = null
         for (l in order) renderLayer(l)
-        val ids = project.layers.map { it.id }.toSet()
-        bitmaps.keys.filter { it !in ids }.forEach { bitmaps.remove(it)?.recycle() }
+        prune()
     }
 
     /** Drops bitmaps of layers that no longer exist (after a structure change). */
     fun prune() {
         val ids = project.layers.map { it.id }.toSet()
-        bitmaps.keys.filter { it !in ids }.forEach { bitmaps.remove(it)?.recycle() }
+        bitmaps.keys.filter { it !in ids }.forEach { bitmaps.remove(it)?.release() }
     }
 
     fun applyOp(l: Layer, op: Op) {
@@ -374,20 +390,19 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
         when (op.t) {
             "stroke" -> { val sp = StrokePainter(this, bmp, op); sp.add(op.pts); sp.finish() }
             "fill" -> fill(bmp, op)
-            "clear" -> bmp.eraseColor(Color.TRANSPARENT)
+            "clear" -> bmp.erase()
         }
     }
 
     fun painter(layerId: String, op: Op) = StrokePainter(this, bitmap(layerId), op)
 
     /** Bounded bucket fill on a paint layer (outline layer = boundary). Returns filled pixel count. */
-    fun fill(bmp: Bitmap, op: Op): Int {
-        val px = IntArray(w * h)
-        bmp.getPixels(px, 0, w, 0, 0, w, h)
+    fun fill(bmp: ImageBitmap, op: Op): Int {
+        val px = bmp.pixels()
         val c = ArtColor.parseHex(op.color) ?: intArrayOf(0, 0, 0)
         val mask = templateMask
-        val n = FloodFill.fill(px, w, h, op.x, op.y, Color.argb(255, c[0], c[1], c[2]), op.tol, mask, if (mask != null) 2 else 0)
-        if (n > 0) bmp.setPixels(px, 0, w, 0, 0, w, h)
+        val n = FloodFill.fill(px, w, h, op.x, op.y, (0xFF shl 24) or (c[0] shl 16) or (c[1] shl 8) or c[2], op.tol, mask, if (mask != null) 2 else 0)
+        if (n > 0) bmp.writePixels(px, 0, 0, w, h)
         return n
     }
 
@@ -401,18 +416,18 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
     /** Draws the picture (paper + visible layers) into `c` at document scale. `live` adds the stroke buffer above the active layer. */
     fun drawInto(c: Canvas, withPaper: Boolean = true, live: StrokePainter? = null, filter: Boolean = true) {
         if (withPaper) drawPaper(c)
-        val lp = Paint().apply { isFilterBitmap = filter }
+        val lp = artPaint(filter)
         for (l in project.layers) {
-            if (l.visible) bitmaps[l.id]?.takeIf { !it.isRecycled }?.let { c.drawBitmap(it, 0f, 0f, lp) }
+            if (l.visible) bitmaps[l.id]?.takeIf { !it.isReleased }?.let { c.drawImage(it, Offset.Zero, lp) }
             if (live != null && l.id == project.active) {
-                val bp = Paint().apply { isFilterBitmap = filter; alpha = (live.previewAlpha * 255).roundToInt().coerceIn(0, 255) }
-                c.drawBitmap(buffer, 0f, 0f, bp)
+                val bp = artPaint(filter).apply { alpha = alpha255((live.previewAlpha * 255).roundToInt()) }
+                c.drawImage(buffer, Offset.Zero, bp)
             }
         }
     }
 
-    fun flatten(withPaper: Boolean = true): Bitmap {
-        val out = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888)
+    fun flatten(withPaper: Boolean = true): ImageBitmap {
+        val out = ImageBitmap(w, h)
         drawInto(Canvas(out), withPaper)
         return out
     }
@@ -420,11 +435,11 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
     fun thumbnail(max: Int = 320): String {
         val s = min(1f, max.toFloat() / max(w, h))
         val tw = max(1, (w * s).roundToInt()); val th = max(1, (h * s).roundToInt())
-        val t = Bitmap.createBitmap(tw, th, Bitmap.Config.ARGB_8888)
+        val t = ImageBitmap(tw, th)
         val c = Canvas(t)
         c.scale(tw.toFloat() / w, th.toFloat() / h)
         drawInto(c, true)
-        return ArtImages.dataUrl(t, "jpeg", 72).also { t.recycle() }
+        return ArtImages.dataUrl(t, "jpeg", 72).also { t.release() }
     }
 
     /** Colour under a point on the visible picture (eyedropper). */
@@ -434,7 +449,7 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
         var out = paperPixel(x, y)
         for (l in project.layers) {
             if (!l.visible) continue
-            val px = bitmaps[l.id]?.getPixel(x, y) ?: continue
+            val px = bitmaps[l.id]?.pixel(x, y) ?: continue
             val a = (px ushr 24) / 255f
             out = floatArrayOf(out[0] * (1 - a) + ((px shr 16) and 255) * a, out[1] * (1 - a) + ((px shr 8) and 255) * a, out[2] * (1 - a) + (px and 255) * a)
         }
@@ -445,10 +460,10 @@ class LayerStack(val project: Project, private val templateFor: (TemplateRef) ->
 
     fun dispose() {
         disposed = true
-        bitmaps.values.forEach { it.recycle() }; bitmaps.clear()
-        checkpoints.forEach { it.bmp.recycle() }; checkpoints.clear()
-        images.values.forEach { it.recycle() }; images.clear()
-        sprites.values.forEach { it.recycle() }; sprites.clear()
-        buffer.recycle()
+        bitmaps.values.forEach { it.release() }; bitmaps.clear()
+        checkpoints.forEach { it.bmp.release() }; checkpoints.clear()
+        images.values.forEach { it.release() }; images.clear()
+        sprites.values.forEach { it.release() }; sprites.clear()
+        buffer.release()
     }
 }

@@ -50,7 +50,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
+import kotlin.math.roundToInt
 import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.contentDescription
@@ -221,6 +221,7 @@ private fun Board(
     strokes: List<List<List<Float>>>, live: List<List<Float>>?, modifier: Modifier,
     onStart: () -> Unit, onLive: (List<List<Float>>) -> Unit, onEnd: (List<List<Float>>) -> Unit,
 ) {
+    val tm = androidx.compose.ui.text.rememberTextMeasurer()
     val bx = g.box[0]; val by = g.box[1]; val bw = g.box[2]; val bh = g.box[3]
     Canvas(
         modifier.semantics { contentDescription = "${g.label}: ${g.polys.size} ${if (g.polys.size == 1) "line" else "lines"} to trace" }
@@ -231,7 +232,7 @@ private fun Board(
                     while (true) {
                         val e = awaitPointerEvent()
                         val sc = size.width / bw
-                        fun toGuide(o: androidx.compose.ui.geometry.Offset) = listOf(Math.round((o.x / sc + bx) * 10) / 10f, Math.round((o.y / sc + by) * 10) / 10f)
+                        fun toGuide(o: androidx.compose.ui.geometry.Offset) = listOf(((o.x / sc + bx) * 10).roundToInt() / 10f, ((o.y / sc + by) * 10).roundToInt() / 10f)
                         when (e.type) {
                             PointerEventType.Press -> {
                                 val ch = e.changes.first()
@@ -256,17 +257,17 @@ private fun Board(
             },
     ) {
         val sc = size.width / bw
-        drawIntoCanvas { cv ->
-            val c = cv.nativeCanvas
+        drawIntoCanvas { c ->
             c.save(); c.scale(sc, sc); c.translate(-bx, -by)
-            GuideDraw.draw(c, g, tol, guidance, GuideMode.Screen, current, done, anim, reduced)
-            val ink = android.graphics.Paint(android.graphics.Paint.ANTI_ALIAS_FLAG).apply {
-                style = android.graphics.Paint.Style.STROKE; strokeCap = android.graphics.Paint.Cap.ROUND; strokeJoin = android.graphics.Paint.Join.ROUND
-                color = TraceColors.INK; alpha = 217; strokeWidth = maxOf(2.5f, tol * 0.55f)
+            GuideDraw.draw(c, g, tol, guidance, GuideMode.Screen, current, done, anim, reduced, text = tm)
+            val ink = androidx.compose.ui.graphics.Paint().apply {
+                isAntiAlias = true
+                style = androidx.compose.ui.graphics.PaintingStyle.Stroke; strokeCap = androidx.compose.ui.graphics.StrokeCap.Round; strokeJoin = androidx.compose.ui.graphics.StrokeJoin.Round
+                color = Color(TraceColors.INK); alpha = 217 / 255f; strokeWidth = maxOf(2.5f, tol * 0.55f)
             }
             (strokes + listOfNotNull(live)).forEach { s ->
                 if (s.isEmpty()) return@forEach
-                val p = android.graphics.Path(); p.moveTo(s[0][0], s[0][1]); for (i in 1 until s.size) p.lineTo(s[i][0], s[i][1])
+                val p = androidx.compose.ui.graphics.Path(); p.moveTo(s[0][0], s[0][1]); for (i in 1 until s.size) p.lineTo(s[i][0], s[i][1])
                 if (s.size == 1) p.lineTo(s[0][0] + 0.01f, s[0][1])
                 c.drawPath(p, ink)
             }

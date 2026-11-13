@@ -1,8 +1,11 @@
 package com.maheshglance.wonderlab.feature.art.engine
 
-import android.graphics.Bitmap
-import android.graphics.BitmapShader
-import android.graphics.Shader
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.graphics.Shader
+import androidx.compose.ui.graphics.TileMode
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kotlin.math.PI
 import kotlin.math.floor
 import kotlin.math.max
@@ -36,8 +39,11 @@ object Paper {
         return out
     }
 
+    private val lock = SynchronizedObject()
     private val cache = HashMap<String, FloatArray>()
-    @Synchronized fun grainTile(kind: String): FloatArray {
+    fun grainTile(kind: String): FloatArray = synchronized(lock) { grainTileLocked(kind) }
+
+    private fun grainTileLocked(kind: String): FloatArray {
         cache[kind]?.let { return it }
         val g = FloatArray(GRAIN * GRAIN)
         fun add(n: FloatArray, w: Float) { for (i in g.indices) g[i] += n[i] * w }
@@ -76,25 +82,24 @@ object Paper {
     }
 
     // tinted grain tiles (bitmap per paper|colour|coverage bucket|softness), LRU-limited
-    private val tiles = object : LinkedHashMap<String, Bitmap>(16, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, Bitmap>?) = size > 80
-    }
+    private val tiles = LinkedHashMap<String, ImageBitmap>()
 
-    @Synchronized fun grainTileBitmap(paper: String, r: Int, g: Int, b: Int, coverage: Float, softness: Float): Bitmap {
+    fun grainTileBitmap(paper: String, r: Int, g: Int, b: Int, coverage: Float, softness: Float): ImageBitmap = synchronized(lock) {
         val bucket = (coverage * 16).roundToInt() / 16f
         val key = "$paper|$r,$g,$b|$bucket|$softness"
-        tiles[key]?.let { return it }
-        val h = grainTile(paper)
+        tiles.remove(key)?.let { tiles[key] = it; return@synchronized it } // most recently used goes last
+        val h = grainTileLocked(paper)
         val px = IntArray(GRAIN * GRAIN)
         for (i in px.indices) {
             val a = grainAlpha(h[i], bucket, softness)
             px[i] = (a shl 24) or (r shl 16) or (g shl 8) or b
         }
-        val bmp = Bitmap.createBitmap(px, GRAIN, GRAIN, Bitmap.Config.ARGB_8888)
+        val bmp = imageFromPixels(px, GRAIN, GRAIN)
         tiles[key] = bmp
-        return bmp
+        while (tiles.size > 80) tiles.remove(tiles.keys.first())
+        bmp
     }
 
-    fun grainShader(paper: String, r: Int, g: Int, b: Int, coverage: Float, softness: Float) =
-        BitmapShader(grainTileBitmap(paper, r, g, b, coverage, softness), Shader.TileMode.REPEAT, Shader.TileMode.REPEAT)
+    fun grainShader(paper: String, r: Int, g: Int, b: Int, coverage: Float, softness: Float): Shader =
+        ImageShader(grainTileBitmap(paper, r, g, b, coverage, softness), TileMode.Repeated, TileMode.Repeated)
 }

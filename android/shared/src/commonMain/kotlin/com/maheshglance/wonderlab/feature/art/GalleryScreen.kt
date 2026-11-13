@@ -2,9 +2,6 @@ package com.maheshglance.wonderlab.feature.art
 
 import com.maheshglance.wonderlab.core.design.FitText
 
-import android.graphics.Bitmap
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -46,9 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -85,11 +80,14 @@ import com.maheshglance.wonderlab.ui.appState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.DateFormat
-import java.util.Date
+import com.maheshglance.wonderlab.core.platform.formatDate
+import com.maheshglance.wonderlab.core.platform.rememberFileSaver
+import com.maheshglance.wonderlab.feature.art.engine.release
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 
 /** Off-screen rendering of a saved artwork (gallery export & print) — the website's artFile.renderArtwork. */
-suspend fun renderArtwork(app: WonderLabApp, pid: String, id: String): Pair<String, Bitmap>? {
+suspend fun renderArtwork(app: WonderLabApp, pid: String, id: String): Pair<String, ImageBitmap>? {
     val a = ArtStorage.load(app, pid, id) ?: return null
     val p = withContext(Dispatchers.Default) { ProjectOps.deserialize(a.data) }
     val tpl = HashMap<String, DrawList>()
@@ -109,13 +107,12 @@ fun GalleryScreen() {
     val pres = rememberPresentation()
     val scope = rememberCoroutineScope()
     val toaster = rememberToaster()
-    val ctx = LocalContext.current
+    Templates.rememberTextSupport()
     var items by remember { mutableStateOf<List<GalleryItem>?>(null) }
     var offline by remember { mutableStateOf(false) }
     var confirm by remember { mutableStateOf<GalleryItem?>(null) }
     var rename by remember { mutableStateOf<GalleryItem?>(null) }
     var busy by remember { mutableStateOf<String?>(null) }
-    var pendingPng by remember { mutableStateOf<String?>(null) }
     var reload by remember { mutableStateOf(0) }
 
     LaunchedEffect(pid, reload) {
@@ -127,14 +124,12 @@ fun GalleryScreen() {
         scope.launch { busy = id; try { fn() } catch (e: Exception) { toaster.show("Sorry, that did not work. Try again.") } finally { busy = null } }
         Unit
     }
-    val png = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("image/png")) { uri ->
-        val id = pendingPng ?: return@rememberLauncherForActivityResult
-        pendingPng = null
-        if (uri != null) act(id) {
+    val saver = rememberFileSaver()
+    val savePng = { id: String, fileName: String ->
+        act(id) {
             val r = renderArtwork(app.application, pid, id) ?: throw IllegalStateException()
-            withContext(Dispatchers.IO) { ctx.contentResolver.openOutputStream(uri)?.use { r.second.compress(Bitmap.CompressFormat.PNG, 100, it) } }
-            r.second.recycle()
-            toaster.show("Saved as a picture")
+            val bytes = try { withContext(Dispatchers.Default) { app.platform.encodePng(r.second) } } finally { r.second.release() }
+            saver.save(fileName, "image/png", bytes) { ok -> if (ok) toaster.show("Saved as a picture") }
         }
     }
     val win = LocalWindow.current
@@ -168,7 +163,7 @@ fun GalleryScreen() {
                                     onOpen = { app.go("art/paint/${it.id}") },
                                     onDuplicate = { act(it.id) { val nid = ArtStorage.duplicate(app.application, pid, it.id); if (nid != null) { toaster.show("Copy made"); reload++ } } },
                                     onRename = { rename = it },
-                                    onPng = { pendingPng = it.id; png.launch("${it.title.replace(Regex("[^\\w\\- ]+"), "").trim().ifEmpty { "picture" }}.png") },
+                                    onPng = { savePng(it.id, "${it.title.replace(Regex("[^\\w\\- ]+"), "").trim().ifEmpty { "picture" }}.png") },
                                     onPrint = { app.go("art/print/art/${it.id}") },
                                     onDelete = { confirm = it })
                             }
@@ -190,13 +185,23 @@ fun GalleryScreen() {
     ArtConflictHost()
 }
 
-private val thumbCache = android.util.LruCache<String, ImageBitmap>(60)
+/** Decoded gallery thumbnails (most recently used last, at most 60). */
+private object ThumbCache {
+    private val lock = SynchronizedObject()
+    private val map = LinkedHashMap<String, ImageBitmap>()
+    fun get(k: String): ImageBitmap? = synchronized(lock) { map.remove(k)?.also { map[k] = it } }
+    fun put(k: String, v: ImageBitmap) = synchronized(lock) {
+        map.remove(k); map[k] = v
+        while (map.size > 60) map.remove(map.keys.first())
+    }
+}
+private val thumbCache = ThumbCache
 
 @Composable
 private fun GalleryCard(it: GalleryItem, busy: Boolean, allowTyping: Boolean, onOpen: () -> Unit, onDuplicate: () -> Unit, onRename: () -> Unit, onPng: () -> Unit, onPrint: () -> Unit, onDelete: () -> Unit) {
     val c = WL.colors
     val thumb = remember(it.id, it.thumb?.length, it.updatedAt) {
-        it.thumb?.let { t -> val k = "${it.id}:${t.length}:${t.hashCode()}"; thumbCache.get(k) ?: ArtImages.decodeDataUrl(t)?.asImageBitmap()?.also { b -> thumbCache.put(k, b) } }
+        it.thumb?.let { t -> val k = "${it.id}:${t.length}:${t.hashCode()}"; thumbCache.get(k) ?: ArtImages.decodeDataUrl(t)?.also { b -> thumbCache.put(k, b) } }
     }
     Column(Modifier.fillMaxWidth().clip(CardShape).background(c.surface).padding(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Box(Modifier.fillMaxWidth().aspectRatio(4f / 3f).clip(RoundedCornerShape(12.dp)).background(Color.White).pressable(onClick = onOpen).semantics { contentDescription = "Open ${it.title}" }, contentAlignment = Alignment.Center) {
@@ -204,7 +209,7 @@ private fun GalleryCard(it: GalleryItem, busy: Boolean, allowTyping: Boolean, on
             if (busy) androidx.compose.material3.CircularProgressIndicator(Modifier.size(28.dp))
         }
         FitText(it.title, style = MaterialTheme.typography.titleSmall, color = c.text, maxLines = 1)
-        Text(DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(it.updatedAt)), style = MaterialTheme.typography.bodySmall, color = c.muted)
+        Text(formatDate(it.updatedAt),style = MaterialTheme.typography.bodySmall, color = c.muted)
         if (it.unsynced) Pill("On this device — will upload")
         if (it.conflictOf != null) Pill("Copy from another device")
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {

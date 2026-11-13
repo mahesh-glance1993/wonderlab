@@ -4,8 +4,8 @@ import com.maheshglance.wonderlab.core.platform.*
 
 import com.maheshglance.wonderlab.core.design.FitText
 
-import android.graphics.Bitmap
-import android.view.MotionEvent
+import androidx.compose.ui.input.pointer.PointerType
+import com.maheshglance.wonderlab.feature.art.engine.imageFromPixels
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -61,10 +61,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush as GBrush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -165,7 +163,7 @@ fun ColorWheel(hsv: FloatArray, onChange: (Float, Float, Float) -> Unit, size: D
             val a = (min(1f, R - d) * 255).roundToInt()
             arr[y * px + x] = (a shl 24) or (c[0] shl 16) or (c[1] shl 8) or c[2]
         }
-        Bitmap.createBitmap(arr, px, px, Bitmap.Config.ARGB_8888).asImageBitmap()
+        imageFromPixels(arr, px, px)
     }
     val hex = ArtColor.toHex(ArtColor.hsvToRgb(h, s, v))
     val cur by androidx.compose.runtime.rememberUpdatedState(hsv)
@@ -409,13 +407,22 @@ fun CalibrationDialog(current: Calibration?, onSave: (Calibration?) -> Unit, onC
             Box(
                 Modifier.fillMaxWidth().height(160.dp).clip(RoundedCornerShape(16.dp)).background(WL.colors.surface2).border(2.dp, WL.colors.line, RoundedCornerShape(16.dp))
                     .semantics { contentDescription = if (phase == "light") "Scribble lightly here" else "Scribble hard here" }
-                    .pointerInteropFilter { ev ->
-                        if (ev.getToolType(0) == MotionEvent.TOOL_TYPE_MOUSE) { sawMouse = true; return@pointerInteropFilter true }
-                        val bucket = if (phase == "light") light else heavy
-                        for (h in 0 until ev.historySize) ev.getHistoricalPressure(0, h).takeIf { it > 0 }?.let { bucket.add(it) }
-                        ev.pressure.takeIf { it > 0 }?.let { bucket.add(it) }
-                        live = ev.pressure; count = bucket.size
-                        true
+                    .pointerInput(Unit) {
+                        awaitPointerEventScope {
+                            var last = 0f
+                            while (true) {
+                                val ev = awaitPointerEvent()
+                                val ch = ev.changes.firstOrNull() ?: continue
+                                if (!ch.pressed && !ch.previousPressed) continue
+                                ev.changes.forEach { it.consume() }
+                                if (ch.type == PointerType.Mouse) { sawMouse = true; continue }
+                                val bucket = if (phase == "light") light else heavy
+                                val samples = penSamples(ev, ch, includeHistory = !(ch.pressed && !ch.previousPressed), lastPressure = last)
+                                samples.forEach { s -> s.pressure.takeIf { it > 0 }?.let { bucket.add(it) } }
+                                last = ch.pressure
+                                live = samples.last().pressure; count = bucket.size
+                            }
+                        }
                     },
                 contentAlignment = Alignment.Center,
             ) { Text(if (phase == "light") "Light" else "Heavy", style = MaterialTheme.typography.headlineSmall, color = WL.colors.muted) }

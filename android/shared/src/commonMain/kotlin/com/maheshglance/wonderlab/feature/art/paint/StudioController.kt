@@ -2,7 +2,11 @@ package com.maheshglance.wonderlab.feature.art.paint
 
 import com.maheshglance.wonderlab.core.platform.*
 
-import android.view.MotionEvent
+import androidx.compose.ui.input.pointer.PointerEvent
+import androidx.compose.ui.input.pointer.PointerInputChange
+import androidx.compose.ui.input.pointer.PointerType
+import androidx.compose.ui.input.pointer.isSecondaryPressed
+import androidx.compose.ui.input.pointer.isTertiaryPressed
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -187,7 +191,9 @@ class StudioController(
     }
 
     // ---------- strokes ----------
-    private class Live(val pointerId: Int, val painter: StrokePainter, val op: Op, val layerId: String, val type: String, val smoother: StrokeSmoother)
+    private class Live(val pointerId: Long, val painter: StrokePainter, val op: Op, val layerId: String, val type: String, val smoother: StrokeSmoother) {
+        var lastPressure = 0f
+    }
     private var stroke: Live? = null
     val livePainter: StrokePainter? get() = stroke?.painter
     val stroking get() = stroke != null
@@ -198,9 +204,9 @@ class StudioController(
         else -> "Choose a colour layer to draw on."
     }
 
-    private fun typeOf(toolType: Int) = when (toolType) {
-        MotionEvent.TOOL_TYPE_STYLUS, MotionEvent.TOOL_TYPE_ERASER -> "pen"
-        MotionEvent.TOOL_TYPE_MOUSE -> "mouse"
+    private fun typeOf(t: PointerType) = when (t) {
+        PointerType.Stylus, PointerType.Eraser -> "pen"
+        PointerType.Mouse -> "mouse"
         else -> "touch"
     }
 
@@ -212,11 +218,8 @@ class StudioController(
         if (pts.isNotEmpty()) { l.op.pts.addAll(pts); l.painter.add(pts) }
     }
 
-    private fun addSamples(ev: MotionEvent, l: Live) {
-        val idx = ev.findPointerIndex(l.pointerId)
-        if (idx < 0) return
-        for (h in 0 until ev.historySize) sample(l, ev.getHistoricalX(idx, h), ev.getHistoricalY(idx, h), ev.getHistoricalPressure(idx, h), ev.getHistoricalAxisValue(MotionEvent.AXIS_TILT, idx, h))
-        sample(l, ev.getX(idx), ev.getY(idx), ev.getPressure(idx), ev.getAxisValue(MotionEvent.AXIS_TILT, idx))
+    private fun addSamples(ev: PointerEvent, ch: PointerInputChange, l: Live, history: Boolean) {
+        for (s in penSamples(ev, ch, history, l.lastPressure)) { sample(l, s.x, s.y, s.pressure, s.tiltRad); l.lastPressure = s.pressure }
         frame++
     }
 
@@ -240,7 +243,7 @@ class StudioController(
         markDirty(); ver++; frame++
     }
 
-    private fun down(x: Float, y: Float, pointerId: Int, type: String, toolType: Int, ev: MotionEvent, lang: String) {
+    private fun down(x: Float, y: Float, pointerId: Long, type: String, eraserEnd: Boolean, ev: PointerEvent, ch: PointerInputChange, lang: String) {
         val p = project ?: return
         val st = stack ?: return
         val d = toDoc(x, y)
@@ -266,70 +269,81 @@ class StudioController(
             return
         }
         // brush stroke — one finger or pen always draws (a stylus's eraser end always erases)
-        val b = if (toolType == MotionEvent.TOOL_TYPE_ERASER) "eraser" else brush
+        val b = if (eraserEnd) "eraser" else brush
         val op = Op("stroke", ArtIds.shortId(), brush = b, color = Brushes.def(b).fixedColor ?: color, size = size, opacity = opacity, seed = ArtIds.newSeed())
         val painter = st.painter(l!!.id, op)
         input.begin()
         val live = Live(pointerId, painter, op, l.id, type, StrokeSmoother())
         stroke = live
-        addSamples(ev, live)
+        addSamples(ev, ch, live, history = false)
     }
 
     // gesture state
     private data class Ptr(var x: Float, var y: Float, val type: String)
-    private val pointers = HashMap<Int, Ptr>()
-    private var pan: FloatArray? = null // pointerId, x0, y0, tx0, ty0
+    private val pointers = HashMap<Long, Ptr>()
+    private var pan: FloatArray? = null // x0, y0, tx0, ty0
+    private var panId = 0L
     private var pinch: FloatArray? = null // d0, cx0, cy0, s0, tx0, ty0
     private fun touchPts() = pointers.values.filter { it.type == "touch" }
     private fun pinchInfo(): FloatArray { val (a, b) = touchPts(); return floatArrayOf(hypot(a.x - b.x, a.y - b.y), (a.x + b.x) / 2, (a.y + b.y) / 2) }
 
-    /** Raw MotionEvents from the canvas (pointerInteropFilter): pen/finger/mouse drawing, pinch-zoom, pan. */
-    fun onTouch(ev: MotionEvent, lang: String): Boolean {
-        if (status != "ready" || busy) { if (ev.actionMasked == MotionEvent.ACTION_DOWN) announceBusy(); return true }
-        val idx = ev.actionIndex
-        when (ev.actionMasked) {
-            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
-                val pidd = ev.getPointerId(idx); val type = typeOf(ev.getToolType(idx))
-                pointers[pidd] = Ptr(ev.getX(idx), ev.getY(idx), type)
-                if (type == "touch" && touchPts().size >= 2) {
-                    if (stroke?.type == "touch") endStroke(false) // second finger: it's a pinch, not a stroke
-                    val pi = pinchInfo()
-                    pinch = floatArrayOf(pi[0], pi[1], pi[2], s, tx, ty); pan = null
-                    return true
-                }
-                if (stroke != null || pinch != null || pan != null) return true
-                val secondary = type == "mouse" && (ev.buttonState and (MotionEvent.BUTTON_SECONDARY or MotionEvent.BUTTON_TERTIARY)) != 0
-                if (secondary || spaceHeld || tool == Tool.Hand) { pan = floatArrayOf(pidd.toFloat(), ev.getX(idx), ev.getY(idx), tx, ty); return true }
-                down(ev.getX(idx), ev.getY(idx), pidd, type, ev.getToolType(idx), ev, lang)
-            }
-            MotionEvent.ACTION_MOVE -> {
-                for (i in 0 until ev.pointerCount) pointers[ev.getPointerId(i)]?.let { it.x = ev.getX(i); it.y = ev.getY(i) }
-                val pc = pinch
-                if (pc != null) {
-                    if (touchPts().size < 2) return true
-                    val pi = pinchInfo()
-                    val s2 = min(8f, max(0.05f, pc[3] * (pi[0] / (if (pc[0] == 0f) 1f else pc[0]))))
-                    tx = pi[1] - (pc[1] - pc[4]) * (s2 / pc[3]); ty = pi[2] - (pc[2] - pc[5]) * (s2 / pc[3]); s = s2
-                    autoFit = false; applyView(); return true
-                }
-                val pn = pan
-                if (pn != null) {
-                    val i = ev.findPointerIndex(pn[0].toInt())
-                    if (i >= 0) { tx = pn[3] + ev.getX(i) - pn[1]; ty = pn[4] + ev.getY(i) - pn[2]; autoFit = false; applyView() }
-                    return true
-                }
-                stroke?.let { addSamples(ev, it) }
-            }
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP, MotionEvent.ACTION_CANCEL -> {
-                val pidd = ev.getPointerId(idx)
-                if (ev.actionMasked == MotionEvent.ACTION_CANCEL) pointers.clear() else pointers.remove(pidd)
-                if (pinch != null && touchPts().size < 2) pinch = null
-                if (pan != null && (pan!![0].toInt() == pidd || ev.actionMasked != MotionEvent.ACTION_POINTER_UP)) pan = null
-                if (stroke?.pointerId == pidd || (ev.actionMasked == MotionEvent.ACTION_CANCEL && stroke != null)) endStroke(true)
-            }
-        }
-        return true
+    /** Pointer events from the canvas (Compose pointerInput): pen/finger/mouse drawing, pinch-zoom, pan. */
+    fun onPointer(ev: PointerEvent, lang: String) {
+        val downs = ev.changes.filter { it.pressed && !it.previousPressed }
+        val ups = ev.changes.filter { !it.pressed && it.previousPressed }
+        if (status != "ready" || busy) { if (downs.isNotEmpty() && pointers.isEmpty()) announceBusy(); ev.changes.forEach { it.consume() }; return }
+        // moves
+        val moved = ev.changes.filter { it.pressed && it.previousPressed }
+        if (moved.isNotEmpty()) onMove(ev, moved)
+        for (ch in downs) onDown(ev, ch, lang)
+        for (ch in ups) onUp(ch.id.value, cancel = false)
+        ev.changes.forEach { it.consume() }
     }
+
+    private fun onDown(ev: PointerEvent, ch: PointerInputChange, lang: String) {
+        val pidd = ch.id.value; val type = typeOf(ch.type)
+        val x = ch.position.x; val y = ch.position.y
+        pointers[pidd] = Ptr(x, y, type)
+        if (type == "touch" && touchPts().size >= 2) {
+            if (stroke?.type == "touch") endStroke(false) // second finger: it's a pinch, not a stroke
+            val pi = pinchInfo()
+            pinch = floatArrayOf(pi[0], pi[1], pi[2], s, tx, ty); pan = null
+            return
+        }
+        if (stroke != null || pinch != null || pan != null) return
+        val secondary = type == "mouse" && (ev.buttons.isSecondaryPressed || ev.buttons.isTertiaryPressed)
+        if (secondary || spaceHeld || tool == Tool.Hand) { panId = pidd; pan = floatArrayOf(x, y, tx, ty); return }
+        down(x, y, pidd, type, ch.type == PointerType.Eraser, ev, ch, lang)
+    }
+
+    private fun onMove(ev: PointerEvent, moved: List<PointerInputChange>) {
+        for (ch in moved) pointers[ch.id.value]?.let { it.x = ch.position.x; it.y = ch.position.y }
+        val pc = pinch
+        if (pc != null) {
+            if (touchPts().size < 2) return
+            val pi = pinchInfo()
+            val s2 = min(8f, max(0.05f, pc[3] * (pi[0] / (if (pc[0] == 0f) 1f else pc[0]))))
+            tx = pi[1] - (pc[1] - pc[4]) * (s2 / pc[3]); ty = pi[2] - (pc[2] - pc[5]) * (s2 / pc[3]); s = s2
+            autoFit = false; applyView(); return
+        }
+        val pn = pan
+        if (pn != null) {
+            val ch = moved.firstOrNull { it.id.value == panId }
+            if (ch != null) { tx = pn[2] + ch.position.x - pn[0]; ty = pn[3] + ch.position.y - pn[1]; autoFit = false; applyView() }
+            return
+        }
+        stroke?.let { l -> moved.firstOrNull { it.id.value == l.pointerId }?.let { ch -> addSamples(ev, ch, l, history = true) } }
+    }
+
+    private fun onUp(pidd: Long, cancel: Boolean) {
+        if (cancel) pointers.clear() else pointers.remove(pidd)
+        if (pinch != null && touchPts().size < 2) pinch = null
+        if (pan != null && (panId == pidd || cancel || pointers.isEmpty())) pan = null
+        if (stroke?.pointerId == pidd || (cancel && stroke != null)) endStroke(true)
+    }
+
+    /** The gesture was interrupted (canvas left the screen, system took the touch): finish like ACTION_CANCEL. */
+    fun onPointerCancel() = onUp(-1L, cancel = true)
 
     private fun announceBusy() { if (busy) announce("Just a moment…") }
 

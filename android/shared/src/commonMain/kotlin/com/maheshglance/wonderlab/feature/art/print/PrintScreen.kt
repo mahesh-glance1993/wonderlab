@@ -1,20 +1,5 @@
 package com.maheshglance.wonderlab.feature.art.print
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Rect
-import android.graphics.Typeface
-import android.graphics.pdf.PdfDocument
-import android.os.Bundle
-import android.os.CancellationSignal
-import android.os.ParcelFileDescriptor
-import android.print.PageRange
-import android.print.PrintAttributes
-import android.print.PrintDocumentAdapter
-import android.print.PrintDocumentInfo
-import android.print.PrintManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,12 +28,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextMeasurer
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.maheshglance.wonderlab.core.design.AlertBox
 import com.maheshglance.wonderlab.core.design.AlertKind
@@ -58,9 +50,13 @@ import com.maheshglance.wonderlab.core.design.Loading
 import com.maheshglance.wonderlab.core.design.TopBar
 import com.maheshglance.wonderlab.core.design.WL
 import com.maheshglance.wonderlab.core.design.WLButton
+import com.maheshglance.wonderlab.core.platform.Platform
 import com.maheshglance.wonderlab.feature.art.engine.ColoringPage
 import com.maheshglance.wonderlab.feature.art.engine.DrawList
+import com.maheshglance.wonderlab.feature.art.engine.TextAnchor
 import com.maheshglance.wonderlab.feature.art.engine.Templates
+import com.maheshglance.wonderlab.feature.art.engine.drawArtText
+import com.maheshglance.wonderlab.feature.art.engine.release
 import com.maheshglance.wonderlab.feature.art.renderArtwork
 import com.maheshglance.wonderlab.feature.art.replaceTop
 import com.maheshglance.wonderlab.feature.art.tracing.Guide
@@ -70,23 +66,29 @@ import com.maheshglance.wonderlab.feature.art.tracing.Sheet
 import com.maheshglance.wonderlab.feature.art.tracing.TraceData
 import com.maheshglance.wonderlab.ui.LocalApp
 import com.maheshglance.wonderlab.ui.appState
-import java.io.FileOutputStream
 import kotlin.math.min
+import kotlin.math.roundToInt
 
-/** A printable document: pages drawn natively at A4 size (595 × 842 pt) — vector for sheets and pages. */
+/** A printable document: pages drawn natively in A4 units (595 × 842 pt) — the same code draws the preview and the printed pages. */
 interface Printable {
     val title: String
     val pages: Int
-    fun draw(c: Canvas, page: Int, w: Float, h: Float)
+    fun draw(c: Canvas, page: Int, w: Float, h: Float, text: TextMeasurer?)
 }
 
 private const val A4W = 595f
 private const val A4H = 842f
-private val bold = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = android.graphics.Color.BLACK; typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD); textSize = 14f }
+private const val MARGIN = 36f
+/** Printed page size in pixels (A4 at ≈ 200 dpi). */
+private const val PAGE_PX_W = 1654
+private const val PAGE_PX_H = 2339
 
-private fun nameLine(c: Canvas, w: Float, title: String) {
-    bold.textAlign = Paint.Align.LEFT; c.drawText("Name: ______________________", 0f, 16f, bold)
-    bold.textAlign = Paint.Align.RIGHT; c.drawText(title, w, 16f, bold)
+private fun boldText(c: Canvas, text: TextMeasurer?, s: String, x: Float, y: Float, anchor: TextAnchor) =
+    c.drawArtText(text, s, x, y, 14f, Color.Black, anchor, bold = true)
+
+private fun nameLine(c: Canvas, w: Float, title: String, text: TextMeasurer?) {
+    boldText(c, text, "Name: ______________________", 0f, 16f, TextAnchor.Start)
+    boldText(c, text, title, w, 16f, TextAnchor.End)
 }
 
 /** Tracing sheet: one guide → 4 practice rows; whole sheet → 4 guides per page (model + 3 dotted copies each). */
@@ -95,15 +97,15 @@ class TracePrint(private val sheet: Sheet, i: Int?) : Printable {
     private val perPage = if (guides.size == 1) 1 else 4
     override val title = "${sheet.title} — tracing sheet"
     override val pages = (guides.size + perPage - 1) / perPage
-    override fun draw(c: Canvas, page: Int, w: Float, h: Float) {
-        nameLine(c, w, sheet.title)
+    override fun draw(c: Canvas, page: Int, w: Float, h: Float, text: TextMeasurer?) {
+        nameLine(c, w, sheet.title, text)
         val pg = guides.drop(page * perPage).take(perPage)
         val rowsPer = if (guides.size == 1) 4 else 1
         val totalRows = pg.size * rowsPer
         val top = 30f; val gap = 10f
         val rowH = (h - top - gap * (totalRows - 1)) / maxOf(totalRows, if (guides.size == 1) 4 else 4)
         var y = top
-        val line = Paint().apply { color = 0xFFDDDDDD.toInt(); strokeWidth = 1f }
+        val line = Paint().apply { isAntiAlias = false; color = Color(0xFFDDDDDD); strokeWidth = 1f }
         pg.forEach { g ->
             repeat(rowsPer) { r ->
                 val cellW = (w - 3 * 8f) / 4
@@ -114,9 +116,9 @@ class TracePrint(private val sheet: Sheet, i: Int?) : Printable {
                     val sc = min(cellW / bw, rowH / bh)
                     c.save()
                     c.translate(x + (cellW - bw * sc) / 2, y + (rowH - bh * sc) / 2); c.scale(sc, sc); c.translate(-g.box[0], -g.box[1])
-                    GuideDraw.draw(c, g, 5f, k == 0 && r == 0, m)
+                    GuideDraw.draw(c, g, 5f, k == 0 && r == 0, m, text = text)
                     c.restore()
-                    c.drawLine(x, y + rowH, x + cellW, y + rowH, line)
+                    c.drawLine(Offset(x, y + rowH), Offset(x + cellW, y + rowH), line)
                 }
                 y += rowH + gap
             }
@@ -127,50 +129,40 @@ class TracePrint(private val sheet: Sheet, i: Int?) : Printable {
 class ColorPrint(private val page: ColoringPage, private val dl: DrawList) : Printable {
     override val title = "${page.title} — colouring page"
     override val pages = 1
-    override fun draw(c: Canvas, page: Int, w: Float, h: Float) {
-        nameLine(c, w, this.page.title)
+    override fun draw(c: Canvas, page: Int, w: Float, h: Float, text: TextMeasurer?) {
+        nameLine(c, w, this.page.title, text)
         // landscape art on portrait paper: as large as fits under the name line
-        Templates.draw(c, this.page.id, dl, 0f, 30f, w, h - 30f, inkColor = android.graphics.Color.BLACK)
+        Templates.draw(c, this.page.id, dl, 0f, 30f, w, h - 30f, inkColor = 0xFF000000.toInt(), text = text)
     }
 }
 
-class ArtPrint(override val title: String, private val bmp: Bitmap) : Printable {
+class ArtPrint(override val title: String, private val bmp: ImageBitmap) : Printable {
     override val pages = 1
-    override fun draw(c: Canvas, page: Int, w: Float, h: Float) {
+    override fun draw(c: Canvas, page: Int, w: Float, h: Float, text: TextMeasurer?) {
         val s = min(w / bmp.width, (h - 30f) / bmp.height)
         val dw = bmp.width * s; val dh = bmp.height * s
         val x = (w - dw) / 2
-        c.drawBitmap(bmp, null, Rect(x.toInt(), 0, (x + dw).toInt(), dh.toInt()), Paint(Paint.FILTER_BITMAP_FLAG))
-        bold.textAlign = Paint.Align.CENTER; c.drawText(title, w / 2, dh + 20f, bold)
+        c.drawImageRect(
+            bmp, IntOffset.Zero, IntSize(bmp.width, bmp.height), IntOffset(x.toInt(), 0), IntSize((x + dw).toInt() - x.toInt(), dh.toInt()),
+            Paint().apply { filterQuality = FilterQuality.Low },
+        )
+        boldText(c, text, title, w / 2, dh + 20f, TextAnchor.Middle)
     }
 }
 
-/** Sends a Printable to Android's print system (save as PDF or any printer). */
-fun printDocument(context: Context, doc: Printable) {
-    val pm = context.getSystemService(Context.PRINT_SERVICE) as? PrintManager ?: return
-    val margin = 36f
-    val adapter = object : PrintDocumentAdapter() {
-        override fun onLayout(old: PrintAttributes?, new: PrintAttributes, cancel: CancellationSignal?, cb: LayoutResultCallback, extras: Bundle?) {
-            if (cancel?.isCanceled == true) { cb.onLayoutCancelled(); return }
-            cb.onLayoutFinished(PrintDocumentInfo.Builder(doc.title.replace(Regex("[^\\w\\- ]+"), "").trim() + ".pdf").setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT).setPageCount(doc.pages).build(), true)
-        }
-        override fun onWrite(pages: Array<out PageRange>, dest: ParcelFileDescriptor, cancel: CancellationSignal?, cb: WriteResultCallback) {
-            val pdf = PdfDocument()
-            try {
-                for (i in 0 until doc.pages) {
-                    if (cancel?.isCanceled == true) { cb.onWriteCancelled(); return }
-                    val page = pdf.startPage(PdfDocument.PageInfo.Builder(A4W.toInt(), A4H.toInt(), i + 1).create())
-                    val c = page.canvas
-                    c.translate(margin, margin)
-                    doc.draw(c, i, A4W - margin * 2, A4H - margin * 2)
-                    pdf.finishPage(page)
-                }
-                FileOutputStream(dest.fileDescriptor).use { pdf.writeTo(it) }
-                cb.onWriteFinished(arrayOf(PageRange.ALL_PAGES))
-            } catch (e: Exception) { cb.onWriteFailed(e.message) } finally { pdf.close() }
-        }
+/** Renders every page of a Printable as an A4 image and sends them to the system print dialog (save as PDF or any printer). */
+fun printDocument(platform: Platform, doc: Printable, text: TextMeasurer?) {
+    val k = PAGE_PX_W / A4W
+    val pages = (0 until doc.pages).map { i ->
+        val img = ImageBitmap(PAGE_PX_W, PAGE_PX_H)
+        val c = Canvas(img)
+        c.drawRect(0f, 0f, PAGE_PX_W.toFloat(), PAGE_PX_H.toFloat(), Paint().apply { color = Color.White })
+        c.save(); c.scale(k, k); c.translate(MARGIN, MARGIN)
+        doc.draw(c, i, A4W - MARGIN * 2, A4H - MARGIN * 2, text)
+        c.restore()
+        img
     }
-    pm.print(doc.title, adapter, PrintAttributes.Builder().setMediaSize(PrintAttributes.MediaSize.ISO_A4).build())
+    platform.printPages(doc.title, pages, landscape = false)
 }
 
 /** Printable sheets: art/print/trace/{sheetId}[?i=n], art/print/color/{pageId}, art/print/art/{artworkId}. */
@@ -178,11 +170,12 @@ fun printDocument(context: Context, doc: Printable) {
 fun PrintScreen(kind: String, id: String, index: Int?) {
     val app = LocalApp.current
     val s by appState()
-    val ctx = LocalContext.current
+    val platform = app.platform
+    val tm = rememberTextMeasurer()
     var doc by remember { mutableStateOf<Printable?>(null) }
     var failed by remember { mutableStateOf(false) }
     var page by remember { mutableIntStateOf(0) }
-    var bmp by remember { mutableStateOf<Bitmap?>(null) }
+    var bmp by remember { mutableStateOf<ImageBitmap?>(null) }
     LaunchedEffect(kind, id, index) {
         when (kind) {
             "trace" -> { val sh = TraceData.sheet(app.engine, id); if (sh == null) app.replaceTop("art/trace") else doc = TracePrint(sh, index) }
@@ -199,13 +192,13 @@ fun PrintScreen(kind: String, id: String, index: Int?) {
             else -> app.replaceTop("art")
         }
     }
-    DisposableEffect(Unit) { onDispose { bmp?.recycle() } }
+    DisposableEffect(Unit) { onDispose { bmp?.release() } }
     // like the website: open the print dialog as soon as the sheet is ready
-    LaunchedEffect(doc) { doc?.let { kotlinx.coroutines.delay(500); printDocument(ctx, it) } }
+    LaunchedEffect(doc) { doc?.let { kotlinx.coroutines.delay(500); printDocument(platform, it, tm) } }
     val d = doc
     Column(Modifier.fillMaxSize().background(WL.colors.bg)) {
         TopBar(d?.title ?: if (kind == "art") "My picture" else "Print", onBack = { app.back() }, actions = {
-            WLButton("Print", { d?.let { printDocument(ctx, it) } }, kind = BtnKind.Primary, icon = Icons.Rounded.Print, small = true, enabled = d != null)
+            WLButton("Print", { d?.let { printDocument(platform, it, tm) } }, kind = BtnKind.Primary, icon = Icons.Rounded.Print, small = true, enabled = d != null)
         })
         when {
             failed -> Box(Modifier.padding(16.dp)) { AlertBox("This picture could not be found.", AlertKind.Bad) }
@@ -219,10 +212,9 @@ fun PrintScreen(kind: String, id: String, index: Int?) {
                             .semantics { contentDescription = "Print preview, page ${page + 1} of ${d.pages}" },
                     ) {
                         val k = size.width / A4W
-                        drawIntoCanvas { cv ->
-                            val c = cv.nativeCanvas
-                            c.save(); c.scale(k, k); c.translate(36f, 36f)
-                            d.draw(c, page.coerceIn(0, d.pages - 1), A4W - 72f, A4H - 72f)
+                        drawIntoCanvas { c ->
+                            c.save(); c.scale(k, k); c.translate(MARGIN, MARGIN)
+                            d.draw(c, page.coerceIn(0, d.pages - 1), A4W - MARGIN * 2, A4H - MARGIN * 2, tm)
                             c.restore()
                         }
                     }
