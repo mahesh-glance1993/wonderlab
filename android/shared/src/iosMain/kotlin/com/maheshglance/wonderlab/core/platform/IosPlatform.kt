@@ -242,15 +242,15 @@ internal fun NSData.toByteArray(): ByteArray {
     return out
 }
 
-/** Mono 16-bit PCM wrapped in a WAV header (AVAudioPlayer plays it from memory). */
-private fun wav(pcm: ShortArray, rate: Int): ByteArray {
+/** 16-bit PCM (mono, or interleaved stereo) wrapped in a WAV header (AVAudioPlayer plays it from memory). */
+internal fun wav(pcm: ShortArray, rate: Int, channels: Int = 1): ByteArray {
     val dataLen = pcm.size * 2
     val b = ByteArray(44 + dataLen)
     fun s(o: Int, t: String) = t.forEachIndexed { i, c -> b[o + i] = c.code.toByte() }
     fun i32(o: Int, v: Int) { for (k in 0 until 4) b[o + k] = (v shr (8 * k)).toByte() }
     fun i16(o: Int, v: Int) { b[o] = v.toByte(); b[o + 1] = (v shr 8).toByte() }
-    s(0, "RIFF"); i32(4, 36 + dataLen); s(8, "WAVE"); s(12, "fmt "); i32(16, 16); i16(20, 1); i16(22, 1)
-    i32(24, rate); i32(28, rate * 2); i16(32, 2); i16(34, 16); s(36, "data"); i32(40, dataLen)
+    s(0, "RIFF"); i32(4, 36 + dataLen); s(8, "WAVE"); s(12, "fmt "); i32(16, 16); i16(20, 1); i16(22, channels)
+    i32(24, rate); i32(28, rate * 2 * channels); i16(32, 2 * channels); i16(34, 16); s(36, "data"); i32(40, dataLen)
     pcm.forEachIndexed { i, v -> i16(44 + i * 2, v.toInt()) }
     return b
 }
