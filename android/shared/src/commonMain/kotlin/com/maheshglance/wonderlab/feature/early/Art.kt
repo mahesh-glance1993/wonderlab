@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -94,7 +93,6 @@ fun PicArt(id: String, size: Dp, modifier: Modifier = Modifier, v: String? = nul
 /** The bundled 3D image (with an optional silhouette tint); fills the given modifier's size. */
 @Composable
 fun Emoji3D(emoji: String, modifier: Modifier, shadow: Boolean = false) {
-    val ctx = LocalContext.current
     val bmp = remember(emoji) { EmojiAssets.bitmap(emoji) }
     if (bmp != null) Image(
         bmp, contentDescription = null, modifier = modifier, filterQuality = FilterQuality.High,

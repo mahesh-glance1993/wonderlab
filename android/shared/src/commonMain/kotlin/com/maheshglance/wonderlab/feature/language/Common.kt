@@ -2,8 +2,6 @@ package com.maheshglance.wonderlab.feature.language
 
 import com.maheshglance.wonderlab.core.design.FitText
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -55,7 +53,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
@@ -66,6 +63,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import com.maheshglance.wonderlab.core.audio.Tones
+import com.maheshglance.wonderlab.core.platform.LocalPlatform
+import com.maheshglance.wonderlab.core.platform.Platform
 import com.maheshglance.wonderlab.core.data.Presentation
 import com.maheshglance.wonderlab.core.design.AlertBox
 import com.maheshglance.wonderlab.core.design.AlertKind
@@ -128,15 +127,16 @@ fun Gloss(show: Boolean, text: String?, modifier: Modifier = Modifier, textAlign
 
 private object GlossPref {
     var state: MutableState<Boolean>? = null
-    fun get(ctx: Context): MutableState<Boolean> = state ?: mutableStateOf(ctx.getSharedPreferences("wl-lang", Context.MODE_PRIVATE).getBoolean("gloss", false)).also { state = it }
-    fun set(ctx: Context, v: Boolean) { get(ctx).value = v; ctx.getSharedPreferences("wl-lang", Context.MODE_PRIVATE).edit().putBoolean("gloss", v).apply() }
+    private const val KEY = "wl-lang.gloss"
+    fun get(platform: Platform): MutableState<Boolean> = state ?: mutableStateOf(platform.getSetting(KEY) == "true").also { state = it }
+    fun set(platform: Platform, v: Boolean) { get(platform).value = v; platform.putSetting(KEY, v.toString()) }
 }
 
 @Composable
 fun rememberGloss(): Pair<Boolean, (Boolean) -> Unit> {
-    val ctx = LocalContext.current
-    val s = remember { GlossPref.get(ctx) }
-    return s.value to { v: Boolean -> GlossPref.set(ctx, v) }
+    val platform = LocalPlatform.current
+    val s = remember { GlossPref.get(platform) }
+    return s.value to { v: Boolean -> GlossPref.set(platform, v) }
 }
 
 @Composable
@@ -196,18 +196,16 @@ private suspend fun badgeTitle(app: AppContext, id: String): String {
     return m?.get(id) ?: id
 }
 
-private fun toast(ctx: Context, text: String) = Toast.makeText(ctx, text, Toast.LENGTH_SHORT).show()
-
 /** Award one badge (once) with a toast — website util.ts awardBadge. */
-suspend fun awardBadge(app: AppContext, ctx: Context, id: String) {
-    if (app.repo.award(id)) toast(ctx, "Badge earned: ${badgeTitle(app, id)}")
+suspend fun awardBadge(app: AppContext, id: String) {
+    if (app.repo.award(id)) app.platform.toast("Badge earned: ${badgeTitle(app, id)}")
 }
 
 /** Award unit badges that are now complete — website util.ts awardUnitBadges. */
-suspend fun awardUnitBadges(app: AppContext, ctx: Context, course: String) {
+suspend fun awardUnitBadges(app: AppContext, course: String) {
     val acts = langActivities(app)
     val ids = runCatching { app.engine.call("language.earnedBadges", course, acts).jsonArray.map { it.jsonPrimitive.content } }.getOrDefault(emptyList())
-    for (id in ids) awardBadge(app, ctx, id)
+    for (id in ids) awardBadge(app, id)
 }
 
 /** The learner's language activity states in the website's ActivityMap shape. */

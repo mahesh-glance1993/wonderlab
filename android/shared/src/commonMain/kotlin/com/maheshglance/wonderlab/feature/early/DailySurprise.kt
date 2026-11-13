@@ -72,8 +72,16 @@ private object DT {
 fun prevDayKey(key: String): String {
     val p = key.split("-").mapNotNull { it.toIntOrNull() }
     if (p.size != 3) return key
-    val c = java.util.Calendar.getInstance().apply { clear(); set(p[0], p[1] - 1, p[2]); add(java.util.Calendar.DAY_OF_MONTH, -1) }
-    return dayKey(c)
+    var (y, m, d) = Triple(p[0], p[1], p[2])
+    // normalise like Calendar (lenient), then step back one day
+    fun leap(yr: Int) = (yr % 4 == 0 && yr % 100 != 0) || yr % 400 == 0
+    fun daysIn(yr: Int, mo: Int) = when (mo) { 2 -> if (leap(yr)) 29 else 28; 4, 6, 9, 11 -> 30; else -> 31 }
+    while (m > 12) { m -= 12; y++ }
+    while (m < 1) { m += 12; y-- }
+    d = d.coerceAtMost(daysIn(y, m) + 1)
+    d -= 1
+    if (d < 1) { m -= 1; if (m < 1) { m = 12; y-- }; d = daysIn(y, m) }
+    return dayKey(y, m, d)
 }
 /** Days in a row the daily challenge was done, ending today (or yesterday). */
 fun dailyStreak(days: List<String>, today: String): Int {

@@ -1,7 +1,5 @@
 package com.maheshglance.wonderlab.feature.early
 
-import android.graphics.DashPathEffect
-import android.graphics.Paint
 import com.maheshglance.wonderlab.core.platform.BackHandler
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.CubicBezierEasing
@@ -59,9 +57,14 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.Canvas as GCanvas
+import androidx.compose.ui.graphics.Paint as GPaint
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.geometry.Rect as GRect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.boundsInWindow
@@ -144,30 +147,37 @@ private fun rememberPics(reqs: List<PicReq>): Map<String, SvgPicture> {
     return state
 }
 
-/** Draws a compiled drawing's primitives into the current canvas (already transformed). */
-private fun drawPrims(c: android.graphics.Canvas, pic: SvgPicture?, outline: Paint? = null, ghostFill: Paint? = null, roleXf: ((SvgPrim) -> RoleXf?)? = null) {
+/** How a part still to be placed is drawn: a dashed outline (stroke) or a soft ghost fill (no stroke). */
+private class PartPaint(val color: Color, val stroke: Stroke? = null)
+
+private fun GCanvas.rotateAt(deg: Float, px: Float, py: Float) { translate(px, py); rotate(deg); translate(-px, -py) }
+private fun GCanvas.scaleAt(sx: Float, sy: Float, px: Float, py: Float) { translate(px, py); scale(sx, sy); translate(-px, -py) }
+private fun GCanvas.saveLayerAlpha(l: Float, t: Float, r: Float, b: Float, alpha: Int) = saveLayer(GRect(l, t, r, b), GPaint().apply { this.alpha = alpha / 255f })
+
+/** Draws a compiled drawing's primitives into the current canvas `c` (this scope's canvas, already transformed). */
+private fun DrawScope.drawPrims(c: GCanvas, pic: SvgPicture?, outline: PartPaint? = null, ghostFill: PartPaint? = null, roleXf: ((SvgPrim) -> RoleXf?)? = null) {
     if (pic == null) return
     for (p in pic.prims) {
         if (p.text != null) continue
         val xf = roleXf?.invoke(p)
         if (xf != null) {
             c.save(); c.translate(xf.dx, xf.dy)
-            if (xf.rotate != 0f) c.rotate(xf.rotate, p.pivot.x, p.pivot.y)
-            if (xf.scaleX != 1f || xf.scaleY != 1f) c.scale(xf.scaleX, xf.scaleY, p.pivot.x, p.pivot.y)
+            if (xf.rotate != 0f) c.rotateAt(xf.rotate, p.pivot.x, p.pivot.y)
+            if (xf.scaleX != 1f || xf.scaleY != 1f) c.scaleAt(xf.scaleX, xf.scaleY, p.pivot.x, p.pivot.y)
         }
         if (outline != null) {
-            if (ghostFill != null && p.fill != null) c.drawPath(p.path, ghostFill)
-            c.drawPath(p.path, outline)
+            if (ghostFill != null && p.fill != null) drawPath(p.path, ghostFill.color)
+            if (outline.stroke != null) drawPath(p.path, outline.color, style = outline.stroke) else drawPath(p.path, outline.color)
         } else {
-            p.fill?.let { c.drawPath(p.path, it) }
-            p.stroke?.let { c.drawPath(p.path, it) }
+            p.fill?.let { drawPath(p.path, it.color) }
+            p.stroke?.let { drawPath(p.path, it.color, style = it.style) }
         }
         if (xf != null) c.restore()
     }
 }
 
 /** One part at its place on the board: translate → (alive role motion) → angle/orientation → shape. */
-private fun drawPart(c: android.graphics.Canvas, p: ModelPart, pic: SvgPicture?, rot: Int = 0, flip: Boolean = p.mirror, role: RoleXf? = null, scale: Float = 1f, outline: Paint? = null, ghostFill: Paint? = null) {
+private fun DrawScope.drawPart(c: GCanvas, p: ModelPart, pic: SvgPicture?, rot: Int = 0, flip: Boolean = p.mirror, role: RoleXf? = null, scale: Float = 1f, outline: PartPaint? = null, ghostFill: PartPaint? = null) {
     c.save()
     c.translate(p.x, p.y)
     if (role != null) { c.translate(role.dx, role.dy); if (role.rotate != 0f) c.rotate(role.rotate); if (role.scaleX != 1f || role.scaleY != 1f) c.scale(role.scaleX, role.scaleY) }
@@ -182,8 +192,8 @@ private fun drawPart(c: android.graphics.Canvas, p: ModelPart, pic: SvgPicture?,
 private fun DrawScope.drawPartIcon(p: ModelPart, pic: SvgPicture?, o: Orient) {
     val s = max(p.w, p.h) * 1.15f + 6f
     val k = size.minDimension / s
-    drawIntoCanvas { cv ->
-        val c = cv.nativeCanvas
+    run {
+        val c = drawContext.canvas
         c.save(); c.translate(size.width / 2, size.height / 2); c.scale(k, k)
         c.rotate((p.angle ?: 0f) + o.rot)
         if (o.flip) c.scale(-1f, 1f)
@@ -284,8 +294,8 @@ private fun BuildMenu(b: EarlyBundle, level: Int, saved: Saved<BuildState>, onMo
                 val done = saved.value.done[m.id] ?: 0
                 BigTile(null, m.name, { onModel(m.id) }, Modifier.fillMaxSize(), sub = if (done > 0) "✓".repeat(done) else null, picture = { s ->
                     Canvas(Modifier.size(s, s * (BH / BW))) {
-                        drawIntoCanvas { cv ->
-                            val c = cv.nativeCanvas; val k = size.width / BW
+                        run {
+                            val c = drawContext.canvas; val k = size.width / BW
                             c.save(); c.scale(k, k)
                             drawPrims(c, pics["scenery:${m.scene}"])
                             m.parts.forEach { p -> drawPart(c, p, pics[partReq(p).key]) }
@@ -296,8 +306,8 @@ private fun BuildMenu(b: EarlyBundle, level: Int, saved: Saved<BuildState>, onMo
             } else {
                 BigTile(null, T.free, onFree, Modifier.fillMaxSize(), tint = tint("art"), picture = { s ->
                     Canvas(Modifier.size(s, s * (BH / BW))) {
-                        drawIntoCanvas { cv ->
-                            val c = cv.nativeCanvas; val k = size.width / BW
+                        run {
+                            val c = drawContext.canvas; val k = size.width / BW
                             c.save(); c.scale(k, k)
                             drawPrims(c, pics["scenery:road"]); drawPrims(c, freePics[freeReq(design).key])
                             c.restore()
@@ -483,13 +493,13 @@ private fun Builder(b: EarlyBundle, model: Model, level: Int, saved: Saved<Build
             ) {
                 Canvas(Modifier.fillMaxSize()) {
                     val k = size.width / BW
-                    drawIntoCanvas { cv ->
-                        val cnv = cv.nativeCanvas
+                    run {
+                        val cnv = drawContext.canvas
                         cnv.save(); cnv.clipRect(0f, 0f, size.width, size.height); cnv.scale(k, k)
                         drawPrims(cnv, pics["scenery:${model.scene}"])
                         val mx = if (animating) aliveModel(model.alive, model.dir ?: 1, t) else floatArrayOf(0f, 0f, 0f, 1f)
-                        val layer = if (mx[3] < 1f) cnv.saveLayerAlpha(-BW, -BH, BW * 2, BH * 2, (mx[3] * 255).roundToInt().coerceIn(0, 255)) else cnv.save()
-                        cnv.translate(mx[0], mx[1]); if (mx[2] != 0f) cnv.rotate(mx[2], 200f, 230f)
+                        if (mx[3] < 1f) cnv.saveLayerAlpha(-BW, -BH, BW * 2, BH * 2, (mx[3] * 255).roundToInt().coerceIn(0, 255)) else cnv.save()
+                        cnv.translate(mx[0], mx[1]); if (mx[2] != 0f) cnv.rotateAt(mx[2], 200f, 230f)
                         for (p in model.parts) {
                             val pic = pics[partReq(p).key]
                             if (p.id in prebuilt || filled.containsKey(p.id)) {
@@ -498,17 +508,15 @@ private fun Builder(b: EarlyBundle, model: Model, level: Int, saved: Saved<Build
                             } else {
                                 val near = drag?.near == p.id
                                 val hint = hintFor(p)
-                                val outline = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                                    style = Paint.Style.STROKE; color = if (hint) accent else if (near) good else primary
-                                    alpha = if (hint) (255 * hintPulse).roundToInt() else 210
-                                    strokeWidth = if (hint || near) 3.5f else 2.2f
-                                    strokeJoin = Paint.Join.ROUND; pathEffect = DashPathEffect(floatArrayOf(6f, 5f), 0f)
-                                }
-                                val ghost = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.FILL; color = if (near) good else android.graphics.Color.WHITE; alpha = if (near) 90 else 70 }
+                                val outline = PartPaint(
+                                    Color(if (hint) accent else if (near) good else primary).copy(alpha = (if (hint) (255 * hintPulse).roundToInt() else 210) / 255f),
+                                    Stroke(width = if (hint || near) 3.5f else 2.2f, join = StrokeJoin.Round, pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 5f), 0f)),
+                                )
+                                val ghost = PartPaint(Color(if (near) good else 0xFFFFFFFF.toInt()).copy(alpha = (if (near) 90 else 70) / 255f))
                                 drawPart(cnv, p, pic, outline = outline, ghostFill = ghost)
                             }
                         }
-                        cnv.restoreToCount(layer)
+                        cnv.restore()
                         cnv.restore()
                     }
                 }
@@ -641,16 +649,16 @@ private fun FreeBuild(b: EarlyBundle, saved: Saved<BuildState>) {
             val bw = min(maxWidth, maxHeight * (BW / BH))
             Canvas(Modifier.size(bw, bw * (BH / BW)).shadow(4.dp, RoundedCornerShape(18.dp)).clip(RoundedCornerShape(18.dp)).semantics { contentDescription = T.free.get(lang) }) {
                 val k = size.width / BW
-                drawIntoCanvas { cv ->
-                    val c = cv.nativeCanvas
+                run {
+                    val c = drawContext.canvas
                     c.save(); c.clipRect(0f, 0f, size.width, size.height); c.scale(k, k)
                     drawPrims(c, pics["scenery:road"])
                     val mx = if (running) away(t, 360f, 0f, 0f) else floatArrayOf(0f, 0f, 0f, 1f)
-                    val layer = if (mx[3] < 1f) c.saveLayerAlpha(-BW, -BH, BW * 2, BH * 2, (mx[3] * 255).roundToInt().coerceIn(0, 255)) else c.save()
+                    if (mx[3] < 1f) c.saveLayerAlpha(-BW, -BH, BW * 2, BH * 2, (mx[3] * 255).roundToInt().coerceIn(0, 255)) else c.save()
                     c.translate(mx[0], mx[1])
                     val e = EASE.transform(t)
                     drawPrims(c, pics[freeReq(d).key], roleXf = { p -> if (running && p.role == "wheel") RoleXf(rotate = 900f * e) else null })
-                    c.restoreToCount(layer)
+                    c.restore()
                     c.restore()
                 }
             }

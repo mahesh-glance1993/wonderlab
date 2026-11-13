@@ -14,7 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.concurrent.CopyOnWriteArrayList
+
 
 /*
  * Story page animation player — the native version of useStoryMotion.ts + the helpers in data/motion.ts.
@@ -74,8 +74,8 @@ class PageClock(val pm: PageMotion?, val reduced: Boolean, private val scope: Co
     val v = mutableStateMapOf<String, String>().apply { putAll(if (reduced) finalV(pm) else initialV(pm)) }
     private val firedCues = HashSet<Int>()
     private val firedSets = HashSet<Int>()
-    private val sounds = CopyOnWriteArrayList<SfxHandle>()
-    private val timers = CopyOnWriteArrayList<Job>()
+    private val sounds = CowList<SfxHandle>()
+    private val timers = CowList<Job>()
     /** Tap mini animations: actor → (track, start ms). They override the page pose and keep their last pose. */
     val taps = mutableStateMapOf<String, Pair<Track, Long>>()
 

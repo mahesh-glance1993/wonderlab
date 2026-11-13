@@ -2,10 +2,6 @@ package com.maheshglance.wonderlab.feature.language
 
 import com.maheshglance.wonderlab.core.platform.*
 
-import android.content.Context
-import android.os.Bundle
-import android.speech.tts.TextToSpeech
-import android.speech.tts.UtteranceProgressListener
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -47,7 +43,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -70,52 +65,40 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
-import java.util.Locale
-import java.util.concurrent.ConcurrentHashMap
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 
 /**
- * Device voice used only by read-along, so each word can be highlighted exactly when it is spoken
- * (UtteranceProgressListener.onRangeStart). Engines without range callbacks fall back to the website's timed highlight.
+ * Device voice used by read-along, so each word can be highlighted exactly when it is spoken (the platform TTS
+ * reports word ranges). Engines without range callbacks fall back to the website's timed highlight.
  */
-private class ReadAlongVoice(context: Context) {
-    private var ready = false
-    private val done = ConcurrentHashMap<String, CompletableDeferred<Unit>>()
-    private val ranges = ConcurrentHashMap<String, (Int) -> Unit>()
-    private val tts: TextToSpeech = TextToSpeech(context.applicationContext) { ready = it == TextToSpeech.SUCCESS }
-
-    init {
-        tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) {}
-            override fun onDone(utteranceId: String?) { utteranceId?.let { done.remove(it)?.complete(Unit); ranges.remove(it) } }
-            @Deprecated("Deprecated in Java") override fun onError(utteranceId: String?) { onDone(utteranceId) }
-            override fun onStop(utteranceId: String?, interrupted: Boolean) { onDone(utteranceId) }
-            override fun onRangeStart(utteranceId: String?, start: Int, end: Int, frame: Int) { utteranceId?.let { ranges[it]?.invoke(start) } }
-        })
-    }
-
-    private fun locale(lang: String): Locale? =
-        if (lang == "te") Locale("te", "IN").takeIf { tts.isLanguageAvailable(it) >= TextToSpeech.LANG_AVAILABLE }
-        else listOf(Locale("en", "IN"), Locale.UK, Locale.US).firstOrNull { tts.isLanguageAvailable(it) >= TextToSpeech.LANG_AVAILABLE } ?: Locale.US
+private class ReadAlongVoice(private val tts: DeviceTts) {
+    private val lock = SynchronizedObject()
+    private val done = mutableMapOf<Long, CompletableDeferred<Unit>>()
+    private var seq = 0L
 
     suspend fun canSpeak(lang: String): Boolean {
-        withTimeoutOrNull(2500) { while (!ready) delay(50) }
-        return ready && locale(lang) != null
+        withTimeoutOrNull(2500) { while (!tts.ready) delay(50) }
+        return tts.ready && (lang != "te" || tts.hasTelugu())
     }
 
     /** Starts speaking; returns a deferred that completes when the line has been spoken. */
     fun speak(text: String, lang: String, rate: Float, volume: Float, onRange: (Int) -> Unit): CompletableDeferred<Unit> {
-        val id = "ra-${nanoTime()}"
         val d = CompletableDeferred<Unit>()
-        done[id] = d
-        ranges[id] = onRange
-        tts.language = locale(lang)
-        tts.setSpeechRate(rate)
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, Bundle().apply { putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, volume) }, id)
+        val id = synchronized(lock) { (++seq).also { done[it] = d } }
+        var active = true
+        fun finish() { active = false; synchronized(lock) { done.remove(id) }; d.complete(Unit) }
+        tts.speak(text, lang, rate, volume, onWord = { start, _ -> if (active) onRange(start) }, onDone = { finish() })
         return d
     }
 
-    fun stop() { runCatching { tts.stop() }; done.values.forEach { it.complete(Unit) }; done.clear(); ranges.clear() }
-    fun shutdown() { stop(); runCatching { tts.shutdown() } }
+    fun stop() {
+        runCatching { tts.stop() }
+        val all = synchronized(lock) { done.values.toList().also { done.clear() } }
+        all.forEach { it.complete(Unit) }
+    }
+    /** The device voice is shared with the rest of the app, so leaving read-along only stops it. */
+    fun shutdown() { stop() }
 }
 
 private val MS_PER_WORD = mapOf("te" to 560L, "en" to 400L)
@@ -132,7 +115,6 @@ fun ReadAlongScreen(course: String, passageId: String) {
 @Composable
 private fun ReadAlong(p: LPassage) {
     val app = LocalApp.current
-    val ctx = LocalContext.current
     val win = LocalWindow.current
     val scope = rememberCoroutineScope()
     val sayer = rememberSayer()
@@ -147,7 +129,7 @@ private fun ReadAlong(p: LPassage) {
     var cur by remember { mutableStateOf<Pair<Int, Int>?>(null) }
     var playing by remember { mutableStateOf(false) }
     var job by remember { mutableStateOf<Job?>(null) }
-    val voice = remember { ReadAlongVoice(ctx) }
+    val voice = remember { ReadAlongVoice(app.platform.tts) }
     val words = remember(p.id) { p.lines.map { l -> WORD_RE.findAll(l).map { it.value to it.range.first }.toList() } }
 
     LaunchedEffect(p.id) { app.repo.setLastActivity("/lang/${p.course}/read/${p.id}", "Read along: ${p.titleEn ?: p.title}") }
@@ -200,7 +182,7 @@ private fun ReadAlong(p: LPassage) {
             val all = questions.all { answers[it.second.id] != null }
             val score = questions.count { answers[it.second.id] != null && correct[it.second.id] == true }.toDouble() / questions.size
             app.repo.saveActivityState(key, encode(LReadState(done = all, score = score, answers = answers.toMap())))
-            if (all) { awardBadge(app, ctx, "lang:first-story"); if (score >= 0.5) Celebrate.fire() }
+            if (all) { awardBadge(app, "lang:first-story"); if (score >= 0.5) Celebrate.fire() }
         }
     }
     val done = questions.all { answers[it.second.id] != null }

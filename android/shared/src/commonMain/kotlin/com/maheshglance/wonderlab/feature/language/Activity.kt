@@ -1,5 +1,6 @@
 package com.maheshglance.wonderlab.feature.language
 
+import kotlin.math.roundToInt
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -45,7 +46,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -271,7 +271,6 @@ private fun LetterCardView(cd: LCard, script: String, gloss: Boolean, heard: Boo
 @Composable
 private fun Round(d: LObjectiveData, mode: String, gloss: Boolean, pres: Presentation, setMode: (String) -> Unit) {
     val app = LocalApp.current
-    val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     val sayer = rememberSayer()
     val script = d.script
@@ -300,7 +299,7 @@ private fun Round(d: LObjectiveData, mode: String, gloss: Boolean, pres: Present
             if (mode == "practice") it.copy(practiceBest = maxOf(it.practiceBest ?: 0.0, score)) else it.copy(testBest = maxOf(it.testBest ?: 0.0, score))
         }
         if (score >= LangKeys.PASS) Celebrate.fire()
-        scope.launch { awardUnitBadges(app, ctx, d.course) }
+        scope.launch { awardUnitBadges(app, d.course) }
     }
 
     if (s.submitted) { Summary(d, mode, s, round, gloss, onAgain = { persist(LangKeys.freshSession(mode)) }, setMode = setMode); return }
@@ -505,7 +504,7 @@ private fun ScoreCard(d: LObjectiveData, mode: String, s: LSession, round: List<
                 EmojiImage(if (pass) "🏆" else "⭐", 96.dp)
                 Text("$right of ${round.size} right${if (mode == "practice") " on the first try" else ""}", style = MaterialTheme.typography.titleLarge, color = WL.colors.text, textAlign = TextAlign.Center)
                 Meter(score.toFloat())
-                Text(if (pass) "You have passed this objective." else "Score ${Math.round(LangKeys.PASS * 100)}% or more to pass. Try the Learn page again, then practise.",
+                Text(if (pass) "You have passed this objective." else "Score ${(LangKeys.PASS * 100).roundToInt()}% or more to pass. Try the Learn page again, then practise.",
                     style = MaterialTheme.typography.bodyLarge, color = WL.colors.muted, textAlign = TextAlign.Center)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     WLButton(if (mode == "practice") "Practise again" else "Retake test", onAgain, icon = Icons.Rounded.Refresh)

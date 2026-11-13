@@ -1,10 +1,10 @@
 package com.maheshglance.wonderlab.feature.early.audio
 
-import android.media.AudioAttributes
-import android.media.AudioFormat
-import android.media.AudioTrack
-import android.util.LruCache
 import com.maheshglance.wonderlab.core.audio.Tones
+import com.maheshglance.wonderlab.feature.early.CowList
+import com.maheshglance.wonderlab.feature.early.Lru
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +15,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.concurrent.Volatile
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.floor
@@ -44,10 +44,10 @@ class SfxHandle internal constructor(val name: String) {
 object Sfx {
     private const val SR = 32000
     private val io = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-    private val live = CopyOnWriteArrayList<Live>()
+    private val live = CowList<Live>()
     @Volatile private var duck = 1f
 
-    private class Live(val track: AudioTrack, val level: () -> Float)
+    private class Live(val track: SfxTrack, val level: () -> Float)
 
     /** Every sound the library can play (the same names as the website). */
     val NAMES: List<String> by lazy { (LIB.keys + Nature.SPECS.keys).distinct() }
@@ -92,22 +92,11 @@ object Sfx {
     // ------------------------------------------------------------------ playback
     private fun startTrack(h: SfxHandle, pcm: ShortArray, rate: Int, channels: Int, loop: Boolean, fadeInMs: Long, level: Float, playbackRate: Float = 1f): Job? {
         if (pcm.isEmpty()) { h.finished.complete(Unit); return null }
-        val track = runCatching {
-            AudioTrack.Builder()
-                .setAudioAttributes(AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_GAME).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build())
-                .setAudioFormat(AudioFormat.Builder().setEncoding(AudioFormat.ENCODING_PCM_16BIT).setSampleRate(rate)
-                    .setChannelMask(if (channels == 2) AudioFormat.CHANNEL_OUT_STEREO else AudioFormat.CHANNEL_OUT_MONO).build())
-                .setBufferSizeInBytes(pcm.size * 2)
-                .setTransferMode(AudioTrack.MODE_STATIC)
-                .build()
-        }.getOrNull() ?: run { h.finished.complete(Unit); return null }
+        val track = runCatching { openSfxTrack(pcm, rate, channels, loop, playbackRate) }.getOrNull() ?: run { h.finished.complete(Unit); return null }
         val frames = pcm.size / channels
         var cur = if (fadeInMs > 0) 0f else level
         val entry = Live(track) { cur }
         return runCatching {
-            track.write(pcm, 0, pcm.size)
-            if (loop) track.setLoopPoints(0, frames, -1)
-            if (playbackRate != 1f) runCatching { track.playbackRate = (rate * playbackRate).roundToInt() }
             track.setVolume(cur * Tones.volume * duck)
             live += entry
             var released = false
@@ -134,12 +123,13 @@ object Sfx {
 
     // ------------------------------------------------------------------ nature
     private val NATURE_ONESHOT = Nature.SPECS.keys
-    private val natCache = object : LruCache<String, Nature.Stereo>(14) {}
+    private val natCache = Lru<String, Nature.Stereo>(14)
     private val natLocks = HashMap<String, Mutex>()
+    private val natLocksLock = SynchronizedObject()
 
     private suspend fun natureBuffer(name: String): Nature.Stereo? {
         natCache.get(name)?.let { return it }
-        val m = synchronized(natLocks) { natLocks.getOrPut(name) { Mutex() } }
+        val m = synchronized(natLocksLock) { natLocks.getOrPut(name) { Mutex() } }
         return m.withLock { natCache.get(name) ?: runCatching { Nature.render(name) }.getOrNull()?.also { natCache.put(name, it) } }
     }
 
@@ -272,7 +262,7 @@ object Sfx {
     }
 
     private fun play(voices: List<Voice>, length: Double) = render(voices, length)
-    private val synthCache = object : LruCache<String, ShortArray>(4 * 1024 * 1024) { override fun sizeOf(key: String, value: ShortArray) = value.size * 2 }
+    private val synthCache = Lru<String, ShortArray>(4 * 1024 * 1024) { _, v -> v.size * 2 }
 
     private fun sq(f: List<Pt>, g: List<Pt>, filter: Filter? = null, vib: Lfo? = null, trem: Lfo? = null, at: Double = 0.0) = Voice("square", f, g, filter, vib, trem, at)
     private fun saw(f: List<Pt>, g: List<Pt>, filter: Filter? = null, vib: Lfo? = null, trem: Lfo? = null, at: Double = 0.0) = Voice("sawtooth", f, g, filter, vib, trem, at)
@@ -370,7 +360,7 @@ object Sfx {
 
     /** Plays several sounds on a timeline [(ms, name)]; returns a stop function. */
     fun cues(list: List<Pair<Long, String>>): () -> Unit {
-        val handles = CopyOnWriteArrayList<SfxHandle>()
+        val handles = CowList<SfxHandle>()
         val job = io.launch {
             var at = 0L
             for ((t, n) in list.sortedBy { it.first }) {

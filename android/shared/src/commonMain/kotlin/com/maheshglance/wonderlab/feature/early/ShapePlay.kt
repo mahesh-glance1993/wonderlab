@@ -88,7 +88,7 @@ private fun placedNode(b: EarlyBundle, p: Placed, outline: String? = null, grow:
     ) else svg("path", "d" to sh.path, "transform" to t, "fill" to p.fill, "stroke" to INK, "strokeWidth" to 2, "vectorEffect" to "non-scaling-stroke", "strokeLinejoin" to "round")
 }
 
-private fun hexOf(c: Color) = "#%06X".format(c.toArgb() and 0xFFFFFF)
+private fun hexOf(c: Color) = com.maheshglance.wonderlab.core.platform.hexRgb(c.toArgb())
 
 /** The 400×260 stage scaled to fit, with taps reported in stage units. */
 @Composable

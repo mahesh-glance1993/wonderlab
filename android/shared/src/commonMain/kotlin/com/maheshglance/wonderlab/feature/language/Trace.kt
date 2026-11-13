@@ -1,12 +1,5 @@
 package com.maheshglance.wonderlab.feature.language
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.DashPathEffect
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.RectF
-import android.graphics.Typeface
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -48,20 +41,31 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Canvas as GCanvas
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.TextMeasurer
+import androidx.compose.ui.text.drawText
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.LayoutDirection
+import kotlin.math.roundToInt
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.content.res.ResourcesCompat
-import com.maheshglance.wonderlab.R
 import com.maheshglance.wonderlab.core.design.AlertBox
 import com.maheshglance.wonderlab.core.design.AlertKind
 import com.maheshglance.wonderlab.core.design.BtnKind
@@ -83,63 +87,48 @@ import kotlinx.serialization.json.int
 private const val INK = 0.075f // ink width as a fraction of the box
 const val TRACE_GRID = 96
 
-/** Course font for tracing and sheets (website TRACE_FONT: Noto Sans Telugu / Andika, weight 600). */
-fun traceTypeface(ctx: Context, script: String): Typeface =
-    (if (script == "te") ResourcesCompat.getFont(ctx, R.font.noto_sans_telugu) else ResourcesCompat.getFont(ctx, R.font.andika_bold)) ?: Typeface.DEFAULT_BOLD
-
-fun tracePaint(ctx: Context, script: String): Paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-    typeface = traceTypeface(ctx, script)
-    if (script == "te") runCatching { fontVariationSettings = "'wght' 600" }
-}
-
-private data class GlyphLayout(val x: Float, val y: Float, val size: Float)
+internal data class GlyphLayout(val x: Float, val y: Float, val size: Float)
 
 /** Same layout for the visible canvas and the scoring grid: glyph centred in the box (website Trace.tsx layout). */
-private fun layoutGlyph(paint: Paint, letter: String, side: Float, script: String): GlyphLayout {
-    val path = Path()
-    val b = RectF()
-    fun measure(sz: Float) { paint.textSize = sz; path.reset(); paint.getTextPath(letter, 0, letter.length, 0f, 0f, path); path.computeBounds(b, true) }
+internal fun layoutGlyph(tm: TextMeasurer, letter: String, side: Float, script: String): GlyphLayout {
+    val u = glyphInkBounds(tm, letter, script)
     var size = side * if (script == "te") 0.62f else 0.72f
-    measure(size)
-    val fit = minOf(1f, side * 0.82f / maxOf(1f, b.width()), side * 0.82f / maxOf(1f, b.height()))
-    if (fit < 1f) { size *= fit; measure(size) }
-    return GlyphLayout((side - b.width()) / 2f - b.left, (side - b.height()) / 2f - b.top, size)
+    val fit = minOf(1f, side * 0.82f / maxOf(1f, u.width * size), side * 0.82f / maxOf(1f, u.height * size))
+    if (fit < 1f) size *= fit
+    return GlyphLayout((side - u.width * size) / 2f - u.left * size, (side - u.height * size) / 2f - u.top * size, size)
 }
 
-private fun maskOf(bmp: Bitmap, threshold: Int): String {
+private fun maskOf(img: ImageBitmap, threshold: Int): String {
     val px = IntArray(TRACE_GRID * TRACE_GRID)
-    bmp.getPixels(px, 0, TRACE_GRID, 0, 0, TRACE_GRID, TRACE_GRID)
+    img.readPixels(px, 0, 0, TRACE_GRID, TRACE_GRID)
     val sb = StringBuilder(px.size)
     for (p in px) sb.append(if ((p ushr 24) and 0xff > threshold) '1' else '0')
     return sb.toString()
 }
 
-private fun glyphMask(ctx: Context, letter: String, script: String): String {
-    val bmp = Bitmap.createBitmap(TRACE_GRID, TRACE_GRID, Bitmap.Config.ARGB_8888)
-    val paint = tracePaint(ctx, script).apply { color = android.graphics.Color.BLACK }
-    val l = layoutGlyph(paint, letter, TRACE_GRID.toFloat(), script)
-    paint.textSize = l.size
-    android.graphics.Canvas(bmp).drawText(letter, l.x, l.y, paint)
-    return maskOf(bmp, 110).also { bmp.recycle() }
+private fun gridMask(threshold: Int, draw: DrawScope.() -> Unit): String {
+    val img = ImageBitmap(TRACE_GRID, TRACE_GRID)
+    CanvasDrawScope().draw(Density(1f), LayoutDirection.Ltr, GCanvas(img), Size(TRACE_GRID.toFloat(), TRACE_GRID.toFloat()), draw)
+    return maskOf(img, threshold)
 }
 
-private fun drawStrokes(c: android.graphics.Canvas, strokes: List<List<Offset>>, side: Float, color: Int) {
-    val p = Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color; strokeWidth = side * INK; strokeCap = Paint.Cap.ROUND; strokeJoin = Paint.Join.ROUND; style = Paint.Style.STROKE }
-    val dot = Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color; style = Paint.Style.FILL }
+private fun glyphMask(tm: TextMeasurer, letter: String, script: String): String = gridMask(110) {
+    val l = layoutGlyph(tm, letter, TRACE_GRID.toFloat(), script)
+    drawLineAt(tm.line(letter, traceStyle(script, l.size)), l.x, l.y, Color.Black)
+}
+
+private fun DrawScope.drawStrokes(strokes: List<List<Offset>>, side: Float, color: Color) {
+    val stroke = Stroke(width = side * INK, cap = StrokeCap.Round, join = StrokeJoin.Round)
     for (s in strokes) {
         if (s.isEmpty()) continue
-        if (s.size == 1) { c.drawCircle(s[0].x * side, s[0].y * side, side * INK / 2f, dot); continue }
+        if (s.size == 1) { drawCircle(color, side * INK / 2f, Offset(s[0].x * side, s[0].y * side)); continue }
         val path = Path()
         s.forEachIndexed { i, o -> if (i == 0) path.moveTo(o.x * side, o.y * side) else path.lineTo(o.x * side, o.y * side) }
-        c.drawPath(path, p)
+        drawPath(path, color, style = stroke)
     }
 }
 
-private fun inkMask(strokes: List<List<Offset>>): String {
-    val bmp = Bitmap.createBitmap(TRACE_GRID, TRACE_GRID, Bitmap.Config.ARGB_8888)
-    drawStrokes(android.graphics.Canvas(bmp), strokes, TRACE_GRID.toFloat(), android.graphics.Color.BLACK)
-    return maskOf(bmp, 60).also { bmp.recycle() }
-}
+private fun inkMask(strokes: List<List<Offset>>): String = gridMask(60) { drawStrokes(strokes, TRACE_GRID.toFloat(), Color.Black) }
 
 /** /lang/:course/trace/:setId */
 @Composable
@@ -152,7 +141,6 @@ fun TraceScreen(course: String, setId: String) {
 @Composable
 private fun TraceBody(course: String, set: LTraceSet) {
     val app = LocalApp.current
-    val ctx = LocalContext.current
     val win = LocalWindow.current
     val scope = rememberCoroutineScope()
     val sayer = rememberSayer()
@@ -182,7 +170,7 @@ private fun TraceBody(course: String, set: LTraceSet) {
         val best = maxOf(st.stars[letter] ?: 0, r.stars)
         save(st.copy(stars = st.stars + (letter to best)))
         sayer.say(r.message, "en")
-        if (r.stars >= 2) scope.launch { awardBadge(app, ctx, if (set.script == "te") "lang:first-trace-te" else "lang:first-trace-en") }
+        if (r.stars >= 2) scope.launch { awardBadge(app, if (set.script == "te") "lang:first-trace-te" else "lang:first-trace-en") }
         if (r.stars == 3) Celebrate.fire()
     }
     val totalStars = st.stars.values.sum()
@@ -214,7 +202,7 @@ private fun TraceBody(course: String, set: LTraceSet) {
     }
     val resultBox: @Composable () -> Unit = {
         result?.let { r ->
-            AlertBox("${"★".repeat(r.stars)}${"☆".repeat(3 - r.stars)}  ${r.stars} of 3 stars. ${r.message} (covered ${Math.round(r.coverage * 100)}%, outside the letter ${Math.round(r.outside * 100)}%)",
+            AlertBox("${"★".repeat(r.stars)}${"☆".repeat(3 - r.stars)}  ${r.stars} of 3 stars. ${r.message} (covered ${(r.coverage * 100).roundToInt()}%, outside the letter ${(r.outside * 100).roundToInt()}%)",
                 if (r.stars >= 2) AlertKind.Good else AlertKind.Warn)
         }
     }
@@ -265,20 +253,19 @@ private fun TraceBody(course: String, set: LTraceSet) {
 @Composable
 private fun TraceCanvas(letter: String, script: String, tol: String, clearSignal: Int, side: Dp, onResult: (LTraceResult) -> Unit) {
     val app = LocalApp.current
-    val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     val density = LocalDensity.current.density
     val strokes = remember(letter, clearSignal) { ArrayList<MutableList<Offset>>() }
     var version by remember { mutableIntStateOf(0) }
     var hasInk by remember(letter, clearSignal) { mutableStateOf(false) }
-    val glyph = remember(letter, script) { glyphMask(ctx, letter, script) }
+    val tm = rememberPxTextMeasurer()
+    val glyph = remember(letter, script) { glyphMask(tm, letter, script) }
     var start by remember(letter) { mutableStateOf<Pair<Int, Int>?>(null) }
     LaunchedEffect(glyph) {
         start = runCatching { (app.engine.call("language.startPoint", glyph, script) as? JsonArray)?.let { it[0].jsonPrimitive.int to it[1].jsonPrimitive.int } }.getOrNull()
     }
-    val paint = remember(script) { tracePaint(ctx, script) }
     Canvas(
-        Modifier.size(side).clip(RoundedCornerShape(18.dp)).background(androidx.compose.ui.graphics.Color(0xFFFBFAF6))
+        Modifier.size(side).clip(RoundedCornerShape(18.dp)).background(Color(0xFFFBFAF6))
             .semantics { contentDescription = "Tracing area for the letter $letter. Draw over the dotted letter starting at the green dot marked 1." }
             .pointerInput(letter, clearSignal) {
                 awaitEachGesture {
@@ -302,26 +289,20 @@ private fun TraceCanvas(letter: String, script: String, tol: String, clearSignal
     ) {
         @Suppress("UNUSED_EXPRESSION") version
         val px = size.width
-        drawIntoCanvas { cv ->
-            val c = cv.nativeCanvas
-            val guide = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0x1F2F3A35; strokeWidth = density }
-            listOf(0.25f, 0.5f, 0.75f).forEach { f -> c.drawLine(0f, px * f, px, px * f, guide) }
-            val l = layoutGlyph(paint, letter, px, script)
-            paint.textSize = l.size
-            paint.style = Paint.Style.FILL; paint.pathEffect = null; paint.color = 0x213F6F58
-            c.drawText(letter, l.x, l.y, paint)
-            val outline = Path(); paint.getTextPath(letter, 0, letter.length, l.x, l.y, outline)
-            val dash = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE; strokeWidth = 2f * density; color = 0x8C2F3A35.toInt(); pathEffect = DashPathEffect(floatArrayOf(4f * density, 5f * density), 0f) }
-            c.drawPath(outline, dash)
-            start?.let { (sx, sy) ->
-                val cx = (sx + 0.5f) / TRACE_GRID * px; val cy = (sy + 0.5f) / TRACE_GRID * px
-                val r = maxOf(8f * density, px * 0.028f)
-                c.drawCircle(cx, cy, r, Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF2F6B4F.toInt() })
-                val t = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = android.graphics.Color.WHITE; textSize = maxOf(px * 0.03f, 10f * density); textAlign = Paint.Align.CENTER; isFakeBoldText = true }
-                c.drawText("1", cx, cy - (t.descent() + t.ascent()) / 2f, t)
-            }
-            drawStrokes(c, strokes, px, 0xFF2F6F9A.toInt())
+        val guide = Color(0x1F2F3A35)
+        listOf(0.25f, 0.5f, 0.75f).forEach { f -> drawLine(guide, Offset(0f, px * f), Offset(px, px * f), strokeWidth = density) }
+        val l = layoutGlyph(tm, letter, px, script)
+        val glyphLay = tm.line(letter, traceStyle(script, l.size))
+        drawLineAt(glyphLay, l.x, l.y, Color(0x213F6F58))
+        drawLineAt(glyphLay, l.x, l.y, Color(0x8C2F3A35), Stroke(width = 2f * density, pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f * density, 5f * density), 0f)))
+        start?.let { (sx, sy) ->
+            val cx = (sx + 0.5f) / TRACE_GRID * px; val cy = (sy + 0.5f) / TRACE_GRID * px
+            val r = maxOf(8f * density, px * 0.028f)
+            drawCircle(Color(0xFF2F6B4F), r, Offset(cx, cy))
+            val one = tm.line("1", plainStyle(maxOf(px * 0.03f, 10f * density), Color.White, bold = true))
+            drawText(one, topLeft = Offset(cx - one.size.width / 2f, cy - one.size.height / 2f))
         }
+        drawStrokes(strokes, px, Color(0xFF2F6F9A))
     }
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         WLButton("Check my tracing", {
