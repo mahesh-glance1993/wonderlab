@@ -2,7 +2,6 @@ package com.maheshglance.wonderlab.feature.lesson
 
 import com.maheshglance.wonderlab.core.platform.*
 
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -182,7 +181,7 @@ private fun DiagSummaryView(level: Int, st: DiagState, eng: LessonEngine, onAgai
                                 Text(L(x.title), style = MaterialTheme.typography.titleMedium, color = WL.colors.text)
                                 Text("${if (strong) ls("strong") else ls("practiseThis")} (${x.correct}/${x.total})", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted)
                             }
-                            if (!strong) WLButton(ls("open"), { app.go("lesson/${Uri.encode(x.unitId)}/${Uri.encode(x.objectiveId)}?mode=learn") }, small = true)
+                            if (!strong) WLButton(ls("open"), { app.go("lesson/${encodePathSegment(x.unitId)}/${encodePathSegment(x.objectiveId)}?mode=learn") }, small = true)
                         }
                     }
                 }

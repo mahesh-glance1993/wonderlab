@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.lesson
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
@@ -262,7 +264,7 @@ private val NAMED = mapOf(
 fun cssColor(s: String?): Color? {
     if (s.isNullOrBlank()) return null
     NAMED[s.trim().lowercase()]?.let { return Color(it) }
-    return runCatching { Color(android.graphics.Color.parseColor(s.trim())) }.getOrNull()
+    return parseHexColor(s)?.let { Color(it) }
 }
 
 private fun polygon(n: Int, r: Float, c: Offset, rot: Double = -PI / 2) = Path().apply {
@@ -393,7 +395,7 @@ private fun niceMax(v: Double): Double {
     val p = 10.0.pow(floor(log10(v))); val n = v / p
     return (if (n <= 1) 1.0 else if (n <= 2) 2.0 else if (n <= 5) 5.0 else 10.0) * p
 }
-private fun prec4(v: Double): String = fmt(String.format(java.util.Locale.US, "%.4g", v).toDouble())
+private fun prec4(v: Double): String = fmt(fmtSignificant(v, 4).toDouble())
 
 @Composable
 private fun GraphFrame(size: Dp, modifier: Modifier, table: List<Pair<String, String>>, head: Pair<String, String>, draw: DrawScope.(TextMeasurer, TextStyle, TextStyle) -> Unit) {

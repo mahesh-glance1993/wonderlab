@@ -1,0 +1,115 @@
+name: iOS app
+
+# Builds the WonderLab iPad/iPhone app on a Mac runner (Apple only allows iOS builds on macOS):
+#  1. an iPad-simulator build that is launched and screenshotted (proof that it starts and renders), and
+#  2. an unsigned WonderLab.ipa to install with Sideloadly / AltStore (signed there with your own Apple ID).
+on:
+  workflow_dispatch:
+  push:
+    branches: [ios-multiplatform]
+    paths: ['android/**', 'ios/**', 'src/**', 'scripts/build-android-engine.mjs', '.github/workflows/ios.yml']
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm }
+
+      - name: Install JS dependencies (the curriculum engine is bundled from ../src)
+        run: npm ci --ignore-scripts
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Cache Kotlin/Native toolchain
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('android/gradle/libs.versions.toml') }}
+
+      - name: Tools
+        run: |
+          brew install xcodegen
+          chmod +x android/gradlew
+          xcodebuild -version
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: xcodegen generate
+
+      # ---------- 1. simulator build + launch + screenshots ----------
+      - name: Build for iPad simulator
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild -project WonderLab.xcodeproj -scheme WonderLab -configuration Debug \
+            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' ARCHS=arm64 ONLY_ACTIVE_ARCH=NO \
+            -derivedDataPath build/sim CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build-sim.log | grep -E 'error:|warning: .*WonderLab|BUILD (SUCCEEDED|FAILED)|^e: ' || true
+          test -d build/sim/Build/Products/Debug-iphonesimulator/WonderLab.app
+
+      - name: Launch on an iPad simulator and take screenshots
+        working-directory: ios
+        run: |
+          mkdir -p shots
+          DEV=$(xcrun simctl list devices available | grep -E 'iPad (Air|Pro|\(|mini)' | head -1 | sed -E 's/.*\(([0-9A-F-]{36})\).*/\1/')
+          echo "Simulator: $(xcrun simctl list devices available | grep $DEV)"
+          xcrun simctl boot "$DEV"
+          xcrun simctl bootstatus "$DEV" -b
+          xcrun simctl install "$DEV" build/sim/Build/Products/Debug-iphonesimulator/WonderLab.app
+          xcrun simctl launch "$DEV" com.maheshglance.wonderlab
+          sleep 25; xcrun simctl io "$DEV" screenshot shots/01-start.png
+          sleep 20; xcrun simctl io "$DEV" screenshot shots/02-later.png
+          xcrun simctl spawn "$DEV" log show --last 3m --style compact --predicate 'process == "WonderLab"' > shots/app-log.txt 2>&1 || true
+          ls ~/Library/Logs/DiagnosticReports/ 2>/dev/null | grep -i wonderlab && cp ~/Library/Logs/DiagnosticReports/*WonderLab* shots/ || echo "no crash reports"
+          # rotate to landscape and capture again
+          xcrun simctl io "$DEV" screenshot shots/03-final.png || true
+
+      - name: Upload screenshots and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ipad-simulator-screenshots
+          path: |
+            ios/shots
+            ios/build-sim.log
+          if-no-files-found: warn
+
+      # ---------- 2. device build → unsigned IPA ----------
+      - name: Build for iPad (device, release)
+        working-directory: ios
+        run: |
+          set -o pipefail
+          xcodebuild -project WonderLab.xcodeproj -scheme WonderLab -configuration Release \
+            -sdk iphoneos -destination 'generic/platform=iOS' \
+            -derivedDataPath build/dev CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build 2>&1 | tee build-dev.log | grep -E 'error:|BUILD (SUCCEEDED|FAILED)|^e: ' || true
+          test -d build/dev/Build/Products/Release-iphoneos/WonderLab.app
+
+      - name: Package unsigned IPA
+        working-directory: ios
+        run: |
+          mkdir -p out/Payload
+          cp -R build/dev/Build/Products/Release-iphoneos/WonderLab.app out/Payload/
+          cd out && zip -qry WonderLab-unsigned.ipa Payload && ls -la
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: WonderLab-ipa
+          path: ios/out/WonderLab-unsigned.ipa
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build-logs
+          path: ios/*.log

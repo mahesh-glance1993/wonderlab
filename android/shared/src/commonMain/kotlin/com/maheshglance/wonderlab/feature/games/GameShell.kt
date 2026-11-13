@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.games
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import com.maheshglance.wonderlab.core.design.FitText
 
 import androidx.compose.animation.AnimatedVisibility
@@ -349,7 +351,7 @@ fun GameScreen(gameId: String?, isDaily: Boolean) {
         Column(Modifier.fillMaxSize()) {
             TopBar(title, onBack = { app.back() }, actions = {
                 if (timersAllowed && sv != null) {
-                    WLButton(if (sv.timerOn) "%d:%02d".format(ctl.elapsed / 60, ctl.elapsed % 60) else sx("timerOff", lang), { ctl.toggleTimer() }, icon = Icons.Rounded.Timer, small = true)
+                    WLButton(if (sv.timerOn) "${ctl.elapsed / 60}:${pad2(ctl.elapsed % 60)}" else sx("timerOff", lang), { ctl.toggleTimer() }, icon = Icons.Rounded.Timer, small = true)
                 }
             })
             when {

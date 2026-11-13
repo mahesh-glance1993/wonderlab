@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.auth
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -19,7 +21,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
@@ -84,7 +85,7 @@ private fun ForgotEmail() {
 @Composable
 private fun ForgotCode() {
     val app = LocalApp.current
-    val context = LocalContext.current
+    val context = LocalPlatform.current
     val scope = rememberCoroutineScope()
     var step by remember { mutableIntStateOf(1) }
     var username by remember { mutableStateOf("") }
@@ -141,7 +142,7 @@ private fun ForgotCode() {
 @Composable
 fun ResetScreen(initialToken: String?) {
     val app = LocalApp.current
-    val context = LocalContext.current
+    val context = LocalPlatform.current
     val scope = rememberCoroutineScope()
     var token by remember { mutableStateOf(initialToken?.let(::tokenFrom).orEmpty()) }
     var pasted by remember { mutableStateOf("") }

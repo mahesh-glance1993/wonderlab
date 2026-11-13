@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.parent
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +25,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.maheshglance.wonderlab.core.data.Profile
 import com.maheshglance.wonderlab.core.design.BtnKind
@@ -44,7 +45,7 @@ import com.maheshglance.wonderlab.ui.appState
 fun SetupScreen() = NeedAccount {
     val app = LocalApp.current
     val s by appState()
-    val context = LocalContext.current
+    val context = LocalPlatform.current
     val win = LocalWindow.current
     val levels = rememberLevels()
     var adding by remember { mutableStateOf(s.profiles.isEmpty()) }

@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.parent
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,7 +34,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -76,7 +77,7 @@ fun LearnersSection() {
     var adding by remember { mutableStateOf(false) }
     var removing by remember { mutableStateOf<Profile?>(null) }
     val app = LocalApp.current
-    val context = LocalContext.current
+    val context = LocalPlatform.current
     val scope = rememberCoroutineScope()
 
     Text("Learners", style = MaterialTheme.typography.headlineSmall, color = WL.colors.text)

@@ -131,3 +131,82 @@ internal object Sha256 {
 
 /** Long in another radix (like java.lang.Long.toString(v, radix)). */
 fun longToString(v: Long, radix: Int): String = v.toString(radix)
+
+/** Decodes %XX escapes and "+" (like java.net.URLDecoder); returns the input unchanged if it is malformed. */
+fun urlDecode(s: String): String = runCatching {
+    val out = ArrayList<Byte>(s.length)
+    var i = 0
+    while (i < s.length) {
+        val c = s[i]
+        when {
+            c == '+' -> { out += ' '.code.toByte(); i++ }
+            c == '%' && i + 2 < s.length + 0 && i + 2 <= s.length - 1 -> { out += s.substring(i + 1, i + 3).toInt(16).toByte(); i += 3 }
+            else -> { c.toString().encodeToByteArray().forEach { out += it }; i++ }
+        }
+    }
+    out.toByteArray().decodeToString()
+}.getOrDefault(s)
+
+/** Java's Math.round(double): floor(x + 0.5). */
+fun javaRound(x: Double): Long = kotlin.math.floor(x + 0.5).toLong()
+
+/** Rounds half-up to `dp` decimals (like BigDecimal.setScale(dp, HALF_UP)); very large values are returned as-is. */
+fun roundHalfUp(v: Double, dp: Int): Double {
+    if (!v.isFinite()) return v
+    val f = 10.0.pow(dp)
+    if (abs(v) * f > 9.0e15) return v
+    return fmtFixed(v, dp).toDouble()
+}
+
+/** BigDecimal(n).setScale(dp, HALF_UP).stripTrailingZeros().toPlainString() */
+fun plainNumber(n: Double, dp: Int): String {
+    if (!n.isFinite()) return n.toString()
+    var s = fmtFixed(n, dp)
+    if (s.contains('.')) s = s.trimEnd('0').trimEnd('.')
+    return if (s == "-0" || s == "0" || s.isEmpty()) "0" else s
+}
+
+/** "#RGB", "#RRGGBB" or "#AARRGGBB" → ARGB int, or null. */
+fun parseHexColor(s: String): Int? {
+    val h = s.trim().removePrefix("#")
+    if (!s.trim().startsWith("#") || h.any { it.lowercaseChar() !in "0123456789abcdef" }) return null
+    return when (h.length) {
+        3 -> (0xFF shl 24) or h.map { c -> c.toString().repeat(2) }.joinToString("").toInt(16)
+        6 -> (0xFF shl 24) or h.toInt(16)
+        8 -> h.toLong(16).toInt()
+        else -> null
+    }
+}
+
+/** Decodes %XX escapes only (like android.net.Uri.decode; "+" stays "+"). */
+fun uriDecode(s: String): String = urlDecode(s.replace("+", "%2B"))
+
+/** The day before an ISO "YYYY-MM-DD" date. */
+fun prevIsoDate(key: String): String = runCatching {
+    val (y, m, d) = key.split("-").map { it.toInt() }
+    val days = daysFromCivil(y, m, d) - 1
+    val (yy, mm, dd) = civilFromDays(days)
+    "${yy.toString().padStart(4, '0')}-${pad2(mm)}-${pad2(dd)}"
+}.getOrDefault(key)
+
+// Howard Hinnant's civil-date algorithms (proleptic Gregorian)
+private fun daysFromCivil(y0: Int, m: Int, d: Int): Long {
+    val y = if (m <= 2) y0 - 1 else y0
+    val era = (if (y >= 0) y else y - 399) / 400
+    val yoe = y - era * 400
+    val doy = (153 * (m + (if (m > 2) -3 else 9)) + 2) / 5 + d - 1
+    val doe = yoe * 365 + yoe / 4 - yoe / 100 + doy
+    return era * 146097L + doe - 719468
+}
+private fun civilFromDays(z0: Long): Triple<Int, Int, Int> {
+    val z = z0 + 719468
+    val era = (if (z >= 0) z else z - 146096) / 146097
+    val doe = (z - era * 146097).toInt()
+    val yoe = (doe - doe / 1460 + doe / 36524 - doe / 146096) / 365
+    val y = yoe + era.toInt() * 400
+    val doy = doe - (365 * yoe + yoe / 4 - yoe / 100)
+    val mp = (5 * doy + 2) / 153
+    val d = doy - (153 * mp + 2) / 5 + 1
+    val m = if (mp < 10) mp + 3 else mp - 9
+    return Triple(if (m <= 2) y + 1 else y, m, d)
+}

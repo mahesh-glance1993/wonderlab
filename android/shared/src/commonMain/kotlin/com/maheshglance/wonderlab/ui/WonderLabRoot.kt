@@ -99,6 +99,7 @@ fun WonderLabRoot(application: WonderLabApp) {
             BreakReminder()
             // uploads artwork saved on the device and shows the two-device clash dialog on any screen
             if (state.account != null && state.profile != null) com.maheshglance.wonderlab.feature.art.ui.ArtSyncHost()
+            com.maheshglance.wonderlab.core.platform.ToastHost()
         }
     }
 }

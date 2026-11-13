@@ -33,7 +33,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.maheshglance.wonderlab.core.data.PackInfo
 import com.maheshglance.wonderlab.core.data.SyncStatus
@@ -53,23 +52,14 @@ import com.maheshglance.wonderlab.ui.appState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
-import java.text.DateFormat
-import java.util.Date
 
 private val KIND_EMOJI = mapOf("lessons" to "📚", "games" to "🎲", "lab" to "🔦", "art" to "🖍️", "tracing" to "✏️", "coloring" to "🌈", "narration" to "🔊")
 private val KIND_NAMES = mapOf("lessons" to "lessons, practice, tests & hints", "games" to "games", "lab" to "simulations", "art" to "painting, tracing & colouring",
     "tracing" to "tracing", "coloring" to "colouring", "narration" to "recorded narration")
 private const val LAST_SYNC_KEY = "device-last-sync"
 
-private fun fmtBytes(b: Long): String = when {
-    b >= 1L shl 30 -> "%.1f GB".format(b / (1L shl 30).toDouble())
-    b >= 1L shl 20 -> "%.1f MB".format(b / (1L shl 20).toDouble())
-    b >= 1L shl 10 -> "%.0f KB".format(b / 1024.0)
-    else -> "$b B"
-}
+private fun fmtBytes(b: Long): String = formatBytes(b)
 
-private fun dirSize(f: File): Long = if (f.isDirectory) f.listFiles()?.sumOf { dirSize(it) } ?: 0 else f.length()
 
 /**
  * `/downloads` — in the app every pack is part of the APK, so this honestly shows "on this device" for each pack
@@ -82,7 +72,7 @@ fun DownloadsScreen() {
     val s by appState()
     val profile = s.profile ?: return
     val win = LocalWindow.current
-    val context = LocalContext.current
+    val context = LocalPlatform.current
     val scope = rememberCoroutineScope()
     val levels = rememberLevels()
     var packs by remember { mutableStateOf<List<PackInfo>?>(null) }
@@ -94,7 +84,7 @@ fun DownloadsScreen() {
     LaunchedEffect(Unit) {
         packs = runCatching { app.engine.get<List<PackInfo>>("core.packs") }.getOrDefault(emptyList())
         app.repo.countPending()
-        used = withContext(Dispatchers.IO) { dirSize(context.filesDir) + dirSize(context.cacheDir) }
+        used = withContext(Dispatchers.Default) { com.maheshglance.wonderlab.core.data.Files.dirSize(context.dataDir) + com.maheshglance.wonderlab.core.data.Files.dirSize(context.cacheDir) }
     }
     // remember the last moment this device was confirmed fully uploaded
     LaunchedEffect(s.online, s.pending, s.sync) {
@@ -128,7 +118,7 @@ fun DownloadsScreen() {
                 }
             }
             SyncLine()
-            if (lastSync > 0) Text("Last confirmed in sync: ${DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(lastSync))}",
+            if (lastSync > 0) Text("Last confirmed in sync: ${formatDateTime(lastSync)}",
                 style = MaterialTheme.typography.bodySmall, color = WL.colors.muted)
         }
         SettingsCard("Learners on this device") {

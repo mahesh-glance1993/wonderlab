@@ -115,7 +115,7 @@ fun LightLab(query: Map<String, String>) {
                 if (!simple) NumberSlider("Mirror tilt", params.tilt, Light.RANGES.getValue("tilt"), "°", { setParams(params.copy(tilt = it)) }, locked("tilt"))
                 if (simple && !locked("tilt") && params.tilt != 0.0) Text("Mirror tilt: ${fmt(params.tilt)}°", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted)
                 WLButton("Aim at mirror centre", { setParams(params.copy(aim = LabMath.snap(Light.aimAt(params.sx, params.sy, Vec(Light.MCX, Light.MCY)), Light.RANGES.getValue("aim")))) }, icon = Icons.Rounded.Explore, enabled = !locked("aim"), small = true)
-                if (!simple && !locked("sx")) NumberSlider("Set the angle of incidence (places the torch)", LabMath.clamp(Math.round(tr.incidence ?: 0.0).toDouble(), 0.0, 85.0), LabRange(0.0, 85.0, 1.0), "°",
+                if (!simple && !locked("sx")) NumberSlider("Set the angle of incidence (places the torch)", LabMath.clamp(javaRound(tr.incidence ?: 0.0).toDouble(), 0.0, 85.0), LabRange(0.0, 85.0, 1.0), "°",
                     { a -> setParams(Light.placeForIncidence(a, params.tilt)) }, note = "Moves the torch so the ray hits the middle of the mirror at this angle.")
                 ToggleChip("Always show reflected ray", fullRay, { fullRay = it })
                 Text("Drag the torch to move it, or drag the round handle to turn it.", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted)

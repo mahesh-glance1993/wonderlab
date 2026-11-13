@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.auth
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import com.maheshglance.wonderlab.core.platform.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -93,7 +95,7 @@ fun SignUpScreen() {
                     put("username", username.trim()); put("password", password)
                     email.trim().takeIf { it.isNotEmpty() }?.let { put("email", it) }
                     put("securityQuestion", question); put("securityAnswer", answer)
-                    put("keepSignedIn", keep); put("deviceLabel", deviceLabel())
+                    put("keepSignedIn", keep); put("deviceLabel", deviceLabel(app.platform))
                 })
                 password = ""; confirm = ""; answer = ""
                 codes = r["recoveryCodes"]?.jsonArray?.map { (it as JsonPrimitive).content } ?: emptyList()

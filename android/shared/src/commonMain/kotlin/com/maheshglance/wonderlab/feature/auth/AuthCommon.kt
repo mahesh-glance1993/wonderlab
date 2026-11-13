@@ -1,13 +1,7 @@
 package com.maheshglance.wonderlab.feature.auth
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
-import android.os.Build
-import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import com.maheshglance.wonderlab.core.platform.*
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -49,7 +43,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.ContentType
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentType
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
@@ -125,13 +118,13 @@ fun passwordProblem(p: String): String? = when {
 val USERNAME_RE = Regex("^[A-Za-z0-9_.-]{3,32}$")
 val EMAIL_RE = Regex("^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$")
 
-fun deviceLabel(): String = "WonderLab Android app · ${Build.MANUFACTURER} ${Build.MODEL}".take(80)
+fun deviceLabel(platform: Platform): String = platform.deviceLabel.take(80)
 
 /** Accepts a whole emailed link (…/reset?token=XYZ) or just the token. */
 fun tokenFrom(input: String): String {
     val s = input.trim()
     val m = Regex("[?&]token=([^&#\\s]+)").find(s)
-    return (m?.groupValues?.get(1) ?: s).let { runCatching { java.net.URLDecoder.decode(it, "UTF-8") }.getOrDefault(it) }.trim()
+    return (m?.groupValues?.get(1) ?: s).let { urlDecode(it) }.trim()
 }
 
 /** Security questions — identical to the website's SECURITY_QUESTIONS (order = server index). */
@@ -144,17 +137,14 @@ val SECURITY_QUESTIONS_FALLBACK = listOf(
     "What was your childhood nickname?",
 )
 
-fun toast(context: Context, text: String) = Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+fun toast(context: Platform, text: String) = context.toast(text)
 
-fun copyText(context: Context, label: String, text: String) {
-    context.getSystemService(ClipboardManager::class.java)?.setPrimaryClip(ClipData.newPlainText(label, text))
-    if (Build.VERSION.SDK_INT < 33) toast(context, "Copied")
+fun copyText(context: Platform, label: String, text: String) {
+    context.copyText(label, text)
+    toast(context, "Copied")
 }
 
-fun shareText(context: Context, subject: String, text: String) {
-    val i = Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_SUBJECT, subject); putExtra(Intent.EXTRA_TEXT, text) }
-    runCatching { context.startActivity(Intent.createChooser(i, subject).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
-}
+fun shareText(context: Platform, subject: String, text: String) = context.shareText(subject, text)
 
 /**
  * Frame for the account screens: a top bar (with back) and a centred card that scrolls only when the keyboard
@@ -254,14 +244,10 @@ fun <T> Segmented(options: List<Pair<T, String>>, value: T, onChange: (T) -> Uni
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun RecoveryCodes(codes: List<String>, username: String, cellWidth: Dp = 150.dp) {
-    val context = LocalContext.current
+    val context = LocalPlatform.current
     val text = "WonderLab recovery codes for $username\n\n${codes.joinToString("\n")}\n"
-    val save = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->
-        if (uri != null) runCatching {
-            context.contentResolver.openOutputStream(uri)?.use { it.write(text.toByteArray()) }
-            toast(context, "Saved")
-        }.onFailure { toast(context, "Could not save the file.") }
-    }
+    val saver = rememberFileSaver()
+    val save = SaveLauncher { name -> saver.save(name, "text/plain", text.encodeToByteArray()) { ok -> toast(context, if (ok) "Saved" else "Could not save the file.") } }
     FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         codes.forEachIndexed { i, c ->
             Text(
@@ -281,3 +267,7 @@ fun RecoveryCodes(codes: List<String>, username: String, cellWidth: Dp = 150.dp)
 /** Small inline link-style button. */
 @Composable
 fun LinkButton(text: String, onClick: () -> Unit) = WLButton(text, onClick, kind = BtnKind.Ghost, small = true)
+
+
+/** Small adapter so call sites keep `save.launch(fileName)`. */
+fun interface SaveLauncher { fun launch(fileName: String) }

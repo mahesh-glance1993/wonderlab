@@ -1,8 +1,9 @@
 package com.maheshglance.wonderlab.feature.lesson
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import com.maheshglance.wonderlab.core.design.FitText
 
-import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -71,7 +72,7 @@ private fun statusOf(m: MasteryState?): Status = when {
     else -> Status("progress", t("inProgress"), "⏳")
 }
 
-private fun lessonPath(unitId: String, objectiveId: String, mode: String) = "lesson/${Uri.encode(unitId)}/${Uri.encode(objectiveId)}?mode=$mode"
+private fun lessonPath(unitId: String, objectiveId: String, mode: String) = "lesson/${encodePathSegment(unitId)}/${encodePathSegment(objectiveId)}?mode=$mode"
 
 /** /learn?subject=math|physics|early — curriculum browser (website Curriculum.tsx). Revisit / explore neighbouring classes. */
 @Composable
@@ -170,7 +171,7 @@ fun NextScreen() {
     val lang = WL.lang
     val pres = rememberPresentation(profile.classLevel, profile.ageBand)
     val eng = remember { LessonEngine(app.engine) }
-    val lastObj = s.prefs.lastActivity?.path?.let { Regex("^/lesson/[^/]+/([^?]+)").find(it)?.groupValues?.get(1) }?.let { Uri.decode(it) }
+    val lastObj = s.prefs.lastActivity?.path?.let { Regex("^/lesson/[^/]+/([^?]+)").find(it)?.groupValues?.get(1) }?.let { uriDecode(it) }
     val mastery = s.learner.mastery
     val data by produceState<NextData?>(null, profile.classLevel, mastery, lastObj) {
         value = eng.next(profile.classLevel, AppJson.encodeToJsonElement(MapSerializer(String.serializer(), MasteryState.serializer()), mastery), lastObj)

@@ -1,0 +1,5 @@
+build/
+shots/
+out/
+*.log
+WonderLab.xcodeproj/

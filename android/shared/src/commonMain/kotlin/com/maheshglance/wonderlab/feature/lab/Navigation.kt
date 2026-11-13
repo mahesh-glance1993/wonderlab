@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.lab
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import com.maheshglance.wonderlab.core.design.FitText
 
 import androidx.compose.foundation.background
@@ -31,6 +33,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
+import androidx.savedstate.read
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.maheshglance.wonderlab.core.design.CardShape
@@ -62,8 +65,8 @@ fun NavGraphBuilder.labGraph() {
     ) { entry ->
         NeedLearner {
             val args = entry.arguments
-            val query = PRESET_KEYS.mapNotNull { k -> args?.getString(k)?.let { k to it } }.toMap()
-            when (args?.getString("labId")) {
+            val query = PRESET_KEYS.mapNotNull { k -> args?.read { getStringOrNull(k) }?.let { k to it } }.toMap()
+            when (args?.read { getStringOrNull("labId") }) {
                 "motion" -> MotionLab(query)
                 "forces" -> ForcesLab(query)
                 "circuit" -> CircuitLab(query)

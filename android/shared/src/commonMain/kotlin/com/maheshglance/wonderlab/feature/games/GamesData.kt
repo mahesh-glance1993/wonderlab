@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.games
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import com.maheshglance.wonderlab.core.engine.AppJson
 import com.maheshglance.wonderlab.core.engine.Engine
 import kotlinx.coroutines.sync.Mutex
@@ -8,7 +10,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
-import java.time.LocalDate
 
 /** One game from the website's catalog (src/features/games/catalog.ts). */
 @Serializable
@@ -72,8 +73,8 @@ fun readSaved(state: JsonElement?): GSaved? = state?.let { s ->
 }
 
 /** Today as YYYY-MM-DD (local time), like the website's dateKey(). */
-fun todayKey(): String = LocalDate.now().toString()
-fun prevDateKey(key: String): String = runCatching { LocalDate.parse(key).minusDays(1).toString() }.getOrDefault(key)
+fun todayKey(): String = isoLocalDate(nowMillis())
+fun prevDateKey(key: String): String = prevIsoDate(key)
 
 /** Catalog, badges and UI strings — loaded once from the engine. */
 object GamesStore {

@@ -2,7 +2,6 @@ package com.maheshglance.wonderlab.feature.lesson
 
 import com.maheshglance.wonderlab.core.platform.*
 
-import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateMapOf
@@ -113,7 +112,7 @@ class LessonViewModel(
     /** "Continue learning" pointer, same path as the website (/lesson/unit/objective?mode=…). */
     fun lastActivity(label: String) {
         if (status != "ready") return
-        val path = "/lesson/${Uri.encode(unitId)}/${Uri.encode(objectiveId)}?mode=${ls.mode}"
+        val path = "/lesson/${encodePathSegment(unitId)}/${encodePathSegment(objectiveId)}?mode=${ls.mode}"
         if (path == lastAct) return
         lastAct = path
         repo.setLastActivity(path, label)

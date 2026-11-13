@@ -1,7 +1,7 @@
 package com.maheshglance.wonderlab.feature.parent
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import com.maheshglance.wonderlab.core.platform.*
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,7 +37,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.maheshglance.wonderlab.core.data.MasteryState
@@ -83,11 +82,9 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.longOrNull
 import kotlinx.serialization.json.put
-import java.text.DateFormat
-import java.util.Date
 
 private val PrettyJson = Json { prettyPrint = true }
-private fun fmtTime(sec: Long): String = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(sec * 1000))
+private fun fmtTime(sec: Long): String = formatDateTime(sec * 1000)
 private fun ApiError.friendly() = if (status == 0) "You are offline. This needs an internet connection." else message ?: "Could not save."
 
 // ---------------------------------------------------------------- progress (any learner in the family)
@@ -238,7 +235,7 @@ private data class SessionRow(val id: String, val persistent: Boolean, val lastS
 fun SecuritySection() {
     val app = LocalApp.current
     val s by appState()
-    val context = LocalContext.current
+    val context = LocalPlatform.current
     val scope = rememberCoroutineScope()
     var sessions by remember { mutableStateOf<List<SessionRow>?>(null) }
     var codesLeft by remember { mutableStateOf<Int?>(null) }
@@ -308,14 +305,14 @@ fun SecuritySection() {
 fun DataSection() {
     val app = LocalApp.current
     val s by appState()
-    val context = LocalContext.current
+    val context = LocalPlatform.current
     val scope = rememberCoroutineScope()
     var exportText by remember { mutableStateOf<String?>(null) }
     val exportForm = rememberForm()
-    val saver = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/json")) { uri ->
+    val fileSaver = rememberFileSaver()
+    val saver = com.maheshglance.wonderlab.feature.auth.SaveLauncher { name ->
         val text = exportText
-        if (uri != null && text != null) runCatching { context.contentResolver.openOutputStream(uri)?.use { it.write(text.toByteArray()) } }
-            .onSuccess { toast(context, "Exported") }.onFailure { toast(context, "Could not save the file.") }
+        if (text != null) fileSaver.save(name, "application/json", text.encodeToByteArray()) { ok -> toast(context, if (ok) "Exported" else "Could not save the file.") }
         exportText = null
     }
     var deleteOpen by remember { mutableStateOf(false) }

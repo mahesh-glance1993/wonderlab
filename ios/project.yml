@@ -1,0 +1,37 @@
+# Xcode project for the WonderLab iPad/iPhone app, generated with XcodeGen (`xcodegen generate` in this folder).
+# The app is a thin SwiftUI shell around the shared Kotlin/Compose framework built from ../android/shared.
+name: WonderLab
+options:
+  bundleIdPrefix: com.maheshglance
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    MARKETING_VERSION: "3.0.0"
+    CURRENT_PROJECT_VERSION: "10"
+targets:
+  WonderLab:
+    type: application
+    platform: iOS
+    sources:
+      - path: iosApp
+    settings:
+      base:
+        PRODUCT_NAME: WonderLab
+        PRODUCT_BUNDLE_IDENTIFIER: com.maheshglance.wonderlab
+        INFOPLIST_FILE: iosApp/Info.plist
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        ENABLE_BITCODE: NO
+        SWIFT_VERSION: "5.0"
+        FRAMEWORK_SEARCH_PATHS: "$(inherited) $(SRCROOT)/../android/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"
+        OTHER_LDFLAGS: "$(inherited) -framework WonderLab"
+    preBuildScripts:
+      - name: Build shared Kotlin framework
+        basedOnDependencyAnalysis: false
+        script: |
+          set -e
+          cd "$SRCROOT/../android"
+          ./gradlew :shared:embedAndSignAppleFrameworkForXcode --no-daemon

@@ -1,7 +1,7 @@
 package com.maheshglance.wonderlab.feature.lab
 
-import java.math.BigDecimal
-import java.math.RoundingMode
+import com.maheshglance.wonderlab.core.platform.*
+
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.atan2
@@ -10,6 +10,7 @@ import kotlin.math.floor
 import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 import kotlin.math.sin
 
 /*
@@ -24,7 +25,7 @@ data class LabRange(val min: Double, val max: Double, val step: Double)
 object LabMath {
     fun clamp(v: Double, lo: Double, hi: Double) = min(hi, max(lo, v))
     /** +v.toFixed(9): hides floating-point noise. */
-    fun tidy(v: Double): Double = if (!v.isFinite()) v else BigDecimal(v).setScale(9, RoundingMode.HALF_UP).toDouble()
+    fun tidy(v: Double): Double = if (!v.isFinite()) v else roundHalfUp(v, 9)
     private fun jsRound(x: Double) = floor(x + 0.5)
     fun snap(v: Double, r: LabRange): Double {
         val s = jsRound((clamp(v, r.min, r.max) - r.min) / r.step) * r.step + r.min
@@ -35,7 +36,7 @@ object LabMath {
     /** "Nice" axis maximum >= v (1, 2, 2.5, 5 × 10^n). */
     fun niceCeil(v: Double): Double {
         if (!(v > 0)) return 1.0
-        val p = Math.pow(10.0, floor(kotlin.math.log10(v)))
+        val p = 10.0.pow(floor(kotlin.math.log10(v)))
         for (m in listOf(1.0, 2.0, 2.5, 5.0, 10.0)) if (m * p >= v - 1e-9) return tidy(m * p)
         return tidy(10 * p)
     }
@@ -122,7 +123,7 @@ object Circuit {
     const val MAX_CELLS = 4
     const val MAX_BULBS = 3
     const val DT = 0.05
-    val P_MAX = Math.pow(MAX_CELLS * CELL_V / BULB_R, 2.0) * BULB_R
+    val P_MAX = (MAX_CELLS * CELL_V / BULB_R).pow(2.0) * BULB_R
     fun solve(c: CircuitParams): CircuitSolution {
         val voltage = tidy(c.cells * CELL_V)
         val resistance = tidy(c.bulbs * BULB_R)

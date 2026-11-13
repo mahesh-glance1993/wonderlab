@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.lab
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import com.maheshglance.wonderlab.core.design.FitText
 
 import androidx.compose.foundation.Canvas
@@ -210,7 +212,7 @@ fun SimLoop(running: Boolean, dt: Double, onSteps: (Int) -> Unit) {
     LaunchedEffect(running, dt, reduced) {
         if (!running) return@LaunchedEffect
         if (reduced) {
-            val n = max(1, Math.round(0.5 / dt).toInt())
+            val n = max(1, javaRound(0.5 / dt).toInt())
             while (true) { delay(500); cb.value(n) }
         }
         var last = withFrameNanos { it }
@@ -218,7 +220,7 @@ fun SimLoop(running: Boolean, dt: Double, onSteps: (Int) -> Unit) {
         while (true) {
             withFrameNanos { now ->
                 acc += min(0.25, (now - last) / 1e9); last = now
-                val n = Math.floor(acc / dt + 1e-9).toInt()
+                val n = kotlin.math.floor(acc / dt + 1e-9).toInt()
                 if (n > 0) { acc -= n * dt; cb.value(n) }
             }
         }

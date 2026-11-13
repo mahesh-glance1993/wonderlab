@@ -83,15 +83,13 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.longOrNull
 import kotlinx.serialization.json.put
-import java.text.DateFormat
-import java.util.Date
 
 private val EditorJson = Json { prettyPrint = true }
 private fun enc(id: String) = urlEncode(id).replace("+", "%20")
 private fun JsonElement?.str(): String? = (this as? JsonPrimitive)?.contentOrNull
 private fun JsonElement?.int(): Int? = (this as? JsonPrimitive)?.intOrNull
 private fun JsonElement?.long(): Long? = (this as? JsonPrimitive)?.longOrNull
-private fun fmt(sec: Long?) = if (sec == null || sec == 0L) "" else DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(Date(sec * 1000))
+private fun fmt(sec: Long?) = if (sec == null || sec == 0L) "" else formatDateTime(sec * 1000)
 
 private data class EItem(val id: String, val kind: String, val published: Int?, val latest: Int)
 
@@ -326,7 +324,6 @@ private fun ReportsTab() {
             } ?: emptyList()
         } catch (e: ApiError) { error = e.message }
     }
-    val dateFmt = remember { DateFormat.getDateInstance(DateFormat.MEDIUM) }
     LazyColumn(Modifier.fillMaxSize(), contentPadding = androidx.compose.foundation.layout.PaddingValues(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         error?.let { item { AlertBox(it, AlertKind.Bad) } }
         val list = reports
@@ -334,7 +331,7 @@ private fun ReportsTab() {
         else if (list.isEmpty()) item { Text("No reports yet.", color = WL.colors.muted) }
         else items(list, key = { it.id }) { r ->
             SettingsCard("${r.lesson.ifBlank { "General" }}${if (r.question.isNotBlank()) " · ${r.question} (v${r.version ?: "?"})" else ""}",
-                subtitle = "${dateFmt.format(Date(r.createdAt * 1000))} · ${r.classLevel?.let { levels.classLabel(it) } ?: "—"}") {
+                subtitle = "${formatDate(r.createdAt * 1000)} · ${r.classLevel?.let { levels.classLabel(it) } ?: "—"}") {
                 Text(r.description.ifBlank { "—" }, style = MaterialTheme.typography.bodyMedium, color = WL.colors.text)
                 Segmented(listOf("open" to "Open", "fixed" to "Fixed", "wontfix" to "Won't fix"), r.status, { st ->
                     scope.launch {

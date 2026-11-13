@@ -1,5 +1,7 @@
 package com.maheshglance.wonderlab.feature.games
 
+import com.maheshglance.wonderlab.core.platform.*
+
 import com.maheshglance.wonderlab.core.design.FitText
 
 import androidx.compose.animation.AnimatedVisibility
@@ -70,8 +72,6 @@ import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.longOrNull
-import java.math.BigDecimal
-import java.math.RoundingMode
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -99,9 +99,7 @@ fun jsonOf(vararg pairs: Pair<String, Any?>): JsonObject = JsonObject(pairs.asso
 /** The website's lab `fmt`: fixed decimals, trailing zeros removed, never "-0". */
 fun fmtNum(n: Double, dp: Int = 2): String {
     if (!n.isFinite()) return n.toString()
-    val r = BigDecimal(n).setScale(dp, RoundingMode.HALF_UP).stripTrailingZeros()
-    if (r.signum() == 0) return "0"
-    return r.toPlainString()
+    return plainNumber(n, dp)
 }
 
 /** "**bold**" markers → bold spans. */

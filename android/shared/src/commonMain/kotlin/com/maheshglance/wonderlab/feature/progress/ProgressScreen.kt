@@ -61,8 +61,6 @@ import com.maheshglance.wonderlab.ui.Routes
 import com.maheshglance.wonderlab.ui.appState
 import com.maheshglance.wonderlab.ui.shell.HubScaffold
 import com.maheshglance.wonderlab.ui.t
-import java.text.DateFormat
-import java.util.Date
 
 /** Objective status, same rule as the website's statusOf(): new | progress | practice | mastered. */
 fun masteryStatus(m: MasteryState?): String = when {
@@ -88,7 +86,7 @@ fun lessonPath(unitId: String, objectiveId: String, mode: String) =
     "lesson/${urlEncode(unitId)}/${urlEncode(objectiveId)}?mode=$mode"
 
 /** Curriculum outline for a class (from the shared engine), cached per class for the session. */
-private val outlineCache = java.util.concurrent.ConcurrentHashMap<Int, Outline>()
+private val outlineCache = SyncMap<Int, Outline>()
 
 /** Forget cached outlines (after educator overrides change). */
 fun clearOutlineCache() = outlineCache.clear()
@@ -217,7 +215,6 @@ private fun Bullet(text: String, color: Color) {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun BadgeWall(rewards: List<Pair<String, Long>>, early: Boolean) {
-    val fmt = remember { DateFormat.getDateInstance(DateFormat.MEDIUM) }
     val size: Dp = if (early) 120.dp else 104.dp
     FlowRow(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         rewards.forEach { (id, at) ->
@@ -227,7 +224,7 @@ private fun BadgeWall(rewards: List<Pair<String, Long>>, early: Boolean) {
             ) {
                 EmojiImage(BADGE_EMOJI[id.substringBefore(':')] ?: "🎀", if (early) 56.dp else 44.dp)
                 FitText(badgeName(id), style = MaterialTheme.typography.labelMedium, color = WL.colors.text, textAlign = TextAlign.Center, maxLines = 3)
-                if (at > 0) Text(fmt.format(Date(at * 1000)), style = MaterialTheme.typography.labelSmall, color = WL.colors.muted)
+                if (at > 0) Text(formatDate(at * 1000), style = MaterialTheme.typography.labelSmall, color = WL.colors.muted)
             }
         }
     }
