@@ -1,6 +1,6 @@
 // The lesson workspace for one objective: Learn / Practice / Test, saved & resumable.
 import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from 'react';
-import { Link, Navigate, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import type { Objective, Question, Template, Unit } from '../../shared/content';
 import { grade, newSeed, type Response } from '../../shared/grading';
 import { MASTERY_DISTINCT, difficultyFor } from '../../shared/mastery';
@@ -17,6 +17,8 @@ import { LearnMode, ActivityLinks } from './LearnMode';
 import { TestMode } from './TestMode';
 import { Scratchpad } from './Scratchpad';
 import { useS } from './strings';
+import { NoteTargetContext, type NoteTarget } from './noteTarget';
+import { appendLine, chapterNotePath, NOTE_PREFIX, readNote, type NoteDoc } from '../notes/model';
 
 export default function Workspace() {
   const { unitId = '', objectiveId } = useParams();
@@ -57,7 +59,8 @@ function useKeyboardInset(ref: RefObject<HTMLDivElement | null>) {
 }
 
 function LessonWorkspace({ unit, o, templates }: { unit: Unit; o: Objective; templates: Record<string, Template> }) {
-  const { presentation, learner, recordAttempt, saveLessonState, award, setLastActivity, t } = useApp();
+  const { presentation, learner, recordAttempt, saveLessonState, saveActivityState, award, setLastActivity, t } = useApp();
+  const nav = useNavigate();
   const L = useL();
   const s = useS();
   const loc = useLocation();
@@ -194,6 +197,20 @@ function LessonWorkspace({ unit, o, templates }: { unit: Unit; o: Objective; tem
   const [scratch, setScratch] = useState(false);
   const senior = tier === 'senior';
 
+  // ---------- My Notes: this chapter's note ("unit-<unitId>", same as the apps) ----------
+  const chapter = L(unit.title);
+  const learnerRef = useRef(learner); learnerRef.current = learner;
+  const lastNote = useRef<NoteDoc | null>(null);
+  const noteTarget = useMemo<NoteTarget>(() => (tier === 'early' ? null : (line: string) => {
+    const stored = readNote(learnerRef.current, `unit-${unit.id}`);
+    const cur = lastNote.current && (!stored || lastNote.current.updatedAt >= stored.updatedAt) ? lastNote.current : stored;
+    const next = appendLine(cur, unit.id, unit.subject, chapter, line);
+    lastNote.current = next;
+    void saveActivityState(NOTE_PREFIX + next.key, next);
+    toast('Saved to your notes');
+  }), [tier, unit.id, unit.subject, chapter, saveActivityState]);
+  const openNotes = () => nav(chapterNotePath(unit.id, unit.subject, chapter));
+
   return (
     <Page title={L(o.title)} back="/learn" fullscreen actions={<ReportProblem lessonId={lessonId} questionId={reportQ?.id} contentVersion={reportQ?.version} />}>
       <div ref={rootRef} className={`lesson tier-${tier} ${scratch ? 'with-scratch' : ''}`}>
@@ -209,6 +226,7 @@ function LessonWorkspace({ unit, o, templates }: { unit: Unit; o: Objective; tem
               { value: 'test', label: <><Icon name="trophy" />{t('test')}</> },
             ]} />
             {senior && <Button small icon="edit" aria-pressed={scratch} aria-controls="lesson-scratch" onClick={() => setScratch(!scratch)}>{s('scratch')}</Button>}
+            {tier !== 'early' && <Button small icon="note" onClick={openNotes} title="My notes for this chapter">Notes</Button>}
           </div>
           <div className="lesson-mastery">
             {mastery?.masteredAt
@@ -225,6 +243,7 @@ function LessonWorkspace({ unit, o, templates }: { unit: Unit; o: Objective; tem
           </div>
         )}
 
+        <NoteTargetContext.Provider value={noteTarget}>
         <div className="lesson-body">
           <div className="lesson-main">
             {ls.mode === 'learn' && (
@@ -259,6 +278,7 @@ function LessonWorkspace({ unit, o, templates }: { unit: Unit; o: Objective; tem
           </div>
           {senior && scratch && <aside className="lesson-aside"><Scratchpad id="lesson-scratch" /></aside>}
         </div>
+        </NoteTargetContext.Provider>
       </div>
     </Page>
   );

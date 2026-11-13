@@ -1,6 +1,6 @@
 // Parent settings — every action here sits behind the parent password check.
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { api, ApiError } from '../../lib/api';
 import { useApp, useL, type Profile, type Prefs } from '../../lib/app';
 import { clearProfileData, countPending } from '../../lib/sync';
@@ -12,6 +12,7 @@ import { ParentGate } from './ParentGate';
 import { ProfileForm } from './Setup';
 import { useClassContent } from '../home/useClassContent';
 import { statusOf } from '../home/Curriculum';
+import { BOARDS, DEFAULT_BOARD } from '../home/subjects';
 
 type Tab = 'learners' | 'progress' | 'account' | 'security' | 'data';
 
@@ -40,6 +41,9 @@ export default function ParentArea() {
           {tab === 'data' && <DataTab />}
         </div>
         {account?.role !== 'parent' && <p style={{ marginTop: 24 }}><Button icon="edit" onClick={() => nav('/editor')}>Open content editor</Button></p>}
+        <p className="muted small" style={{ marginTop: 24 }}>
+          <Icon name="image" /> Photos and pictures in WonderLab come from Wikimedia Commons and Microsoft Fluent Emoji. <Link to="/credits">Picture credits</Link>
+        </p>
         {confirmOut && (
           <Modal title="Unsaved work on this device" onClose={() => setConfirmOut(false)}>
             <p>Some progress or artwork hasn't reached the server yet (this device may be offline). If you sign out now, that work will be deleted from this device.</p>
@@ -90,11 +94,21 @@ function Learners() {
 function LearnerPrefs({ p }: { p: Profile }) {
   const { refresh } = useApp();
   const prefs = p.prefs as Partial<Prefs>;
-  const save = async (x: Partial<Prefs>) => { await api(`/p/${p.id}/profile`, { method: 'PATCH', body: { prefs: x } }); await refresh(); };
+  const save = async (x: Partial<Prefs>) => {
+    try { await api(`/p/${p.id}/profile`, { method: 'PATCH', body: { prefs: x } }); await refresh(); toast('Saved'); }
+    catch (e) { toast(e instanceof ApiError && e.status === 0 ? 'You are offline — this setting was not saved.' : 'This setting could not be saved.'); }
+  };
   return (
     <details>
       <summary style={{ cursor: 'pointer', fontWeight: 800 }}>Comfort & accessibility settings</summary>
       <div className="stack" style={{ marginTop: 10 }}>
+        {p.classLevel >= 3 && (
+          <div className="stack-sm">
+            <span style={{ fontWeight: 800 }} aria-hidden="true">Syllabus</span>
+            <Segmented label={`Syllabus for ${p.nickname}`} value={prefs.board ?? DEFAULT_BOARD} onChange={(b) => void save({ board: b })} options={BOARDS.map((b) => ({ value: b.id, label: b.label }))} />
+            <span className="muted small">Lessons follow this syllabus. Classes not yet written for it use the CBSE (NCERT) lessons.</span>
+          </div>
+        )}
         <label className="check"><input type="checkbox" checked={prefs.breakEnabled !== false} onChange={(e) => void save({ breakEnabled: e.target.checked })} />Break reminders</label>
         <Field label="Remind after (minutes of activity)">{(f) => <select {...f} className="input" value={prefs.breakMinutes ?? 20} onChange={(e) => void save({ breakMinutes: +e.target.value })}>{[10, 15, 20, 30, 45].map((m) => <option key={m} value={m}>{m}</option>)}</select>}</Field>
         <label className="check"><input type="checkbox" checked={!!prefs.reduceMotion} onChange={(e) => void save({ reduceMotion: e.target.checked })} />Reduce motion</label>

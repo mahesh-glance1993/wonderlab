@@ -10,12 +10,15 @@
 //   wl-public-api-v1    published content corrections (/api/content/overrides — public, not per account)
 //                       so offline lessons show the same content version as online ones.
 //   wl-tts-v1           generated narration (not private), bounded LRU.
+//   wl-pictures-v1      realistic pictures (/pictures/*: 3D emoji + photos) seen online, so they show offline too;
+//                       served from the cache and refreshed in the background (stale-while-revalidate).
 // Private API responses are never cached (the app keeps its own account+profile scoped IndexedDB).
 // Pending work lives in IndexedDB, which this worker never touches, so it survives SW/app updates.
 const RUNTIME = 'wl-runtime-v1';
 const PUBLIC_API = 'wl-public-api-v1';
 const TTS = 'wl-tts-v1';
 const TTS_MAX = 300;
+const PICTURES = 'wl-pictures-v1';
 const META = 'wl-meta';
 const NAV_TIMEOUT_MS = 6000;
 
@@ -154,6 +157,18 @@ self.addEventListener('fetch', (e) => {
   // manifests must always be fresh when online
   if (same && ['/packs.json', '/shell.json', '/version.json', '/sw.js'].includes(url.pathname)) {
     e.respondWith(fetch(req).catch(async () => (await fromAnyCache(req)) || Response.error()));
+    return;
+  }
+
+  // realistic pictures: cache first, refresh in the background
+  if (same && url.pathname.startsWith('/pictures/')) {
+    e.respondWith((async () => {
+      const c = await caches.open(PICTURES);
+      const hit = await c.match(req, { ignoreSearch: true });
+      const refresh = fetch(req).then((res) => { if (res.ok) return c.put(req, res.clone()).then(() => res); return res; });
+      if (hit) { e.waitUntil(refresh.catch(() => undefined)); return hit; }
+      return refresh;
+    })());
     return;
   }
 

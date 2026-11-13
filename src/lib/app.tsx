@@ -34,6 +34,8 @@ export interface Prefs {
   /** re-enter full screen on the next tap if the browser leaves it (default on) */
   keepFullscreen?: boolean;
   artPalettes?: unknown;
+  /** syllabus (set by a parent): Telangana SCERT (default), Andhra Pradesh, or CBSE (NCERT) */
+  board?: 'ts' | 'ap' | 'cbse';
 }
 export interface Profile { id: string; nickname: string; avatar: Avatar; classLevel: ClassLevel; ageBand: AgeBand; prefs: Partial<Prefs> }
 export interface LearnerState {

@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { PACKS } from './src/shared/packs';
+import { copyPictures } from './scripts/copy-pictures.mjs';
 
 // Build identity: package version + short commit (CI sets GITHUB_SHA; locally ask git; else "dev").
 const pkgVersion = (JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf-8')) as { version: string }).version;
@@ -106,8 +107,13 @@ function packsManifest(): Plugin {
   };
 }
 
+/** Copies the apps' realistic pictures into public/pictures before dev / build (scripts/copy-pictures.mjs). */
+function pictures(): Plugin {
+  return { name: 'wonderlab-pictures', buildStart() { copyPictures({ quiet: true }); } };
+}
+
 export default defineConfig({
-  plugins: [react(), packsManifest(), versionFile()],
+  plugins: [pictures(), react(), packsManifest(), versionFile()],
   define: { __APP_VERSION__: JSON.stringify(`${BUILD.version}+${BUILD.commit}`), __BUILD_ID__: JSON.stringify(BUILD_ID) },
   server: { proxy: { '/api': 'http://127.0.0.1:8787' } },
   build: { sourcemap: false, chunkSizeWarningLimit: 900 },

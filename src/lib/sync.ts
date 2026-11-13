@@ -160,8 +160,9 @@ async function flushOnce(): Promise<void> {
         const [, , , kind, ...rest] = k.split(':');
         await api(`/p/${pid}/${kind === 'lesson' ? 'lessons' : 'activities'}/${encodeURIComponent(rest.join(':'))}`, { method: 'PUT', body: v });
         // only delete if not overwritten meanwhile
-        const again = await idb.get<{ updatedAt: number }>(k);
-        if (again && again.updatedAt === v?.updatedAt) await idb.del(k);
+        // (same second is not enough: autosave — e.g. notes — can save twice within one second)
+        const again = await idb.get<{ state: unknown; updatedAt: number }>(k);
+        if (again && again.updatedAt === v?.updatedAt && JSON.stringify(again.state) === JSON.stringify(v?.state)) await idb.del(k);
       }
       const rw = ks.filter((k) => k.includes(':reward:'));
       if (rw.length) { await api(`/p/${pid}/rewards`, { body: { rewardIds: rw.map((k) => k.split(':reward:')[1]) } }); for (const k of rw) await idb.del(k); }

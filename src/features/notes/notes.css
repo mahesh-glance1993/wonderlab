@@ -1,0 +1,26 @@
+/* My Notes */
+.notes-tools { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.notes-search { position: relative; max-width: 560px; }
+.notes-search .icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.notes-search .input { padding-left: 46px; }
+.note-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.note-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 6px 14px; border: 0; border-radius: 999px; background: var(--surface); color: var(--text); font-weight: 800; box-shadow: var(--shadow-sm); }
+.note-chip span { font-size: 1.15rem; line-height: 1; }
+.note-chip[aria-pressed='true'] { background: var(--c-math); color: var(--c-math-ink); box-shadow: inset 0 0 0 2px var(--c-math-ink); }
+.note-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); }
+.note-row { display: flex; align-items: center; gap: 14px; padding: 14px; color: var(--text); text-decoration: none; font-weight: 600; height: 100%; transition: transform .15s var(--ease); }
+.note-row:hover { transform: translateY(-1px); }
+.note-row-pic { font-size: 2.2rem; line-height: 1; flex: none; }
+.note-row-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.note-row-text b { font-family: var(--font-head); font-size: 1.1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.note-preview { color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.notes-empty { text-align: center; padding: 32px 18px; display: grid; justify-items: center; gap: 6px; }
+.notes-empty-pic { font-size: 4.5rem; line-height: 1; }
+.notes-empty p { max-width: 520px; margin: 0; }
+.note-editor { max-width: 960px; margin: 0 auto; }
+.note-status { margin: 0; }
+.note-modebar { gap: 8px; }
+.note-text { min-height: 360px; resize: vertical; line-height: 1.6; font-size: 1.05rem; }
+.ink-pad { position: relative; width: 100%; height: 640px; border-radius: 16px; overflow: hidden; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+.ink-pad canvas { display: block; touch-action: none; cursor: crosshair; }
+@media (max-width: 600px) { .ink-pad { height: 460px; } }

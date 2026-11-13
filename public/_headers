@@ -20,6 +20,10 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Realistic pictures (copied from the apps at build time; names are stable, so revalidate daily).
+/pictures/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
 # Must always be revalidated so new deploys reach every device.
 /sw.js
   Cache-Control: no-cache
