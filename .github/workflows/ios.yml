@@ -19,7 +19,12 @@ concurrency:
 jobs:
   build:
     runs-on: macos-26
-    timeout-minutes: 90
+    timeout-minutes: 180
+    strategy:
+      fail-fast: false
+      matrix:
+        # Debug links in minutes (installable right away); Release is optimised but its link takes ~1 hour
+        config: [Debug, Release]
     steps:
       - uses: actions/checkout@v4
 
@@ -64,72 +69,35 @@ jobs:
           ./gradlew :shared:compileKotlinIosSimulatorArm64 --console=plain 2>&1 | tee ../ios/kotlin-ios.log | grep -E '^e: |BUILD' || true
           grep -q 'BUILD SUCCESSFUL' ../ios/kotlin-ios.log
 
-      # ---------- 1. simulator build + launch + screenshots ----------
-      - name: Build for iPad simulator
-        working-directory: ios
-        run: |
-          set -o pipefail
-          xcodebuild -project WonderLab.xcodeproj -scheme WonderLab -configuration Debug \
-            -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' ARCHS=arm64 ONLY_ACTIVE_ARCH=NO \
-            -derivedDataPath build/sim CODE_SIGNING_ALLOWED=NO build 2>&1 | tee build-sim.log | grep -E 'error:|warning: .*WonderLab|BUILD (SUCCEEDED|FAILED)|^e: ' || true
-          test -d build/sim/Build/Products/Debug-iphonesimulator/WonderLab.app
-
-      - name: Launch on an iPad simulator and take screenshots
-        working-directory: ios
-        run: |
-          mkdir -p shots
-          DEV=$(xcrun simctl list devices available | grep -E 'iPad (Air|Pro|\(|mini)' | head -1 | sed -E 's/.*\(([0-9A-F-]{36})\).*/\1/')
-          echo "Simulator: $(xcrun simctl list devices available | grep $DEV)"
-          xcrun simctl boot "$DEV"
-          xcrun simctl bootstatus "$DEV" -b
-          xcrun simctl install "$DEV" build/sim/Build/Products/Debug-iphonesimulator/WonderLab.app
-          xcrun simctl launch "$DEV" com.maheshglance.wonderlab
-          sleep 25; xcrun simctl io "$DEV" screenshot shots/01-start.png
-          sleep 20; xcrun simctl io "$DEV" screenshot shots/02-later.png
-          xcrun simctl spawn "$DEV" log show --last 3m --style compact --predicate 'process == "WonderLab"' > shots/app-log.txt 2>&1 || true
-          ls ~/Library/Logs/DiagnosticReports/ 2>/dev/null | grep -i wonderlab && cp ~/Library/Logs/DiagnosticReports/*WonderLab* shots/ || echo "no crash reports"
-          # rotate to landscape and capture again
-          xcrun simctl io "$DEV" screenshot shots/03-final.png || true
-
-      - name: Upload screenshots and logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: ipad-simulator-screenshots
-          path: |
-            ios/shots
-            ios/build-sim.log
-          if-no-files-found: warn
-
       # ---------- 2. device build → unsigned IPA ----------
-      - name: Build for iPad (device, release)
+      - name: Build for iPad (device, ${{ matrix.config }})
         working-directory: ios
         run: |
           set -o pipefail
-          xcodebuild -project WonderLab.xcodeproj -scheme WonderLab -configuration Release \
+          xcodebuild -project WonderLab.xcodeproj -scheme WonderLab -configuration ${{ matrix.config }} \
             -sdk iphoneos -destination 'generic/platform=iOS' \
             -derivedDataPath build/dev CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build 2>&1 | tee build-dev.log | grep -E 'error:|BUILD (SUCCEEDED|FAILED)|^e: ' || true
-          test -d build/dev/Build/Products/Release-iphoneos/WonderLab.app
+          test -d build/dev/Build/Products/${{ matrix.config }}-iphoneos/WonderLab.app
 
       - name: Package unsigned IPA
         working-directory: ios
         run: |
-          test -f build/dev/Build/Products/Release-iphoneos/WonderLab.app/WonderLab
+          test -f build/dev/Build/Products/${{ matrix.config }}-iphoneos/WonderLab.app/WonderLab
           mkdir -p out/Payload
-          cp -R build/dev/Build/Products/Release-iphoneos/WonderLab.app out/Payload/
+          cp -R build/dev/Build/Products/${{ matrix.config }}-iphoneos/WonderLab.app out/Payload/
           cd out && zip -qry WonderLab-unsigned.ipa Payload && ls -la
 
       - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
-          name: WonderLab-ipa
+          name: WonderLab-${{ matrix.config }}-ipa
           path: ios/out/WonderLab-unsigned.ipa
 
       - name: Upload build logs on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: ios-build-logs
+          name: ios-build-logs-${{ matrix.config }}
           path: ios/*.log
 
       - name: Publish results to the ci-ios-results branch
@@ -137,9 +105,8 @@ jobs:
         run: |
           set +e
           R=$RUNNER_TEMP/results; mkdir -p $R
-          cp -R ios/shots $R/ 2>/dev/null
-          for f in ios/*.log; do [ -f "$f" ] && grep -E -A3 '^e: |error:|warning: unable|Undefined symbol|duplicate symbol|ld: |referenced from|BUILD (SUCCEEDED|FAILED|SUCCESSFUL)|FAILURE|What went wrong' "$f" | head -600 > "$R/$(basename $f .log)-errors.txt"; done
+                    for f in ios/*.log; do [ -f "$f" ] && grep -E -A3 '^e: |error:|warning: unable|Undefined symbol|duplicate symbol|ld: |referenced from|BUILD (SUCCEEDED|FAILED|SUCCESSFUL)|FAILURE|What went wrong' "$f" | head -600 > "$R/$(basename $f .log)-errors.txt"; done
           [ -f ios/out/WonderLab-unsigned.ipa ] && cp ios/out/WonderLab-unsigned.ipa $R/ && ls -la ios/out/WonderLab-unsigned.ipa > $R/ipa.txt
           echo "${{ github.sha }} ${{ job.status }} $(date -u)" > $R/RUN.txt
-          cd $R && git init -q -b ci-ios-results && git add -A && git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "iOS build results for ${{ github.sha }}"
-          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" ci-ios-results
+          cd $R && git init -q -b ci-ios-${{ matrix.config }} && git add -A && git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "iOS ${{ matrix.config }} build for ${{ github.sha }}"
+          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" ci-ios-${{ matrix.config }}
