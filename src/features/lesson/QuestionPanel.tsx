@@ -11,6 +11,7 @@ import { formatAnswer, formatResponse, inputKindFor, isEmptyResponse, matchMista
 import { AnswerInput, CountObjects, TypedInput, effectiveResponse } from './inputs';
 import { Visual } from './Visual';
 import { useS } from './strings';
+import { cheerCorrect, cheerSpeech, cheerTryAgain } from '../../lib/cheer';
 
 export function QuestionPrompt({ q, autoRead, compact }: { q: Question; autoRead: boolean; compact?: boolean }) {
   const L = useL();
@@ -115,8 +116,10 @@ export interface PanelProps {
 export function QuestionPanel({ q, st, set, tier, autoRead, onAnswered, after }: PanelProps) {
   const L = useL();
   const s = useS();
-  const { t, speak } = useApp();
+  const { t, speak, lang } = useApp();
   const resultRef = useRef<HTMLDivElement>(null);
+  // encouragement words for this answer (chosen once, when it is checked; English only — Telugu keeps its own words)
+  const [cheer, setCheer] = useState<string | null>(null);
   const justChecked = useRef(false);
   useEffect(() => { if (st.checked && justChecked.current) { justChecked.current = false; resultRef.current?.focus(); } }, [st.checked]);
 
@@ -133,7 +136,9 @@ export function QuestionPanel({ q, st, set, tier, autoRead, onAnswered, after }:
     justChecked.current = true;
     set((x) => ({ ...x, checked: true, draft: resp }));
     onAnswered(q, r.correct, resp, st.hints);
-    if (autoRead) speak(r.correct ? t('correct') : t('notQuite'));
+    const words = r.correct ? cheerCorrect(tier, st.hints > 0) : cheerTryAgain(tier);
+    if (lang === 'en') setCheer(words);
+    if (autoRead) speak(lang === 'en' ? cheerSpeech(words) : r.correct ? t('correct') : t('notQuite'));
   };
 
   return (
@@ -171,7 +176,7 @@ export function QuestionPanel({ q, st, set, tier, autoRead, onAnswered, after }:
         <div className="lq-result" ref={resultRef} tabIndex={-1}>
           <Feedback ok={result.correct}>
             <span className="stack" style={{ gap: 4 }}>
-              <b>{result.correct ? (st.hints ? t('correct') : t('greatJob')) : t('notQuite')}</b>
+              <b className="lq-cheer">{cheer ?? (result.correct ? (st.hints ? t('correct') : t('greatJob')) : t('notQuite'))}</b>
               {mistake && <span>{L(mistake)}</span>}
               {!result.correct && result.understood && result.reason !== 'wrong' && inputKindFor(q) === 'typed' && <span>{s('weRead', { v: result.understood })}</span>}
             </span>

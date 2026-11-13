@@ -196,3 +196,34 @@ figure.lv { margin: 0; display: flex; flex-direction: column; align-items: cente
 .lv-anim .lv-bar { transform-box: fill-box; transform-origin: bottom; animation: lv-grow .5s var(--ease) both; animation-delay: calc(var(--i) * 60ms); }
 @keyframes lv-grow { from { transform: scaleY(0); } }
 .reduce-motion .lv-anim * { animation: none !important; }
+
+/* ---------------- rich blocks: definitions, key points, remember, "what if?" explorer ---------------- */
+.lq-text, .lq-def .lq-text, .lq-remember-body span, .lq-explore-why p { white-space: pre-line; }
+.alert > span, .alert > div { flex: 1 1 auto; min-width: 0; }
+.lq-def { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--c-math); }
+.lq-def-term { color: var(--c-math-ink); font-family: var(--font-head); font-size: 1.1rem; }
+.lq-keybox { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--surface-2); }
+.lq-remember-body { display: flex; flex-direction: column; gap: 6px; }
+.lq-formula-wrap { display: flex; flex-direction: column; gap: 6px; }
+.save-note { align-self: flex-start; color: var(--primary); }
+.save-note .icon { width: 18px; height: 18px; }
+.lq-explore { display: flex; flex-direction: column; gap: 12px; }
+.lq-explore-head { display: flex; gap: 12px; align-items: center; }
+.lq-explore-head h3 { margin: 0; }
+.lq-explore-head p { margin: 0; }
+.lq-explore-pic { font-size: 2rem; line-height: 1; }
+.lq-explore-var { display: flex; flex-direction: column; gap: 4px; }
+.lq-explore-label { display: flex; gap: 10px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; font-weight: 700; }
+.lq-explore-val { color: var(--c-math-ink); font-variant-numeric: tabular-nums; }
+.lq-explore input[type=range] { width: 100%; min-height: 32px; accent-color: var(--primary); }
+.lq-explore-result { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--good-bg); color: var(--good); font-size: 1.15rem; }
+.lq-gauge { height: 14px; border-radius: 7px; background: var(--surface); overflow: hidden; }
+.lq-gauge i { display: block; height: 100%; border-radius: 7px; background: var(--good); transition: width .35s var(--ease); }
+.lq-explore-why { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--warn-bg); color: var(--text); animation: fade .25s var(--ease); }
+.lq-explore-why span { font-size: 1.4rem; line-height: 1.2; }
+.lq-explore-why p { margin: 0; font-size: 1.05rem; flex: 1; min-width: 0; }
+.lq-mistakes { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.lq-mistakes li { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: 12px; background: var(--bad-bg); }
+.lq-mistakes li b { color: var(--bad); }
+/* cheer banner after a correct answer streak */
+.lq-cheer { font-size: 1.1rem; }

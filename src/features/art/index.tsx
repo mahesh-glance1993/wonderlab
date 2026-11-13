@@ -18,16 +18,21 @@ const Print = lazy(() => import('./Print'));
 function Loading() { return <div className="center muted" style={{ padding: 40 }} role="status">Loading…</div>; }
 
 function StudioHome() {
-  const { lang, presentation, speak } = useApp();
+  const { lang, presentation, speak, profile } = useApp();
   const te = lang === 'te';
-  const tiles: { to: string; icon: IconName; label: string; desc: string }[] = [
-    { to: '/art/paint', icon: 'brush', label: te ? 'పెయింట్' : 'Paint', desc: te ? 'ఖాళీ కాగితంపై గీయి' : 'Pencils, crayons, watercolour and more' },
-    { to: '/art/color', icon: 'bucket', label: te ? 'రంగులు వేయి' : 'Colour', desc: te ? 'బొమ్మలకు రంగులు' : 'Animals, vehicles, patterns, science' },
-    { to: '/art/trace', icon: 'edit', label: te ? 'దిద్దు' : 'Trace', desc: te ? 'గీతలు, అంకెలు, అక్షరాలు' : 'Lines, shapes, numbers and letters' },
+  const level = profile?.classLevel ?? 3;
+  // age-appropriate (same as the apps): Colour up to Class 5, Trace up to Class 3; older learners get a "Sketchbook"
+  const all: { to: string; icon: IconName; label: string; desc: string; maxLevel?: number }[] = [
+    level >= 8
+      ? { to: '/art/paint', icon: 'brush', label: 'Sketchbook', desc: 'Draw diagrams, maps and ideas' }
+      : { to: '/art/paint', icon: 'brush', label: te ? 'పెయింట్' : 'Paint', desc: te ? 'ఖాళీ కాగితంపై గీయి' : 'Pencils, crayons, watercolour and more' },
+    { to: '/art/color', icon: 'bucket', label: te ? 'రంగులు వేయి' : 'Colour', desc: te ? 'బొమ్మలకు రంగులు' : 'Animals, vehicles, patterns, science', maxLevel: 7 },
+    { to: '/art/trace', icon: 'edit', label: te ? 'దిద్దు' : 'Trace', desc: te ? 'గీతలు, అంకెలు, అక్షరాలు' : 'Lines, shapes, numbers and letters', maxLevel: 5 },
     { to: '/art/gallery', icon: 'image', label: te ? 'నా గ్యాలరీ' : 'My Gallery', desc: te ? 'నీ బొమ్మలు' : 'Your saved pictures' },
   ];
+  const tiles = all.filter((x) => x.maxLevel === undefined || level <= x.maxLevel);
   useEffect(() => {
-    if (presentation?.readAloud) speak('Art Studio. Paint, colour, trace, or see your gallery.', { te: 'ఆర్ట్ స్టూడియో. పెయింట్, రంగులు, దిద్దడం.' });
+    if (presentation?.readAloud) speak(level <= 5 ? 'Art Studio. Paint, colour, trace, or see your gallery.' : 'Art Studio. Paint, colour, or see your gallery.', { te: 'ఆర్ట్ స్టూడియో. పెయింట్, రంగులు, దిద్దడం.' });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

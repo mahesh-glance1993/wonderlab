@@ -13,12 +13,13 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:e2e": "node tests/e2e/run.mjs",
-    "build": "tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.worker.json && vite build",
+    "build": "node scripts/copy-pictures.mjs && tsc -p tsconfig.app.json --noEmit && tsc -p tsconfig.worker.json && vite build",
     "start": "npm run build && wrangler dev --port 8787",
     "deploy": "npm run build && wrangler d1 migrations apply wonderlab --env production --remote && wrangler deploy --env production",
     "docs:coverage": "vite-node scripts/gen-coverage.ts",
     "db:backup": "node scripts/backup-db.mjs",
     "icons": "node scripts/gen-icons.mjs",
+    "pictures": "node scripts/copy-pictures.mjs",
     "check": "npm run typecheck && npm run lint && npm test && vite build"
   },
   "dependencies": {

@@ -8,6 +8,7 @@ import { FullscreenKeeper } from './features/home/FullscreenKeeper';
 import { OfflineBar } from './features/downloads/OfflineBar';
 import { clearRepeat } from './lib/audio';
 import { RouteErrorBoundary } from './ui/ErrorBoundary';
+import { installPictures, pictureStyleFor, setPictureStyle } from './lib/pictures';
 
 const Auth = lazy(() => import('./features/auth'));
 const Home = lazy(() => import('./features/home/Home'));
@@ -25,6 +26,8 @@ const Language = lazy(() => import('./features/language'));
 const Progress = lazy(() => import('./features/progress'));
 const Downloads = lazy(() => import('./features/downloads'));
 const Editor = lazy(() => import('./features/editor'));
+const Notes = lazy(() => import('./features/notes'));
+const Credits = lazy(() => import('./features/parent/Credits'));
 
 function Loading() {
   return <div className="center muted" style={{ padding: 40 }} role="status">Loading…</div>;
@@ -62,12 +65,22 @@ function RouteFocus() {
   return null;
 }
 
+/** Realistic pictures for every emoji on screen: photos for Class 1–10, 3D pictures for pre-primary (lib/pictures.ts). */
+function PictureSync() {
+  const { profile } = useApp();
+  const level = profile?.classLevel ?? null;
+  useEffect(() => { setPictureStyle(pictureStyleFor(level)); }, [level]);
+  useEffect(() => { const r = document.getElementById('root'); if (r) installPictures(r); }, []);
+  return null;
+}
+
 export default function App() {
   return (
     <AppProvider>
       <BrowserRouter>
         <a href="#main" className="skip-link">Skip to content</a>
         <RouteFocus />
+        <PictureSync />
         <div className="app">
           <RouteErrorBoundary>
           <Suspense fallback={<Loading />}>
@@ -92,6 +105,8 @@ export default function App() {
               <Route path="/lang/*" element={<NeedLearner><Language /></NeedLearner>} />
               <Route path="/progress" element={<NeedLearner><Progress /></NeedLearner>} />
               <Route path="/downloads" element={<NeedLearner><Downloads /></NeedLearner>} />
+              <Route path="/notes/*" element={<NeedLearner><Notes /></NeedLearner>} />
+              <Route path="/credits" element={<Credits />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>

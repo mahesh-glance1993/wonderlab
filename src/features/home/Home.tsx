@@ -15,7 +15,9 @@ const TILES: TileDef[] = [
   { key: 'english', to: '/lang/english', icon: 'book', label: 'englishCourse', earlyLabel: 'englishCourse', desc: 'Letters, phonics, reading and grammar', color: 'math' },
   { key: 'math', to: '/learn?subject=math', icon: 'grid', label: 'math', earlyLabel: 'e_math', desc: 'Lessons, practice and tests', color: 'math' },
   { key: 'lab', to: '/lab', icon: 'atom', label: 'physicsLab', earlyLabel: 'e_world', desc: 'Experiments with motion, forces, circuits and light', color: 'lab' },
-  { key: 'art', to: '/art', icon: 'palette', label: 'artStudio', earlyLabel: 'e_art', desc: 'Trace, colour and paint', color: 'art' },
+  // age-appropriate (same as the apps): Art up to Class 5, My Notes from Class 4; from Class 6 Notes replaces Art
+  { key: 'art', to: '/art', icon: 'palette', label: 'artStudio', earlyLabel: 'e_art', desc: 'Trace, colour and paint', color: 'art', show: (l) => l <= 7 },
+  { key: 'notes', to: '/notes', icon: 'note', label: 'myNotes', earlyLabel: 'myNotes', desc: 'Write and keep your own notes', color: 'art', show: (l) => l >= 6 },
   { key: 'games', to: '/games', icon: 'puzzle', label: 'games', earlyLabel: 'e_games', desc: 'Puzzles that build skills', color: 'games' },
   { key: 'progress', to: '/progress', icon: 'trophy', label: 'myProgress', earlyLabel: 'e_progress', desc: 'Stars, badges and skills', color: 'prog' },
   { key: 'downloads', to: '/downloads', icon: 'download', label: 'downloads', desc: 'Use lessons without internet', color: 'dl' },

@@ -8,6 +8,7 @@ import { newSeed } from '../../shared/grading';
 import { BADGES, badgeIds, gameById, type GameId } from './catalog';
 import { L, levelFor, prevDateKey, type Variant } from './gen/common';
 import { S, formatTime, useTx } from './ui';
+import { cheerWon } from '../../lib/cheer';
 
 export interface ViewProps<R, P> {
   round: R;
@@ -193,7 +194,11 @@ export function GameShell<R, P>({ module, storageKey, daily }: { module: GameMod
       dailyInfo = { date: daily.date, lastSolved: daily.date, streak: prevStreak + 1 };
     }
     update((prev) => ({ ...prev, solved: true, stats: st, adjust, daily: dailyInfo }));
-    show(true, msg ?? (correct ? S.solvedFirstTry : S.correct));
+    // a win: varied praise (same words as the apps) + a streak shout-out at 3 / 5 / 10 in a row
+    const tier = presentation?.tier;
+    const bonus = !correct ? '' : st.streak === 3 ? ' 3 in a row! 🔥' : st.streak === 5 ? " 5 in a row — you're on fire! 🔥" : st.streak === 10 ? " 10 in a row! You're a champion! 🏆" : '';
+    const won = L(`${cheerWon(tier)} ${(correct ? S.solvedFirstTry : S.correct).en}${bonus}`, (correct ? S.solvedFirstTry : S.correct).te);
+    show(true, msg ? L(`${msg.en}${bonus}`, msg.te) : won);
     void recordAttempt({ questionId: `${module.id}:${cur.level}:${cur.seed}`, questionVersion: 1, objectiveId: info.objectiveId, mode: 'game', correct, hintsUsed: cur.hints }).catch(() => undefined);
     const ids = [badgeIds.first(module.id)];
     if (st.rounds >= 5) ids.push(badgeIds.five(module.id));
@@ -205,7 +210,7 @@ export function GameShell<R, P>({ module, storageKey, daily }: { module: GameMod
       celebrate();
     }
     void grant(ids);
-  }, [daily, update, recordAttempt, module.id, info.objectiveId, grant]);
+  }, [daily, update, recordAttempt, module.id, info.objectiveId, grant, presentation?.tier]);
 
   /** Leaving an attempted-but-unsolved round still records an (incorrect) attempt. */
   const recordSkip = useCallback(() => {
