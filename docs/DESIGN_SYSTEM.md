@@ -26,7 +26,7 @@ Same names on both stacks (`WLColors` in `Theme.kt`, `--*` variables in `styles.
 | `warn` / `warnBg` | `#7A5A12` / `#F3E7C4` | `#E8CF8A` / `#3F3624` | offline, "Remember", hints |
 | subject pairs | `math/mathInk`, `lab/labInk`, `art/artInk`, `games/gamesInk`, `next/nextInk`, `prog/progInk`, `dl/dlInk` | | tile backgrounds + text |
 
-App icon: indigo gradient `#6457E8 → #3F33B8`, cream `#FBF8F1` flask, sun `#F4C95D` and sky `#8ECAE6` bubbles.
+App icon: WonderLab green `#3F6E58`, cream `#FBF8F1` flask, sun `#F4C95D` and sky `#8ECAE6` bubbles.
 
 ## 3. Type
 
