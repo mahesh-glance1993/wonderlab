@@ -1,5 +1,6 @@
 package com.maheshglance.wonderlab.feature.language
 
+import kotlin.math.roundToInt
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -183,8 +184,8 @@ fun UnitCard(course: String, script: String, unit: LUnit, gloss: Boolean, modifi
                 if (script == "te") Gloss(gloss, o.titleEn)
                 val status = buildString {
                     if (x?.learned == true) append("Learned · ")
-                    x?.practiceBest?.let { append("Practice best ${Math.round(it * 100)}% · ") }
-                    x?.testBest?.let { append("Test best ${Math.round(it * 100)}%") }
+                    x?.practiceBest?.let { append("Practice best ${(it * 100).roundToInt()}% · ") }
+                    x?.testBest?.let { append("Test best ${(it * 100).roundToInt()}%") }
                     if (x?.learned != true && x?.practiceBest == null && x?.testBest == null) append("Not started")
                 }.removeSuffix(" · ")
                 Text(status, style = MaterialTheme.typography.bodySmall.copy(fontFamily = WLFonts.body), color = WL.colors.muted)
@@ -205,7 +206,7 @@ fun UnitCard(course: String, script: String, unit: LUnit, gloss: Boolean, modifi
         unit.badge?.let { b ->
             Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 EmojiImage("🏆", 20.dp)
-                Text("Badge: ${b.title} — pass every objective (${Math.round(LangKeys.PASS * 100)}%+).", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted)
+                Text("Badge: ${b.title} — pass every objective (${(LangKeys.PASS * 100).roundToInt()}%+).", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted)
             }
         }
     }

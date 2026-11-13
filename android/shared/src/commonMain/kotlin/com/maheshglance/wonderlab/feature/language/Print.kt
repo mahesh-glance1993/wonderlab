@@ -1,18 +1,5 @@
 package com.maheshglance.wonderlab.feature.language
 
-import android.content.Context
-import android.graphics.DashPathEffect
-import android.graphics.Paint
-import android.graphics.Path
-import android.os.Bundle
-import android.os.CancellationSignal
-import android.os.ParcelFileDescriptor
-import android.print.PageRange
-import android.print.PrintAttributes
-import android.print.PrintDocumentAdapter
-import android.print.PrintDocumentInfo
-import android.print.PrintManager
-import android.print.pdf.PrintedPdfDocument
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -39,9 +26,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Canvas as GCanvas
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.TextMeasurer
+import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.LayoutDirection
+import com.maheshglance.wonderlab.core.platform.LocalPlatform
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -49,76 +46,54 @@ import com.maheshglance.wonderlab.core.design.BtnKind
 import com.maheshglance.wonderlab.core.design.LocalWindow
 import com.maheshglance.wonderlab.core.design.WL
 import com.maheshglance.wonderlab.core.design.WLButton
-import java.io.FileOutputStream
 
 // Printable tracing sheet (website Trace.tsx PrintSheet): 6 letters per A4 page, each row = the letter, then four
-// dotted copies to trace, on three guide lines. Printed (or saved as PDF) through Android's print system.
+// dotted copies to trace, on three guide lines. Pages are rendered as A4 images and handed to the system print dialog
+// (print or save as PDF).
 
 private const val PER_PAGE = 6
 private const val A4_W = 595f
 private const val A4_H = 842f
 
-/** Draws one sheet page in a w × h canvas (points for PDF, pixels for the preview). */
-fun drawSheetPage(ctx: Context, c: android.graphics.Canvas, w: Float, h: Float, title: String, letters: List<String>, script: String) {
+/** A4 portrait page at about 200 dpi for printing. */
+private const val PAGE_W = 1654
+private const val PAGE_H = 2339
+
+/** Draws one sheet page filling this draw scope (the on-screen preview and the printed page use the same code). */
+fun DrawScope.drawSheetPage(tm: TextMeasurer, title: String, letters: List<String>, script: String) {
+    val w = size.width; val h = size.height
     val s = w / A4_W
-    c.drawColor(android.graphics.Color.WHITE)
+    drawRect(Color.White)
     val margin = 40f * s
-    val titlePaint = tracePaint(ctx, script).apply { color = 0xFF2F3A35.toInt(); textSize = 22f * s }
-    c.drawText(title, margin, margin + 22f * s, titlePaint)
-    val small = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = 0xFF555555.toInt(); textSize = 13f * s }
-    c.drawText(" · Name: ____________", margin + titlePaint.measureText(title), margin + 22f * s, small)
+    val titleLay = tm.line(title, traceStyle(script, 22f * s, Color(0xFF2F3A35)))
+    drawLineAt(titleLay, margin, margin + 22f * s)
+    drawLineAt(tm.line(" · Name: ____________", plainStyle(13f * s, Color(0xFF555555))), margin + titleLay.size.width, margin + 22f * s)
     val rowW = w - 2 * margin
     val k = rowW / 700f
     val rowH = 110f * k
     val gap = ((h - margin * 2 - 50f * s) - rowH * PER_PAGE) / PER_PAGE
-    val line = Paint(Paint.ANTI_ALIAS_FLAG).apply { strokeWidth = 1f * k; style = Paint.Style.STROKE }
-    val letterPaint = tracePaint(ctx, script).apply { color = 0xFF2F3A35.toInt(); textSize = 78f * k; textAlign = Paint.Align.CENTER }
-    val dotted = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE; color = 0xFF777777.toInt(); strokeWidth = 1.6f * k; pathEffect = DashPathEffect(floatArrayOf(3f * k, 4f * k), 0f) }
+    val dashLine = PathEffect.dashPathEffect(floatArrayOf(4f * k, 4f * k), 0f)
+    val dotted = Stroke(width = 1.6f * k, pathEffect = PathEffect.dashPathEffect(floatArrayOf(3f * k, 4f * k), 0f))
     letters.forEachIndexed { i, l ->
         val x0 = margin
         val y0 = margin + 50f * s + i * (rowH + gap.coerceAtLeast(6f * s))
-        line.color = 0xFFBBBBBB.toInt(); line.pathEffect = null
-        c.drawLine(x0, y0 + 20f * k, x0 + rowW, y0 + 20f * k, line)
-        c.drawLine(x0, y0 + 100f * k, x0 + rowW, y0 + 100f * k, line)
-        line.color = 0xFFDDDDDD.toInt(); line.pathEffect = DashPathEffect(floatArrayOf(4f * k, 4f * k), 0f)
-        c.drawLine(x0, y0 + 60f * k, x0 + rowW, y0 + 60f * k, line)
-        c.drawText(l, x0 + 45f * k, y0 + 88f * k, letterPaint)
-        for (j in 1..4) {
-            val p = Path()
-            val tw = letterPaint.measureText(l)
-            letterPaint.getTextPath(l, 0, l.length, x0 + (45f + j * 110f) * k - tw / 2f + tw / 2f, y0 + 88f * k, p)
-            c.drawPath(p, dotted)
-        }
+        drawLine(Color(0xFFBBBBBB), Offset(x0, y0 + 20f * k), Offset(x0 + rowW, y0 + 20f * k), strokeWidth = 1f * k)
+        drawLine(Color(0xFFBBBBBB), Offset(x0, y0 + 100f * k), Offset(x0 + rowW, y0 + 100f * k), strokeWidth = 1f * k)
+        drawLine(Color(0xFFDDDDDD), Offset(x0, y0 + 60f * k), Offset(x0 + rowW, y0 + 60f * k), strokeWidth = 1f * k, pathEffect = dashLine)
+        val lay = tm.line(l, traceStyle(script, 78f * k, Color(0xFF2F3A35)))
+        val tw = lay.size.width.toFloat()
+        drawLineAt(lay, x0 + 45f * k - tw / 2f, y0 + 88f * k)
+        for (j in 1..4) drawLineAt(lay, x0 + (45f + j * 110f) * k - tw / 2f, y0 + 88f * k, Color(0xFF777777), dotted)
     }
 }
 
-private class SheetPrintAdapter(private val ctx: Context, private val title: String, private val pages: List<List<String>>, private val script: String) : PrintDocumentAdapter() {
-    private var attrs: PrintAttributes? = null
-    override fun onLayout(old: PrintAttributes?, new: PrintAttributes, cancel: CancellationSignal?, cb: LayoutResultCallback, extras: Bundle?) {
-        attrs = new
-        if (cancel?.isCanceled == true) { cb.onLayoutCancelled(); return }
-        cb.onLayoutFinished(PrintDocumentInfo.Builder("wonderlab-tracing.pdf").setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT).setPageCount(pages.size).build(), old != new)
+/** Renders the sheet pages as A4 images for the system print dialog. */
+private fun renderSheetPages(tm: TextMeasurer, title: String, pages: List<List<String>>, script: String): List<ImageBitmap> = pages.map { letters ->
+    val img = ImageBitmap(PAGE_W, PAGE_H)
+    CanvasDrawScope().draw(Density(1f), LayoutDirection.Ltr, GCanvas(img), Size(PAGE_W.toFloat(), PAGE_H.toFloat())) {
+        drawSheetPage(tm, title, letters, script)
     }
-
-    override fun onWrite(ranges: Array<out PageRange>, dest: ParcelFileDescriptor, cancel: CancellationSignal?, cb: WriteResultCallback) {
-        val pdf = PrintedPdfDocument(ctx, attrs ?: PrintAttributes.Builder().setMediaSize(PrintAttributes.MediaSize.ISO_A4).build())
-        try {
-            val written = mutableListOf<PageRange>()
-            pages.forEachIndexed { i, letters ->
-                if (ranges.any { it == PageRange.ALL_PAGES || i in it.start..it.end }) {
-                    if (cancel?.isCanceled == true) { cb.onWriteCancelled(); return }
-                    val page = pdf.startPage(i)
-                    drawSheetPage(ctx, page.canvas, page.info.pageWidth.toFloat(), page.info.pageHeight.toFloat(), title, letters, script)
-                    pdf.finishPage(page)
-                    written += PageRange(i, i)
-                }
-            }
-            FileOutputStream(dest.fileDescriptor).use { pdf.writeTo(it) }
-            cb.onWriteFinished(written.toTypedArray())
-        } catch (e: Exception) {
-            cb.onWriteFailed(e.message)
-        } finally { pdf.close() }
-    }
+    img
 }
 
 /** /lang/:course/print/:setId */
@@ -130,14 +105,14 @@ fun PrintScreen(course: String, setId: String) {
 
 @Composable
 private fun PrintBody(set: LTraceSet) {
-    val ctx = LocalContext.current
+    val platform = LocalPlatform.current
+    val tm = rememberPxTextMeasurer()
     val win = LocalWindow.current
     val pages = remember(set.id) { set.letters.chunked(PER_PAGE) }
     var page by rememberSaveable { mutableIntStateOf(0) }
     val print = {
-        val pm = ctx.getSystemService(Context.PRINT_SERVICE) as? PrintManager
-        pm?.print("WonderLab – ${set.titleEn ?: set.title}", SheetPrintAdapter(ctx, set.title, pages, set.script),
-            PrintAttributes.Builder().setMediaSize(PrintAttributes.MediaSize.ISO_A4).build())
+        runCatching { platform.printPages("WonderLab – ${set.titleEn ?: set.title}", renderSheetPages(tm, set.title, pages, set.script)) }
+            .onFailure { platform.toast("Could not prepare the sheet for printing.") }
         Unit
     }
     LangFrame({
@@ -152,7 +127,7 @@ private fun PrintBody(set: LTraceSet) {
                 Canvas(
                     Modifier.size(pw.dp, (pw * A4_H / A4_W).dp).shadow(4.dp, RoundedCornerShape(4.dp)).clip(RoundedCornerShape(4.dp))
                         .semantics { contentDescription = "Page ${p + 1}: trace the letters ${pages[p].joinToString(" ")}" },
-                ) { drawIntoCanvas { drawSheetPage(ctx, it.nativeCanvas, size.width, size.height, set.title, pages[p], set.script) } }
+                ) { drawSheetPage(tm, set.title, pages[p], set.script) }
             }
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
                 if (pages.size > 1) WLButton("", { page = (page - 1 + pages.size) % pages.size }, small = true, icon = Icons.AutoMirrored.Rounded.ArrowBack)

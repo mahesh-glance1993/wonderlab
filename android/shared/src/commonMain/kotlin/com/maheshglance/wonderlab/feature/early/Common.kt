@@ -269,9 +269,9 @@ fun rememberStickers(): StickerBook {
 }
 
 /** Local calendar day, e.g. 2026-11-09 (dayKey in activities.ts). */
-fun dayKey(at: java.util.Calendar = java.util.Calendar.getInstance()): String =
-    "%04d-%02d-%02d".format(at.get(java.util.Calendar.YEAR), at.get(java.util.Calendar.MONTH) + 1, at.get(java.util.Calendar.DAY_OF_MONTH))
-fun dayKeyOf(epochMs: Long): String = dayKey(java.util.Calendar.getInstance().apply { timeInMillis = epochMs })
+fun dayKey(): String = dayKeyOf(nowMillis())
+fun dayKeyOf(epochMs: Long): String = isoLocalDate(epochMs)
+fun dayKey(year: Int, month: Int, day: Int): String = "${year.toString().padStart(4, '0')}-${pad2(month)}-${pad2(day)}"
 
 fun newSeed(): Int = Random.nextInt(0, Int.MAX_VALUE)
 

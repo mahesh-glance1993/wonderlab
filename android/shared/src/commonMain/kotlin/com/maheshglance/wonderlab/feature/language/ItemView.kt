@@ -198,7 +198,7 @@ private fun Typed(r: LRoundEntry, script: String, v: String, onChange: (String) 
             ) { LT(v.ifEmpty { " " }, "te", style = MaterialTheme.typography.headlineSmall, color = WL.colors.ink) }
             if (!locked) TeluguKeyboard(
                 onKey = { onChange(v + it) },
-                onBackspace = { if (v.isNotEmpty()) onChange(v.substring(0, v.offsetByCodePoints(v.length, -1))) },
+                onBackspace = { if (v.isNotEmpty()) onChange(v.substring(0, v.length - (if (v.length >= 2 && v[v.length - 1].isLowSurrogate() && v[v.length - 2].isHighSurrogate()) 2 else 1))) },
                 onSpace = { onChange("$v ") },
             )
         } else {
