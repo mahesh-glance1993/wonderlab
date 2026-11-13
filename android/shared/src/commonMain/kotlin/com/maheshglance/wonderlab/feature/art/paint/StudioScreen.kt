@@ -2,9 +2,6 @@ package com.maheshglance.wonderlab.feature.art.paint
 
 import com.maheshglance.wonderlab.core.design.FitText
 
-import android.graphics.Paint
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -81,7 +78,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
@@ -95,9 +91,7 @@ import androidx.compose.ui.input.pointer.PointerEventType
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.isCtrlPressed as ptrCtrl
 import androidx.compose.ui.input.pointer.isMetaPressed as ptrMeta
-import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.selected
@@ -131,6 +125,10 @@ import com.maheshglance.wonderlab.feature.art.ui.rememberToaster
 import com.maheshglance.wonderlab.ui.LocalApp
 import com.maheshglance.wonderlab.ui.appState
 import kotlinx.coroutines.Dispatchers
+import com.maheshglance.wonderlab.core.platform.rememberFileSaver
+import com.maheshglance.wonderlab.feature.art.engine.release
+import com.maheshglance.wonderlab.feature.art.engine.Templates
+import com.maheshglance.wonderlab.feature.art.engine.artShadow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.JsonPrimitive
@@ -192,14 +190,16 @@ fun StudioScreen(routeId: String, sizeParam: String?, paperParam: String?, pageP
     var docked by rememberSaveable { mutableStateOf(win.width > 900.dp) }
     var calib by remember { mutableStateOf(false) }
     var renaming by remember { mutableStateOf(false) }
-    val ctx = LocalContext.current
-
-    val exportLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("image/png")) { uri ->
-        if (uri != null) scope.launch {
-            val bmp = ctl.flattened() ?: return@launch
-            val ok = withContext(Dispatchers.IO) { runCatching { ctx.contentResolver.openOutputStream(uri)?.use { bmp.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) } }.isSuccess }
-            bmp.recycle()
-            toaster.show(if (ok) "Saved as a picture" else "Sorry, that did not work. Try again.")
+    Templates.rememberTextSupport()
+    val saver = rememberFileSaver()
+    val exportLauncher = remember(ctl, saver) {
+        ExportPng { name ->
+            scope.launch {
+                val bmp = ctl.flattened() ?: return@launch
+                val bytes = try { withContext(Dispatchers.Default) { runCatching { app.platform.encodePng(bmp) }.getOrNull() } } finally { bmp.release() }
+                if (bytes == null) { toaster.show("Sorry, that did not work. Try again."); return@launch }
+                saver.save(name, "image/png", bytes) { ok -> if (ok) toaster.show("Saved as a picture") }
+            }
         }
     }
     val safeName = ctl.title.replace(Regex("[^\\w\\- ]+"), "").trim().ifEmpty { "picture" }
@@ -349,16 +349,29 @@ private fun SaveStatus(ctl: StudioController, compact: Boolean) {
     }
 }
 
+/** Saves the flattened picture as a PNG the learner names (Android "Save as" / iOS share sheet). */
+private fun interface ExportPng { fun launch(fileName: String) }
+
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun CanvasView(ctl: StudioController, lang: String) {
-    val shadow = remember { Paint().apply { color = 0x33000000; setShadowLayer(18f, 0f, 4f, 0x55000000) } }
+    val shadow = remember { androidx.compose.ui.graphics.Paint().apply { color = Color(0x33000000); artShadow(18f, 0f, 4f, 0x55000000) } }
     val bg = WL.colors.surface2
     Canvas(
         Modifier.fillMaxSize().background(bg)
             .onSizeChanged { ctl.onViewport(it.width.toFloat(), it.height.toFloat()) }
             .semantics { contentDescription = "Canvas. ${if (ctl.tool == Tool.Brush) Brushes.def(ctl.brush).label else ctl.tool.name} selected." }
-            .pointerInteropFilter { ev -> ctl.onTouch(ev, lang) }
+            .pointerInput(ctl, lang) {
+                awaitPointerEventScope {
+                    try {
+                        while (true) {
+                            val e = awaitPointerEvent()
+                            if (e.type == PointerEventType.Scroll || e.type == PointerEventType.Enter || e.type == PointerEventType.Exit) continue
+                            ctl.onPointer(e, lang)
+                        }
+                    } finally { ctl.onPointerCancel() }
+                }
+            }
             .pointerInput(Unit) {
                 awaitPointerEventScope {
                     while (true) {
@@ -375,7 +388,7 @@ private fun CanvasView(ctl: StudioController, lang: String) {
         val st = ctl.stack ?: return@Canvas
         val p = ctl.project ?: return@Canvas
         drawIntoCanvas { c ->
-            val nc = c.nativeCanvas
+            val nc = c
             nc.save()
             nc.translate(ctl.tx, ctl.ty); nc.scale(ctl.s, ctl.s)
             nc.drawRect(0f, 0f, p.w.toFloat(), p.h.toFloat(), shadow)

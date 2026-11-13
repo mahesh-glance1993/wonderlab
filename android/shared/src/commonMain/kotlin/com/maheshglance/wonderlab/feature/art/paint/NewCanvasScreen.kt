@@ -30,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
@@ -125,17 +124,17 @@ private fun Choice(selected: Boolean, onClick: () -> Unit, modifier: Modifier, c
 @Composable
 fun PaperSwatch(paper: String, modifier: Modifier = Modifier, corner: Dp = 10.dp) {
     val tex: ImageBitmap = remember(paper) {
-        val bmp = android.graphics.Bitmap.createBitmap(128, 128, android.graphics.Bitmap.Config.ARGB_8888)
-        val cv = android.graphics.Canvas(bmp)
-        cv.drawColor(ArtColor.argb(Paper.COLORS[paper]))
+        val bmp = ImageBitmap(128, 128)
+        val cv = androidx.compose.ui.graphics.Canvas(bmp)
+        cv.drawRect(0f, 0f, 128f, 128f, androidx.compose.ui.graphics.Paint().apply { color = Color(ArtColor.argb(Paper.COLORS[paper])) })
         if (paper != "smooth") {
-            val p = android.graphics.Paint()
+            val p = androidx.compose.ui.graphics.Paint()
             val tint = if (paper == "kraft") intArrayOf(90, 60, 30) else intArrayOf(120, 110, 95)
             p.shader = Paper.grainShader(paper, tint[0], tint[1], tint[2], 0.55f, 0.45f)
-            p.alpha = ((if (paper == "kraft") 0.35f else 0.3f) * 255).toInt() // a little stronger than on the canvas so it reads at swatch size
+            p.alpha = ((if (paper == "kraft") 0.35f else 0.3f) * 255).toInt() / 255f // a little stronger than on the canvas so it reads at swatch size
             cv.drawRect(0f, 0f, 128f, 128f, p)
         }
-        bmp.asImageBitmap()
+        bmp
     }
     Canvas(modifier.clip(RoundedCornerShape(corner)).border(1.dp, WL.colors.line, RoundedCornerShape(corner))) {
         val n = (size.width / 128f).toInt() + 1; val m = (size.height / 128f).toInt() + 1

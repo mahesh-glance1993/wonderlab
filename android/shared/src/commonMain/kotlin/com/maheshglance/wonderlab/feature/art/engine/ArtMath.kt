@@ -53,7 +53,7 @@ object ArtColor {
         return intArrayOf(t.substring(0, 2).toInt(16), t.substring(2, 4).toInt(16), t.substring(4, 6).toInt(16))
     }
 
-    fun toHex(c: IntArray): String = "#" + c.take(3).joinToString("") { Integer.toHexString(it.coerceIn(0, 255)).padStart(2, '0') }
+    fun toHex(c: IntArray): String = "#" + c.take(3).joinToString("") { it.coerceIn(0, 255).toString(16).padStart(2, '0') }
     fun toHex(r: Float, g: Float, b: Float) = toHex(intArrayOf(r.roundToInt(), g.roundToInt(), b.roundToInt()))
     fun normalizeHex(s: String) = parseHex(s)?.let { toHex(it) }
 
@@ -101,13 +101,13 @@ class Mulberry32(seed: Long) {
 
 object ArtIds {
     private var counter = 0
-    private val rnd = java.util.Random()
+    private val rnd = kotlin.random.Random.Default
     fun newSeed(): Long = (rnd.nextDouble() * 2147483648.0).toLong()
     /** Short ids for ops/layers inside a project (same shape as the website's shortId). */
     fun shortId(): String {
         val t = longToString(nowMillis(), 36)
-        val c = Integer.toString(counter++ % 1296, 36).padStart(2, '0')
-        val r = Integer.toString(rnd.nextInt(1296), 36)
+        val c = (counter++ % 1296).toString(36).padStart(2, '0')
+        val r = rnd.nextInt(1296).toString(36)
         return t + c + r
     }
     fun uuid(): String = randomUuid()

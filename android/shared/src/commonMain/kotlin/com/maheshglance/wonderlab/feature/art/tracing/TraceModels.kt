@@ -2,14 +2,26 @@ package com.maheshglance.wonderlab.feature.art.tracing
 
 import com.maheshglance.wonderlab.core.platform.*
 
-import android.graphics.DashPathEffect
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.Typeface
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Canvas
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.PaintingStyle
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.text.TextMeasurer
 import com.maheshglance.wonderlab.core.engine.Engine
+import com.maheshglance.wonderlab.feature.art.engine.TextAnchor
+import com.maheshglance.wonderlab.feature.art.engine.Templates
+import com.maheshglance.wonderlab.feature.art.engine.drawArtText
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.serializer
+import kotlin.concurrent.Volatile
 import kotlin.math.max
 import kotlin.math.min
 
@@ -29,14 +41,15 @@ import kotlin.math.min
 
 object TraceData {
     @Volatile private var list: List<SheetSummary>? = null
+    private val lock = SynchronizedObject()
     private val sheets = HashMap<String, Sheet>()
     suspend fun sheets(engine: Engine): List<SheetSummary> = list ?: engine.get(ListSerializer(serializer<SheetSummary>()), "art.sheets").also { list = it }
     suspend fun sheet(engine: Engine, id: String): Sheet? {
-        synchronized(sheets) { sheets[id]?.let { return it } }
+        synchronized(lock) { sheets[id] }?.let { return it }
         val e = engine.call("art.sheet", id)
         if (e !is kotlinx.serialization.json.JsonObject) return null
         val s = com.maheshglance.wonderlab.core.engine.AppJson.decodeFromJsonElement(Sheet.serializer(), e)
-        synchronized(sheets) { sheets[id] = s }
+        synchronized(lock) { sheets[id] = s }
         return s
     }
 }
@@ -59,7 +72,7 @@ object TraceColors {
 enum class GuideMode { Screen, PrintModel, PrintDotted }
 
 /**
- * Draws a guide (native port of GuideSvg) into an android Canvas whose coordinate space is already the
+ * Draws a guide (native port of GuideSvg) into a Canvas whose coordinate space is already the
  * guide's box units: writing lines, tolerance band, dashed centre line, arrows, numbered green start dots,
  * and the "Show me" animated stroke (`anim` = seconds since start, or null).
  */
@@ -79,62 +92,63 @@ object GuideDraw {
         return p
     }
 
+    private fun Paint.setColor(argb: Int, a255: Int = 255) { color = Color(argb); alpha = a255.coerceIn(0, 255) / 255f }
+
     fun draw(
-        c: android.graphics.Canvas, g: Guide, tol: Float, guidance: Boolean, mode: GuideMode = GuideMode.Screen,
+        c: Canvas, g: Guide, tol: Float, guidance: Boolean, mode: GuideMode = GuideMode.Screen,
         current: Int = -1, done: List<Boolean> = emptyList(), anim: Float? = null, reduced: Boolean = false,
+        text: TextMeasurer? = Templates.textMeasurer,
     ) {
         val bx = g.box[0]; val bw = g.box[2]; val bh = g.box[3]
         val u = bh / 100f
-        val p = Paint(Paint.ANTI_ALIAS_FLAG).apply { style = Paint.Style.STROKE; strokeCap = Paint.Cap.ROUND; strokeJoin = Paint.Join.ROUND }
+        val p = Paint().apply { isAntiAlias = true; style = PaintingStyle.Stroke; strokeCap = StrokeCap.Round; strokeJoin = StrokeJoin.Round }
         g.lines?.forEachIndexed { i, y ->
-            p.color = TraceColors.RULE; p.strokeWidth = 0.5f; p.strokeCap = Paint.Cap.BUTT
-            p.pathEffect = if (i == 1 && g.lines.size > 3) DashPathEffect(floatArrayOf(2f, 2f), 0f) else null
-            c.drawLine(bx, y, bx + bw, y, p)
+            p.setColor(TraceColors.RULE); p.strokeWidth = 0.5f; p.strokeCap = StrokeCap.Butt
+            p.pathEffect = if (i == 1 && g.lines.size > 3) PathEffect.dashPathEffect(floatArrayOf(2f, 2f), 0f) else null
+            c.drawLine(Offset(bx, y), Offset(bx + bw, y), p)
         }
-        p.pathEffect = null; p.strokeCap = Paint.Cap.ROUND
+        p.pathEffect = null; p.strokeCap = StrokeCap.Round
         val focus = { i: Int -> current < 0 || i == current }
         if (mode == GuideMode.Screen) g.polys.forEachIndexed { i, pl ->
-            p.color = if (done.getOrNull(i) == true) TraceColors.BAND_DONE else TraceColors.BAND
-            p.alpha = if (focus(i)) 255 else 115
+            p.setColor(if (done.getOrNull(i) == true) TraceColors.BAND_DONE else TraceColors.BAND, if (focus(i)) 255 else 115)
             p.strokeWidth = tol * 2
             c.drawPath(path(pl), p)
         }
-        p.alpha = 255
         g.polys.forEach { pl ->
             when (mode) {
-                GuideMode.PrintDotted -> { p.color = TraceColors.DOTS; p.strokeWidth = 2.6f * u; p.pathEffect = DashPathEffect(floatArrayOf(0.01f, 5f), 0f) }
-                GuideMode.PrintModel -> { p.color = TraceColors.MODEL; p.strokeWidth = 2f * u; p.pathEffect = null }
-                GuideMode.Screen -> { p.color = TraceColors.CENTER; p.strokeWidth = 1.2f * u; p.pathEffect = DashPathEffect(floatArrayOf(2f, 2.5f), 0f) }
+                GuideMode.PrintDotted -> { p.setColor(TraceColors.DOTS); p.strokeWidth = 2.6f * u; p.pathEffect = PathEffect.dashPathEffect(floatArrayOf(0.01f, 5f), 0f) }
+                GuideMode.PrintModel -> { p.setColor(TraceColors.MODEL); p.strokeWidth = 2f * u; p.pathEffect = null }
+                GuideMode.Screen -> { p.setColor(TraceColors.CENTER); p.strokeWidth = 1.2f * u; p.pathEffect = PathEffect.dashPathEffect(floatArrayOf(2f, 2.5f), 0f) }
             }
             c.drawPath(path(pl), p)
         }
         p.pathEffect = null
         val print = mode != GuideMode.Screen
         if ((guidance || print) && mode != GuideMode.PrintDotted) {
-            val txt = Paint(Paint.ANTI_ALIAS_FLAG).apply { typeface = Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD); textAlign = Paint.Align.CENTER }
             g.polys.forEachIndexed { i, pl ->
                 if (pl.isEmpty()) return@forEachIndexed
                 val a = if (focus(i) || print) 255 else 90
-                p.color = TraceColors.ARROW; p.alpha = a; p.strokeWidth = 1.1f * u; p.style = Paint.Style.STROKE
+                p.setColor(TraceColors.ARROW, a); p.strokeWidth = 1.1f * u; p.style = PaintingStyle.Stroke
                 g.arrows.getOrNull(i)?.forEach { ar ->
                     c.save(); c.translate(ar.x, ar.y); c.rotate(toDegrees(ar.angle.toDouble()).toFloat())
                     val ap = Path().apply { moveTo(-2.6f * u, -2.6f * u); lineTo(1.8f * u, 0f); lineTo(-2.6f * u, 2.6f * u) }
                     c.drawPath(ap, p)
-                    if (reduced && anim != null && !print) { txt.color = TraceColors.ARROW; txt.alpha = a; txt.textSize = 4.5f * u; c.drawText("${i + 1}", 0f, -4.2f * u, txt) }
+                    if (reduced && anim != null && !print) {
+                        c.drawArtText(text, "${i + 1}", 0f, -4.2f * u, 4.5f * u, Color(TraceColors.ARROW).copy(alpha = a / 255f), TextAnchor.Middle, bold = true)
+                    }
                     c.restore()
                 }
-                val f = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = TraceColors.START; alpha = a }
-                c.drawCircle(pl[0][0], pl[0][1], 3.6f * u, f)
-                f.style = Paint.Style.STROKE; f.color = android.graphics.Color.WHITE; f.alpha = a; f.strokeWidth = 0.6f
-                c.drawCircle(pl[0][0], pl[0][1], 3.6f * u, f)
-                txt.color = android.graphics.Color.WHITE; txt.alpha = a; txt.textSize = 4.4f * u
-                c.drawText("${i + 1}", pl[0][0], pl[0][1] + 1.6f * u, txt)
+                val f = Paint().apply { isAntiAlias = true; setColor(TraceColors.START, a) }
+                c.drawCircle(Offset(pl[0][0], pl[0][1]), 3.6f * u, f)
+                f.style = PaintingStyle.Stroke; f.setColor(0xFFFFFFFF.toInt(), a); f.strokeWidth = 0.6f
+                c.drawCircle(Offset(pl[0][0], pl[0][1]), 3.6f * u, f)
+                c.drawArtText(text, "${i + 1}", pl[0][0], pl[0][1] + 1.6f * u, 4.4f * u, Color.White.copy(alpha = a / 255f), TextAnchor.Middle, bold = true)
             }
         }
         if (anim != null && !reduced && mode == GuideMode.Screen) {
             val total = max(1f, g.lengths.sum())
             var acc = 0f
-            p.color = TraceColors.ANIM; p.alpha = 230; p.strokeWidth = 3f * u; p.style = Paint.Style.STROKE
+            p.setColor(TraceColors.ANIM, 230); p.strokeWidth = 3f * u; p.style = PaintingStyle.Stroke
             g.polys.forEachIndexed { i, pl ->
                 val l = g.lengths.getOrElse(i) { 0f }
                 val dur = max(0.5f, (l / total) * min(6f, 1.2f + total / 60f))

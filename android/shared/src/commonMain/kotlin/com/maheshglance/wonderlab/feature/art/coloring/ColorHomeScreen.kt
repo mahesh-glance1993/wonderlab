@@ -35,7 +35,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -120,9 +119,10 @@ private fun PageCard(p: ColoringPage, te: Boolean) {
 @Composable
 fun PagePreview(id: String, modifier: Modifier) {
     val app = LocalApp.current
+    val tm = androidx.compose.ui.text.rememberTextMeasurer()
     val dl by produceState(drawCache[id], id) { if (value == null) Templates.drawList(app.engine, id)?.let { drawCache[id] = it; value = it } }
     Canvas(modifier) {
         val d = dl ?: return@Canvas
-        drawIntoCanvas { c -> Templates.draw(c.nativeCanvas, id, d, 0f, 0f, size.width, size.height, lineScale = 1.4f) }
+        drawIntoCanvas { c -> Templates.draw(c, id, d, 0f, 0f, size.width, size.height, lineScale = 1.4f, text = tm) }
     }
 }

@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
@@ -94,14 +93,14 @@ private fun SheetCard(s: SheetSummary, te: Boolean, modifier: Modifier) {
 /** A guide drawn to fit a box (keeps aspect). */
 @Composable
 fun GuidePreview(g: Guide, modifier: Modifier, mode: GuideMode = GuideMode.Screen, tol: Float = 6f) {
+    val tm = androidx.compose.ui.text.rememberTextMeasurer()
     Canvas(modifier) {
         val bx = g.box[0]; val by = g.box[1]; val bw = g.box[2]; val bh = g.box[3]
         val sc = min(size.width / bw, size.height / bh)
-        drawIntoCanvas { cv ->
-            val c = cv.nativeCanvas
+        drawIntoCanvas { c ->
             c.save()
             c.translate((size.width - bw * sc) / 2, (size.height - bh * sc) / 2); c.scale(sc, sc); c.translate(-bx, -by)
-            GuideDraw.draw(c, g, tol, true, mode)
+            GuideDraw.draw(c, g, tol, true, mode, text = tm)
             c.restore()
         }
     }
