@@ -50,6 +50,7 @@ import platform.UIKit.UIPrintInfoOrientation
 import platform.UIKit.UIPrintInfoOutputType
 import platform.UIKit.UIPrintInteractionController
 import platform.UIKit.UIViewController
+import platform.UIKit.popoverPresentationController
 import platform.darwin.NSObject
 import platform.darwin.dispatch_async
 import platform.darwin.dispatch_get_main_queue
@@ -69,10 +70,7 @@ class IosPlatform(override val apiBase: String = "https://learn.maheshglance.com
 
     init {
         // play narration and sounds even when the iPad's silent switch is on (it is a learning app, like a video)
-        runCatching {
-            AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error = null)
-            AVAudioSession.sharedInstance().setActive(true, error = null)
-        }
+        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error = null)
         nw_path_monitor_set_update_handler(monitor) { path -> _online.value = nw_path_get_status(path) == nw_path_status_satisfied }
         nw_path_monitor_set_queue(monitor, dispatch_get_main_queue())
         nw_path_monitor_start(monitor)
