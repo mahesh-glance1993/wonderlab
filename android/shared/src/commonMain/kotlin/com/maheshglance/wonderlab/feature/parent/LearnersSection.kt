@@ -165,6 +165,10 @@ fun LearnerSettings(p: Profile) {
     Column(Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         error?.let { AlertBox(it, AlertKind.Bad) }
         AdaptiveColumns(minTwoCol = 640.dp, left = {
+            if (p.classLevel >= 3) {
+                SubTitle("Syllabus")
+                Segmented(listOf("ts" to "Telangana (SCERT)", "ap" to "Andhra Pradesh", "cbse" to "CBSE (NCERT)"), prefs.board, { save("board", it) })
+            }
             SubTitle("Language & reading")
             if (p.classLevel <= 5) {
                 Label("Language")

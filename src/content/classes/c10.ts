@@ -4,6 +4,7 @@ import {
   gcd, lcm, fr, rd, inr, sgn, NAMES, CITIES, isPrime, type USpec, type QSpec,
 } from '../lib/kit';
 import type { Rng } from '../../shared/grading';
+import { tsClass10 } from '../ts/c10';
 
 const TRIPLES: [number, number, number][] = [[3, 4, 5], [6, 8, 10], [5, 12, 13], [8, 15, 17], [9, 12, 15], [7, 24, 25], [12, 16, 20], [20, 21, 29]];
 const PI = 22 / 7;
@@ -989,4 +990,4 @@ const magnet: USpec = {
 };
 
 
-export default buildClass(12, [real, poly, pair, quad, ap, tri, coord, trig, heights, circles, areaCirc, solids, stats, prob, light, eye, elec, magnet]);
+export default buildClass(12, [real, poly, pair, quad, ap, tri, coord, trig, heights, circles, areaCirc, solids, stats, prob, light, eye, elec, magnet, ...tsClass10]);

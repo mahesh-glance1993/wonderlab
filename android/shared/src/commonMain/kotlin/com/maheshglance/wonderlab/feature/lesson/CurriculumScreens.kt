@@ -5,6 +5,9 @@ import com.maheshglance.wonderlab.core.platform.*
 import com.maheshglance.wonderlab.core.design.FitText
 
 import androidx.compose.foundation.background
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -88,14 +91,36 @@ fun LearnScreen(subject: String?) {
     val data by produceState<CurriculumData?>(null, level) { value = null; value = eng.curriculum(level) }
     val labels by produceState(emptyList<String>()) { value = runCatching { app.engine.get<List<String>>("lesson.classLabels") }.getOrDefault(emptyList()) }
     val win = LocalWindow.current
-    val title = when (subject) { "early" -> t("e_world"); "physics" -> "Physics"; else -> t("math") }
     val label = { l: Int -> labels.getOrNull(l) ?: "Class $l" }
+    val board = s.prefs.board
+    // learner's syllabus first; classes not yet written for that syllabus fall back to the NCERT / play lessons
+    val all = data?.units.orEmpty()
+    val boardUnits = all.filter { it.board == board }
+    val usingFallback = boardUnits.isEmpty() && all.isNotEmpty() && board != "cbse" && level >= 3
+    val pool = if (boardUnits.isNotEmpty()) boardUnits else all.filter { it.board == "cbse" || it.board == "play" }
+    val groups = pool.map { subjectGroup(it.subject, it.board, level) }.distinct().sortedBy { SUBJECT_ORDER.indexOf(it).let { i -> if (i < 0) 99 else i } }
+    val wanted = subject?.let { subjectGroup(it, board, level) }
+    var picked by rememberSaveable(profile.id, level, board) { mutableStateOf<String?>(null) }
+    val group = picked ?: wanted?.takeIf { it in groups } ?: groups.firstOrNull()
+    val title = group?.let { groupName(it) } ?: t("learn")
     HubScaffold(Routes.LEARN) {
         Column(Modifier.fillMaxSize().background(WL.colors.bg)) {
             TopBar(title, onBack = { app.back() }, subtitle = label(level), actions = {
                 if (level == own && !early) WLButton(ls("diagTitle"), { app.go("lesson/diagnostic") }, small = true, icon = Icons.Rounded.Explore)
-                WLButton(if (subject == "physics") t("math") else "Physics", { app.go("learn?subject=${if (subject == "physics") "math" else "physics"}") }, small = true)
             })
+            // subject tabs for this syllabus
+            if (groups.size > 1) Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(horizontal = 12.dp, vertical = 4.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                groups.forEach { g ->
+                    val on = g == group
+                    Row(
+                        Modifier.heightIn(min = 44.dp).clip(RoundedCornerShape(999.dp)).background(if (on) WL.colors.math else WL.colors.surface).pressable { picked = g }.padding(horizontal = 14.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
+                        EmojiImage(groupEmoji(g), 24.dp)
+                        Text(groupName(g), style = MaterialTheme.typography.labelLarge, color = if (on) WL.colors.mathInk else WL.colors.text, maxLines = 1)
+                    }
+                }
+            }
             // class switcher: revisit / mine / explore
             Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 listOf(own - 1, own, own + 1).filter { it in 0..12 }.forEach { l ->
@@ -113,8 +138,12 @@ fun LearnScreen(subject: String?) {
             when {
                 d == null -> Loading(text = "Loading lessons…")
                 else -> {
-                    val units = d.units.filter { subject == null || it.subject == subject || (subject == "math" && it.subject == "early" && level <= 2) }
-                    if (units.isEmpty()) ErrorState("No units for this subject in ${d.label} yet.")
+                    val units = pool.filter { group == null || subjectGroup(it.subject, it.board, level) == group }
+                    if (usingFallback) Text(
+                        "${boardName(board)} lessons for ${d.label} are being written. Until then you can learn with the NCERT lessons below.",
+                        Modifier.padding(horizontal = 14.dp, vertical = 4.dp), style = MaterialTheme.typography.bodySmall, color = WL.colors.muted,
+                    )
+                    if (units.isEmpty()) ErrorState("No lessons for this subject in ${d.label} yet.")
                     else LazyVerticalGrid(
                         GridCells.Fixed(if (win.isPhone && !win.landscape) 1 else if (win.isPhone || win.width < 1000.dp) 2 else 3),
                         Modifier.fillMaxSize(), contentPadding = PaddingValues(12.dp),
@@ -133,7 +162,7 @@ private fun UnitCard(u: CUnit, mastery: Map<String, MasteryState>, early: Boolea
     val app = LocalApp.current
     WLCard(Modifier.fillMaxWidth(), padding = 14.dp) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            EmojiImage(when (u.subject) { "physics" -> "🔬"; "early" -> "🌍"; else -> "🔢" }, 32.dp)
+            EmojiImage(groupEmoji(subjectGroup(u.subject, u.board, 12)), 32.dp)
             Column(Modifier.weight(1f)) {
                 EmojiText(L(u.title), style = MaterialTheme.typography.titleMedium, color = WL.colors.text)
                 u.source?.let { FitText(it, style = MaterialTheme.typography.bodySmall, color = WL.colors.muted, maxLines = 1) }
@@ -234,3 +263,31 @@ fun NextScreen() {
     }
     if (Color.Unspecified == Color.Transparent) Unit
 }
+
+
+// ------------------------------------------------------------------------------------------------ subjects per syllabus
+
+private val SUBJECT_ORDER = listOf("early", "telugu", "hindi", "english", "math", "evs", "science", "physical-science", "biological-science", "physics", "chemistry", "biology", "social")
+
+/** Telangana Classes 8–10 teach Physical Science (physics + chemistry) and Biological Science as two books. */
+fun subjectGroup(subject: String, board: String, level: Int): String = when {
+    board == "ts" && level >= 10 && (subject == "physics" || subject == "chemistry") -> "physical-science"
+    board == "ts" && level >= 10 && subject == "biology" -> "biological-science"
+    board == "ts" && level in 8..9 && subject in setOf("physics", "chemistry", "biology") -> "science"
+    else -> subject
+}
+
+fun groupName(g: String) = when (g) {
+    "early" -> "My World"; "math" -> "Maths"; "physics" -> "Physics"; "chemistry" -> "Chemistry"; "biology" -> "Biology"
+    "science" -> "Science"; "physical-science" -> "Physical Science"; "biological-science" -> "Biological Science"
+    "evs" -> "EVS"; "social" -> "Social Studies"; "telugu" -> "Telugu"; "hindi" -> "Hindi"; "english" -> "English"
+    else -> g.replaceFirstChar { it.uppercase() }
+}
+
+fun groupEmoji(g: String) = when (g) {
+    "early" -> "🌍"; "math" -> "🔢"; "physics", "physical-science" -> "🧲"; "chemistry" -> "⚗️"; "biology", "biological-science" -> "🌿"
+    "science" -> "🔬"; "evs" -> "🌳"; "social" -> "🗺️"; "telugu" -> "📖"; "hindi" -> "📜"; "english" -> "🔤"
+    else -> "📚"
+}
+
+fun boardName(b: String) = when (b) { "ts" -> "Telangana"; "ap" -> "Andhra Pradesh"; else -> "CBSE" }

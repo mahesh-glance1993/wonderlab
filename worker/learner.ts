@@ -10,7 +10,7 @@ export const profiles: H = new Hono();
 export const learner: H = new Hono();
 
 const SAFE_PREF_KEYS = ['language', 'theme', 'textSize', 'reduceMotion', 'mute', 'volume', 'narration', 'pressureMode', 'manualIntensity', 'calibration', 'lastActivity', 'timers', 'keepFullscreen', 'artPalettes', 'readingSpeed', 'voiceEn', 'voiceTe', 'naturalVoice', 'naturalSpeaker'];
-const PARENT_PREF_KEYS = ['breakMinutes', 'breakEnabled'];
+const PARENT_PREF_KEYS = ['breakMinutes', 'breakEnabled', 'board'];
 const MAX_PROFILES = 8;
 const MAX_PREFS_BYTES = 32 * 1024; // prefs are free-form values under allowed keys; keep rows small
 

@@ -219,7 +219,7 @@ export const src = (b: BookKey, chapterNo: number | string, chapterTitle: string
 };
 
 const VERIFY_NOTE: Record<Verify, string> = {
-  official: 'Chapter confirmed from an official NCERT listing (CIET).',
+  official: 'Chapter confirmed from the official textbook / official listing (NCERT CIET or SCERT Telangana PDF).',
   secondary: 'Chapter title/number corroborated by several secondary listings; needs educator verification against the official NCERT PDF.',
   unverified: 'Chapter mapping not confirmed from an official source in this pass; needs educator verification.',
 };

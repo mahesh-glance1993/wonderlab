@@ -30,6 +30,8 @@ data class LastActivity(val path: String, val label: String, val at: Long)
 @Serializable
 data class Prefs(
     val language: String = "en",
+    /** syllabus: "ts" Telangana SCERT (default), "ap" Andhra Pradesh, "cbse" NCERT */
+    val board: String = "ts",
     val theme: String = "system",
     val textSize: Float = 1f,
     val reduceMotion: Boolean = false,
