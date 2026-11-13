@@ -5,3 +5,4 @@ dist
 *.local
 tests/e2e/shots
 backups/
+.photo-cache

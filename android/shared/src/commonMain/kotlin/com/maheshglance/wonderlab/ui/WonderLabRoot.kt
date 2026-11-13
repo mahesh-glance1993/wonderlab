@@ -78,7 +78,7 @@ fun WonderLabRoot(application: WonderLabApp) {
     }
 
     WonderLabTheme(theme = prefs.theme, tier = pres.tier, bigTargets = pres.bigTargets, textScale = prefs.textSize, lang = lang, reduceMotion = prefs.reduceMotion) {
-        CompositionLocalProvider(LocalPlatform provides application.platform, LocalApp provides ctx, LocalStrings provides (strings[lang] ?: strings["en"] ?: JsonObject(emptyMap())), LocalWindow provides rememberWindowInfo()) {
+        CompositionLocalProvider(LocalPlatform provides application.platform, LocalApp provides ctx, LocalStrings provides (strings[lang] ?: strings["en"] ?: JsonObject(emptyMap())), LocalWindow provides rememberWindowInfo(), com.maheshglance.wonderlab.core.design.LocalPictureStyle provides com.maheshglance.wonderlab.core.design.pictureStyleFor(profile?.classLevel)) {
             Column(Modifier.fillMaxSize().background(WL.colors.bg)) {
                 Box(Modifier.weight(1f)) {
                     if (!state.ready) Loading()
