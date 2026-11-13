@@ -202,8 +202,8 @@ fun NextScreen() {
     val eng = remember { LessonEngine(app.engine) }
     val lastObj = s.prefs.lastActivity?.path?.let { Regex("^/lesson/[^/]+/([^?]+)").find(it)?.groupValues?.get(1) }?.let { uriDecode(it) }
     val mastery = s.learner.mastery
-    val data by produceState<NextData?>(null, profile.classLevel, mastery, lastObj) {
-        value = eng.next(profile.classLevel, AppJson.encodeToJsonElement(MapSerializer(String.serializer(), MasteryState.serializer()), mastery), lastObj)
+    val data by produceState<NextData?>(null, profile.classLevel, mastery, lastObj, s.prefs.board) {
+        value = eng.next(profile.classLevel, AppJson.encodeToJsonElement(MapSerializer(String.serializer(), MasteryState.serializer()), mastery), lastObj, s.prefs.board)
     }
     val rec = data?.rec
     LaunchedEffect(rec?.objectiveId, pres?.readAloud) {

@@ -256,7 +256,7 @@ export function curriculum(level: number) {
     level,
     label: CLASSES[level as ClassLevel]?.label ?? `Class ${level}`,
     units: c.units.map((u) => ({
-      id: u.id, subject: u.subject, title: u.title, enrichment: !u.source,
+      id: u.id, board: u.board, subject: u.subject, title: u.title, enrichment: !u.source,
       source: u.source ? `${u.source.book}${u.source.chapterNo ? ` · Ch ${u.source.chapterNo}` : ''}` : null,
       objectives: u.objectives.map((o) => ({ id: o.id, title: o.title })),
     })),
@@ -266,8 +266,11 @@ export function curriculum(level: number) {
 export const classLabels = () => CLASSES.map((c) => c.label);
 
 /** "What should I learn next?" — the website's recommend() plus the practice queue. */
-export function next(level: number, mastery: Record<string, MasteryState>, lastObjectiveId: string | null, nowSec?: number) {
-  const units = content(level).units;
+export function next(level: number, mastery: Record<string, MasteryState>, lastObjectiveId: string | null, nowSec?: number, board?: string) {
+  const all = content(level).units;
+  // the learner's syllabus first; classes not yet written for it use the NCERT / play units
+  const mine = board ? all.filter((u) => u.board === board) : [];
+  const units = mine.length ? mine : all.filter((u) => u.board === 'cbse' || u.board === 'play');
   const now = nowSec ?? Math.floor(Date.now() / 1000);
   const rec = recommend(units, mastery || {}, now, lastObjectiveId ?? undefined);
   const u = rec ? units.find((x) => x.id === rec.unitId) : undefined;

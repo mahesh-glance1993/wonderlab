@@ -212,7 +212,7 @@ class LessonEngine(private val engine: Engine) {
         get<List<DiagSummary>>("lesson.diagnosticSummary", level, LessonJson.encodeToJsonElement(items), LessonJson.encodeToJsonElement(results)) ?: emptyList()
     suspend fun levelOf(objectiveId: String) = get<Int>("core.levelOfObjective", objectiveId) ?: -1
     suspend fun curriculum(level: Int) = get<CurriculumData>("lesson.curriculum", level)
-    suspend fun next(level: Int, mastery: JsonElement, lastObjectiveId: String?) = get<NextData>("lesson.next", level, mastery, lastObjectiveId)
+    suspend fun next(level: Int, mastery: JsonElement, lastObjectiveId: String?, board: String? = null) = get<NextData>("lesson.next", level, mastery, lastObjectiveId, null, board)
 }
 
 fun LessonState.toJson(): JsonElement = LessonJson.encodeToJsonElement(this)
