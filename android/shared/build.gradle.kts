@@ -14,7 +14,7 @@ kotlin {
     }
     listOf(iosArm64(), iosSimulatorArm64()).forEach { t ->
         t.binaries.framework {
-            baseName = "WonderLab"
+            baseName = "WonderLabShared"
             isStatic = true
         }
     }

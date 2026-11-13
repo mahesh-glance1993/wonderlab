@@ -27,7 +27,7 @@ targets:
         ENABLE_BITCODE: NO
         SWIFT_VERSION: "5.0"
         FRAMEWORK_SEARCH_PATHS: "$(inherited) $(SRCROOT)/../android/shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)"
-        OTHER_LDFLAGS: "$(inherited) -framework WonderLab"
+        OTHER_LDFLAGS: "$(inherited) -framework WonderLabShared"
     preBuildScripts:
       - name: Build shared Kotlin framework
         basedOnDependencyAnalysis: false

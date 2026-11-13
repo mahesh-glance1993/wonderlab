@@ -1,5 +1,5 @@
 import SwiftUI
-import WonderLab
+import WonderLabShared
 
 /// iPad / iPhone entry point. All screens are the shared Compose Multiplatform UI (the same code as the Android app).
 @main
