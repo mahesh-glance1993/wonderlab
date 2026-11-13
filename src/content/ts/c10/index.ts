@@ -5,5 +5,7 @@ import { units as physical } from './physical';
 import { units as biological } from './biological';
 import { units as social } from './social';
 import { units as english } from './english';
+import { units as telugu } from './telugu';
+import { units as hindi } from './hindi';
 
-export const tsClass10: USpec[] = [...maths, ...physical, ...biological, ...social, ...english].map((u) => ({ ...u, board: 'ts' as const }));
+export const tsClass10: USpec[] = [...maths, ...physical, ...biological, ...social, ...english, ...telugu, ...hindi].map((u) => ({ ...u, board: 'ts' as const }));

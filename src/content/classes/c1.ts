@@ -6,6 +6,7 @@ import {
 } from '../lib/kit';
 import type { Localized, VisualSpec } from '../../shared/content';
 import type { Rng } from '../../shared/grading';
+import { tsClass1 } from '../ts/c1';
 
 const obj = (emoji: string, count: number, groupsOf?: number): VisualSpec => (groupsOf ? { kind: 'objects', emoji, count, groupsOf } : { kind: 'objects', emoji, count });
 /** Pick a fact from a pool and ask it as a multiple-choice question (both languages). */
@@ -673,4 +674,4 @@ const pushPull: USpec = {
   }],
 };
 
-export default buildClass(3, [space, longRound, mango, make10, howMany, veg, sub, tensOnes, utsav, day, times, money, toys, shadows, sounds, pushPull]);
+export default buildClass(3, [space, longRound, mango, make10, howMany, veg, sub, tensOnes, utsav, day, times, money, toys, shadows, sounds, pushPull, ...tsClass1]);

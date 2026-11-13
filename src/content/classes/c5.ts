@@ -5,6 +5,7 @@ import {
 } from '../lib/kit';
 import type { Rng } from '../../shared/grading';
 import type { Choice } from '../../shared/content';
+import { tsClass5 } from '../ts/c5';
 
 const nm = (r: Rng) => r.pick(NAMES).en;
 const comma = (n: number) => n.toLocaleString('en-IN');
@@ -731,4 +732,4 @@ const sound: USpec = {
 };
 
 
-export default buildClass(7, [travel1, fractions, angles, travel2, farNear, dairy, shapesPat, weight, coconut, symm, quilt, racing, jumps, maps, pictures, floatSink, friction, light, sound]);
+export default buildClass(7, [travel1, fractions, angles, travel2, farNear, dairy, shapesPat, weight, coconut, symm, quilt, racing, jumps, maps, pictures, floatSink, friction, light, sound, ...tsClass5]);

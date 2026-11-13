@@ -6,6 +6,7 @@ import {
 } from '../lib/kit';
 import type { Localized, VisualSpec } from '../../shared/content';
 import type { Rng } from '../../shared/grading';
+import { tsClass2 } from '../ts/c2';
 
 const obj = (emoji: string, count: number, groupsOf?: number): VisualSpec => (groupsOf ? { kind: 'objects', emoji, count, groupsOf } : { kind: 'objects', emoji, count });
 type Fact = { q: Localized; a: Localized; w: Localized[] };
@@ -561,4 +562,4 @@ const magnets: USpec = {
   }],
 };
 
-export default buildClass(4, [beach, shapes3d, numbers, shadow2d, lines, festival, rani, share, season, fair, data, floatSink, magnets]);
+export default buildClass(4, [beach, shapes3d, numbers, shadow2d, lines, festival, rani, share, season, fair, data, floatSink, magnets, ...tsClass2]);

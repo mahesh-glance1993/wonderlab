@@ -3,6 +3,7 @@ import {
   buildClass, src, tp, ex, p, tip, f, vis, act, stepsB, num, approx, frac, expr, choose, matching, ordering, tapAll,
   gcd, fr, rd, sgn, NAMES, CITIES, isPrime, type USpec,
 } from '../lib/kit';
+import { tsClass9 } from '../ts/c9';
 
 const PI = 22 / 7;
 const HERON: [number, number, number, number][] = [[3, 4, 5, 6], [5, 5, 6, 12], [5, 5, 8, 12], [6, 8, 10, 24], [5, 12, 13, 30], [13, 14, 15, 84], [10, 10, 12, 48], [9, 10, 17, 36], [7, 15, 20, 42], [13, 13, 10, 60], [8, 15, 17, 60]];
@@ -888,4 +889,4 @@ const sound: USpec = {
 
 void tip; void f; void isPrime; void NAMES;
 
-export default buildClass(11, [coords, linpoly, numbers, identities, circles, heron, probability, seqs, props, data, algos, quads, twovar, solids, motion, forceMotion, work, sound]);
+export default buildClass(11, [coords, linpoly, numbers, identities, circles, heron, probability, seqs, props, data, algos, quads, twovar, solids, motion, forceMotion, work, sound, ...tsClass9]);

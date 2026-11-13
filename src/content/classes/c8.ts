@@ -4,6 +4,7 @@ import {
   buildClass, src, tp, ex, p, tip, f, vis, act, stepsB, num, approx, frac, expr, choose, matching, ordering, tapAll,
   gcd, rd, inr, NAMES, CITIES, L, type USpec,
 } from '../lib/kit';
+import { tsClass8 } from '../ts/c8';
 
 const sq = (n: number) => n * n;
 const YES = L('Yes', 'అవును'), NO = L('No', 'కాదు');
@@ -886,5 +887,5 @@ const lightC8: USpec = {
   }],
 };
 
-export default buildClass(10, [squares, power, story, quads, numplay, distribute, prop1, percent, pyth, prop2, geo3d, dots, algplay, area, elec, forces, pressure, lightC8]);
+export default buildClass(10, [squares, power, story, quads, numplay, distribute, prop1, percent, pyth, prop2, geo3d, dots, algplay, area, elec, forces, pressure, lightC8, ...tsClass8]);
 

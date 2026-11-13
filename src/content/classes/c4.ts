@@ -5,6 +5,7 @@ import {
 } from '../lib/kit';
 import type { Rng } from '../../shared/grading';
 import type { Choice } from '../../shared/content';
+import { tsClass4 } from '../ts/c4';
 
 const nm = (r: Rng) => r.pick(NAMES).en;
 const comma = (n: number) => n.toLocaleString('en-IN');
@@ -721,4 +722,4 @@ const magnets: USpec = {
   }],
 };
 
-export default buildClass(6, [shapes, hide, pattern, thousands, sharing, length, village, weigh, groups, animals, symmetry, clocks, transport, data, machines, magnets]);
+export default buildClass(6, [shapes, hide, pattern, thousands, sharing, length, village, weigh, groups, animals, symmetry, clocks, transport, data, machines, magnets, ...tsClass4]);

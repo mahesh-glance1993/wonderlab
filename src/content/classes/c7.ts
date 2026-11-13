@@ -3,6 +3,7 @@ import {
   buildClass, src, tp, ex, p, tip, f, vis, act, stepsB, num, approx, frac, expr, choose, matching, ordering, tapAll,
   gcd, lcm, fr, rd, inr, sgn, NAMES, CITIES, type USpec,
 } from '../lib/kit';
+import { tsClass7 } from '../ts/c7';
 
 const indian = (n: number) => n.toLocaleString('en-IN');
 const term = (k: number, v: string) => (k === 1 ? v : k === -1 ? `−${v}` : `${k}${v}`);
@@ -961,4 +962,4 @@ const earth: USpec = {
   }],
 };
 
-export default buildClass(9, [large, arith, decimals, letters, parallel, numPlay7, triangles, workFrac, twins, integers7, common, decOps, dots, tilings, unknown, circuits, heat, speed, lightC7, earth]);
+export default buildClass(9, [large, arith, decimals, letters, parallel, numPlay7, triangles, workFrac, twins, integers7, common, decOps, dots, tilings, unknown, circuits, heat, speed, lightC7, earth, ...tsClass7]);

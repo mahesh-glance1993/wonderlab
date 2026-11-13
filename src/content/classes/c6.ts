@@ -3,6 +3,7 @@ import {
   buildClass, src, tp, ex, L, p, tip, f, vis, act, stepsB, num, frac, choose, matching, ordering, tapAll,
   gcd, lcm, fr, isPrime, NAMES, THINGS, CITIES, type USpec,
 } from '../lib/kit';
+import { tsClass6 } from '../ts/c6';
 
 const sq = (n: number) => n * n;
 const tri = (n: number) => (n * (n + 1)) / 2;
@@ -785,4 +786,4 @@ const water: USpec = {
   }],
 };
 
-export default buildClass(8, [patterns, lines, numberPlay, data, primeTime, perim, fractions, constructions, symmetry, integers, magnets, measure, temp, water]);
+export default buildClass(8, [patterns, lines, numberPlay, data, primeTime, perim, fractions, constructions, symmetry, integers, magnets, measure, temp, water, ...tsClass6]);

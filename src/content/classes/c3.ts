@@ -5,6 +5,7 @@ import {
   L, NAMES, THINGS, range, type USpec,
 } from '../lib/kit';
 import type { Localized, VisualSpec } from '../../shared/content';
+import { tsClass3 } from '../ts/c3';
 
 const SHAPE_TE: Record<string, string> = {
   circle: 'వృత్తం', square: 'చతురస్రం', triangle: 'త్రిభుజం', rectangle: 'దీర్ఘచతురస్రం', pentagon: 'పంచభుజి', hexagon: 'షడ్భుజి',
@@ -871,4 +872,4 @@ const force: USpec = {
   }],
 };
 
-export default buildClass(5, [name, toy, century, vacation, shapes, hundreds1, rakhi, fair, hundreds2, party, lift, give, timeU, surajkund, shadow, sound, floatU, force]);
+export default buildClass(5, [name, toy, century, vacation, shapes, hundreds1, rakhi, fair, hundreds2, party, lift, give, timeU, surajkund, shadow, sound, floatU, force, ...tsClass3]);
