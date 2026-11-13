@@ -1,0 +1,4 @@
+    export TREAT_MISSING_BASELINES_AS_TEST_FAILURES\=NO
+    export TREAT_MISSING_SCRIPT_PHASE_OUTPUTS_AS_ERRORS\=NO
+    export UID\=501
+    export UNINSTALLED_PRODUCTS_DIR\=/Users/runner/work/wonderlab/wonderlab/ios/build/dev/Build/Intermediates.noindex/UninstalledProducts

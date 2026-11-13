@@ -1,0 +1,23 @@
+    export TREAT_MISSING_BASELINES_AS_TEST_FAILURES\=NO
+    export TREAT_MISSING_SCRIPT_PHASE_OUTPUTS_AS_ERRORS\=NO
+    export UID\=501
+    export UNINSTALLED_PRODUCTS_DIR\=/Users/runner/work/wonderlab/wonderlab/ios/build/sim/Build/Intermediates.noindex/UninstalledProducts
+--
+BUILD SUCCESSFUL in 11m 48s
+26 actionable tasks: 17 executed, 9 up-to-date
+
+MkDir /Users/runner/work/wonderlab/wonderlab/ios/build/sim/Build/Intermediates.noindex/WonderLab.build/Debug-iphonesimulator/WonderLab.build/assetcatalog_output/thinned (in target 'WonderLab' from project 'WonderLab')
+--
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Debug/iphonesimulator26.5/WonderLabShared.framework/WonderLabShared[73](quickjs_version.o)) was built for newer 'iOS-simulator' version (18.5) than being linked (16.0)
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Debug/iphonesimulator26.5/WonderLabShared.framework/WonderLabShared[74](cutils.o)) was built for newer 'iOS-simulator' version (18.5) than being linked (16.0)
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Debug/iphonesimulator26.5/WonderLabShared.framework/WonderLabShared[75](dtoa.o)) was built for newer 'iOS-simulator' version (18.5) than being linked (16.0)
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Debug/iphonesimulator26.5/WonderLabShared.framework/WonderLabShared[76](libregexp.o)) was built for newer 'iOS-simulator' version (18.5) than being linked (16.0)
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Debug/iphonesimulator26.5/WonderLabShared.framework/WonderLabShared[77](libunicode.o)) was built for newer 'iOS-simulator' version (18.5) than being linked (16.0)
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Debug/iphonesimulator26.5/WonderLabShared.framework/WonderLabShared[78](quickjs.o)) was built for newer 'iOS-simulator' version (18.5) than being linked (16.0)
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Debug/iphonesimulator26.5/WonderLabShared.framework/WonderLabShared[1839](libicu.icudtl_dat.o)) was built for newer 'iOS-simulator' version (18.5) than being linked (16.0)
+
+ConstructStubExecutorLinkFileList /Users/runner/work/wonderlab/wonderlab/ios/build/sim/Build/Intermediates.noindex/WonderLab.build/Debug-iphonesimulator/WonderLab.build/WonderLab-ExecutorLinkFileList-normal-arm64.txt (in target 'WonderLab' from project 'WonderLab')
+    cd /Users/runner/work/wonderlab/wonderlab/ios
+--
+** BUILD SUCCEEDED **
+
