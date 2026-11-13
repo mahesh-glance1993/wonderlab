@@ -19,6 +19,8 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // a leading underscore marks a parameter/variable as intentionally unused
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_', destructuredArrayIgnorePattern: '^_' }],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
