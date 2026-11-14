@@ -1,0 +1,21 @@
+    export TREAT_MISSING_BASELINES_AS_TEST_FAILURES\=NO
+    export TREAT_MISSING_SCRIPT_PHASE_OUTPUTS_AS_ERRORS\=NO
+    export UID\=501
+    export UNINSTALLED_PRODUCTS_DIR\=/Users/runner/work/wonderlab/wonderlab/ios/build/dev/Build/Intermediates.noindex/UninstalledProducts
+--
+BUILD SUCCESSFUL in 54m 49s
+26 actionable tasks: 19 executed, 7 up-to-date
+
+MkDir /Users/runner/work/wonderlab/wonderlab/ios/build/dev/Build/Intermediates.noindex/WonderLab.build/Release-iphoneos/WonderLab.build/assetcatalog_output/unthinned (in target 'WonderLab' from project 'WonderLab')
+--
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Release/iphoneos26.5/WonderLabShared.framework/WonderLabShared[3939](cutils.o)) was built for newer 'iOS' version (18.5) than being linked (16.0)
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Release/iphoneos26.5/WonderLabShared.framework/WonderLabShared[3940](dtoa.o)) was built for newer 'iOS' version (18.5) than being linked (16.0)
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Release/iphoneos26.5/WonderLabShared.framework/WonderLabShared[3941](libregexp.o)) was built for newer 'iOS' version (18.5) than being linked (16.0)
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Release/iphoneos26.5/WonderLabShared.framework/WonderLabShared[3942](libunicode.o)) was built for newer 'iOS' version (18.5) than being linked (16.0)
+/Users/runner/work/wonderlab/wonderlab/ios/WonderLab.xcodeproj: WonderLab: ld: warning: object file (/Users/runner/work/wonderlab/wonderlab/android/shared/build/xcode-frameworks/Release/iphoneos26.5/WonderLabShared.framework/WonderLabShared[3943](quickjs.o)) was built for newer 'iOS' version (18.5) than being linked (16.0)
+
+CopySwiftLibs /Users/runner/work/wonderlab/wonderlab/ios/build/dev/Build/Products/Release-iphoneos/WonderLab.app (in target 'WonderLab' from project 'WonderLab')
+    cd /Users/runner/work/wonderlab/wonderlab/ios
+--
+** BUILD SUCCEEDED **
+
