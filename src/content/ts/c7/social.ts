@@ -640,4 +640,515 @@ const ch6 = U(6, 'Africa', [
   ]),
 ]);
 
-export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6];
+// =====================================================================================
+// Theme II — Production, Exchange and Livelihoods
+// Chapter 7 — Handicrafts and Handlooms
+// =====================================================================================
+const ch7 = U(7, 'Handicrafts and Handlooms', [
+  O('ts7.ss.craft.basket', 'Basket makers: a handicraft in the city', [
+    h('Skilled hands, small earnings'),
+    photo('🧺', 'Bamboo baskets, mats and winnowing fans are made by hand in many towns of Telangana.'),
+    p('In a basti (slum) of a Telangana town, a family of basket makers sits outside their small house splitting bamboo. Communities like the Medari have practised this craft for generations, making baskets, mats, winnowing fans (chata), flower baskets and bird cages.'),
+    def('Handicraft', 'An article made mainly by hand, with simple tools, by skilled craftspeople, usually at home or in a small workshop.'),
+    stepsB('Buy bamboo from the forest department depot or a trader.', 'Split the bamboo into thin strips with a knife.', 'Soak and smooth the strips so they bend without breaking.', 'Weave the strips into baskets and mats; some are dyed in colours.', 'Sell to shopkeepers, at weekly markets (santa) or to traders who supply cities.'),
+    p('Problems: bamboo has become costly and hard to get; cheap plastic baskets and buckets compete with bamboo goods; traders pay low prices; the family has little space, no savings and often borrows money at high interest. Whole families, including children, work long hours.'),
+    keys('Handicrafts are made by hand with simple tools.', 'Bamboo is the main raw material for basket makers.', 'Problems: raw material cost, plastic competition, low prices, debt.'),
+    remember('Buying handmade bamboo products instead of plastic supports craftspeople and is better for the environment.'),
+  ], [
+    ex('Why have earnings of basket makers fallen?', ['Bamboo costs more and is harder to get.', 'Plastic goods are cheap and long-lasting, so fewer people buy bamboo baskets.', 'Traders keep a large share of the price.'], 'Costly raw material, plastic competition and low prices from traders.'),
+    ex('How could a basket makers\' cooperative help?', ['Members together can buy bamboo in bulk at lower prices.', 'They can sell directly at exhibitions or online, cutting out middlemen.', 'They can get bank loans instead of costly private loans.'], 'Cheaper raw material, better prices and easier credit.'),
+  ], [
+    orderT('steps', 'Order the steps in making a bamboo basket.', ['Buy bamboo from a depot or trader', 'Split bamboo into thin strips', 'Soak and smooth the strips', 'Weave the basket', 'Sell it at the market'], ['You need bamboo before you can split it.', 'Selling is last.'], 'Buy → split → soak → weave → sell.'),
+    mcq('bas', 'Think of the craft and its problems.', [
+      ['The main raw material of basket makers is…', 'bamboo', ['cotton', 'iron', 'plastic'], 'It is split into strips.', 'Basket makers split and weave bamboo.'],
+      ['Which is a major competitor of bamboo baskets today?', 'Cheap plastic goods', ['Silk saris', 'Iron ploughs', 'Clay pots only'], 'Buckets and tubs in bright colours.', 'Plastic baskets and tubs are cheaper and replace bamboo goods.'],
+      ['A handicraft is an item made…', 'mainly by hand with simple tools', ['entirely by big machines', 'only in foreign countries', 'only by the government'], 'Hand + craft.', 'Handicrafts rely on skilled hand work.'],
+      ['Why do many basket-making families fall into debt?', 'Low earnings force them to borrow at high interest', ['They earn too much', 'Banks give them free money', 'They never buy raw material'], 'Little savings, irregular income.', 'With low and irregular earnings they borrow from moneylenders.'],
+    ]),
+    tapT('prob', 'Tap the problems faced by urban basket makers.', [
+      ['Bamboo is costly and scarce', true], ['Competition from plastic goods', true], ['Low prices paid by traders', true], ['Crowded living space', true], ['Borrowing at high interest', true],
+      ['Too many orders from abroad', false], ['Free bamboo delivered every day', false],
+    ], ['Think of raw material, market and living conditions.', 'Two options are the opposite of reality.'], 'Raw-material costs, plastic, low prices, crowding and debt are real problems.'),
+  ]),
+  O('ts7.ss.craft.pochampally', 'Handloom weavers of Pochampally: dyeing, warp and weft', [
+    h('The famous ikat of Pochampally'),
+    photo('🎨', 'Pochampally ikat saris are known for bold geometric patterns made by tie-and-dye before weaving.'),
+    p('Bhoodan Pochampally, in Yadadri Bhuvanagiri district, is famous for ikat (tie-and-dye) saris and fabrics in cotton and silk. Pochampally ikat has a Geographical Indication (GI) tag, which means only genuine products from this area can use the name. Koyalagudem, Puttapaka and other villages nearby are also weaving centres.'),
+    def('Warp', 'The threads stretched lengthwise on the loom.'),
+    def('Weft', 'The threads that go across, over and under the warp threads, to make cloth.'),
+    def('Ikat (tie-and-dye)', 'A method in which bundles of yarn are tied tightly in places and then dyed. The tied parts stay undyed, so the pattern is already in the yarn before it is woven.'),
+    stepsB('Buy cotton or silk yarn and wash (degum) it.', 'Draw the design and tie parts of the yarn with rubber or thread.', 'Dip the yarn in dye; untie and retie for more colours.', 'Wind the dyed yarn onto bobbins; set up the warp on the loom.', 'Weave the weft across the warp on a pit loom; the pattern appears.', 'Fold and sell the finished saris.'),
+    keys('Pochampally ikat: tie-and-dye before weaving.', 'Warp = lengthwise; weft = across.', 'Pochampally ikat has a GI tag.'),
+    remember('In ikat, the yarn is patterned BEFORE weaving; in block printing, finished cloth is printed AFTER weaving.'),
+  ], [
+    ex('In weaving, which threads are fixed on the loom first: warp or weft?', ['The loom holds long threads stretched tight.', 'These lengthwise threads are the warp.', 'The weft is passed across them afterwards.'], 'The warp'),
+    ex('Why does tying the yarn before dyeing create a pattern?', ['Dye cannot enter the tightly tied parts.', 'Those parts keep their old colour.', 'When woven, the coloured and uncoloured parts line up to form designs.'], 'Tied parts resist dye, leaving a design in the yarn.'),
+  ], [
+    orderT('ikat', 'Order the steps of making a Pochampally ikat sari.', ['Wash the yarn', 'Tie parts of the yarn according to the design', 'Dye the yarn', 'Set up the warp on the loom', 'Weave the weft across the warp'], ['Tying comes before dyeing.', 'Weaving is last.'], 'Wash → tie → dye → set warp → weave.'),
+    matchT('weave', 'weaving word with its meaning', [
+      ['Warp', 'Lengthwise threads on the loom'], ['Weft', 'Threads passed across the warp'], ['Ikat', 'Tie-and-dye of yarn before weaving'], ['Pit loom', 'Hand loom set over a pit for the weaver\'s legs'], ['GI tag', 'Label showing a product comes from a specific place'],
+    ], ['Warp goes the long way.', 'GI = Geographical Indication.']),
+    mcq('poch', 'Think of Pochampally and ikat.', [
+      ['Pochampally is in which district of Telangana?', 'Yadadri Bhuvanagiri', ['Adilabad', 'Khammam', 'Nizamabad'], 'Close to Hyderabad, on the east side.', 'Bhoodan Pochampally is in Yadadri Bhuvanagiri district.'],
+      ['In ikat weaving, the pattern is made…', 'by tying and dyeing the yarn before weaving', ['by printing on finished cloth', 'by painting with a brush after weaving', 'by machine embroidery'], 'The design is in the yarn.', 'Ikat yarn is tie-dyed before weaving.'],
+      ['The threads passed across the loom are the…', 'weft', ['warp', 'bobbin', 'pit'], 'W-e-f-t goes left-right.', 'Weft threads cross over and under the warp.'],
+      ['A GI tag on Pochampally ikat means…', 'only genuine products from this region can use the name', ['it is made in a factory abroad', 'it is free of cost', 'it is made of plastic'], 'G = geography.', 'A Geographical Indication protects products linked to a place.'],
+      ['Why is the village called "Bhoodan" Pochampally?', 'The Bhoodan (land gift) movement of Vinoba Bhave began here in 1951', ['It grows only bhoodan rice', 'A king named Bhoodan built it', 'It is on the Bhoodan river'], 'Bhoodan = gift of land.', 'Vinoba Bhave received the first land gift here in 1951.'],
+    ]),
+  ]),
+  O('ts7.ss.craft.coop', 'Problems of weavers and weavers\' cooperatives', [
+    h('Why is weaving hard to live on?'),
+    p('A handloom sari may take a weaver several days. Yet weavers often earn little. Many work for a master weaver or trader who gives them yarn and pays them a wage for each piece.'),
+    stepsB('Yarn and dye prices go up, but sari prices do not rise as much.', 'Power looms and mills make similar-looking cloth faster and cheaper.', 'Master weavers and traders take a large share of the profit.', 'Weavers lack money to buy yarn, so they borrow and fall into debt.', 'Young people leave weaving for other jobs, and skills may be lost.'),
+    def('Weavers\' cooperative society', 'A society owned by weavers themselves. It buys yarn in bulk, gives it to members, collects the cloth, sells it (for example through government handloom shops) and shares the profits.'),
+    p('The government supports handloom weavers through cooperatives, the handloom marketing body (TGCO, earlier APCO), subsidies on yarn, health insurance, exhibitions and schemes such as savings and thrift funds. Sales through government outlets, exhibitions and online platforms help weavers reach customers directly.'),
+    keys('Weavers face costly yarn, power-loom competition and middlemen.', 'Cooperatives are owned by weavers and share profits.', 'Government aid: subsidies, marketing, insurance.'),
+    remember('Wearing handloom supports lakhs of weaver families. 7 August is celebrated as National Handloom Day.'),
+  ], [
+    ex('How is a weaver working for a master weaver different from one in a cooperative?', ['A master weaver supplies yarn and pays a fixed wage per piece; he keeps the profit.', 'In a cooperative, weavers are the owners; profits are shared among them.'], 'In a cooperative the weavers share the profit; with a master weaver they get only wages.'),
+    ex('Why can a power loom sell cloth more cheaply than a handloom?', ['A power loom runs on electricity and weaves much faster.', 'More cloth in less time means lower cost per metre.'], 'It produces far more cloth in less time.'),
+  ], [
+    tapT('weav', 'Tap the problems of handloom weavers.', [
+      ['Rising price of yarn', true], ['Competition from power looms', true], ['Middlemen taking most of the profit', true], ['Debt to buy raw material', true],
+      ['Too much free yarn from traders', false], ['Handloom saris cost nothing to make', false],
+    ], ['Think: raw material, competition, middlemen, money.', 'Two options are clearly false.'], 'Yarn prices, power-loom competition, middlemen and debt hurt weavers.'),
+    mcq('coopq', 'A cooperative is owned by its members.', [
+      ['A weavers\' cooperative is owned by…', 'the weavers who are its members', ['one rich trader', 'a foreign company', 'the bank'], 'Co-operate.', 'Members own and run the cooperative.'],
+      ['National Handloom Day is celebrated on…', '7 August', ['15 August', '2 October', '26 January'], 'It recalls the Swadeshi movement of 1905.', '7 August is National Handloom Day.'],
+      ['How does a cooperative get yarn more cheaply?', 'By buying in bulk for all members', ['By stealing it', 'By making it from plastic', 'By paying more per kilo'], 'Big orders get lower prices.', 'Bulk buying lowers the price for each member.'],
+      ['Why are young people in weaving families leaving the craft?', 'Earnings are low and uncertain', ['Weaving is banned', 'There is no cotton in India', 'Looms are too small'], 'They look for steadier jobs.', 'Low, uncertain earnings push youth to other work.'],
+    ]),
+    matchT('who', 'person or body with their role', [
+      ['Weaver', 'Weaves cloth on the loom'], ['Master weaver', 'Gives yarn and pays wages per piece'], ['Cooperative society', 'Owned by weavers; shares profits'], ['Government handloom outlet', 'Sells handloom cloth to customers'], ['Dyer', 'Colours the yarn'],
+    ], ['Who owns what?', 'The outlet is a shop.']),
+  ]),
+]);
+
+// =====================================================================================
+// Chapter 8 — Industrial Revolution
+// =====================================================================================
+const ch8 = U(8, 'Industrial Revolution', [
+  O('ts7.ss.indrev.begin', 'The beginning of the Industrial Revolution (1750–1850)', [
+    h('From hand to machine'),
+    photo('⚙️', 'Machines driven by water wheels and steam engines changed how goods were made.'),
+    p('Before 1750, cloth in Britain was spun and woven by hand at home. Between about 1750 and 1850, new machines and new sources of power changed production so much that historians call it the Industrial Revolution. It began in Britain and spread to Europe, America and the world.'),
+    stepsB('1764: James Hargreaves\' spinning jenny lets one worker spin many threads at once.', '1769: Richard Arkwright\'s water frame spins strong thread using water power.', '1769: James Watt patents an improved steam engine that wastes far less fuel.', '1785: Edmund Cartwright\'s power loom weaves cloth by machine.', '1800s: steam engines run factories, railways and ships.'),
+    def('Steam engine', 'A machine that burns fuel (coal) to boil water; the steam pushes a piston to produce motion. James Watt\'s improvements made it efficient enough to drive factory machines.'),
+    p('Why Britain? It had coal and iron close together, money from trade and colonies (including India), a large market abroad, rivers and ports, and inventors and investors willing to try new methods.'),
+    keys('Industrial Revolution: about 1750–1850, began in Britain.', 'Key machines: spinning jenny, water frame, power loom, steam engine.', 'James Watt improved the steam engine.'),
+    remember('The Industrial Revolution changed not just machines but where people lived and how they worked.'),
+  ], [
+    ex('Why was James Watt\'s steam engine so important?', ['Earlier engines wasted a lot of fuel.', 'Watt\'s engine used much less coal for the same work.', 'Factories could now be built anywhere, not only beside rivers.'], 'It made steam power efficient, freeing factories from rivers.'),
+    ex('How many years passed between the spinning jenny (1764) and the power loom (1785)?', ['1785 − 1764 = 21.'], '21 years'),
+  ], [
+    orderT('inv', 'Order these inventions by date (earliest first).', ['Spinning jenny (1764)', 'Watt\'s improved steam engine patent (1769)', 'Power loom (1785)', 'Stephenson\'s Rocket locomotive (1829)', 'First passenger train in India (1853)'], ['Spinning came before weaving machines.', 'Railways came last.'], 'Jenny 1764 → Watt 1769 → power loom 1785 → Rocket 1829 → India\'s train 1853.'),
+    matchT('inventor', 'inventor with the invention', [
+      ['James Hargreaves', 'Spinning jenny'], ['Richard Arkwright', 'Water frame'], ['James Watt', 'Improved steam engine'], ['Edmund Cartwright', 'Power loom'], ['George Stephenson', 'Rocket locomotive'],
+    ], ['Watt is linked to steam.', 'Stephenson built locomotives.']),
+    mcq('why', 'Think of resources and money.', [
+      ['The Industrial Revolution began in…', 'Britain', ['India', 'China', 'Brazil'], 'It had coal and iron.', 'It began in Britain around 1750.'],
+      ['Which TWO resources helped Britain most?', 'Coal and iron', ['Gold and silver', 'Cotton and jute grown in Britain', 'Tea and coffee'], 'Fuel and metal for machines.', 'Coal fuelled engines; iron built machines.'],
+      ['The spinning jenny allowed one worker to…', 'spin many threads at once', ['weave silk by hand', 'run a railway', 'mine coal'], 'Many spindles on one machine.', 'It multiplied a spinner\'s output.'],
+      ['Steam engines made factories free from rivers because…', 'they did not need water wheels for power', ['they floated', 'they used wind', 'they needed no fuel'], 'Before steam, mills used water power.', 'Steam power could be produced anywhere coal reached.'],
+    ]),
+  ]),
+  O('ts7.ss.indrev.factory', 'The factory system and child workers', [
+    h('Life in the factory'),
+    p('Before factories, spinners and weavers worked at home, at their own pace, with family. In the factory system, hundreds of workers gathered in one building with big machines owned by a factory owner, and worked to the factory clock.'),
+    def('Factory system', 'A way of producing goods in which workers come to a large building, use machines owned by an employer and are paid wages for fixed hours.'),
+    stepsB('Workers lose control over tools and time; the bell and the clock set the day.', 'Working days of 12–16 hours, six days a week, were common.', 'Workplaces were noisy, dusty and dangerous; accidents with machines were frequent.', 'Towns like Manchester grew fast; workers lived in crowded, dirty slums.', 'Children as young as 6–8 worked in mills and mines because they were paid less and could crawl under machines.'),
+    p('Reformers, writers and workers protested. Britain passed Factory Acts (for example in 1833) that banned work by very young children and limited hours for older children. Workers formed trade unions to demand better wages and conditions. Today, child labour is banned in India too, and every child has the right to free education up to age 14.'),
+    keys('Factory: machines, wages, fixed hours, owner controls.', 'Child labour was common in early factories.', 'Factory Acts and trade unions improved conditions.'),
+    remember('In India, the Right to Education Act (2009) makes education free and compulsory for children aged 6–14.'),
+  ], [
+    ex('Why did factory owners employ children?', ['Children were paid much lower wages.', 'They were small enough to crawl under machines to fix threads.', 'They could not easily protest.'], 'Cheap wages and small size; this was exploitation.'),
+    ex('How did the factory system change a weaver\'s control over work?', ['At home a weaver chose hours and used his own loom.', 'In a factory the owner owned the machines and fixed the hours.'], 'He lost control of tools and time and became a wage worker.'),
+  ], [
+    tapT('fact', 'Tap the features of early factories.', [
+      ['Long working hours of 12–16 hours', true], ['Machines owned by the factory owner', true], ['Children working in mills', true], ['Workers paid wages', true], ['Frequent accidents', true],
+      ['Workers chose their own hours', false], ['Weekly holidays of four days', false],
+    ], ['Think of the clock, the owner and the children.', 'Workers had little choice.'], 'Long hours, owner-owned machines, child workers, wages and accidents marked early factories.'),
+    mcq('child', 'Think about how conditions were improved.', [
+      ['Why were children employed in early factories?', 'They were paid less and could fit under machines', ['They were better educated', 'They were stronger than adults', 'The law required it'], 'Cheap and small.', 'Owners exploited children for cheap labour.'],
+      ['Laws passed in Britain to improve factory conditions were called…', 'Factory Acts', ['Navigation Acts', 'Corn Laws', 'Stamp Acts'], 'Acts about factories.', 'The Factory Acts limited child labour and hours.'],
+      ['Workers formed ___ to demand better wages.', 'trade unions', ['stock markets', 'armies', 'colonies'], 'Unity is strength.', 'Trade unions bargain together for workers.'],
+      ['In India, education is free and compulsory for children aged…', '6 to 14', ['1 to 3', '18 to 25', '15 to 21'], 'Right to Education Act, 2009.', 'The RTE Act covers children aged 6–14.'],
+      ['Which British town grew into a big cotton-mill city?', 'Manchester', ['Delhi', 'Paris', 'Calicut'], 'Nicknamed "Cottonopolis".', 'Manchester became the centre of cotton mills.'],
+    ]),
+    matchT('then', 'before factories with after factories', [
+      ['Work at home', 'Work in a large mill'], ['Own tools', 'Machines owned by employer'], ['Own pace', 'Fixed hours by the factory bell'], ['Family workshop', 'Hundreds of strangers together'], ['Hand power', 'Steam power'],
+    ], ['Each pair is a "before → after" change.', 'Think of who owns tools.']),
+  ]),
+  O('ts7.ss.indrev.energy', 'Energy, transport revolution and trade', [
+    h('Coal, iron, rails and ships'),
+    photo('🚆', 'Steam railways carried coal, cotton and people faster than ever before.'),
+    p('Machines needed power and metal. Coal mining grew to feed steam engines; better methods of making iron and later steel (using coke from coal) gave strong metal for machines, bridges and rails.'),
+    stepsB('Canals were dug to carry heavy coal cheaply (late 1700s).', '1825: the first public steam railway, Stockton to Darlington, opens in England.', '1829: Stephenson\'s Rocket wins a locomotive trial.', 'Steamships cross oceans faster and on schedule.', '1853: India\'s first passenger train runs from Bombay (Mumbai) to Thane.'),
+    p('Faster transport meant raw materials could reach factories and finished goods reach markets cheaply. Britain imported raw cotton (from India and America) and sold machine-made cloth back to the world, including India. This hurt Indian handloom weavers, whose cloth could not compete in price.'),
+    keys('Coal = power; iron and steel = machines and rails.', 'Railways from 1825; India\'s first train 1853.', 'Trade: raw cotton in, cheap cloth out.'),
+    remember('The Industrial Revolution made Britain the "workshop of the world" but ruined many Indian handloom weavers.'),
+  ], [
+    ex('Why did railways help factory owners?', ['Railways carried coal and raw cotton to factories cheaply and quickly.', 'They carried finished goods to ports and markets.', 'Costs fell and sales grew.'], 'Cheaper, faster movement of raw materials and goods.'),
+    ex('How did British industry affect Indian handloom weavers?', ['Machine-made cloth from Britain was cheaper.', 'It flooded Indian markets.', 'Indian weavers lost buyers and many lost their livelihood.'], 'Cheap British cloth ruined many Indian weavers.'),
+  ], [
+    orderT('trans', 'Order these transport milestones.', ['Canals dug to carry coal', 'Stockton–Darlington railway opens', 'Stephenson\'s Rocket wins its trial', 'First passenger train in India'], ['Canals came before railways.', 'India\'s train came in 1853.'], 'Canals → 1825 railway → 1829 Rocket → 1853 Indian train.', 4),
+    mcq('en', 'Coal, iron, rails and trade.', [
+      ['India\'s first passenger train (1853) ran from…', 'Bombay to Thane', ['Hyderabad to Warangal', 'Delhi to Agra', 'Madras to Calicut'], 'On the west coast.', 'The first train ran from Bombay to Thane in 1853.'],
+      ['Which fuel powered steam engines?', 'Coal', ['Petrol', 'Solar energy', 'Uranium'], 'Dug from mines.', 'Coal was burnt to make steam.'],
+      ['Britain bought raw cotton from India and sold back…', 'machine-made cloth', ['raw cotton', 'tea leaves', 'iron ore'], 'Finished goods.', 'Britain exported factory cloth to India.'],
+      ['The first public steam railway opened in…', '1825', ['1725', '1925', '1857'], 'Stockton to Darlington.', 'It opened in 1825.'],
+    ]),
+    yearsT('yrs', [
+      ['The Stockton–Darlington railway opened', 1825, 'India\'s first passenger train ran', 1853],
+      ['James Watt patented his steam engine', 1769, 'the Stockton–Darlington railway opened', 1825],
+      ['The spinning jenny was invented', 1764, 'the power loom was invented', 1785],
+      ['The Rocket locomotive won its trial', 1829, 'India\'s first passenger train ran', 1853],
+      ['Britain passed an important Factory Act', 1833, 'India\'s first passenger train ran', 1853],
+    ], 2),
+  ]),
+]);
+
+// =====================================================================================
+// Chapter 9 — Production in a Factory: A Paper Mill
+// =====================================================================================
+const ch9 = U(9, 'Production in a Factory - A Paper Mill', [
+  O('ts7.ss.paper.raw', 'Raw materials and paper mills', [
+    h('What is paper made of?'),
+    photo('📄', 'Paper is made from plant fibres pressed together into thin sheets.'),
+    p('Paper is made of cellulose fibres from plants. In India, paper mills use wood and bamboo from forests and plantations (eucalyptus, subabul), agricultural waste such as bagasse (sugarcane waste) and rice or wheat straw, and recycled waste paper.'),
+    p('Telangana has a historic paper mill at Kagaznagar (kagaz means paper) in Komaram Bheem Asifabad district, started in the 1930s close to the bamboo forests of the Godavari valley. Paper mills are usually set up near raw materials and plenty of water, because papermaking uses a lot of water.'),
+    def('Raw material', 'The basic material from which a product is made, for example bamboo for paper or cotton for cloth.'),
+    stepsB('Raw materials: wood, bamboo, bagasse, straw, waste paper.', 'Water: large amounts for pulping and washing.', 'Power: electricity and steam from coal or biomass boilers.', 'Chemicals: for cooking and bleaching pulp.', 'Workers, machines and money (capital).'),
+    keys('Paper comes from plant fibres (cellulose).', 'Raw materials: bamboo, wood, bagasse, straw, waste paper.', 'Mills need forests (or farms) and water nearby.'),
+    remember('Recycling one tonne of paper saves many trees and a great deal of water.'),
+  ], [
+    ex('Why was the paper mill at Kagaznagar set up in northern Telangana?', ['Bamboo forests were close by.', 'Rivers supplied the large amounts of water needed.', 'Coal from the Godavari valley gave fuel.'], 'Close to bamboo, water and coal.'),
+    ex('Why do some mills use bagasse?', ['Bagasse is the leftover fibre after crushing sugarcane.', 'It is cheap and would otherwise be waste.', 'Using it saves trees.'], 'It is cheap farm waste and saves forests.'),
+  ], [
+    tapT('raw', 'Tap the raw materials used for making paper.', [
+      ['Bamboo', true], ['Eucalyptus wood', true], ['Bagasse (sugarcane waste)', true], ['Waste paper', true], ['Rice straw', true],
+      ['Iron ore', false], ['Sand', false], ['Crude oil', false],
+    ], ['Paper is made of plant fibres.', 'Minerals and oil are not used as the main material.'], 'Plant fibres from bamboo, wood, bagasse, straw and waste paper make paper.'),
+    mcq('mill', 'Think about location and needs of a mill.', [
+      ['Kagaznagar paper mill is in which district?', 'Komaram Bheem Asifabad', ['Hyderabad', 'Nalgonda', 'Mahabubnagar'], 'Northern Telangana, near forests.', 'Kagaznagar is in Komaram Bheem Asifabad district.'],
+      ['"Kagaz" in Kagaznagar means…', 'paper', ['coal', 'river', 'forest'], 'The town is named after its mill.', 'Kagaz means paper.'],
+      ['Paper is mainly made of which substance from plants?', 'Cellulose fibres', ['Starch', 'Protein', 'Rubber'], 'Plant cell walls.', 'Cellulose fibres bind together to form paper.'],
+      ['Why are paper mills built near rivers?', 'They need large amounts of water', ['To float the paper home', 'To catch fish', 'Rivers make paper white'], 'Pulping and washing.', 'Papermaking uses huge volumes of water.'],
+    ]),
+    matchT('need', 'factory need with an example', [
+      ['Raw material', 'Bamboo'], ['Power', 'Electricity and steam'], ['Chemical', 'Bleach for whitening pulp'], ['Capital', 'Money to buy machines'], ['Labour', 'Workers in shifts'],
+    ], ['Capital means money and machines.', 'Labour means people.']),
+  ]),
+  O('ts7.ss.paper.process', 'The process of paper-making', [
+    h('From bamboo to a notebook page'),
+    p('A paper mill is a long chain of machines. Raw material goes in at one end; huge rolls of paper come out at the other.'),
+    stepsB('Debarking and chipping: logs and bamboo are cleaned and cut into small chips.', 'Cooking (pulping): chips are boiled with chemicals in a digester to separate the fibres into pulp.', 'Washing and screening: dirt and knots are removed.', 'Bleaching: pulp is whitened.', 'Sheet forming: watery pulp is spread on a moving wire mesh; water drains away and fibres mat together.', 'Pressing and drying: rollers squeeze water out; steam-heated cylinders dry the sheet.', 'Calendering, reeling and cutting: smooth rollers polish the paper; it is wound into reels and cut into sheets.'),
+    tip('You can make paper at home: soak torn newspaper, mash it into pulp, spread it thinly on a mesh, press out water and let it dry.'),
+    keys('Chips → pulp → wash → bleach → sheet on wire → press → dry → roll.', 'The digester cooks chips into pulp.', 'Most of the mill\'s water is used in pulping and sheet forming.'),
+    remember('Pulp entering the paper machine is over 95% water; drying removes almost all of it.'),
+  ], [
+    ex('What happens in the digester?', ['Chips are cooked with chemicals under heat.', 'The glue (lignin) holding the fibres breaks down.', 'The fibres separate to form pulp.'], 'Chips are cooked into pulp.'),
+    ex('Why is the pulp spread on a moving wire mesh?', ['Water drains through the holes.', 'Fibres stay on top and lock together.', 'This forms a continuous wet sheet.'], 'To drain water and form a sheet of fibres.'),
+  ], [
+    orderT('proc', 'Order the steps of making paper in a mill.', ['Cut wood or bamboo into chips', 'Cook chips into pulp in the digester', 'Wash and bleach the pulp', 'Spread pulp on a wire mesh to form a sheet', 'Press and dry the sheet', 'Roll and cut the paper'], ['Pulp must exist before a sheet.', 'Cutting is last.'], 'Chips → pulp → wash/bleach → sheet → press/dry → roll/cut.'),
+    mcq('pq', 'Follow the chain of the paper machine.', [
+      ['Chips are cooked into pulp in the…', 'digester', ['calender', 'reel', 'wire mesh'], 'It "digests" wood.', 'The digester cooks chips with chemicals.'],
+      ['Bleaching is done to…', 'make the pulp white', ['make it heavier', 'add bamboo', 'cut it into sheets'], 'Notebook paper is white.', 'Bleaching whitens the pulp.'],
+      ['Smooth rollers that polish the dried paper are called…', 'calenders', ['digesters', 'chippers', 'sluices'], 'Similar to ironing.', 'Calendering gives paper a smooth finish.'],
+      ['Wet sheets are dried by…', 'steam-heated cylinders', ['leaving them in rain', 'freezing them', 'dipping in dye'], 'Heat removes water.', 'Hot cylinders evaporate the remaining water.'],
+    ]),
+    matchT('stage', 'stage with what happens', [
+      ['Chipping', 'Wood cut into small pieces'], ['Pulping', 'Fibres separated by cooking'], ['Bleaching', 'Pulp whitened'], ['Sheet forming', 'Pulp spread on moving mesh'], ['Drying', 'Water removed on hot cylinders'], ['Reeling', 'Paper wound into big rolls'],
+    ], ['Follow the process in order.', 'Reeling is the final roll.']),
+  ]),
+  O('ts7.ss.paper.work', 'Shifts, ownership, selling paper and pollution', [
+    h('A mill that never sleeps'),
+    p('Big machines in a paper mill run day and night, because stopping and restarting them wastes time and material. So workers work in shifts, usually three shifts of 8 hours each.'),
+    def('Shift', 'A fixed period of work, for example 6 a.m.–2 p.m., 2 p.m.–10 p.m. and 10 p.m.–6 a.m. Workers rotate between shifts.'),
+    p('Workers include permanent workers with fixed pay, benefits and job security, and contract or casual workers who are hired for short periods with less security. Engineers, chemists, machine operators, loaders and office staff all work together.'),
+    def('Ownership', 'A mill may be private (owned by a company and its shareholders), public sector (owned by the government) or cooperative. Owners invest capital and take the profit or bear the loss.'),
+    h('Selling and pollution'),
+    p('Paper is sold to wholesalers, printers, publishers and the government (for textbooks). Prices depend on cost of raw material, power and demand.'),
+    stepsB('Waste water with chemicals can pollute rivers and kill fish.', 'Smoke from boilers pollutes air.', 'Bad smells affect nearby villages.', 'Solutions: effluent treatment plants, recycling water, cleaner chemicals, planting trees, recycling paper.'),
+    keys('Mills run 24 hours in three 8-hour shifts.', 'Permanent vs contract workers.', 'Pollution must be treated before release.'),
+    remember('An effluent treatment plant cleans waste water before it goes back into a river.'),
+  ], [
+    ex('If a mill runs 24 hours a day in equal shifts of 8 hours, how many shifts are there?', ['24 ÷ 8 = 3.'], '3 shifts'),
+    ex('Why might a contract worker worry more than a permanent worker?', ['A contract worker can lose the job when the contract ends.', 'He may not get pension, leave or medical benefits.'], 'Less job security and fewer benefits.'),
+  ], [
+    tp('shift', (r) => {
+      const hrs = r.pick([6, 8, 12]);
+      const days = r.pick([1, 2, 3, 7]);
+      const ans = (24 / hrs) * days;
+      return numQ(`A paper mill runs non-stop for ${days} day${days > 1 ? 's' : ''}. Each shift is ${hrs} hours long. How many shifts are worked in total?`, ans,
+        [`First find shifts per day: 24 ÷ ${hrs}.`, `Then multiply by ${days}.`], [`Shifts per day = 24 ÷ ${hrs} = ${24 / hrs}`, `Total = ${24 / hrs} × ${days} = ${ans}`], [], 0.001, 'shifts');
+    }, 2),
+    tapT('poll', 'Tap the ways to reduce pollution from a paper mill.', [
+      ['Treating waste water in an effluent treatment plant', true], ['Recycling water inside the mill', true], ['Using more recycled paper as raw material', true], ['Planting trees around the mill', true],
+      ['Releasing chemicals directly into the river', false], ['Burning waste in the open', false],
+    ], ['Clean before release.', 'Two options make pollution worse.'], 'Treatment, recycling and greenery reduce pollution.'),
+    mcq('own', 'Think about workers, owners and buyers.', [
+      ['Why do paper mills work in shifts?', 'The machines run day and night without stopping', ['Workers like night work', 'Paper is made only at night', 'It is required by the school'], 'Restarting wastes material.', 'Continuous machines need workers round the clock.'],
+      ['A mill owned by the government is in the…', 'public sector', ['private sector', 'cooperative sector', 'informal sector'], 'Public = government.', 'Government-owned enterprises are public sector.'],
+      ['A worker with job security, fixed pay and benefits is a…', 'permanent worker', ['casual worker', 'daily wage labourer', 'contract worker'], 'Permanent = lasting.', 'Permanent workers have security and benefits.'],
+      ['Who buys large amounts of paper to print school textbooks?', 'The government', ['Fishermen', 'Weavers', 'Farmers'], 'Free textbooks for students.', 'Governments buy paper to print textbooks.'],
+    ]),
+  ]),
+]);
+
+// =====================================================================================
+// Chapter 10 — Importance of Transport System
+// =====================================================================================
+const ch10 = U(10, 'Importance of Transport System', [
+  O('ts7.ss.trans.modes', 'Road, rail, air and water transport in Telangana', [
+    h('How Telangana moves'),
+    photo('🚌', 'TGSRTC buses link almost every village of Telangana with towns and cities.'),
+    p('Transport means moving people and goods from one place to another. Telangana is a land-locked state, so it depends mainly on roads, railways and air.'),
+    stepsB('Roads: national highways like NH 44 (Srinagar to Kanyakumari) pass through Hyderabad; state highways and village roads connect mandals. TGSRTC runs public buses; the Outer Ring Road circles Hyderabad.', 'Railways: Secunderabad is the headquarters of the South Central Railway. Trains carry coal from Singareni mines, cement, food grains and passengers.', 'Air: Rajiv Gandhi International Airport at Shamshabad, Hyderabad, connects Telangana to India and the world.', 'Urban: Hyderabad Metro Rail and MMTS local trains carry daily commuters.', 'Water: no sea coast; only small ferries and boats on rivers and reservoirs.'),
+    def('Land-locked', 'A region with no sea coast.'),
+    keys('Road, rail and air are the main modes in Telangana.', 'Secunderabad: HQ of South Central Railway.', 'RGIA at Shamshabad; Hyderabad Metro.'),
+    remember('Roads reach every village; railways are cheaper for heavy goods over long distances; air is fastest but costliest.'),
+  ], [
+    ex('Which transport would you choose to send 3,000 tonnes of coal from Singareni to a power plant 300 km away? Why?', ['Coal is heavy and bulky.', 'Railways carry large loads cheaply over long distances.'], 'Rail, because it is cheapest for heavy loads over long distances.'),
+    ex('Why does Telangana not have sea ports?', ['Telangana has no coastline.', 'It is a land-locked state.'], 'It is land-locked.'),
+  ], [
+    matchT('mode', 'place or service with its transport', [
+      ['Shamshabad', 'Rajiv Gandhi International Airport'], ['Secunderabad', 'HQ of South Central Railway'], ['TGSRTC', 'Public bus service'], ['NH 44', 'National highway through Hyderabad'], ['Hyderabad Metro', 'Urban rail for commuters'], ['Singareni', 'Coal carried by goods trains'],
+    ], ['The airport is south of the city.', 'Coal goes by rail.']),
+    mcq('m', 'Think about cost, speed and load.', [
+      ['Which is the fastest mode of transport?', 'Air', ['Road', 'Rail', 'Bullock cart'], 'But also the costliest.', 'Aeroplanes are the fastest.'],
+      ['Which is cheapest for heavy goods over long distances in Telangana?', 'Railways', ['Air', 'Auto-rickshaw', 'Motorcycle'], 'Goods trains carry many wagons.', 'Rail is cheapest for bulk goods over long distances.'],
+      ['Telangana has no sea ports because it is…', 'land-locked', ['an island', 'covered in ice', 'too small'], 'No coastline.', 'A land-locked state has no sea coast.'],
+      ['Which mode reaches almost every village?', 'Road', ['Air', 'Ship', 'Metro'], 'Buses and autos.', 'Roads connect nearly every village.'],
+      ['The ring road around Hyderabad is called the…', 'Outer Ring Road', ['Grand Trunk Road', 'Silk Road', 'Golden Quadrilateral only'], 'It circles the city.', 'The Outer Ring Road encircles Hyderabad.'],
+    ]),
+    tapT('rail', 'Tap goods commonly moved by goods trains in Telangana.', [
+      ['Coal from Singareni', true], ['Cement', true], ['Food grains', true], ['Fertilisers', true],
+      ['Fresh flowers to a temple next door', false], ['A letter to a neighbour', false],
+    ], ['Rail is good for heavy, bulk goods.', 'Small, nearby items go by road or hand.'], 'Coal, cement, grains and fertilisers are bulky goods moved by rail.'),
+  ]),
+  O('ts7.ss.trans.economy', 'Transport in production, sale and employment', [
+    h('Transport links every step'),
+    p('Think about a cotton shirt. Cotton seeds and fertilisers reach the farmer; cotton bales go to a ginning mill; yarn goes to a weaving or garment factory; shirts go to shops in towns. Every arrow in this chain is transport.'),
+    stepsB('Inputs reach farms and factories: seeds, fertiliser, raw materials, fuel.', 'Products move from farm to market yards (e.g. Warangal\'s Enumamula market for cotton and chillies).', 'Factories send goods to wholesalers and retailers.', 'Perishables (milk, vegetables, fish, flowers) need fast transport, often in refrigerated vans.', 'Exports go by road or rail to sea ports and by air from Hyderabad.'),
+    h('Jobs in transport'),
+    p('Transport employs drivers, conductors, loaders, mechanics, railway staff, pilots, cabin crew, airport workers, traffic police, petrol pump staff, and people who build roads and vehicles. Auto-rickshaw and delivery drivers are a big part of city employment.'),
+    keys('Transport links inputs, production and markets.', 'Perishables need fast transport.', 'Transport creates many jobs.'),
+    remember('Without good roads, farmers sell to the nearest trader at a low price; with roads, they can reach better markets.'),
+  ], [
+    ex('Why do vegetables from Rangareddy reach Hyderabad markets early each morning?', ['Vegetables spoil quickly (perishable).', 'Trucks and autos bring them overnight to be fresh for buyers.'], 'They are perishable, so fast transport brings them fresh.'),
+    ex('Name three jobs created by an RTC bus depot.', ['Drivers drive the buses.', 'Conductors issue tickets.', 'Mechanics repair the buses.'], 'Driver, conductor, mechanic.'),
+  ], [
+    orderT('chain', 'Order the journey of cotton from farm to shirt shop.', ['Farmer grows cotton', 'Cotton taken to a market yard', 'Ginning mill removes seeds', 'Yarn and cloth made in a mill', 'Shirts sent to shops'], ['The farm comes first.', 'The shop is last.'], 'Farm → market → ginning → mill → shop, each linked by transport.'),
+    tapT('jobs', 'Tap the jobs that are part of the transport sector.', [
+      ['Bus driver', true], ['Railway station master', true], ['Pilot', true], ['Truck loader', true], ['Auto-rickshaw driver', true],
+      ['Potter', false], ['School teacher', false], ['Weaver', false],
+    ], ['Does the job move people or goods?', 'Potters and weavers make goods.'], 'Drivers, station masters, pilots and loaders work in transport.'),
+    mcq('ec', 'Transport links production and sale.', [
+      ['Goods that spoil quickly are called…', 'perishable goods', ['durable goods', 'capital goods', 'raw goods'], 'Milk, vegetables, fish.', 'Perishables must reach buyers fast.'],
+      ['Enumamula market in Warangal is famous for…', 'cotton and chillies', ['fish', 'gold', 'aeroplanes'], 'A big agricultural market yard.', 'It is a major cotton and chilli market.'],
+      ['How do good roads help farmers?', 'They can reach bigger markets and get better prices', ['Crops grow taller', 'Rain falls more', 'Tractors become free'], 'Access to markets.', 'Roads let farmers sell beyond the local trader.'],
+      ['Refrigerated vans are used to carry…', 'milk and fish', ['bricks', 'coal', 'iron rods'], 'Keep cold.', 'Perishables need cooling.'],
+    ]),
+  ]),
+  O('ts7.ss.trans.safety', 'Congestion, pollution and road safety', [
+    h('Too many vehicles'),
+    p('Hyderabad\'s vehicles have multiplied many times in a few decades. Roads cannot grow as fast, so traffic jams (congestion) waste time and fuel.'),
+    stepsB('Congestion: too many vehicles, narrow roads, wrong parking, few public buses.', 'Air pollution: smoke from petrol and diesel causes breathing problems.', 'Noise pollution: honking and engines disturb people.', 'Accidents: speeding, drunk driving, no helmets or seat belts, jumping signals.'),
+    h('Solutions'),
+    p('Use public transport (buses, Metro, MMTS), walk or cycle for short trips, share rides, use electric vehicles, maintain vehicles to reduce smoke, and follow traffic rules. Children should never drive vehicles; a licence is given only to adults (18+, or 16+ for gearless low-power two-wheelers).'),
+    stepsB('Red: stop.', 'Amber (yellow): get ready / slow down.', 'Green: go, carefully.', 'Use zebra crossings; look right, left and right again.', 'Wear a helmet on two-wheelers and a seat belt in cars.'),
+    keys('Congestion, pollution and accidents are transport problems.', 'Public transport reduces all three.', 'Follow signals, helmets and seat belts.'),
+    remember('One full bus can replace dozens of cars on the road.'),
+  ], [
+    ex('How does one Metro train reduce pollution?', ['It carries hundreds of passengers at once.', 'It runs on electricity, not petrol or diesel.', 'Fewer cars and bikes mean less smoke.'], 'It replaces many private vehicles and uses electricity.'),
+    ex('Ravi\'s 15-year-old friend wants to ride his father\'s motorbike to school. What should Ravi say?', ['Riding without a licence is illegal.', 'He is too young to get a licence for a motorbike.', 'It is dangerous for himself and others.'], 'He must not ride; it is unsafe and against the law.'),
+  ], [
+    tapT('fix', 'Tap the actions that reduce congestion and pollution.', [
+      ['Travelling by Metro or bus', true], ['Cycling for short trips', true], ['Sharing rides', true], ['Keeping vehicles serviced', true], ['Using electric vehicles', true],
+      ['Each family member using a separate car', false], ['Parking on the road', false], ['Honking continuously', false],
+    ], ['Fewer vehicles = less traffic and smoke.', 'Wrong parking narrows roads.'], 'Public transport, cycling, sharing, servicing and EVs reduce traffic and smoke.'),
+    orderT('sig', 'Order the traffic signal lights as they change from "stop" back to "stop".', ['Red: stop', 'Green: go', 'Amber: slow down and get ready to stop', 'Red: stop'], ['After red comes green.', 'Amber warns before red.'], 'Red → green → amber → red.', 4),
+    mcq('safe', 'Rules that save lives.', [
+      ['Amber (yellow) light means…', 'slow down and prepare to stop', ['speed up', 'park', 'honk'], 'It warns of red.', 'Amber warns that the light is about to turn red.'],
+      ['On a two-wheeler, safety requires…', 'a helmet for the rider and pillion', ['a seat belt only', 'loud music', 'three riders'], 'Head protection.', 'Helmets protect heads in crashes.'],
+      ['Congestion means…', 'traffic jams caused by too many vehicles', ['clean air', 'empty roads', 'a type of fuel'], 'Roads are crowded.', 'Congestion is overcrowding of roads.'],
+      ['Where should pedestrians cross the road?', 'At a zebra crossing', ['Between moving buses', 'Over the divider', 'At a sharp bend'], 'Black and white stripes.', 'Zebra crossings are made for pedestrians.'],
+    ]),
+  ]),
+]);
+
+// =====================================================================================
+// Theme III — Political Systems and Governance
+// Chapter 11 — New Kings and Kingdoms
+// =====================================================================================
+const ch11 = U(11, 'New Kings and Kingdoms', [
+  O('ts7.ss.kings.new', 'New dynasties, prashastis and land grants', [
+    h('From officers to kings'),
+    photo('📜', 'Copper-plate land grants and stone inscriptions tell us about kings of 700–1200 CE.'),
+    p('Between about 700 and 1200 CE many new ruling families rose in India. Often they began as samantas (powerful landlords or subordinate chiefs) who served a bigger king. When they grew strong, they declared themselves maharajas. For example, Dantidurga, a Rashtrakuta chief, overthrew his Chalukya overlords in the mid-700s; the Rashtrakutas then ruled much of the Deccan.'),
+    def('Samanta', 'A subordinate chief or landlord who served an overlord with soldiers and gifts, and could rise to become a king himself.'),
+    def('Prashasti', 'A poem in praise of a king, written by learned Brahmanas and carved on stone or copper. It shows the king as brave and generous, so it may exaggerate.'),
+    def('Land grant', 'A gift of land by a king, often to Brahmanas or temples, recorded on copper plates. It tells us about villages, taxes and boundaries.'),
+    stepsB('A chief serves an overlord and gathers soldiers and land.', 'He grows powerful and declares independence.', 'He takes grand titles such as maharajadhiraja.', 'Poets write prashastis praising him.', 'He grants land to Brahmanas and temples to win support.'),
+    keys('Many new dynasties rose 700–1200 CE.', 'Samantas often became kings.', 'Prashastis praise kings; copper plates record land grants.'),
+    remember('Read a prashasti carefully: it shows what the king wanted people to believe about him.'),
+  ], [
+    ex('Why should historians be careful when using prashastis?', ['They were written to praise the king.', 'They may exaggerate victories or hide defeats.', 'So historians check them against other sources.'], 'They are biased praise and may exaggerate.'),
+    ex('Why did kings give land to Brahmanas and temples?', ['It showed the king as generous and religious.', 'Brahmanas supported the king\'s right to rule.', 'Temples became centres that helped settle and farm new areas.'], 'To gain religious support and legitimacy.'),
+  ], [
+    orderT('rise', 'Order the steps by which a samanta became a king.', ['Serves an overlord as a chief', 'Builds up soldiers and land', 'Declares independence', 'Takes the title maharajadhiraja', 'Poets praise him in a prashasti'], ['Service comes before rebellion.', 'Praise follows the new title.'], 'Serve → grow strong → break free → take titles → be praised.'),
+    matchT('src', 'term with its meaning', [
+      ['Prashasti', 'Poem praising a king'], ['Samanta', 'Subordinate chief or landlord'], ['Copper plate', 'Record of a land grant'], ['Maharajadhiraja', 'Great king, king of kings'], ['Dantidurga', 'Rashtrakuta chief who became king'],
+    ], ['A prashasti is praise.', 'Copper plates record grants.']),
+    mcq('nk', 'Think about who wrote what and why.', [
+      ['A prashasti was written mainly to…', 'praise the king', ['criticise the king', 'record rainfall', 'teach mathematics'], 'It glorifies the ruler.', 'Prashastis praise kings.'],
+      ['Land grants were usually recorded on…', 'copper plates', ['palm leaves only', 'cloth', 'clay pots'], 'Metal lasts long.', 'Copper plates recorded land grants.'],
+      ['Who founded Rashtrakuta power by overthrowing the Chalukyas?', 'Dantidurga', ['Rajaraja Chola', 'Mahmud of Ghazni', 'Prithviraj Chauhan'], 'Mid-700s, in the Deccan.', 'Dantidurga overthrew his Chalukya overlords.'],
+      ['Between about 700 and 1200 CE, many new kingdoms were founded by…', 'samantas who became powerful', ['European traders', 'the British', 'the Mughals'], 'Local chiefs rose up.', 'Powerful samantas often became kings.'],
+    ]),
+  ]),
+  O('ts7.ss.kings.war', 'Administration and warfare for wealth', [
+    h('Ruling and raiding'),
+    p('These kings collected revenue (taxes) from peasants, traders and artisans. Resources were gathered with the help of samantas and local village assemblies. Officials were often chosen from powerful families, and posts were sometimes hereditary.'),
+    p('Kings fought for land and wealth. Kanauj in the Ganga valley was a prize city. For a long time three dynasties, the Gurjara-Pratiharas, the Rashtrakutas and the Palas, fought over Kanauj: this is called the tripartite struggle.'),
+    def('Tripartite struggle', 'The long three-way fight among the Gurjara-Pratiharas, Rashtrakutas and Palas for control of Kanauj.'),
+    p('Temples were rich, so attacking a rival\'s temple showed power and gave plunder. Mahmud of Ghazni (in Afghanistan) raided the subcontinent about 17 times between 1000 and 1025 CE, attacking rich temples including Somnath in Gujarat, and carried away wealth to build his capital. In the north, the Chahamanas (Chauhans) ruled around Delhi and Ajmer. Prithviraja III defeated Sultan Muhammad Ghori at Tarain in 1191 but lost to him there in 1192.'),
+    keys('Revenue came from peasants, traders and artisans.', 'Tripartite struggle for Kanauj.', 'Mahmud of Ghazni: 17 raids (1000–1025); Prithviraj Chauhan: Tarain 1191 and 1192.'),
+    remember('Temples were attacked by many rulers of different faiths, mainly because they were symbols of a king\'s power and stores of wealth.'),
+  ], [
+    ex('Why did the Pratiharas, Rashtrakutas and Palas all want Kanauj?', ['Kanauj was a rich city in the fertile Ganga valley.', 'Controlling it brought wealth and prestige.'], 'For its wealth and importance.'),
+    ex('How many years after Mahmud of Ghazni\'s last raid (1025) was the second Battle of Tarain (1192)?', ['1192 − 1025 = 167.'], '167 years'),
+  ], [
+    matchT('who', 'ruler or dynasty with the fact', [
+      ['Mahmud of Ghazni', 'Raided about 17 times, including Somnath'], ['Prithviraja III', 'Chahamana king who fought at Tarain'], ['Gurjara-Pratiharas', 'One side of the tripartite struggle'], ['Palas', 'Dynasty of Bengal in the tripartite struggle'], ['Muhammad Ghori', 'Defeated Prithviraja in 1192'],
+    ], ['Somnath is in Gujarat.', 'Tarain was fought twice.']),
+    mcq('w', 'Think of Kanauj, Ghazni and Tarain.', [
+      ['The tripartite struggle was fought over which city?', 'Kanauj', ['Hyderabad', 'Thanjavur', 'Warangal'], 'In the Ganga valley.', 'Three dynasties fought for Kanauj.'],
+      ['Mahmud of Ghazni attacked the temple at…', 'Somnath', ['Ramappa', 'Thanjavur', 'Hampi'], 'In Gujarat, 1025.', 'He raided Somnath in 1025.'],
+      ['Who won the first Battle of Tarain (1191)?', 'Prithviraja III', ['Muhammad Ghori', 'Mahmud of Ghazni', 'Rajendra Chola'], 'He lost the second one.', 'Prithviraja won in 1191 but lost in 1192.'],
+      ['Why were temples targeted in wars?', 'They were rich and symbols of a king\'s power', ['They were empty', 'They were made of gold only', 'They were armies'], 'Wealth and prestige.', 'Temples held wealth and represented royal power.'],
+      ['Kings collected revenue mainly from…', 'peasants, traders and artisans', ['foreign countries only', 'the sea', 'nobody'], 'People who produced and traded.', 'Taxes came from producers and traders.'],
+    ]),
+    yearsT('yrs', [
+      ['Mahmud of Ghazni began his raids', 1000, 'he attacked Somnath', 1025],
+      ['The first Battle of Tarain was fought', 1191, 'the second Battle of Tarain was fought', 1192],
+      ['Mahmud attacked Somnath', 1025, 'the second Battle of Tarain was fought', 1192],
+      ['Rajaraja Chola became king', 985, 'Mahmud attacked Somnath', 1025],
+      ['Mahmud of Ghazni began his raids', 1000, 'the first Battle of Tarain was fought', 1191],
+    ]),
+  ]),
+  O('ts7.ss.kings.cholas', 'The Cholas: temples, bronzes, agriculture and administration', [
+    h('The great Cholas of the Kaveri delta'),
+    photo('🛕', 'The Brihadeshvara (Rajarajeshvara) temple at Thanjavur, built by Rajaraja I.'),
+    p('Around 850 CE Vijayalaya captured the Kaveri delta and founded the Chola kingdom with Thanjavur as capital. Rajaraja I (became king in 985) and his son Rajendra I made it the strongest power in the south. Rajendra I sent armies to the Ganga valley, Sri Lanka and even South-East Asia with a navy, and built Gangaikonda Cholapuram.'),
+    stepsB('Temples: huge stone temples like Thanjavur and Gangaikonda Cholapuram were centres of worship, crafts, music, dance and economy; they owned land.', 'Bronzes: Chola craftspeople made beautiful bronze images, especially Nataraja (Shiva as lord of dance), using the lost-wax method.', 'Agriculture: they built embankments, canals, wells and tanks to irrigate the fertile Kaveri delta for rice.', 'Administration: settlements of peasants (ur) grouped into nadu; Brahmana villages had a sabha; merchants had a nagaram.'),
+    p('Inscriptions at Uttaramerur describe how members of the sabha were chosen by lottery from those who owned land, had houses, were 35–70 years old and knew the Vedas, and served in committees for irrigation, gardens and temples.'),
+    keys('Chola kingdom: Vijayalaya; Rajaraja I; Rajendra I.', 'Thanjavur temple; bronze Nataraja.', 'Ur, nadu, sabha; Uttaramerur inscriptions.'),
+    remember('The lost-wax method: a wax model is coated in clay, heated so wax melts out, then molten bronze is poured into the mould.'),
+  ], [
+    ex('How was a Chola bronze image made by the lost-wax method?', ['Make a wax model and cover it with clay.', 'Heat it: the wax melts and flows out, leaving a hollow mould.', 'Pour in molten metal; break the clay when cool.'], 'Wax model → clay coat → melt wax → pour bronze → break mould.'),
+    ex('Why did Chola rulers build canals and tanks in the Kaveri delta?', ['Rice needs a lot of water.', 'Irrigation allowed farming through more of the year.', 'More crops meant more revenue.'], 'To irrigate rice fields and increase production and revenue.'),
+  ], [
+    orderT('wax', 'Order the steps of the lost-wax method.', ['Make a wax model', 'Cover it with clay', 'Heat it so the wax melts out', 'Pour molten bronze into the mould', 'Break the clay to reveal the image'], ['The wax model comes first.', 'Breaking the mould is last.'], 'Wax → clay → melt → pour → break.'),
+    matchT('chola', 'Chola term with its meaning', [
+      ['Ur', 'Settlement of peasants'], ['Nadu', 'Group of villages'], ['Sabha', 'Assembly of a Brahmana village'], ['Nagaram', 'Organisation of merchants'], ['Nataraja', 'Bronze image of Shiva as lord of dance'], ['Uttaramerur', 'Inscriptions on how the sabha was chosen'],
+    ], ['Sabha is an assembly.', 'Nataraja dances.']),
+    mcq('ch', 'Think of Thanjavur and the Kaveri.', [
+      ['Who built the Brihadeshvara temple at Thanjavur?', 'Rajaraja I', ['Vijayalaya', 'Mahmud of Ghazni', 'Krishnadevaraya'], 'He became king in 985.', 'Rajaraja I built the Thanjavur temple.'],
+      ['The Chola heartland was the delta of which river?', 'Kaveri', ['Godavari', 'Ganga', 'Narmada'], 'In Tamil Nadu.', 'The Cholas were based in the Kaveri delta.'],
+      ['Which Chola king sent a navy to South-East Asia?', 'Rajendra I', ['Vijayalaya', 'Dantidurga', 'Prithviraja'], 'He built Gangaikonda Cholapuram.', 'Rajendra I led naval expeditions.'],
+      ['Chola bronzes were made using the…', 'lost-wax method', ['potter\'s wheel', 'printing press', 'loom'], 'Wax melts away.', 'The lost-wax casting method was used.'],
+      ['Members of the sabha at Uttaramerur were chosen by…', 'lottery from eligible people', ['war', 'birth only', 'the British'], 'Names on palm leaves in a pot.', 'Inscriptions describe selection by lot.'],
+    ]),
+  ]),
+]);
+
+// =====================================================================================
+// Chapter 12 — The Kakatiyas: Emergence of a Regional Kingdom
+// =====================================================================================
+const ch12 = U(12, 'The Kakatiyas - Emergence of a Regional Kingdom', [
+  O('ts7.ss.kakatiya.rulers', 'Important Kakatiya rulers and Rudrama Devi', [
+    h('From Hanumakonda to Orugallu'),
+    photo('🛕', 'The Kakatiya Kala Thoranam (gateway) at Warangal is now part of the Telangana state emblem.'),
+    p('The Kakatiyas began as samantas of the Western Chalukyas of Kalyani. In the 12th century they became independent and ruled most of the Telugu lands for about 200 years. Their first capital was Hanumakonda; later they built Orugallu (Warangal) with strong stone and mud fort walls.'),
+    stepsB('Prola II: made the Kakatiyas powerful in the early 1100s.', 'Rudradeva (Prataparudra I): declared independence; built the Thousand Pillar Temple at Hanumakonda (1163).', 'Ganapatideva (ruled about 1199–1262): united the Telugu-speaking areas, built tanks, encouraged trade through Motupalli port; moved the capital to Orugallu.', 'Rudrama Devi (about 1262–1289): Ganapatideva\'s daughter; ruled as a powerful queen, defeated rivals, and was praised by the Venetian traveller Marco Polo.', 'Prataparudra II: the last Kakatiya king; defeated by the Delhi Sultanate in 1323.'),
+    p('Rudrama Devi took the title "Rudradeva Maharaja" and dressed in male royal clothes to rule in a world that did not easily accept a woman ruler. Some nobles rebelled, but she defeated them and the Yadavas of Devagiri.'),
+    keys('Capitals: Hanumakonda → Orugallu (Warangal).', 'Ganapatideva: longest reign; Rudrama Devi: famous queen.', 'Prataparudra II: last king (1323).'),
+    remember('Marco Polo visited the Kakatiya port of Motupalli and praised Rudrama Devi\'s just rule.'),
+  ], [
+    ex('Why is Rudrama Devi remembered as a special ruler?', ['She was one of the very few women to rule a big Indian kingdom.', 'She defeated rebels and invaders.', 'A foreign traveller, Marco Polo, praised her rule.'], 'A strong woman ruler praised even by foreign visitors.'),
+    ex('About how long did Ganapatideva rule (1199–1262)?', ['1262 − 1199 = 63.'], 'About 63 years'),
+  ], [
+    orderT('rul', 'Order these Kakatiya rulers from earliest to latest.', ['Prola II', 'Rudradeva', 'Ganapatideva', 'Rudrama Devi', 'Prataparudra II'], ['Rudrama Devi was Ganapatideva\'s daughter.', 'Prataparudra II was the last.'], 'Prola II → Rudradeva → Ganapatideva → Rudrama Devi → Prataparudra II.'),
+    mcq('kk', 'Think of Warangal and its rulers.', [
+      ['The later capital of the Kakatiyas was…', 'Orugallu (Warangal)', ['Hampi', 'Golconda', 'Thanjavur'], 'Famous for its Kala Thoranam.', 'The Kakatiyas moved their capital to Orugallu.'],
+      ['Which foreign traveller praised Rudrama Devi?', 'Marco Polo', ['Vasco da Gama', 'Ibn Battuta', 'Columbus'], 'He came from Venice.', 'Marco Polo praised her rule.'],
+      ['Who built the Thousand Pillar Temple at Hanumakonda?', 'Rudradeva', ['Rudrama Devi', 'Krishnadevaraya', 'Akbar'], 'It was built in 1163.', 'Rudradeva built it in 1163.'],
+      ['The last Kakatiya king was…', 'Prataparudra II', ['Ganapatideva', 'Prola II', 'Rudradeva'], 'Defeated in 1323.', 'Prataparudra II was defeated by the Delhi Sultanate in 1323.'],
+      ['Which Kakatiya ruler ruled the longest and united the Telugu lands?', 'Ganapatideva', ['Rudrama Devi', 'Prataparudra II', 'Beta I'], 'About 63 years.', 'Ganapatideva ruled about 1199–1262.'],
+    ]),
+    yearsT('yrs', [
+      ['Rudradeva built the Thousand Pillar Temple', 1163, 'Ganapatideva became king', 1199],
+      ['Ganapatideva became king', 1199, 'Rudrama Devi began to rule', 1262],
+      ['Rudrama Devi began to rule', 1262, 'the Kakatiya kingdom fell', 1323],
+      ['The Ramappa temple was built', 1213, 'Ramappa became a UNESCO World Heritage Site', 2021],
+      ['The Thousand Pillar Temple was built', 1163, 'the Kakatiya kingdom fell', 1323],
+    ]),
+  ]),
+  O('ts7.ss.kakatiya.nayankara', 'The Nayankara system', [
+    h('Land for soldiers'),
+    p('How did the Kakatiyas keep a large army without paying every soldier in cash? They used the nayankara system.'),
+    def('Nayaka', 'A military chief or commander who received the right to collect revenue from some villages in return for maintaining soldiers and serving the king.'),
+    def('Nayankara system', 'A system in which nayakas were given land (or revenue rights over villages) on the condition that they kept a fixed number of soldiers, horses and elephants for the king and sent a share of revenue.'),
+    stepsB('The king assigns villages to a nayaka.', 'The nayaka collects revenue from those villages.', 'He uses part of it to keep soldiers, horses and elephants ready.', 'He sends a share to the king and fights for him in wars.', 'If he disobeys, the king can take back the villages.'),
+    p('The system helped the Kakatiyas defend a large kingdom and expand cultivation, because nayakas built tanks and settled new villages. Many nayakas came from farming communities, so people of different backgrounds rose in power. The later Vijayanagara kings used a similar system (amaranayakas).'),
+    keys('Nayakas got villages in return for keeping troops.', 'The king could take back the land.', 'Nayakas also developed agriculture and tanks.'),
+    remember('Nayankara = land in exchange for military service.'),
+  ], [
+    ex('Why did the king prefer the nayankara system to paying soldiers in cash?', ['Cash was scarce and hard to collect centrally.', 'Giving revenue rights made nayakas responsible for paying and keeping troops.', 'The king got an army ready for war.'], 'It provided an army without the king paying salaries directly.'),
+    ex('What could happen if a nayaka stopped sending troops?', ['The grant depended on service.', 'The king could cancel it and give the villages to someone else.'], 'He could lose his villages.'),
+  ], [
+    orderT('nay', 'Order how the nayankara system worked.', ['The king assigns villages to a nayaka', 'The nayaka collects revenue from the villages', 'He maintains soldiers, horses and elephants', 'He sends a share to the king and fights in wars'], ['Land is given first.', 'Service in war comes last.'], 'Grant → collect revenue → keep army → serve the king.', 4),
+    mcq('nq', 'Land in return for service.', [
+      ['Under the nayankara system, nayakas received…', 'revenue rights over villages in return for keeping soldiers', ['salaries from Delhi', 'nothing at all', 'factories'], 'Land for service.', 'Nayakas got villages for maintaining troops.'],
+      ['A nayaka was mainly a…', 'military chief', ['priest', 'merchant', 'weaver'], 'He led soldiers.', 'Nayakas were military commanders.'],
+      ['A similar system in Vijayanagara was called the…', 'amaranayaka system', ['zabt system', 'subsidiary alliance', 'factory system'], 'Also used nayakas.', 'Vijayanagara had amaranayakas.'],
+      ['How did nayakas help agriculture?', 'They built tanks and settled new villages', ['They banned farming', 'They burnt villages', 'They only collected taxes'], 'More farms = more revenue.', 'Nayakas built tanks and expanded cultivation.'],
+    ]),
+    tapT('feat', 'Tap the TRUE features of the nayankara system.', [
+      ['Nayakas kept soldiers for the king', true], ['Nayakas collected revenue from assigned villages', true], ['The king could take back the villages', true], ['A share of revenue went to the king', true],
+      ['Nayakas owned the land forever no matter what', false], ['Soldiers were paid by the British', false],
+    ], ['The grant depended on loyal service.', 'The British came centuries later.'], 'The grant was conditional on service, with revenue shared.'),
+  ]),
+  O('ts7.ss.kakatiya.economy', 'Agriculture, temples, trade and the end of the Kakatiyas', [
+    h('Tanks, temples and trade'),
+    photo('💧', 'Kakatiya tanks such as Ramappa, Pakhal and Laknavaram still irrigate fields today.'),
+    p('The Kakatiyas encouraged people to clear forests and farm. Kings, queens, nayakas and rich merchants built thousands of tanks, giving water for paddy, sugarcane and other crops. Building a tank was considered a meritorious act.'),
+    p('Temples were built in the Kakatiya style with star-shaped platforms, finely carved black basalt pillars and sculptures. The Ramappa (Rudreshwara) temple at Palampet, built in 1213 by the general Recherla Rudra, is a UNESCO World Heritage Site (since 2021); its tower is made of light bricks that float in water. Other examples: the Thousand Pillar Temple and the Warangal fort gateways.'),
+    p('Trade flourished. Merchant guilds traded in cloth, diamonds (from Golconda region mines), and spices. Motupalli on the east coast was an important port; foreign merchants were given protection by Ganapatideva\'s inscription there.'),
+    h('The end'),
+    p('The Delhi Sultanate attacked Warangal several times. In 1323, an army led by Ulugh Khan (later Muhammad bin Tughlaq) captured Warangal and Prataparudra II. The Kakatiya kingdom ended, but its nayakas such as the Musunuri Nayakas soon fought back and freed parts of Telangana.'),
+    keys('Kakatiyas built thousands of tanks.', 'Ramappa temple (1213): UNESCO site, floating bricks.', 'Port of Motupalli; kingdom fell in 1323.'),
+    remember('The Kakatiya Kala Thoranam and the Ramappa temple are symbols of Telangana\'s heritage.'),
+  ], [
+    ex('Why are the bricks of the Ramappa temple tower special?', ['They are very light and porous.', 'They float on water.', 'Lighter bricks reduce weight on the walls.'], 'They are so light they float on water.'),
+    ex('How did tanks help the Kakatiya economy?', ['Stored water irrigated more land.', 'More crops meant more food and more revenue.', 'New villages grew around tanks.'], 'They increased farming and revenue.'),
+  ], [
+    matchT('kk', 'Kakatiya heritage with its fact', [
+      ['Ramappa temple', 'UNESCO World Heritage Site with floating bricks'], ['Thousand Pillar Temple', 'Built by Rudradeva at Hanumakonda'], ['Motupalli', 'Kakatiya sea port'], ['Pakhal lake', 'Large Kakatiya tank'], ['Kala Thoranam', 'Stone gateway at Warangal fort'],
+    ], ['Ramappa is the UNESCO site.', 'Motupalli is on the coast.']),
+    mcq('econ', 'Tanks, temples, trade.', [
+      ['The Ramappa temple was built by…', 'Recherla Rudra, a Kakatiya general', ['Akbar', 'Rajaraja Chola', 'Krishnadevaraya'], 'In 1213, at Palampet.', 'General Recherla Rudra built it in 1213.'],
+      ['Ramappa became a UNESCO World Heritage Site in…', '2021', ['1947', '1213', '1999'], 'Recently.', 'It was inscribed in 2021.'],
+      ['Which port helped Kakatiya trade?', 'Motupalli', ['Calicut', 'Surat', 'Mumbai'], 'On the east coast.', 'Motupalli was the Kakatiya port.'],
+      ['Who captured Warangal in 1323?', 'An army of the Delhi Sultanate under Ulugh Khan', ['The British', 'The Mughals under Akbar', 'The Cholas'], 'Later known as Muhammad bin Tughlaq.', 'Ulugh Khan of the Tughlaq dynasty took Warangal.'],
+    ]),
+    tapT('tank', 'Tap the tanks/lakes built in the Kakatiya period.', [
+      ['Ramappa lake', true], ['Pakhal lake', true], ['Laknavaram lake', true], ['Ghanapur lake', true],
+      ['Hussain Sagar', false], ['Osman Sagar', false],
+    ], ['Hussain Sagar was built under the Qutb Shahis.', 'Osman Sagar was built under the Nizams.'], 'Ramappa, Pakhal, Laknavaram and Ghanapur lakes are Kakatiya tanks.'),
+  ]),
+]);
+
+export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12];
