@@ -420,4 +420,347 @@ const u2: USpec = {
   ],
 };
 
-export const units: USpec[] = [u1, u2];
+// =====================================================================================
+// Unit 3 — Courage (Puru, the Brave)
+// =====================================================================================
+const u3: USpec = {
+  id: 'ts7.en.u3', subject: 'english', title: 'Unit 3: Courage and Pride', source: src(3),
+  note: 'Reading A follows the well-known historical account of King Puru (Porus) and Alexander; teacher to check details against the textbook. Poem B (Tennyson) is summarised in our own words; Reading C (The Magic of Silk) is pleasure reading.',
+  objectives: [
+    {
+      id: 'ts7.en.puru.read', title: 'Reading: Puru, the Brave', prereqs: [],
+      intro: [
+        h('The story behind the reading'),
+        p('More than 2,300 years ago (326 BCE), Alexander of Macedonia, a young Greek king, marched into north-west India after winning many lands. King Puru (called Porus by the Greeks) ruled the land near the river Jhelum, in today’s Punjab.'),
+        h('What happens (our summary)'),
+        stepsB(
+          'Some local kings gave in to Alexander without a fight, but Puru refused to bow down.',
+          'Alexander’s army crossed the swollen river secretly at night, during heavy rain.',
+          'Puru fought bravely with his soldiers and war elephants, but the muddy ground and Alexander’s skilled horsemen helped the Greeks win.',
+          'Puru, tall and wounded, was brought before Alexander. Alexander asked him how he wished to be treated.',
+          'Puru replied proudly that he wished to be treated as a king treats a king. Alexander admired his courage, gave him back his kingdom and made him a friend.',
+        ),
+        keys('Qualities of Puru: brave, proud, self-respecting, honest.', 'Quality of Alexander: he respected courage even in an enemy.', 'Message: true courage and self-respect win respect, even in defeat.'),
+        h('Poem B: Home They Brought Her Warrior Dead'),
+        p('This short poem by Alfred, Lord Tennyson (an English poet of the 1800s) is about a woman whose husband, a warrior, is brought home dead. She is so shocked that she cannot cry. The women around her fear for her life and try many ways to make her weep. At last an old nurse places the warrior’s little child on her lap, and her tears finally flow. The poem shows that grief that is held inside is dangerous, and that love for a child can open the heart.'),
+        remember('Reading C, The Magic of Silk, is for enjoyment: it tells how silk comes from the cocoons of silkworms.'),
+      ],
+      examples: [
+        ex('Why did Alexander return Puru’s kingdom?', ['Look at Puru’s proud reply.', 'Alexander admired courage.'], 'He was impressed by Puru’s courage and self-respect, shown in his reply that he should be treated as a king.'),
+        ex('In the poem, what finally makes the woman weep?', ['Many things were tried first.', 'The old nurse brings something special.'], 'The old nurse places the warrior’s child on her lap.'),
+      ],
+      practice: [
+        mcq('comp', 'Recall the events and the characters.', [
+          ['Near which river did Puru rule?', 'The Jhelum', ['The Godavari', 'The Ganga', 'The Krishna'], 'It is in Punjab.', 'Puru’s kingdom lay near the river Jhelum.'],
+          ['What did Puru say when asked how he wished to be treated?', 'As a king treats a king', ['As a prisoner', 'As a servant', 'He said nothing'], 'He kept his pride.', 'He asked to be treated as a king, showing self-respect.'],
+          ['What helped Alexander win the battle?', 'The muddy ground and his skilled horsemen', ['Puru’s soldiers ran away', 'A peace treaty', 'A sudden fire'], 'Remember the heavy rain.', 'Rain and mud slowed Puru’s chariots and elephants.'],
+          ['How did Alexander treat Puru in the end?', 'He gave back his kingdom and became his friend', ['He put him in prison', 'He sent him away from India', 'He made him a soldier'], 'Alexander respected courage.', 'He returned the kingdom out of respect.'],
+          ['Which word best describes Puru?', 'Self-respecting', ['Cowardly', 'Greedy', 'Dishonest'], 'He would not bow down even after defeat.', 'Puru kept his dignity even as a prisoner.'],
+          ['In Tennyson’s poem, why are the women worried?', 'The widow cannot cry, and they fear for her life', ['The warrior is lost', 'The child is ill', 'The house is on fire'], 'Grief held inside.', 'They believe she must weep or she will die of grief.'],
+        ]),
+        orderT('events', ['The march comes first.', 'The friendship comes last.'], [
+          ['Alexander marched into India. | Puru refused to surrender. | The armies fought near the Jhelum. | Puru was brought before Alexander. | Alexander returned his kingdom.', 'March → refusal → battle → meeting → kingdom returned.'],
+          ['Although he was wounded, | Puru | stood | tall and proud.', 'Although-clause → subject → verb → description.'],
+          ['Alexander | admired | the courage | of the Indian king.', 'Subject → verb → object → of-phrase.'],
+          ['Many kings surrendered, | but Puru | chose | to fight.', 'First clause → but → subject → verb → to + verb.'],
+          ['The old nurse | placed | the child | on the widow’s lap.', 'Subject → verb → object → place.'],
+        ]),
+        matchT('who', 'character with the right description', [
+          ['Puru', 'brave king who refused to surrender'], ['Alexander', 'young Greek king who respected courage'], ['Tennyson', 'English poet of "Home They Brought Her Warrior Dead"'], ['The old nurse', 'brings the child to the widow'], ['The warrior’s wife', 'too shocked to cry at first'],
+        ], ['Two people are from the history story; three from the poem.', 'The poet is the writer, not a character.']),
+      ],
+    },
+    {
+      id: 'ts7.en.courage.vocab', title: 'Vocabulary: synonyms and antonyms of character words', prereqs: [],
+      intro: [
+        h('Words that describe character'),
+        p('Stories like Puru’s are full of words that describe people. Learning their synonyms (same meaning) and antonyms (opposite meaning) helps you write better answers.'),
+        def('Synonym', 'A word with the same or nearly the same meaning: brave – courageous.'),
+        def('Antonym', 'A word with the opposite meaning: brave – cowardly.'),
+        keys('brave = courageous, fearless ↔ cowardly, timid', 'proud (in a good way) = dignified ↔ humble/ashamed', 'honest = truthful ↔ dishonest', 'kind = generous ↔ cruel', 'wise = clever, sensible ↔ foolish', 'victory = win ↔ defeat'),
+        stepsB('Read the word in its sentence.', 'Decide: is the question asking for SAME or OPPOSITE?', 'Test your choice by putting it in the sentence.'),
+        remember('Some antonyms are made with prefixes: honest → dishonest, kind → unkind, possible → impossible.'),
+      ],
+      examples: [
+        ex('Give a synonym of "fearless" from the list: timid, courageous, cruel.', ['fearless = without fear.', 'courageous = full of courage.'], 'courageous'),
+        ex('Give the antonym of "victory".', ['Victory = winning a battle.', 'The opposite is losing.'], 'defeat'),
+      ],
+      practice: [
+        mcq('syn', 'Synonym = SAME meaning.', [
+          ['Choose the synonym of "brave".', 'courageous', ['cowardly', 'lazy', 'weak'], 'Puru was this.', 'brave = courageous.'],
+          ['Choose the synonym of "honest".', 'truthful', ['clever', 'rude', 'tired'], 'Telling the truth.', 'honest = truthful.'],
+          ['Choose the synonym of "huge".', 'enormous', ['tiny', 'narrow', 'pale'], 'Think of a war elephant.', 'huge = enormous.'],
+          ['Choose the synonym of "wise".', 'sensible', ['foolish', 'noisy', 'fast'], 'A wise king makes good decisions.', 'wise = sensible.'],
+          ['Choose the synonym of "begin".', 'start', ['finish', 'stop', 'delay'], 'The battle began at dawn.', 'begin = start.'],
+          ['Choose the synonym of "angry".', 'furious', ['calm', 'cheerful', 'sleepy'], 'Very cross.', 'angry = furious.'],
+        ]),
+        mcq('ant', 'Antonym = OPPOSITE meaning.', [
+          ['Choose the antonym of "brave".', 'cowardly', ['bold', 'strong', 'fearless'], 'Opposite of having courage.', 'brave ↔ cowardly.'],
+          ['Choose the antonym of "victory".', 'defeat', ['success', 'prize', 'battle'], 'Losing.', 'victory ↔ defeat.'],
+          ['Choose the antonym of "kind".', 'cruel', ['gentle', 'generous', 'friendly'], 'Opposite of caring.', 'kind ↔ cruel.'],
+          ['Choose the antonym of "ancient".', 'modern', ['old', 'historic', 'dusty'], 'Ancient = very old.', 'ancient ↔ modern.'],
+          ['Choose the antonym of "honest".', 'dishonest', ['unhonest', 'truthful', 'fair'], 'Add the right prefix.', 'honest ↔ dishonest.'],
+          ['Choose the antonym of "enemy".', 'friend', ['rival', 'soldier', 'stranger'], 'Alexander and Puru became this.', 'enemy ↔ friend.'],
+        ]),
+        matchT('pairs', 'word with its antonym', [
+          ['brave', 'cowardly'], ['victory', 'defeat'], ['wise', 'foolish'], ['proud', 'ashamed'], ['ancient', 'modern'], ['strong', 'weak'],
+        ], ['Antonyms are opposites.', 'Say each pair aloud: "brave, not cowardly".']),
+      ],
+    },
+    {
+      id: 'ts7.en.should.must', title: 'Grammar: "should" and "must"', prereqs: [],
+      intro: [
+        h('Advice or a strong rule?'),
+        def('should', 'Gives ADVICE or says what is the right thing to do: You should drink more water.'),
+        def('must', 'Shows a STRONG NEED, a rule or a duty: Students must wear their ID cards. You must stop at a red light.'),
+        h('The rules'),
+        stepsB(
+          'After should / must, use the base form of the verb: should go, must be (not "must goes", "should to go").',
+          'They do not change with the subject: I must, she must, they must.',
+          'Negative: should not (shouldn’t) = it is a bad idea; must not (mustn’t) = it is not allowed.',
+          'Questions: Should I take an umbrella? (asking for advice).',
+        ),
+        keys('Advice → should: You should revise your notes before the test.', 'Rule / law → must: Drivers must wear seat belts.', 'Strong personal duty → must: I must finish my homework tonight.'),
+        remember('"mustn’t" means "not allowed", NOT "not necessary". You mustn’t cross here (forbidden).'),
+      ],
+      examples: [
+        ex('Choose should or must: "Passengers ____ show their tickets." (a railway rule)', ['It is a rule, not advice.'], 'Passengers must show their tickets.'),
+        ex('Choose should or must: "You look tired. You ____ rest for a while."', ['This is friendly advice.'], 'You should rest for a while.'),
+        ex('Correct: "She must to finish her project."', ['After must, use the base verb without "to".'], 'She must finish her project.'),
+      ],
+      practice: [
+        mcq('choose', 'Is it advice (should) or a rule / strong need (must)?', [
+          ['You ____ wear a helmet while riding a bike. It is the law.', 'must', ['should', 'may', 'might'], 'It is the law.', 'Laws and rules take must.'],
+          ['You have a cough. You ____ drink warm water.', 'should', ['must not', 'mustn’t', 'may not'], 'This is advice from a friend.', 'Friendly advice takes should.'],
+          ['Visitors ____ not touch the paintings in the museum.', 'must', ['should to', 'musts', 'shall to'], 'It is a museum rule.', 'must not = forbidden by a rule.'],
+          ['The film is good. You ____ watch it.', 'should', ['must not', 'mustn’t', 'shouldn’t'], 'A suggestion.', 'Recommendations use should.'],
+          ['All students ____ wear the school uniform on Monday.', 'must', ['should not', 'mustn’t', 'shouldn’t'], 'A school rule.', 'Rules use must.'],
+          ['You ____ eat so many sweets; they are bad for your teeth.', 'shouldn’t', ['must', 'should', 'ought'], 'Advice not to do something.', 'shouldn’t = it is not a good idea.'],
+        ]),
+        errT('spot', ['After should/must, use the base verb.', 'should/must never take -s.'], [
+          ['You | should to | revise | your lessons daily.', 1, 'You should revise your lessons daily.', 'No "to" after should.'],
+          ['She | musts | finish | her work before dinner.', 1, 'She must finish her work before dinner.', 'must never takes -s.'],
+          ['We | must | goes | to school on time.', 2, 'We must go to school on time.', 'After must, use the base verb: go.'],
+          ['Ravi | should | eating | more vegetables.', 2, 'Ravi should eat more vegetables.', 'After should, use the base verb: eat.'],
+          ['Drivers | must | stopping | at a red light.', 2, 'Drivers must stop at a red light.', 'must + base verb: stop.'],
+        ]),
+        mcq('meaning', 'Think about what each sentence really means.', [
+          ['"You mustn’t swim in this lake." This means…', 'Swimming here is not allowed.', ['Swimming here is a good idea.', 'You can swim if you like.', 'You need to swim.'], 'mustn’t = forbidden.', 'must not shows something is not allowed.'],
+          ['"You should visit Ramappa Temple." This is…', 'a piece of advice', ['a strict law', 'a question', 'a warning of danger'], 'Should gives advice.', 'should = advice / recommendation.'],
+          ['Which sentence shows a rule?', 'Players must not touch the ball with their hands.', ['You should try the new dosa shop.', 'Maybe we should leave early.', 'You should sleep early.'], 'Look for must.', 'must not = a rule of the game.'],
+          ['Which sentence asks for advice?', 'Should I take an umbrella today?', ['I must take an umbrella.', 'Take your umbrella.', 'He has an umbrella.'], 'A question with should.', '"Should I…?" asks for advice.'],
+          ['"I must finish my homework tonight." The speaker feels…', 'a strong need to do it', ['no need to do it', 'that it is forbidden', 'unsure about it'], 'must = strong need.', 'must shows a strong personal duty.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.story.write', title: 'Writing: a story from an outline', prereqs: [],
+      intro: [
+        h('How a story is built'),
+        stepsB(
+          'Title: short and interesting.',
+          'Beginning: introduce the characters and the place (who, where, when).',
+          'Problem: something goes wrong or a challenge appears.',
+          'Middle: what the characters do; build up the action.',
+          'Climax and ending: how the problem is solved.',
+          'Moral (if asked): one sentence with the lesson.',
+        ),
+        keys('Write in the past tense: lived, decided, ran.', 'Use linkers: once upon a time, one day, suddenly, then, at last, finally.', 'Add a little dialogue: "Help!" cried the deer.'),
+        h('Model (our own, from an outline)'),
+        p('Outline: a crow — thirsty — pot with little water — drops pebbles — water rises — drinks. Story: The Clever Crow. One hot summer afternoon, a crow was very thirsty. It flew everywhere looking for water. At last it found a pot, but the water was at the very bottom. The crow thought hard. Then it picked up pebbles one by one and dropped them into the pot. Slowly the water rose to the top, and the crow drank happily. Moral: Where there is a will, there is a way.'),
+        remember('Common mistakes: switching between past and present tense; no clear ending; adding a moral that does not match the story.'),
+      ],
+      examples: [
+        ex('Write a beginning line for: "a lion — sleeping — a mouse — runs over him".', ['Introduce who, where, when.', 'Use the past tense.'], 'Once upon a time, a mighty lion was sleeping under a tree in the forest.'),
+        ex('Give a moral for a story where a small mouse later saves the lion.', ['The small one helps the big one.'], 'No act of kindness is ever wasted / Even the small can help the great.'),
+      ],
+      practice: [
+        orderT('plot', ['The beginning introduces the character.', 'The moral comes last.'], [
+          ['A crow was very thirsty. | It found a pot with little water. | It dropped pebbles into the pot. | The water rose and it drank. | Where there is a will, there is a way.', 'Character → problem → action → solution → moral.'],
+          ['Once upon a time, | a lion | was sleeping | under a tree.', 'Opening phrase → subject → verb → place.'],
+          ['Suddenly, | a hunter’s net | fell | on the lion.', 'Linker → subject → verb → place.'],
+          ['The little mouse | cut the net | and | the lion was free.', 'Action → and → result.'],
+          ['Title | Beginning | Problem | Solution | Moral', 'Stories follow this shape.'],
+        ]),
+        mcq('craft', 'A good story has a clear beginning, problem and ending.', [
+          ['Which is the best opening for a story?', 'One rainy evening, Teja heard a strange noise in the garden.', ['The end.', 'Rain is water.', 'Teja is my name.'], 'Who, when and a hint of action.', 'It introduces a character, a time and a mystery.'],
+          ['Which linker best shows something unexpected?', 'Suddenly', ['Firstly', 'Therefore', 'Also'], 'An unexpected moment.', '"Suddenly" introduces a surprise.'],
+          ['Which tense is usually used to tell a story?', 'Simple past', ['Simple future', 'Imperative', 'Present perfect continuous'], 'The story already happened.', 'Stories are mostly told in the past tense.'],
+          ['Which moral fits a story about a hare who loses a race because he slept?', 'Slow and steady wins the race.', ['Never trust a friend.', 'Greed is bad.', 'Look before you leap.'], 'Who won and why?', 'The steady tortoise wins; the moral praises steady effort.'],
+          ['Which sentence adds dialogue?', '"Please help me!" cried the little deer.', ['The deer was little.', 'The deer lived in a forest.', 'Deer eat grass.'], 'Look for speech marks.', 'Dialogue is shown with speech marks.'],
+        ]),
+        matchT('linkers', 'story moment with the best linker', [
+          ['starting the story', 'Once upon a time'], ['a surprise', 'Suddenly'], ['the next event', 'Then'], ['the final event', 'At last'], ['a later day', 'The next morning'],
+        ], ['Think about when each linker is used.', '"At last" suggests a long wait is over.']),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Unit 4 — Wit and humour (Tenali Paints a Horse)
+// =====================================================================================
+const u4: USpec = {
+  id: 'ts7.en.u4', subject: 'english', title: 'Unit 4: Wit and Humour', source: src(4),
+  note: 'Reading A is taught through Tenali Raman’s background and the general shape of the tale; the exact plot details are not summarised — teacher to read the story with the class and confirm. Poem B (Dear Mum) is taught at theme level. Reading C (The Emperor’s New Clothes) is the well-known Andersen tale.',
+  objectives: [
+    {
+      id: 'ts7.en.tenali.read', title: 'Reading: Tenali Paints a Horse; The Emperor’s New Clothes', prereqs: [],
+      intro: [
+        h('Who was Tenali Raman?'),
+        p('Tenali Ramakrishna (often called Tenali Raman or Tenali Rama) was a Telugu poet in the court of King Krishnadevaraya of the Vijayanagara Empire in the 1500s. He was one of the king’s eight great poets, the Ashtadiggajas. Hundreds of folk tales are told about his quick wit — how he used clever thinking and humour to solve problems and to teach proud or greedy people a lesson.'),
+        h('Reading A: Tenali Paints a Horse'),
+        p('In this tale, Tenali is set a painting challenge about a horse. Instead of doing what everyone expects, he finds a clever, funny answer that shows the challenge itself was unfair. Read the story with your teacher and look for: (1) the challenge, (2) Tenali’s trick, (3) how the people at court react.'),
+        h('Poem B: Dear Mum'),
+        p('This light, funny poem is written as a note from a child to their mother. While Mum was out, lots of things went wrong at home, and the child gives silly, imaginative excuses that blame everyone and everything except themselves. The humour is in how obvious the real story is.'),
+        h('Reading C: The Emperor’s New Clothes'),
+        p('In this famous tale by the Danish writer Hans Christian Andersen, two cheats tell a vain emperor they can weave magic cloth that is invisible to foolish people. Nobody — not even the emperor — wants to look foolish, so all pretend to see the cloth. The emperor walks through the town wearing nothing, until a small child calls out the truth. Everyone then laughs.'),
+        keys('Wit = quick, clever humour.', 'Both Tenali and the child in Andersen’s tale show that honest, clear thinking defeats pride and pretence.'),
+        def('Vain', 'Too proud of one’s looks or importance.'),
+      ],
+      examples: [
+        ex('Why did nobody tell the emperor the truth?', ['The cheats said only fools could not see the cloth.', 'Nobody wanted to look foolish.'], 'Everyone was afraid of being called foolish, so they pretended to see the cloth.'),
+        ex('Who was Tenali Raman?', ['Think of his job and his king.'], 'A witty Telugu poet in the court of King Krishnadevaraya of Vijayanagara.'),
+      ],
+      practice: [
+        mcq('comp', 'Recall the stories and the poem.', [
+          ['In whose court did Tenali Raman serve?', 'King Krishnadevaraya', ['Emperor Akbar', 'King Puru', 'Emperor Ashoka'], 'Vijayanagara Empire.', 'Tenali Raman was a poet in Krishnadevaraya’s court.'],
+          ['Tenali Raman is best known for his…', 'quick wit', ['great strength', 'skill in war', 'singing voice'], 'He solved problems cleverly.', 'Folk tales praise his clever humour.'],
+          ['What did the cheats claim about their cloth?', 'Foolish people could not see it', ['It was made of gold', 'It could fly', 'It never got dirty'], 'Why did everyone pretend?', 'They said it was invisible to fools.'],
+          ['Who told the truth about the emperor’s clothes?', 'A small child', ['The prime minister', 'The cheats', 'The emperor himself'], 'Someone with nothing to fear.', 'A child, with no reason to pretend, spoke the truth.'],
+          ['Who wrote "The Emperor’s New Clothes"?', 'Hans Christian Andersen', ['Aesop', 'Tennyson', 'Tenali Raman'], 'A Danish writer of fairy tales.', 'Andersen wrote this famous tale.'],
+          ['In "Dear Mum", what is funny about the child’s note?', 'The child gives silly excuses for everything that went wrong', ['The child confesses honestly', 'The mother writes back angrily', 'The note is about a holiday'], 'Who does the child blame?', 'The silly excuses make the poem humorous.'],
+        ]),
+        matchT('who', 'person with the right description', [
+          ['Tenali Raman', 'witty poet of Vijayanagara'], ['Krishnadevaraya', 'king of Vijayanagara'], ['Andersen', 'Danish writer of fairy tales'], ['The child in Andersen’s tale', 'said the emperor had nothing on'], ['The emperor', 'too vain to admit he saw nothing'], ['The weavers', 'cheats who sold invisible cloth'],
+        ], ['Two are from Tenali’s world; the rest from Andersen’s tale.', 'Vain = too proud.']),
+        orderT('events', ['The cheats arrive first.', 'The laughter comes at the end.'], [
+          ['Two cheats came to the palace. | They pretended to weave magic cloth. | Everyone pretended to see it. | The emperor walked through the town. | A child shouted the truth.', 'Arrival → trick → pretending → parade → truth.'],
+          ['Nobody | wanted | to look foolish | in front of others.', 'Subject → verb → to + verb → phrase.'],
+          ['When the child spoke, | the whole crowd | began | to laugh.', 'Time clause → subject → verb → to + verb.'],
+          ['Tenali Raman | used | his quick wit | to solve problems.', 'Subject → verb → object → purpose.'],
+          ['While Mum was out, | many things | went wrong | at home.', 'Time clause → subject → verb → place.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.phrasal.vocab', title: 'Vocabulary: phrasal verbs', prereqs: [],
+      intro: [
+        h('Verb + small word = new meaning'),
+        def('Phrasal verb', 'A verb + a small word (up, down, off, out, on, after…) that together have a new meaning.'),
+        keys('look after = take care of', 'look for = search for', 'give up = stop trying', 'put on = wear', 'take off = remove (clothes) / leave the ground (plane)', 'turn on / turn off = switch on / switch off', 'find out = discover information', 'get up = rise from bed', 'run away = escape', 'carry on = continue'),
+        stepsB('Read the whole sentence.', 'Treat the verb + small word as ONE meaning.', 'Replace it with a simple word to check (search, wear, continue).'),
+        remember('Changing the small word changes the meaning: put on (wear) ≠ put off (postpone); look after (care) ≠ look for (search).'),
+      ],
+      examples: [
+        ex('What does "put on" mean in: "The emperor put on his new robe"?', ['Clothes are involved.'], 'put on = wear'),
+        ex('Replace with a phrasal verb: "Please continue your work."', ['continue = carry on'], 'Please carry on with your work.'),
+      ],
+      practice: [
+        mcq('meaning', 'Replace the phrasal verb with a simple word.', [
+          ['Grandma looks after our cow. "Looks after" means…', 'takes care of', ['searches for', 'sells', 'follows'], 'Caring for an animal.', 'look after = take care of.'],
+          ['I am looking for my lost pen. "Looking for" means…', 'searching for', ['caring for', 'writing with', 'buying'], 'The pen is lost.', 'look for = search for.'],
+          ['Don’t give up; try once more. "Give up" means…', 'stop trying', ['start again', 'shout', 'win'], 'Try once more.', 'give up = stop trying.'],
+          ['Please turn off the fan. "Turn off" means…', 'switch off', ['switch on', 'clean', 'repair'], 'Stop the fan.', 'turn off = switch off.'],
+          ['The thief ran away from the police. "Ran away" means…', 'escaped', ['returned', 'waited', 'surrendered'], 'Getting away.', 'run away = escape.'],
+          ['Let us find out who broke the vase. "Find out" means…', 'discover', ['hide', 'repair', 'buy'], 'Learning the truth.', 'find out = discover information.'],
+        ]),
+        mcq('particle', 'Pick the small word that gives the right meaning.', [
+          ['It is cold. Put ____ your sweater.', 'on', ['off', 'up', 'away'], 'You want to wear it.', 'put on = wear.'],
+          ['I get ____ at six every morning.', 'up', ['on', 'off', 'away'], 'Rising from bed.', 'get up = rise from bed.'],
+          ['The plane will take ____ at noon.', 'off', ['on', 'up', 'after'], 'The plane leaves the ground.', 'take off = leave the ground.'],
+          ['Please carry ____ reading; I will be back soon.', 'on', ['off', 'up', 'away'], 'Continue.', 'carry on = continue.'],
+          ['Turn ____ the light; it is dark here.', 'on', ['off', 'away', 'after'], 'You need light.', 'turn on = switch on.'],
+        ]),
+        matchT('pairs', 'phrasal verb with its meaning', [
+          ['look after', 'take care of'], ['look for', 'search for'], ['give up', 'stop trying'], ['put on', 'wear'], ['run away', 'escape'], ['find out', 'discover'],
+        ], ['Say each one in a sentence first.', 'look after ≠ look for.']),
+      ],
+    },
+    {
+      id: 'ts7.en.adverb.manner', title: 'Grammar: adverbs of manner', prereqs: [],
+      intro: [
+        h('How is something done?'),
+        def('Adverb of manner', 'A word that tells HOW an action is done: Tenali answered cleverly. The child spoke loudly.'),
+        h('Forming adverbs of manner'),
+        stepsB(
+          'Most adjectives: add -ly → quick → quickly, sad → sadly.',
+          'Adjective ends in -y: change y to i, then add -ly → happy → happily, easy → easily.',
+          'Adjective ends in -le: drop e, add -y → gentle → gently, simple → simply.',
+          'Adjective ends in -ic: add -ally → basic → basically.',
+          'Irregular: good → well; fast → fast; hard → hard (NOT "hardly", which means "almost not").',
+        ),
+        keys('Adjective describes a noun: a careful painter.', 'Adverb describes a verb: The painter worked carefully.', 'Position: usually after the verb, or after the object: She painted the horse carefully.'),
+        remember('"He did good" ✗ → "He did well" ✓. "good" is an adjective; "well" is the adverb.'),
+      ],
+      examples: [
+        ex('Make an adverb from "happy" and use it: The children played ____.', ['happy ends in y → happily.'], 'The children played happily.'),
+        ex('Adjective or adverb? "Meena is a fast runner." / "Meena runs fast."', ['First: describes "runner" (noun) → adjective.', 'Second: describes "runs" (verb) → adverb (fast does not change).'], 'First: adjective; second: adverb.'),
+      ],
+      practice: [
+        mcq('form', 'Follow the spelling rule for -ly.', [
+          ['The adverb of "happy" is…', 'happily', ['happyly', 'happly', 'happy'], 'y → i + ly.', 'happy → happily.'],
+          ['The adverb of "gentle" is…', 'gently', ['gentlely', 'gentily', 'gentle'], 'Drop e, add y.', 'gentle → gently.'],
+          ['The adverb of "good" is…', 'well', ['goodly', 'better', 'good'], 'It is irregular.', 'good → well.'],
+          ['The adverb of "careful" is…', 'carefully', ['carefuly', 'carefulley', 'carefull'], 'Just add -ly.', 'careful + ly = carefully (double l).'],
+          ['The adverb of "easy" is…', 'easily', ['easyly', 'easly', 'easely'], 'y → i + ly.', 'easy → easily.'],
+          ['The adverb of "fast" is…', 'fast', ['fastly', 'faster', 'fastily'], 'Some adverbs do not change.', 'fast stays fast.'],
+        ]),
+        mcq('fill', 'Does the gap describe a noun (adjective) or an action (adverb)?', [
+          ['Tenali answered the king ____.', 'cleverly', ['clever', 'cleverness', 'more clever'], 'How did he answer?', 'Describes the verb "answered" → adverb.'],
+          ['The old man walked ____ with his stick.', 'slowly', ['slow', 'slowness', 'slower than'], 'How did he walk?', 'Describes "walked" → slowly.'],
+          ['Kavya sang ____ at the annual day.', 'beautifully', ['beautiful', 'beauty', 'beautify'], 'How did she sing?', 'Describes "sang" → beautifully.'],
+          ['The emperor walked ____ through the streets.', 'proudly', ['proud', 'pride', 'prouder'], 'How did he walk?', 'Describes "walked" → proudly.'],
+          ['Arjun did ____ in the exam.', 'well', ['good', 'goodly', 'best'], 'Use the adverb of good.', 'did well (not "did good").'],
+          ['Please close the door ____; the baby is asleep.', 'quietly', ['quiet', 'quietness', 'quieter'], 'How should you close it?', 'Describes "close" → quietly.'],
+        ]),
+        errT('spot', ['Find the word that should describe the action.', 'Check the -ly spelling.'], [
+          ['The children | played | happy | in the park.', 2, 'The children played happily in the park.', 'An action needs an adverb: happily.'],
+          ['Sana | speaks English | very good | these days.', 2, 'Sana speaks English very well these days.', 'good → well when describing an action.'],
+          ['The nurse | lifted the baby | gentlely | from the cot.', 2, 'The nurse lifted the baby gently from the cot.', 'gentle → gently (drop e, add y).'],
+          ['The emperor | walked | proud | through the town.', 2, 'The emperor walked proudly through the town.', 'Describing how he walked needs proudly.'],
+          ['Ravi | ran | quick | to catch the bus.', 2, 'Ravi ran quickly to catch the bus.', 'Describing how he ran needs quickly.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.note.write', title: 'Writing: a short note, with short forms (contractions)', prereqs: [],
+      intro: [
+        h('Short forms (contractions)'),
+        p('In friendly writing — notes, messages, dialogue — we often join two words and use an apostrophe (’) for the missing letters.'),
+        keys('I am → I’m · you are → you’re · he is → he’s · it is → it’s', 'do not → don’t · does not → doesn’t · did not → didn’t', 'can not / cannot → can’t · will not → won’t (special!) · shall not → shan’t', 'I have → I’ve · they will → they’ll · we would → we’d · let us → let’s'),
+        stepsB('Find the two words.', 'Drop the missing letter(s).', 'Put the apostrophe exactly where the letters were dropped.'),
+        remember('it’s = it is; its = belonging to it (no apostrophe). The dog wagged its tail. It’s raining.'),
+        h('Writing a short note'),
+        stepsB('Date / time (top).', 'Greeting: Dear Mum, / Hi Ravi,', 'Message: what happened or what you want — 3–5 short sentences.', 'Closing: Love, / See you soon,', 'Your name.'),
+        p('Model (our own): 14 Nov, 4 pm. Dear Mum, I’ve gone to Kiran’s house to finish our science project. Don’t worry — I’ll be back by six. I’ve fed the cat and locked the back door. Love, Teja.'),
+      ],
+      examples: [
+        ex('Write the short form of "will not".', ['This one is irregular.'], 'won’t'),
+        ex('Expand the short forms: "I’ve finished and I’m going out."', ['I’ve = I have; I’m = I am.'], 'I have finished and I am going out.'),
+      ],
+      practice: [
+        mcq('short', 'Put the apostrophe where letters are missing.', [
+          ['The short form of "do not" is…', 'don’t', ['do’nt', 'dont’', 'don’t’'], 'The missing letter is o of not.', 'do + n’t = don’t.'],
+          ['The short form of "will not" is…', 'won’t', ['willn’t', 'wo’nt', 'will’t'], 'This one is special.', 'will not → won’t.'],
+          ['The short form of "I am" is…', 'I’m', ['Im’', 'I’am', 'Ia’m'], 'The a is missing.', 'I am → I’m.'],
+          ['The short form of "they will" is…', 'they’ll', ['the’yll', 'theyl’l', 'they’ill'], 'wi is missing.', 'they will → they’ll.'],
+          ['The short form of "let us" is…', 'let’s', ['lets’', 'le’ts', 'let’us'], 'u is missing.', 'let us → let’s.'],
+          ['The short form of "cannot" is…', 'can’t', ['ca’nt', 'cann’t', 'cant’'], 'no is missing.', 'cannot → can’t.'],
+        ]),
+        matchT('expand', 'short form with its full form', [
+          ['I’ve', 'I have'], ['she’s', 'she is'], ['didn’t', 'did not'], ['we’d', 'we would'], ['won’t', 'will not'], ['shan’t', 'shall not'],
+        ], ['The apostrophe shows where letters were dropped.', 'won’t is irregular.']),
+        mcq('note', 'A note is short, friendly and clear.', [
+          ['Choose the correct sentence.', 'It’s raining, so the cat is licking its paws indoors.', ['Its raining, so the cat is licking it’s paws indoors.', 'It’s raining, so the cat is licking it’s paws indoors.', 'Its raining, so the cat is licking its paws indoors.'], 'it’s = it is; its = belonging to it.', 'Use it’s for "it is" and its for possession.'],
+          ['Which is the best closing for a note to your mother?', 'Love, Teja', ['Yours faithfully, Teja', 'Sir, Teja', 'The End'], 'Warm and short.', 'Notes to family end warmly.'],
+          ['Which sentence is most suitable for a note?', 'I’ve gone to the market. I’ll be back by five.', ['Respected Madam, I humbly beg to state…', 'Chapter 1: My Trip', 'Once upon a time there lived a king.'], 'Short and clear.', 'Notes give short, useful information.'],
+          ['What should a note to Mum usually say first?', 'Where you have gone or what has happened', ['Your full postal address', 'A poem', 'A list of your marks'], 'What does Mum need to know?', 'Put the main message first.'],
+          ['Choose the correct sentence.', 'Don’t worry; I won’t be late.', ['Dont worry; I wont be late.', 'Do’nt worry; I wo’nt be late.', 'Don’t worry; I willn’t be late.'], 'Check every apostrophe.', 'don’t and won’t are the correct short forms.'],
+        ]),
+      ],
+    },
+  ],
+};
+
+export const units: USpec[] = [u1, u2, u3, u4];
