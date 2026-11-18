@@ -763,4 +763,365 @@ const u4: USpec = {
   ],
 };
 
-export const units: USpec[] = [u1, u2, u3, u4];
+// =====================================================================================
+// Unit 5 — Travel (A Trip to Andaman)
+// =====================================================================================
+const u5: USpec = {
+  id: 'ts7.en.u5', subject: 'english', title: 'Unit 5: Journeys', source: src(5),
+  note: 'Reading A is taught through general, well-known facts about the Andaman Islands; the textbook’s own trip details are not summarised — teacher to read the travelogue with the class. Poem B (My Trip to the Moon) is taught at theme level; Reading C (Sindbad) is the well-known Arabian Nights tale.',
+  objectives: [
+    {
+      id: 'ts7.en.andaman.read', title: 'Reading: A Trip to Andaman; Sindbad, the Sailor', prereqs: [],
+      intro: [
+        h('About the reading'),
+        p('"A Trip to Andaman" is a travel account — the writer describes a journey to the Andaman Islands and what they saw and felt there. Read it with your teacher and notice how the writer uses time order and describing words.'),
+        h('Background: the Andaman Islands'),
+        keys(
+          'The Andaman and Nicobar Islands lie in the Bay of Bengal, far to the east of mainland India. They are a Union Territory.',
+          'People reach them by ship or by plane from cities such as Chennai and Kolkata. The capital is Sri Vijaya Puram (earlier called Port Blair).',
+          'The Cellular Jail in Port Blair, where many freedom fighters were imprisoned, is now a national memorial. Prison there was called "Kala Pani".',
+          'The islands have white sandy beaches, clear blue water, coral reefs, thick forests and rare wildlife.',
+        ),
+        h('Poem B: My Trip to the Moon'),
+        p('This playful poem imagines a journey to the moon — the speaker’s dreams of floating, looking back at the Earth and exploring a strange new world. It celebrates imagination and the wish to explore.'),
+        h('Reading C: Sindbad, the Sailor'),
+        p('Sindbad is a sailor from Baghdad in the old collection of tales called "The Arabian Nights" (One Thousand and One Nights). On his seven voyages he survives shipwrecks and meets wonders — a giant bird called the Roc, a valley full of diamonds, and a "small island" that turns out to be a huge sleeping whale.'),
+        def('Travelogue', 'A piece of writing that describes a journey and the places visited.'),
+        def('Coral reef', 'A rocky ridge in warm, shallow sea, built over many years by tiny sea animals called corals.'),
+      ],
+      examples: [
+        ex('Why is the Cellular Jail an important place to visit?', ['Think of its history.'], 'Many Indian freedom fighters were imprisoned there; it is now a national memorial.'),
+        ex('What did Sindbad mistake for an island?', ['It was alive and asleep in the sea.'], 'A huge sleeping whale.'),
+      ],
+      practice: [
+        mcq('comp', 'Recall the facts about the islands and the tales.', [
+          ['In which sea are the Andaman Islands?', 'The Bay of Bengal', ['The Arabian Sea', 'The Red Sea', 'The Mediterranean Sea'], 'It lies east of mainland India.', 'The Andaman Islands are in the Bay of Bengal.'],
+          ['How do visitors reach the Andaman Islands from the mainland?', 'By ship or by plane', ['By train', 'By bus', 'On foot'], 'They are islands.', 'Only ships and planes can reach them.'],
+          ['What was the Cellular Jail used for?', 'Imprisoning freedom fighters', ['Storing grain', 'Training sailors', 'Keeping wild animals'], 'It is now a memorial.', 'The British imprisoned many freedom fighters there.'],
+          ['A piece of writing about a journey is called a…', 'travelogue', ['biography', 'fable', 'notice'], 'travel + -logue.', 'A travelogue describes a journey.'],
+          ['Which collection of tales includes Sindbad?', 'The Arabian Nights', ['Aesop’s Fables', 'The Panchatantra', 'Tenali Raman tales'], 'A thousand and one nights.', 'Sindbad’s voyages are in the Arabian Nights.'],
+          ['What is the Roc in Sindbad’s voyages?', 'A giant bird', ['A sea monster', 'A ship', 'A king'], 'It can carry huge loads.', 'The Roc is an enormous bird.'],
+        ]),
+        matchT('match', 'item with what it is', [
+          ['Cellular Jail', 'national memorial to freedom fighters'], ['Coral reef', 'rocky sea ridge built by tiny animals'], ['Roc', 'giant bird in Sindbad’s tales'], ['Baghdad', 'Sindbad’s home city'], ['My Trip to the Moon', 'poem about an imaginary space journey'], ['Bay of Bengal', 'sea around the Andaman Islands'],
+        ], ['Some are places, some are creatures, one is a poem.', 'Sindbad came from Baghdad.']),
+        orderT('trip', ['Start with leaving home.', 'Coming home is last.'], [
+          ['We sailed from Chennai. | Three days later we reached Port Blair. | We visited the Cellular Jail. | We swam near a coral reef. | Then we flew back home.', 'Departure → arrival → places → activities → return.'],
+          ['From the deck of the ship, | we | watched | dolphins jumping.', 'Place phrase → subject → verb → what was seen.'],
+          ['Sindbad | thought | the whale | was an island.', 'Subject → verb → what he thought.'],
+          ['The clear blue water | was full of | bright, colourful | fish.', 'Subject → verb phrase → describing words → noun.'],
+          ['After a long voyage, | the ship | reached | the harbour.', 'Time phrase → subject → verb → place.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.nounverb.vocab', title: 'Vocabulary: words used as nouns and as verbs', prereqs: [],
+      intro: [
+        h('One word, two jobs'),
+        p('Many English words can be a noun (a thing) in one sentence and a verb (an action) in another — with the same spelling.'),
+        keys('a trip (noun) / to trip over a stone (verb)', 'a visit (noun) / to visit the islands (verb)', 'a dream (noun) / to dream of the moon (verb)', 'a ship (noun) / to ship goods (verb)', 'a swim (noun) / to swim (verb)', 'a plant (noun) / to plant a tree (verb)'),
+        stepsB(
+          'Look at the word before it: a / an / the / my / our → usually a NOUN.',
+          'Look at the word before it: to / will / can / I / they → usually a VERB.',
+          'Ask: is it naming a thing, or showing an action?',
+        ),
+        remember('Some pairs change their stress when spoken: a REcord (noun) / to reCORD (verb); a PREsent / to preSENT.'),
+      ],
+      examples: [
+        ex('Noun or verb? "We will visit Port Blair." / "Our visit was short."', ['"will visit" → action → verb.', '"Our visit" → a thing → noun.'], 'First: verb; second: noun.'),
+        ex('Use "dream" as a noun and as a verb.', ['noun: a dream; verb: to dream.'], 'I had a strange dream. / I dream of flying to the moon.'),
+      ],
+      practice: [
+        mcq('which', 'Look at the word just before the underlined word.', [
+          ['"Our trip to Andaman was fun." Here "trip" is a…', 'noun', ['verb', 'adverb', 'preposition'], '"Our" comes before it.', 'It names a thing → noun.'],
+          ['"Be careful or you will trip on the stairs." Here "trip" is a…', 'verb', ['noun', 'adjective', 'article'], '"will" comes before it.', 'It shows an action → verb.'],
+          ['"Let us plant a tree on Teachers’ Day." Here "plant" is a…', 'verb', ['noun', 'adjective', 'adverb'], 'It follows "Let us".', 'It is an action → verb.'],
+          ['"The plant needs water every day." Here "plant" is a…', 'noun', ['verb', 'adverb', 'preposition'], '"The" comes before it.', 'It names a thing → noun.'],
+          ['"I dream of visiting the moon." Here "dream" is a…', 'verb', ['noun', 'adjective', 'article'], '"I" comes before it.', 'An action done by "I" → verb.'],
+          ['"She had a lovely dream last night." Here "dream" is a…', 'noun', ['verb', 'adverb', 'adjective'], '"a lovely" comes before it.', 'It names a thing → noun.'],
+        ]),
+        mcq('use', 'Which sentence uses the word in the way asked?', [
+          ['In which sentence is "ship" a verb?', 'They ship mangoes to Dubai every summer.', ['The ship sailed at dawn.', 'Our ship was very large.', 'I saw a ship.'], 'Find the action.', 'Here "ship" means "send" → verb.'],
+          ['In which sentence is "swim" a noun?', 'We went for a swim in the sea.', ['I swim every morning.', 'Can you swim?', 'They swim fast.'], 'Look for "a" before it.', '"a swim" names an activity → noun.'],
+          ['In which sentence is "visit" a verb?', 'We will visit the zoo tomorrow.', ['The visit was too short.', 'Our visit was fun.', 'Thanks for your visit.'], 'Look for "will".', '"will visit" is an action → verb.'],
+          ['In which sentence is "watch" a noun?', 'Grandpa gave me a watch.', ['We watch the sunset.', 'Watch the road!', 'They watch cricket.'], 'A thing you can be given.', '"a watch" is a thing → noun.'],
+          ['In which sentence is "rest" a verb?', 'Let us rest under this tree.', ['Take some rest.', 'The rest of the class left.', 'A short rest helps.'], 'An action after "Let us".', '"rest" here is an action → verb.'],
+        ]),
+        matchT('pairs', 'sentence with the job of the underlined word (in capitals)', [
+          ['Our TRIP was long.', 'noun'], ['Don’t TRIP on the wire.', 'verb'], ['We had a short SWIM.', 'noun (activity)'], ['Fish SWIM fast.', 'verb (action)'], ['My WATCH is new.', 'noun (object)'], ['We WATCH films on Sundays.', 'verb (what we do)'],
+        ], ['a/our/my before the word → noun.', 'A subject like "we" or "fish" before it → verb.']),
+      ],
+    },
+    {
+      id: 'ts7.en.pastcont.use', title: 'Grammar: simple past and past continuous', prereqs: [],
+      intro: [
+        h('Two past tenses'),
+        def('Simple past', 'A finished action: We reached Port Blair on Monday. (V2: reached, saw, went)'),
+        def('Past continuous', 'An action going on at a time in the past: At 10 a.m. we were swimming. (was / were + verb-ing)'),
+        h('The rules'),
+        stepsB(
+          'Simple past: use the past form (V2) — walked, saw, took. Negative/question with did + base verb: didn’t go, Did you see?',
+          'Past continuous: I / he / she / it + was + -ing; we / you / they + were + -ing.',
+          'Use the past continuous for the LONGER background action, and the simple past for the SHORT action that interrupts it: We were sailing when we saw a dolphin.',
+          'Use "while" with the longer action: While we were sailing, a storm began.',
+          'Two finished actions one after another → both simple past: We landed, took a taxi and went to the hotel.',
+        ),
+        remember('Common errors: "we was" ✗ → "we were" ✓; "did went" ✗ → "did go" ✓; verbs like know, like, want are rarely used in -ing form: "I was knowing" ✗ → "I knew" ✓.'),
+      ],
+      examples: [
+        ex('Fill in: While Sindbad ____ (sleep), the ship ____ (sail) away.', ['Long background action → was sleeping.', 'Short interrupting action → sailed.'], 'While Sindbad was sleeping, the ship sailed away.'),
+        ex('Fill in: Yesterday we ____ (visit) the Cellular Jail.', ['A finished action at a finished time → simple past.'], 'Yesterday we visited the Cellular Jail.'),
+        ex('Correct: "They was playing when it rained."', ['they → were.'], 'They were playing when it rained.'),
+      ],
+      practice: [
+        mcq('fill', 'Long background action → was/were + -ing; short action → V2.', [
+          ['We ____ along the beach when we saw a turtle.', 'were walking', ['was walking', 'walked', 'are walking'], 'The walk was going on; "we" takes were.', 'Background action with "we" → were walking.'],
+          ['Meena was reading when the lights ____ off.', 'went', ['were going', 'go', 'was going'], 'The short, sudden action.', 'Interrupting action → simple past: went.'],
+          ['At 8 o’clock last night, I ____ my homework.', 'was doing', ['were doing', 'did doing', 'am doing'], 'An action in progress at a past time.', 'I + was + -ing.'],
+          ['Last year we ____ the Andaman Islands.', 'visited', ['were visit', 'was visiting', 'visit'], 'A finished trip.', 'Finished action → simple past.'],
+          ['While the children ____, the teacher wrote on the board.', 'were reading', ['was reading', 'reads', 'reading'], 'children = they → were.', 'Plural subject → were reading.'],
+          ['Did you ____ the dolphins yesterday?', 'see', ['saw', 'seen', 'seeing'], 'did + base verb.', 'After "did", use the base verb.'],
+        ]),
+        errT('spot', ['Check was/were with the subject.', 'After did, use the base verb.'], [
+          ['We | was sailing | when the storm | began.', 1, 'We were sailing when the storm began.', '"we" takes were.'],
+          ['The phone rang | while | I | was take a bath.', 3, 'The phone rang while I was taking a bath.', 'Past continuous needs -ing: was taking.'],
+          ['Did | you | went | to the beach yesterday?', 2, 'Did you go to the beach yesterday?', 'After did, use the base verb.'],
+          ['Ravi | was knowing | the answer | all along.', 1, 'Ravi knew the answer all along.', '"know" is not used in the -ing form here.'],
+          ['When I | was reaching | the station, | the train left.', 1, 'When I reached the station, the train left.', 'Reaching is a short, finished action → simple past.'],
+        ]),
+        orderT('build', ['Find the was/were + -ing part — that is the background action.', '"while" or "when" joins the two parts.'], [
+          ['While we were swimming, | a big wave | knocked | Ravi over.', 'While-clause (background) → subject → short action → object.'],
+          ['Grandma | was cooking | when | the guests arrived.', 'Background action → when → short action.'],
+          ['The children | were playing cricket | when | it started to rain.', 'Background → when → interruption.'],
+          ['Sindbad | was sleeping | under a tree | when the ship sailed away.', 'Subject → background → place → interruption.'],
+          ['Yesterday | we | visited | the old fort.', 'Time → subject → simple past verb → object.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.place.write', title: 'Writing: describing a tourist place', prereqs: [],
+      intro: [
+        h('Plan your description'),
+        stepsB(
+          'Title: the name of the place.',
+          'Introduction: where it is and why it is famous.',
+          'How to get there and the best time to visit.',
+          'What you can see and do — use describing words and the senses.',
+          'Conclusion: why people should visit / your feeling about it.',
+        ),
+        keys('Describing words: ancient, majestic, peaceful, crowded, sparkling, lush green.', 'Present tense for facts: The fort stands on a hill. Past tense if you describe your own visit.'),
+        h('Model (our own, short)'),
+        p('Laknavaram Lake. Laknavaram Lake is a peaceful lake in Mulugu district of Telangana, surrounded by green hills and forests. Visitors usually come by road from Warangal. The best time to go is after the monsoon, when the water is full. A long hanging bridge connects small islands in the lake, and you can go boating on the calm water. In the evening, birds return to the trees and the sunset turns the lake gold. It is a perfect place for anyone who loves nature.'),
+        remember('Do not just list places. Give details and feelings. Keep facts in the present tense.'),
+      ],
+      examples: [
+        ex('Improve: "Golconda Fort is big and old."', ['Add specific describing words and a detail.'], 'Golconda Fort is a huge, ancient fort on a granite hill near Hyderabad, famous for its clapping echo at the entrance.'),
+        ex('Write a conclusion for a description of a beach.', ['Why visit + feeling.'], 'With its soft sand and gentle waves, it is the perfect place to relax with your family.'),
+      ],
+      practice: [
+        orderT('plan', ['Introduce the place first.', 'End with why people should visit.'], [
+          ['Name and location of the place | Why it is famous | How to reach it | What to see and do | Why you should visit', 'Introduction → fame → travel → sights → conclusion.'],
+          ['Golconda Fort | stands | on a granite hill | near Hyderabad.', 'Subject → verb → where → near what.'],
+          ['In the evening, | a light and sound show | tells | the history of the fort.', 'Time → subject → verb → object.'],
+          ['The best time | to visit | is | from October to February.', 'Subject → to + verb → is → when.'],
+          ['With its green hills, | the lake | is | a paradise for nature lovers.', 'Phrase → subject → verb → description.'],
+        ]),
+        mcq('style', 'A good description is clear, detailed and lively.', [
+          ['Which sentence describes a place best?', 'The ancient temple glows golden in the evening sun.', ['The temple is there.', 'I went.', 'Temples are buildings.'], 'Look for describing words.', 'It uses vivid describing words.'],
+          ['Which detail belongs under "How to reach"?', 'Buses run every hour from Warangal.', ['The lake is beautiful.', 'Birds sing in the morning.', 'It was built long ago.'], 'Travel information.', 'Bus details tell how to reach the place.'],
+          ['Which tense is best for facts about the place?', 'Simple present', ['Simple future', 'Past continuous', 'Past perfect'], 'Facts are always true.', 'Facts about a place use the present tense.'],
+          ['Which is the best title?', 'Golconda Fort', ['My Homework', 'Dear Friend', 'Chapter Five'], 'Name the place.', 'The title is usually the name of the place.'],
+          ['Which sentence is a good conclusion?', 'Golconda is a must-see for anyone who loves history.', ['Golconda is near Hyderabad.', 'Buses go there.', 'It has walls.'], 'Why should people visit?', 'A conclusion recommends the place.'],
+        ]),
+        matchT('words', 'place with a fitting describing phrase', [
+          ['a beach', 'soft white sand and gentle waves'], ['a fort', 'massive stone walls and old gateways'], ['a forest', 'tall trees and chirping birds'], ['a market', 'crowded lanes and noisy sellers'], ['a lake', 'calm water reflecting the sky'], ['a waterfall', 'roaring water and cool spray'],
+        ], ['Picture each place in your mind.', 'Which one has waves? Which one has gateways?']),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Unit 6 — Adventure and bravery (A Hero)
+// =====================================================================================
+const u6: USpec = {
+  id: 'ts7.en.u6', subject: 'english', title: 'Unit 6: Adventure and Bravery', source: src(6),
+  note: 'Reading A is R.K. Narayan’s short story; our summary follows the widely known plot — teacher to confirm against the textbook. Poem B (My Nasty Adventure) and Reading C (Learn How to Climb Trees, pleasure reading) are taught at theme level only.',
+  objectives: [
+    {
+      id: 'ts7.en.hero.read', title: 'Reading: A Hero', prereqs: [],
+      intro: [
+        h('About the writer'),
+        p('R.K. Narayan (1906–2001) was one of India’s best-known writers in English. Many of his stories are set in Malgudi, an imaginary small town in South India. Swami, a schoolboy, is one of his most famous characters.'),
+        h('What happens (our summary)'),
+        stepsB(
+          'Swami’s father reads in the newspaper about a brave boy who faced danger in a forest. He decides that Swami too should become brave.',
+          'As a test, Swami must sleep alone in his father’s office room instead of next to his grandmother. Swami is terrified of the dark, but cannot refuse.',
+          'At night, lying under a bench, Swami is too scared to sleep. He sees a shadowy figure creep into the room — a burglar!',
+          'In panic Swami bites the man’s leg hard and screams. The family wakes up and the burglar is caught.',
+          'Swami is praised as a hero; even the police inspector and his teacher admire him. Secretly, Swami knows he was only frightened — and he is happy when he is allowed to sleep beside his grandmother again.',
+        ),
+        keys('Humour: the "hero" acted out of fear, not courage.', 'Theme: what bravery really means; parents’ expectations of children.', 'Irony: Swami gets the very praise his father wanted — but not for the reason his father thinks.'),
+        h('Poem B and Reading C'),
+        p('"My Nasty Adventure" tells, in a lively way, about a frightening experience and how the speaker felt. Reading C, "Learn How to Climb Trees", is for enjoyment and encourages outdoor play and confidence.'),
+        def('Irony', 'When the result is the opposite of what is expected or intended.'),
+      ],
+      examples: [
+        ex('Why did Swami’s father make him sleep alone?', ['He read about a brave boy.', 'He wanted his son to be brave too.'], 'To make Swami brave, like the boy in the newspaper.'),
+        ex('Was Swami really brave? Give a reason.', ['He bit the burglar in panic, not by plan.'], 'Not really — he acted out of fear, which makes the story funny and ironic.'),
+      ],
+      practice: [
+        mcq('comp', 'Recall the events of the story.', [
+          ['Who wrote "A Hero"?', 'R.K. Narayan', ['Ruskin Bond', 'Tennyson', 'Andersen'], 'He created Malgudi.', 'R.K. Narayan wrote the Swami stories.'],
+          ['What gave Swami’s father the idea to test Swami?', 'A newspaper story about a brave boy', ['A film', 'A letter from school', 'A dream'], 'He was reading something.', 'He read about a brave boy in the newspaper.'],
+          ['Where did Swami have to sleep?', 'Alone in his father’s office room', ['In the garden', 'At a friend’s house', 'In the school'], 'Away from grandmother.', 'He had to sleep alone in the office room.'],
+          ['What did Swami do when the burglar came?', 'He bit the burglar’s leg', ['He hid under a blanket silently', 'He called the police on the phone', 'He ran out of the house'], 'Something done in panic.', 'In panic he bit the burglar’s leg.'],
+          ['Why is the story funny?', 'Swami is called a hero though he acted out of fear', ['Swami tells many jokes', 'The burglar is a clown', 'The father falls asleep'], 'Think about irony.', 'He is praised for courage he did not really have.'],
+          ['Where are many of Narayan’s stories set?', 'Malgudi', ['Baghdad', 'Port Blair', 'Vijayanagara'], 'An imaginary town.', 'Malgudi is Narayan’s imaginary town.'],
+        ]),
+        orderT('events', ['The newspaper story comes first.', 'The praise comes after the burglar is caught.'], [
+          ['Father read about a brave boy. | Swami was told to sleep alone. | A burglar crept into the room. | Swami bit the burglar’s leg. | Everyone praised Swami.', 'Idea → test → danger → reaction → praise.'],
+          ['Swami | was too scared | to sleep | in the dark room.', 'Subject → too + adjective → to + verb → place.'],
+          ['When the burglar came in, | Swami | bit | his leg.', 'Time clause → subject → verb → object.'],
+          ['The police inspector | praised | the little boy | for his courage.', 'Subject → verb → object → reason.'],
+          ['In the end, | Swami | slept | beside his grandmother again.', 'Time phrase → subject → verb → place.'],
+        ]),
+        matchT('chars', 'character or word with its description', [
+          ['Swami', 'schoolboy who is afraid of the dark'], ['Swami’s father', 'wants his son to be brave'], ['The grandmother', 'Swami usually sleeps beside her'], ['The burglar', 'creeps into the office room at night'], ['Malgudi', 'Narayan’s imaginary town'], ['Irony', 'result opposite to what was expected'],
+        ], ['Think about each person’s role in the story.', 'Irony is a literary word, not a person.']),
+      ],
+    },
+    {
+      id: 'ts7.en.proverb.vocab', title: 'Vocabulary: synonyms and proverbs', prereqs: [],
+      intro: [
+        h('Synonyms'),
+        p('Synonyms are words with nearly the same meaning. Using them makes your writing less repetitive: scared, afraid, frightened, terrified (very scared).'),
+        keys('brave – bold – courageous', 'scared – afraid – frightened', 'praise – admire – appreciate', 'shout – scream – yell', 'quickly – rapidly – swiftly'),
+        h('Proverbs'),
+        def('Proverb', 'A short, well-known saying that gives advice or states a truth about life.'),
+        keys(
+          'Fortune favours the brave. → Brave people often succeed.',
+          'Look before you leap. → Think before you act.',
+          'Practice makes perfect. → Doing something again and again makes you good at it.',
+          'All that glitters is not gold. → Things that look good are not always valuable.',
+          'A friend in need is a friend indeed. → A true friend helps in difficult times.',
+          'Actions speak louder than words. → What you do matters more than what you say.',
+        ),
+        stepsB('Read the proverb slowly.', 'Ask: what situation could it describe?', 'Put the advice in your own simple words.'),
+        remember('A proverb is not about its literal objects: "All that glitters is not gold" is not really about gold.'),
+      ],
+      examples: [
+        ex('Which proverb fits: "Ravi jumped into the lake without checking how deep it was."', ['He acted without thinking.'], 'Look before you leap.'),
+        ex('Give two synonyms of "afraid".', ['Words for fear.'], 'scared, frightened'),
+      ],
+      practice: [
+        mcq('syn', 'Pick the word with nearly the same meaning.', [
+          ['A synonym of "frightened" is…', 'scared', ['happy', 'brave', 'calm'], 'Swami felt this in the dark.', 'frightened = scared.'],
+          ['A synonym of "praise" is…', 'admire', ['blame', 'ignore', 'scold'], 'Saying good things.', 'praise ≈ admire.'],
+          ['A synonym of "scream" is…', 'yell', ['whisper', 'smile', 'sleep'], 'A loud cry.', 'scream ≈ yell.'],
+          ['A synonym of "bold" is…', 'brave', ['shy', 'timid', 'weak'], 'Not afraid.', 'bold ≈ brave.'],
+          ['A synonym of "swiftly" is…', 'quickly', ['slowly', 'lazily', 'quietly'], 'Speed.', 'swiftly = quickly.'],
+          ['A synonym of "terrified" is…', 'very scared', ['very tired', 'very happy', 'very hungry'], 'A strong fear word.', 'terrified = very frightened.'],
+        ]),
+        matchT('proverb', 'proverb with its meaning', [
+          ['Look before you leap.', 'Think before you act.'], ['Practice makes perfect.', 'Doing something often makes you good at it.'], ['All that glitters is not gold.', 'Things that look good are not always valuable.'], ['A friend in need is a friend indeed.', 'A true friend helps in hard times.'], ['Actions speak louder than words.', 'What you do matters more than what you say.'], ['Fortune favours the brave.', 'Brave people often succeed.'],
+        ], ['Do not read proverbs literally.', 'Find the advice hidden in each one.']),
+        mcq('fit', 'Which proverb matches the situation?', [
+          ['Meena practised the veena every day and won first prize.', 'Practice makes perfect.', ['Look before you leap.', 'All that glitters is not gold.', 'Fortune favours the brave.'], 'Daily effort.', 'Regular practice made her skilful.'],
+          ['Arjun bought a shiny toy that broke in a day.', 'All that glitters is not gold.', ['Practice makes perfect.', 'A friend in need is a friend indeed.', 'Fortune favours the brave.'], 'Looked good, but was not.', 'Shiny things are not always good.'],
+          ['When Teja broke his leg, Kiran carried his bag every day.', 'A friend in need is a friend indeed.', ['Look before you leap.', 'All that glitters is not gold.', 'Practice makes perfect.'], 'Help in hard times.', 'Kiran was a true friend when Teja needed help.'],
+          ['Sana kept promising to help but never did.', 'Actions speak louder than words.', ['Practice makes perfect.', 'Fortune favours the brave.', 'All that glitters is not gold.'], 'Words without deeds.', 'Her promises meant nothing without action.'],
+          ['Diya spoke up bravely on stage and won the debate.', 'Fortune favours the brave.', ['Look before you leap.', 'All that glitters is not gold.', 'A friend in need is a friend indeed.'], 'Courage brought success.', 'Her courage was rewarded.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.whenwhile.use', title: 'Grammar: past continuous with "when" and "while"', prereqs: ['ts7.en.pastcont.use'],
+      intro: [
+        h('Telling a past story with two actions'),
+        p('In a story, one action is often going on (the background) when another, shorter action happens.'),
+        stepsB(
+          'Background action → past continuous: was / were + verb-ing.',
+          'Short action that interrupts → simple past (V2).',
+          '"while" usually goes with the background action: While Swami was lying under the bench, a burglar entered.',
+          '"when" usually goes with the short action: Swami was lying under the bench when a burglar entered.',
+          'Two actions going on at the same time → both past continuous: While Father was reading, Mother was cooking.',
+          'Put a comma after the first clause if it begins with when/while.',
+        ),
+        remember('Do not put the short, sudden action in the -ing form: "when the burglar was entering" usually sounds wrong if it was a single quick moment.'),
+      ],
+      examples: [
+        ex('Join with "when": "Swami was trying to sleep. He heard a noise."', ['Background: was trying to sleep.', 'Short: heard a noise.'], 'Swami was trying to sleep when he heard a noise.'),
+        ex('Join with "while": "Mother was cooking. Father was reading the paper."', ['Both actions going on at the same time → both past continuous.'], 'While Mother was cooking, Father was reading the paper.'),
+      ],
+      practice: [
+        mcq('fill', 'Background → was/were + -ing; sudden action → V2.', [
+          ['While Swami ____ under the bench, the door creaked.', 'was lying', ['lay', 'were lying', 'lies'], 'The background action.', 'Background with "Swami" (he) → was lying.'],
+          ['We were having dinner when the doorbell ____.', 'rang', ['was ringing', 'rings', 'ring'], 'The sudden action.', 'Interrupting action → simple past: rang.'],
+          ['While I was cycling to school, I ____ my friend.', 'saw', ['was seeing', 'see', 'seen'], 'A short moment.', 'Short action → saw.'],
+          ['The dog ____ loudly when the postman came.', 'was barking', ['were barking', 'barking', 'barks'], 'Background with "the dog".', 'it → was barking.'],
+          ['While the boys were playing, the girls ____ a play.', 'were rehearsing', ['was rehearsing', 'rehearses', 'rehearsing'], 'Two long actions at the same time.', 'Both background → were rehearsing.'],
+          ['I was walking home ____ it started to rain.', 'when', ['while', 'during', 'since'], 'The sudden action follows.', '"when" introduces the short action.'],
+        ]),
+        orderT('join', ['Find the was/were + -ing part.', 'Put a comma after a clause that begins with While or When.'], [
+          ['While Swami was sleeping, | a burglar | crept | into the room.', 'While-clause → subject → short action → place.'],
+          ['Father | was reading | when | the lights went out.', 'Background → when → sudden action.'],
+          ['While Mother was cooking, | Grandma | was telling | a story.', 'Two actions going on together.'],
+          ['When the bell rang, | the children | were still writing | their answers.', 'When-clause (short action) → background still in progress.'],
+          ['I | was crossing the road | when | a cycle hit my bag.', 'Background → when → sudden action.'],
+        ]),
+        errT('spot', ['Check was/were.', 'The sudden action should be simple past.'], [
+          ['While I | were reading, | my brother | switched off the light.', 1, 'While I was reading, my brother switched off the light.', '"I" takes was.'],
+          ['The children | was playing | when | the bell rang.', 1, 'The children were playing when the bell rang.', 'Plural subject → were.'],
+          ['Swami | was sleeping | when the burglar | was entering suddenly.', 3, 'Swami was sleeping when the burglar entered suddenly.', 'The sudden action → simple past.'],
+          ['While | we were walk | in the park, | it began to rain.', 1, 'While we were walking in the park, it began to rain.', 'Past continuous needs -ing.'],
+          ['Kiran | fell | while he | was climb the tree.', 3, 'Kiran fell while he was climbing the tree.', 'was + climbing.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.diary.write', title: 'Writing: a diary entry', prereqs: [],
+      intro: [
+        h('What is a diary entry?'),
+        p('A diary is a personal record of your day. You write it for yourself, so it is honest and full of feelings.'),
+        stepsB(
+          'Date (and day, time if you like) at the top left: 12 November 2026, Thursday, 9 p.m.',
+          'Greeting (optional): Dear Diary,',
+          'Body: what happened today, in time order, in the past tense.',
+          'Feelings: how you felt and why — scared, proud, nervous, relieved.',
+          'Closing thought: what you learnt or hope for tomorrow.',
+          'Sign your name (optional).',
+        ),
+        keys('First person: I, me, my.', 'Past tense for events; present tense for current feelings: I still feel a little nervous.'),
+        h('Model (our own, short)'),
+        p('14 November 2026, Saturday, 9 p.m. Dear Diary, Today was the scariest and best day of the month. At the school trip to Bhongir Fort, I was too nervous to climb the last part of the rock. My friend Imran held my hand and we climbed slowly together. When we reached the top, the whole town looked like a toy village! I felt so proud of myself. Tomorrow I will tell Amma all about it. — Kavya'),
+        remember('Common mistakes: forgetting the date; writing like a report with no feelings; mixing up I/he.'),
+      ],
+      examples: [
+        ex('Write the opening of a diary entry for Swami on the night after catching the burglar.', ['Date + Dear Diary + first event.'], '15 March, night. Dear Diary, I can’t believe everyone thinks I am a hero!'),
+        ex('Add a feeling to: "We lost the match."', ['Say how you felt and why.'], 'We lost the match, and I felt disappointed because we had practised so hard.'),
+      ],
+      practice: [
+        orderT('format', ['The date comes first.', 'End with a closing thought.'], [
+          ['Date and day | Dear Diary, | What happened today | How I felt | What I will do tomorrow', 'Date → greeting → events → feelings → closing thought.'],
+          ['Today | I | felt | very proud of myself.', 'Time → subject → verb → feeling.'],
+          ['When we reached the top, | the town | looked | like a toy village.', 'Time clause → subject → verb → comparison.'],
+          ['I was nervous at first, | but | my friend | helped me.', 'Feeling → but → subject → action.'],
+          ['Tomorrow | I | will tell Amma | all about it.', 'Time → subject → future action → what.'],
+        ]),
+        mcq('style', 'A diary is personal, dated and full of feelings.', [
+          ['What must a diary entry always have at the top?', 'The date', ['A title page', 'The receiver’s address', 'A moral'], 'When did it happen?', 'Every diary entry is dated.'],
+          ['Which sentence suits a diary entry best?', 'I was so nervous before the test that my hands were shaking.', ['The test has 20 questions.', 'Students must bring pencils.', 'Dear Sir, I request leave.'], 'Personal feeling.', 'Diaries share personal feelings.'],
+          ['Which point of view is used in a diary?', 'First person (I, me)', ['Third person (he, she)', 'Second person only (you)', 'No person at all'], 'You write about yourself.', 'A diary is written in the first person.'],
+          ['Which is a good closing thought?', 'Tomorrow I will say sorry to Ravi.', ['Yours faithfully,', 'The end of the chapter.', 'Answer all questions.'], 'A thought about tomorrow.', 'A closing thought looks forward or reflects.'],
+          ['Which tense is used for what happened today?', 'Simple past', ['Simple future', 'Imperative', 'Future continuous'], 'The events are over.', 'Events of the day are told in the past tense.'],
+        ]),
+        matchT('feel', 'event with the most fitting feeling', [
+          ['I won the drawing competition.', 'proud'], ['My best friend moved to another city.', 'sad'], ['The test results come out tomorrow.', 'nervous'], ['The lost puppy was found safe.', 'relieved'], ['Someone took my pencil without asking.', 'annoyed'], ['We are going to the zoo on Sunday!', 'excited'],
+        ], ['Imagine it happened to you.', 'Relieved = worry is over.']),
+      ],
+    },
+  ],
+};
+
+export const units: USpec[] = [u1, u2, u3, u4, u5, u6];
