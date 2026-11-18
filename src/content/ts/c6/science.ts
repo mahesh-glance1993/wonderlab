@@ -1110,5 +1110,507 @@ const fib3: OSpec = {
 
 const ch8: USpec = { id: 'ts6.sc.ch8', subject: 'chemistry', title: 'Fibre to Fabric', source: src(8), objectives: [fib1, fib2, fib3] };
 
-export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8];
-void [rd, who, xp]; // TEMP
+
+// =====================================================================================
+// Chapter 9 — Plants: Parts and Functions
+// =====================================================================================
+const pl1: OSpec = {
+  id: 'ts6.sc.plant.root', title: 'Parts of a plant and the root', prereqs: [],
+  intro: [
+    h('Shoot above, root below'),
+    photo('🌱', 'A young seedling with its root going down and its shoot going up.'),
+    p('A flowering plant has two main systems. The ROOT system grows below the ground. The SHOOT system grows above the ground and has the stem, branches, leaves, flowers, fruits and seeds.'),
+    h('Two types of roots'),
+    def('Tap root', 'One thick main root with thinner side roots branching from it — mango, neem, bean, mustard, tomato.'),
+    def('Fibrous roots', 'A bunch of thin roots of about the same size growing from the base of the stem — grass, paddy, wheat, maize, onion.'),
+    h('What do roots do?'),
+    keys('Hold the plant firmly in the soil (anchorage).', 'Absorb water and minerals from the soil.', 'Some store food: carrot, radish, beetroot, sweet potato.', 'Some give extra support: the hanging prop roots of the banyan tree.'),
+    remember('Plants with tap roots usually have leaves with net-like veins; plants with fibrous roots usually have leaves with parallel veins.'),
+    tip('Gently pull out a weed and a grass plant after rain and compare their roots.'),
+  ],
+  examples: [
+    ex('Arjun pulls out a paddy plant and a bean plant. Which has a tap root?', ['Paddy has a bunch of thin, equal roots — fibrous.', 'Bean has one main root with branches — tap root.'], 'The bean plant'),
+    ex('Why does a plant wilt if its roots are badly damaged?', ['Roots absorb water from the soil.', 'Without water reaching the leaves, the plant loses its firmness.'], 'Damaged roots cannot absorb enough water.'),
+  ],
+  practice: [
+    sortT('tf', 'a tap root', 'fibrous roots', [
+      ['Mango', true], ['Neem', true], ['Bean', true], ['Mustard', true], ['Tomato', true], ['Carrot', true],
+      ['Paddy', false], ['Grass', false], ['Wheat', false], ['Maize', false], ['Onion', false],
+    ], ['One main root, or a bunch of equal roots?', 'Grasses and cereals have fibrous roots.'], 'Many broad-leaved plants have tap roots; grasses, cereals and onion have fibrous roots.'),
+    mcq('root', 'Remember the jobs of roots.', [
+      ['Which is NOT a job of roots?', 'Making food using sunlight', ['Absorbing water', 'Holding the plant in the soil', 'Storing food in some plants'], 'Roots live in darkness.', 'Food is made in green leaves using sunlight, not in roots.'],
+      ['The banyan tree’s hanging roots that reach the ground give…', 'Extra support', ['Colour', 'Flowers', 'Seeds'], 'They act like pillars.', 'Prop roots support the huge branches.'],
+      ['Carrot and radish are roots that…', 'Store food', ['Make seeds', 'Climb walls', 'Float on water'], 'We eat them.', 'These roots are swollen with stored food.'],
+      ['The part of the plant above the ground is called the…', 'Shoot system', ['Root system', 'Soil', 'Seed coat'], 'It shoots upwards.', 'Stem, leaves, flowers and fruits make the shoot system.'],
+      ['Roots absorb water and…', 'Minerals', ['Sunlight', 'Oxygen from leaves', 'Seeds'], 'Dissolved in soil water.', 'Roots take in water with dissolved minerals.'],
+    ]),
+    matchT('part', 'plant part to its main job', [
+      ['Root', 'Absorbs water and minerals'], ['Stem', 'Holds up leaves and carries water'], ['Leaf', 'Makes food'], ['Flower', 'Forms fruits and seeds'], ['Fruit', 'Protects seeds'], ['Seed', 'Grows into a new plant'],
+    ], ['Work from the bottom of the plant to the top.'], 4),
+  ],
+};
+
+const pl2: OSpec = {
+  id: 'ts6.sc.plant.leaf', title: 'The leaf — parts, venation and transpiration', prereqs: ['ts6.sc.plant.root'],
+  intro: [
+    h('The plant’s kitchen'),
+    photo('🍃', 'A green leaf with a midrib down the middle and a network of veins.'),
+    def('Parts of a leaf', 'Lamina (the flat green blade), petiole (the stalk joining it to the stem), midrib (the thick central vein) and veins (thin lines spreading from the midrib).'),
+    def('Venation', 'The pattern of veins on a leaf.'),
+    keys('Reticulate venation: veins form a net — mango, hibiscus, neem, peepal.', 'Parallel venation: veins run side by side — grass, paddy, banana, maize.'),
+    p('Green leaves make food for the whole plant using sunlight, water and air. This is why leaves are flat and broad — to catch sunlight.'),
+    h('Leaves give out water'),
+    def('Transpiration', 'The loss of water vapour from the leaves through tiny pores called stomata.'),
+    stepsB('Tie a clear polythene bag around a leafy branch of a potted plant in the morning.', 'Leave it in sunlight.', 'By evening, water droplets appear inside the bag.', 'The water came out of the leaves as vapour and condensed on the bag.'),
+    remember('Transpiration helps pull water up from the roots and cools the plant — and adds water vapour to the air for the water cycle.'),
+    tip('Hold a leaf up to the light to see its veins clearly, then decide: net or parallel?'),
+  ],
+  examples: [
+    ex('A banana leaf has veins running side by side from the midrib to the edge. Is its venation net or parallel?', ['The veins do not form a network.', 'They run side by side.'], 'Parallel venation'),
+    ex('Why do droplets appear inside a polythene bag tied over leaves on a sunny day?', ['Leaves lose water vapour through stomata (transpiration).', 'The vapour touches the cooler bag and condenses into drops.'], 'Because of transpiration from the leaves.'),
+  ],
+  practice: [
+    sortT('vein', 'reticulate (net) venation', 'parallel venation', [
+      ['Mango leaf', true], ['Hibiscus leaf', true], ['Neem leaf', true], ['Peepal leaf', true], ['Tulasi leaf', true],
+      ['Grass', false], ['Paddy leaf', false], ['Banana leaf', false], ['Maize leaf', false], ['Sugarcane leaf', false],
+    ], ['Do the veins form a net or run side by side?'], 'Broad leaves like mango and neem show net venation; grasses, paddy, maize and banana show parallel venation.'),
+    matchT('lp', 'leaf part to its description', [
+      ['Lamina', 'Flat green blade'], ['Petiole', 'Stalk joining leaf to stem'], ['Midrib', 'Thick central vein'], ['Veins', 'Thin lines carrying water and food'], ['Stomata', 'Tiny pores for gases and water vapour'],
+    ], ['Start with the stalk and the blade.'], 4),
+    mcq('trans', 'Leaves make food and give out water vapour.', [
+      ['Loss of water vapour from leaves is called…', 'Transpiration', ['Germination', 'Condensation in the soil', 'Ginning'], 'It happens through stomata.', 'Transpiration is water loss from leaves.'],
+      ['Water vapour leaves through tiny pores called…', 'Stomata', ['Petioles', 'Roots', 'Veins'], 'They are on the leaf surface.', 'Stomata are tiny pores on leaves.'],
+      ['Which part of the plant makes food?', 'Green leaf', ['Root', 'Flower', 'Seed coat'], 'It catches sunlight.', 'Green leaves make food using sunlight, water and air.'],
+      ['Plants with parallel venation usually have…', 'Fibrous roots', ['Tap roots', 'No roots', 'Prop roots only'], 'Think of grass.', 'Parallel venation usually goes with fibrous roots.'],
+      ['The stalk of a leaf is called the…', 'Petiole', ['Lamina', 'Midrib', 'Stomata'], 'It joins the leaf to the stem.', 'The petiole is the leaf stalk.'],
+      ['A polythene bag tied over leaves gets droplets inside because of…', 'Transpiration', ['Rain', 'A leak in the bag', 'Melting'], 'Water came from the leaves.', 'Water vapour given out by leaves condenses on the bag.'],
+    ]),
+  ],
+};
+
+const pl3: OSpec = {
+  id: 'ts6.sc.plant.stem', title: 'The stem — support and transport', prereqs: ['ts6.sc.plant.root'],
+  intro: [
+    h('The plant’s pillar and pipeline'),
+    photo('🌳', 'The strong trunk of a tree holds up thousands of leaves.'),
+    p('The stem holds the branches, leaves, flowers and fruits up towards the light. It also works like a pipeline: water and minerals go UP from the roots to the leaves, and food made in the leaves goes to all other parts.'),
+    stepsB('Put a balsam (or celery) stem in water coloured with red ink.', 'Leave it for a few hours.', 'Cut the stem across and look: red spots or lines are seen inside.', 'The coloured water has travelled up through thin tubes in the stem.'),
+    def('Nodes and internodes', 'A node is the point on a stem where a leaf grows; the part between two nodes is an internode.'),
+    p('Some stems are weak: creepers (pumpkin, watermelon) spread on the ground; climbers (money plant, bean, bitter gourd) climb a support using tendrils or by twining. Some stems store food: potato, ginger, sugarcane, turmeric.'),
+    keys('Stem: supports the plant and carries water up and food to all parts.', 'Nodes have leaves and buds.', 'Weak stems: creepers and climbers.', 'Storage stems: potato, ginger, turmeric, sugarcane.'),
+    remember('Ginger and turmeric are underground stems, not roots — they have nodes and buds.'),
+    tip('A stem has nodes and buds; a root does not.'),
+  ],
+  examples: [
+    ex('Why do petals of a white flower turn blue when its stem stands in blue ink water?', ['The stem carries water upward through thin tubes.', 'The coloured water reaches the flower.', 'The petals take up the colour.'], 'The stem transports the coloured water up to the flower.'),
+    ex('Is ginger a root or a stem? Give a reason.', ['Ginger has nodes, and buds grow from them.', 'Roots do not have nodes or buds.'], 'A stem (underground stem)'),
+  ],
+  practice: [
+    mcq('stem', 'Support + transport.', [
+      ['Which part carries water from the roots to the leaves?', 'Stem', ['Flower', 'Fruit', 'Seed'], 'It is in the middle.', 'The stem carries water upward.'],
+      ['A point on the stem where a leaf grows is a…', 'Node', ['Internode', 'Petiole', 'Root hair'], 'It is a "knot".', 'Leaves and buds grow at nodes.'],
+      ['Which plant is a climber?', 'Money plant', ['Mango', 'Neem', 'Coconut'], 'It needs support to go up.', 'Money plant climbs a support.'],
+      ['Which plant is a creeper?', 'Pumpkin', ['Banyan', 'Teak', 'Sugarcane'], 'It spreads on the ground.', 'Pumpkin has a weak stem that spreads on the ground.'],
+      ['Potato is a…', 'Stem that stores food', ['Root that stores food', 'Leaf', 'Fruit'], 'It has eyes (buds).', 'Potato is an underground stem with buds.'],
+      ['A celery stem in red water shows red lines inside because…', 'Water travels up through tubes in the stem', ['The stem was painted', 'The roots make red colour', 'Red light shines on it'], 'Think of a pipeline.', 'Stems carry water upward through thin tubes.'],
+    ]),
+    sortT('type', 'a strong, upright stem', 'a weak stem (creeper or climber)', [
+      ['Mango tree', true], ['Neem tree', true], ['Teak', true], ['Coconut palm', true], ['Sugarcane', true],
+      ['Pumpkin', false], ['Watermelon', false], ['Money plant', false], ['Bitter gourd', false], ['Bean climber', false],
+    ], ['Can it stand up on its own?'], 'Trees and sugarcane stand upright; creepers and climbers have weak stems.'),
+    tapT('storage', 'Tap every STEM (not root) that stores food.', [
+      ['Potato', true], ['Ginger', true], ['Turmeric', true], ['Sugarcane', true], ['Onion bulb', true],
+      ['Carrot', false], ['Radish', false], ['Beetroot', false], ['Sweet potato', false],
+    ], ['Stems have nodes and buds ("eyes").', 'Carrot, radish, beetroot and sweet potato are roots.'], 'Potato, ginger, turmeric, sugarcane and the onion bulb are stems; carrot, radish, beetroot and sweet potato are roots.', 5, 2),
+  ],
+};
+
+const ch9: USpec = { id: 'ts6.sc.ch9', subject: 'biology', title: 'Plants: Parts and Functions', source: src(9), objectives: [pl1, pl2, pl3] };
+
+// =====================================================================================
+// Chapter 10 — Changes Around Us
+// =====================================================================================
+const chg1: OSpec = {
+  id: 'ts6.sc.change.types', title: 'Kinds of changes around us', prereqs: [],
+  intro: [
+    h('Everything changes'),
+    photo('🍌', 'A green banana turns yellow and then brown as it ripens.'),
+    p('Changes happen all around us: ice melts, milk becomes curd, a seed grows into a plant, paper burns, iron rusts, day changes into night.'),
+    def('Reversible change', 'A change that can be undone, getting back the original substance — melting ice, folding paper, stretching a rubber band, blowing up a balloon, dissolving salt in water.'),
+    def('Irreversible change', 'A change that cannot be undone — burning paper, cooking rice, milk to curd, ripening fruit, rusting, growing old.'),
+    keys('Slow changes take a long time (growth of a tree, rusting); fast changes happen quickly (burning a matchstick, bursting a cracker).', 'Natural changes happen by themselves (ripening, seasons); man-made changes are caused by people (cooking, building a house).', 'Periodic changes repeat at regular times (day and night, seasons, phases of the moon).'),
+    remember('Ask: "Can I get back what I started with?" Yes → reversible; No → irreversible.'),
+    tip('A new substance forming (ash, curd, rust) is a sign of an irreversible change.'),
+  ],
+  examples: [
+    ex('Is making a roti from dough a reversible change?', ['Dough is cooked on a hot tawa.', 'The roti cannot be turned back into dough.'], 'No — it is irreversible.'),
+    ex('Classify the melting of candle wax as fast or slow, reversible or irreversible.', ['Wax melts within minutes near a flame — fast.', 'Melted wax hardens again on cooling — reversible.'], 'Fast and reversible'),
+  ],
+  practice: [
+    sortT('rev', 'reversible', 'irreversible', [
+      ['Melting ice', true], ['Folding a paper', true], ['Stretching a rubber band', true], ['Blowing up a balloon', true], ['Dissolving salt in water', true], ['Melting wax', true],
+      ['Burning paper', false], ['Cooking rice', false], ['Milk turning to curd', false], ['Ripening of a mango', false], ['Rusting of iron', false], ['Growing taller', false],
+    ], ['Can you get the original thing back?'], 'If the original can be got back, the change is reversible; if a new substance forms, it is irreversible.'),
+    sortT('speed', 'a fast change', 'a slow change', [
+      ['Bursting a balloon', true], ['Burning a matchstick', true], ['Lightning flash', true], ['Breaking a glass', true],
+      ['Growth of a tree', false], ['Rusting of a gate', false], ['Ripening of a jackfruit', false], ['Growth of hair', false], ['Formation of soil', false],
+    ], ['Seconds or days and years?'], 'Fast changes happen in moments; slow changes take days, months or years.'),
+    mcq('kind', 'Is it periodic, natural or man-made?', [
+      ['Day and night following each other is a…', 'Periodic change', ['Man-made change', 'Reversible change in a lab', 'Change by cooking'], 'It repeats regularly.', 'Changes that repeat at fixed times are periodic.'],
+      ['Cooking food is a…', 'Man-made change', ['Natural change', 'Periodic change', 'Reversible change'], 'Who does it?', 'People cook food, so it is man-made.'],
+      ['Ripening of fruits on a tree is a…', 'Natural change', ['Man-made change', 'Reversible change', 'Fast change'], 'Nobody has to do anything.', 'Ripening happens by itself in nature.'],
+      ['Which is a sign of an irreversible change?', 'A new substance forms', ['The shape changes slightly', 'It is folded', 'It is stretched'], 'Ash, rust, curd…', 'New substances cannot easily be turned back.'],
+      ['Phases of the moon are an example of a…', 'Periodic change', ['Man-made change', 'Irreversible change', 'Change by heating'], 'Full moon comes about every month.', 'They repeat in a regular cycle.'],
+    ]),
+  ],
+};
+
+const chg2: OSpec = {
+  id: 'ts6.sc.change.curd', title: 'Milk changing into curd', prereqs: ['ts6.sc.change.types'],
+  intro: [
+    h('A change made by tiny helpers'),
+    photo('🥛', 'Warm milk with a spoon of curd becomes thick curd by morning.'),
+    p('At home, a spoon of old curd is added to lukewarm milk in the evening. By next morning the milk has become thick, sour curd. How?'),
+    p('Curd contains tiny living things called bacteria (Lactobacillus). When curd is added to warm milk, these bacteria multiply quickly and change the milk sugar into an acid. The acid makes the milk thick and sour — curd.'),
+    def('Starter (thodu)', 'The small amount of old curd added to milk. It supplies the bacteria that turn milk into curd.'),
+    keys('Milk → curd is caused by bacteria.', 'Warmth helps: curd sets faster in summer than in winter.', 'Very hot or cold milk does not set well — hot milk kills the bacteria, cold milk slows them down.', 'Milk → curd is an irreversible change.'),
+    remember('Curd cannot be turned back into milk — a new substance has formed.'),
+    tip('In winter, keep the curd vessel in a warm place (wrapped in a cloth) so it sets well.'),
+  ],
+  examples: [
+    ex('Sita added curd to milk straight from the refrigerator. Next morning it had not set. Why?', ['Bacteria grow slowly in the cold.', 'So they could not change the milk in time.'], 'The milk was too cold for the bacteria to work quickly.'),
+    ex('Is milk turning into curd reversible? Explain.', ['Curd is a new substance — thicker and sour.', 'No method at home can turn it back into milk.'], 'No — it is an irreversible change.'),
+  ],
+  practice: [
+    mcq('curd', 'Bacteria + warmth turn milk into curd.', [
+      ['What turns milk into curd?', 'Bacteria in the added curd', ['Sunlight alone', 'Salt', 'A magnet'], 'Tiny living helpers.', 'Lactobacillus bacteria change milk into curd.'],
+      ['Milk sets into curd fastest when it is…', 'Lukewarm', ['Boiling hot', 'Ice-cold', 'Frozen'], 'Bacteria like gentle warmth.', 'Lukewarm milk is best for the bacteria to multiply.'],
+      ['Curd sets faster in…', 'Summer', ['Winter', 'Neither — it is the same', 'Only at night in winter'], 'Which season is warmer?', 'Warmth makes bacteria grow faster.'],
+      ['Milk turning into curd is a…', 'Irreversible change', ['Reversible change', 'Periodic change', 'Change of state only'], 'Can curd become milk again?', 'A new substance forms and cannot go back.'],
+      ['Why is a little old curd added to milk?', 'It supplies the bacteria needed', ['It adds colour', 'It cools the milk', 'It makes milk magnetic'], 'It is called the starter.', 'The starter curd contains the bacteria.'],
+      ['Why does very hot milk not set into curd?', 'The heat kills the bacteria', ['Hot milk is too sweet', 'Hot milk is solid', 'Hot milk has no water'], 'Bacteria are living things.', 'Too much heat kills the bacteria.'],
+    ]),
+    orderT('make', [
+      ['Put the steps for making curd at home in order.', ['Boil the milk', 'Let it cool until lukewarm', 'Add a spoon of curd and stir', 'Cover and keep it in a warm place', 'Curd is ready after some hours'], 'Milk is boiled first, but bacteria are added only after it cools to lukewarm.'],
+    ], ['Can the bacteria survive in boiling milk?']),
+    tapT('help', 'Tap every condition that HELPS milk set into curd.', [
+      ['Adding a little old curd', true], ['Lukewarm milk', true], ['Keeping it in a warm place', true], ['Covering the vessel', true],
+      ['Keeping it in the freezer', false], ['Adding curd to boiling milk', false], ['Stirring it all night', false],
+    ], ['Bacteria need gentle warmth and time without disturbance.'], 'Starter curd, warmth and rest help the bacteria; cold, boiling heat and constant stirring do not.'),
+  ],
+};
+
+const chg3: OSpec = {
+  id: 'ts6.sc.change.seasons', title: 'Changing seasons', prereqs: ['ts6.sc.change.types'],
+  intro: [
+    h('Summer, rains and winter'),
+    photo('⛈️', 'Thunderclouds in June announce the arrival of the monsoon.'),
+    p('In Telangana we feel three main seasons: SUMMER (March to early June) is hot and dry; the RAINY season (June to September) brings the south-west monsoon; WINTER (November to February) is cool and dry. October is a short change-over time.'),
+    def('Seasonal (periodic) change', 'A change that comes back at about the same time every year.'),
+    keys('Plants: many trees shed leaves in summer and get new leaves before or with the rains; neem and mango flower in early summer.', 'Animals: frogs appear in the rainy season; many birds migrate to our lakes in winter.', 'People: cotton clothes in summer, woollens in winter, umbrellas in the rains.', 'Farming: kharif crops (paddy, cotton, maize) are sown with the monsoon; rabi crops (Bengal gram, groundnut, wheat in some areas) are grown in winter.'),
+    p('Festivals also follow the seasons: Ugadi welcomes the new year in spring, Bonalu is celebrated in Ashadam (July–August), Bathukamma with flowers after the rains, and Sankranti marks the winter harvest.'),
+    remember('Seasons are periodic changes: they repeat every year.'),
+    tip('Keep a "season diary" — note the weather, the clothes you wear and the trees around you once a month.'),
+  ],
+  examples: [
+    ex('Why do farmers in Telangana sow paddy and cotton in June–July?', ['Crops need a lot of water to start growing.', 'The monsoon brings rain from June.', 'So these kharif crops are sown with the rains.'], 'Because the monsoon rains begin then.'),
+    ex('Name two changes you see in people’s lives between summer and winter.', ['Clothing: cotton in summer, woollens in winter.', 'Food and drink: buttermilk and cool drinks in summer, hot food in winter.'], 'Clothing and food habits change.'),
+  ],
+  practice: [
+    tp('season', (r) => {
+      const pool: [string, string][] = [
+        ['Hot, dry days and loo-like winds', 'Summer'], ['Neem and mango trees flowering', 'Summer'], ['Wearing cotton clothes and drinking buttermilk', 'Summer'],
+        ['Frogs croaking in the fields', 'Rainy season'], ['Sowing paddy and cotton', 'Rainy season'], ['Using umbrellas and raincoats', 'Rainy season'],
+        ['Wearing sweaters in the early morning', 'Winter'], ['Migratory birds visiting lakes', 'Winter'], ['Sankranti harvest festival', 'Winter'],
+      ];
+      const [m, a] = r.pick(pool);
+      return {
+        type: 'mcq', prompt: `In Telangana, in which season do you usually notice: ${m}?`, ...choose(r, a, ['Summer', 'Rainy season', 'Winter'].filter((x) => x !== a)),
+        hints: ['Summer: March–early June; rainy: June–September; winter: November–February.'],
+        mistakes: [{ when: 'wrong', explain: 'Think about the weather when this happens.' }],
+        solution: [`${m} → ${a.toLowerCase()}.`],
+      };
+    }),
+    orderT('year', [
+      ['Starting from March, put the seasons of Telangana in order.', ['Summer', 'Rainy season', 'Winter'], 'Hot months come first, then the monsoon, then the cool months.'],
+      ['Put these months in calendar order.', ['January (winter)', 'April (summer)', 'July (rainy season)', 'December (winter again)'], 'Seasons repeat every year — they are periodic.'],
+    ], ['Which season comes just before the monsoon?']),
+    mcq('seasons-q', 'Seasons are periodic changes.', [
+      ['Why are seasons called periodic changes?', 'They repeat every year', ['They never repeat', 'People cause them', 'They are irreversible'], 'Think of next year’s summer.', 'Seasons come back regularly every year.'],
+      ['Kharif crops like paddy are sown in…', 'The rainy season', ['Peak summer', 'Winter', 'Any month without water'], 'They need lots of water.', 'Kharif crops are sown with the monsoon.'],
+      ['Which months are the rainy season in Telangana?', 'June to September', ['December to February', 'March to May', 'Only October'], 'The south-west monsoon.', 'The monsoon brings rain from June to September.'],
+      ['Which festival is celebrated with flower stacks after the rains?', 'Bathukamma', ['Sankranti', 'Holi', 'Diwali'], 'Women sing and dance around it.', 'Bathukamma uses seasonal flowers like tangedu and gunugu.'],
+      ['Many birds migrate to Telangana lakes in…', 'Winter', ['Summer', 'The rainy season', 'Never'], 'They escape colder places.', 'Migratory birds arrive in winter.'],
+    ]),
+  ],
+};
+
+const ch10: USpec = { id: 'ts6.sc.ch10', subject: 'chemistry', title: 'Changes Around Us', source: src(10), objectives: [chg1, chg2, chg3] };
+
+// =====================================================================================
+// Chapter 11 — Water in Our Life
+// =====================================================================================
+const wat1: OSpec = {
+  id: 'ts6.sc.water.measure', title: 'Measuring the volume of water', prereqs: [],
+  intro: [
+    h('How much water?'),
+    photo('🧴', 'A one-litre water bottle — a handy measure of volume.'),
+    def('Volume', 'The amount of space something takes up. For liquids we measure it in litres (L) and millilitres (mL).'),
+    p('1 litre = 1000 millilitres. A big water bottle holds 1 L; a small medicine cup holds 5 mL or 10 mL; a bucket holds about 15–20 L.'),
+    p('In the laboratory we use a measuring cylinder: a tall glass or plastic tube marked in mL. The water surface curves slightly. Read the mark at the BOTTOM of the curve, keeping your eye level with the surface.'),
+    stepsB('Keep the measuring cylinder on a flat table.', 'Pour water in slowly.', 'Bend down so your eye is level with the water surface.', 'Read the mark at the bottom of the curved surface.'),
+    xp({
+      title: 'What if? How much water does a family use?', formula: 'Total water = people × water per person',
+      res: ['W', 'Water used by the family per day', 'L', 'n * w', 0],
+      vars: [['n', 'People in the family', '', 1, 10, 1, 4], ['w', 'Water used by one person per day', 'L', 20, 150, 5, 50]],
+      notes: [['n', 'More people means more water is needed each day.', 'Fewer people use less water in all.'], ['w', 'If each person wastes water, the total goes up quickly.', 'Saving even a few litres each adds up to a big saving for the family.']],
+      mistakes: [['Adding people and litres', 'Each person uses w litres, so multiply: n × w.']],
+      real: 'Closing the tap while brushing can save several litres per person every day — multiply that by everyone in your house.',
+    }),
+    keys('1 L = 1000 mL.', 'Use a measuring cylinder for accurate volume.', 'Read at the bottom of the curved surface with your eye level.'),
+    remember('To change litres to millilitres, multiply by 1000. To change millilitres to litres, divide by 1000.'),
+    tip('Two 500 mL bottles together hold exactly 1 litre.'),
+  ],
+  examples: [
+    ex('How many millilitres are there in 3 L?', ['1 L = 1000 mL', '3 × 1000 = 3000'], '3000 mL'),
+    ex('A family of 5 people each uses 40 L of water a day. How much water does the family use in a day?', ['Total = people × water per person', '5 × 40 = 200'], '200 L'),
+  ],
+  practice: [
+    tp('l2ml', (r) => {
+      const l = r.pick([1, 2, 3, 4, 5, 1.5, 2.5, 0.5, 0.25, 0.75]);
+      return numQ(`How many millilitres are there in ${l} L?`, l * 1000, 'mL',
+        ['1 L = 1000 mL.', 'Multiply the litres by 1000.'],
+        [`${l} × 1000 = ${l * 1000} mL`],
+        [{ when: String(l / 1000), explain: 'You divided. Going from litres to the smaller unit mL, the number gets bigger — multiply by 1000.' }]);
+    }),
+    tp('ml2l', (r) => {
+      const ml = r.pick([2000, 3000, 500, 250, 1500, 4500, 750, 5000]);
+      return numQ(`A jug holds ${ml} mL of water. How many litres is that?`, ml / 1000, 'L',
+        ['1000 mL make 1 L.', 'Divide the millilitres by 1000.'],
+        [`${ml} ÷ 1000 = ${ml / 1000} L`],
+        [{ when: String(ml * 1000), explain: 'You multiplied. Going from mL to the bigger unit L, the number gets smaller — divide by 1000.' }]);
+    }),
+    tp('family', (r) => {
+      const n = r.int(2, 8), w = r.pick([20, 30, 40, 45, 50, 60, 70]);
+      const name = who(r);
+      return numQ(`${name}’s family has ${n} people. Each person uses about ${w} L of water a day. How much water does the family use in one day?`, n * w, 'L',
+        ['Each person uses the same amount.', 'Multiply people × litres per person.'],
+        [`${n} × ${w} = ${n * w} L`],
+        [{ when: String(n + w), explain: 'You added. Each of the people uses that many litres, so multiply.' }]);
+    }, 2),
+    mcq('read', 'Read at the bottom of the curve, eye level.', [
+      ['Which instrument is used to measure the volume of a liquid in the laboratory?', 'Measuring cylinder', ['Thermometer', 'Ruler', 'Compass'], 'A tall marked tube.', 'A measuring cylinder is marked in mL.'],
+      ['While reading a measuring cylinder, your eye should be…', 'Level with the water surface', ['Above the cylinder', 'Below the table', 'Closed'], 'Looking from above or below gives a wrong reading.', 'Keep your eye level with the surface to avoid error.'],
+      ['The water surface in a cylinder is curved. Read the mark at its…', 'Bottom', ['Top edge', 'Side', 'Any point'], 'The lowest point of the curve.', 'We read at the bottom of the curved surface.'],
+      ['How many 250 mL glasses can be filled from 1 L?', '4', ['2', '10', '25'], '1 L = 1000 mL.', '1000 ÷ 250 = 4 glasses.'],
+      ['Which unit is best for the volume of medicine in a spoon?', 'Millilitre (mL)', ['Litre (L)', 'Kilogram (kg)', 'Metre (m)'], 'It is a small amount.', 'Small volumes are measured in mL.'],
+    ]),
+  ],
+};
+
+const wat2: OSpec = {
+  id: 'ts6.sc.water.sources', title: 'Sources of water and water on earth', prereqs: ['ts6.sc.water.measure'],
+  intro: [
+    h('Where does our water come from?'),
+    photo('🏞️', 'A river and its tanks supply water to towns and fields.'),
+    p('Rain is the main source of all fresh water. Rainwater fills rivers, lakes, ponds and tanks (surface water) and soaks into the ground (groundwater). We take groundwater out through open wells, borewells and hand pumps.'),
+    p('In Telangana, the Godavari and Krishna rivers and thousands of village tanks (cheruvulu) are important sources. Mission Kakatiya restores old tanks so they hold more rainwater, and Mission Bhagiratha brings treated drinking water through pipes to homes.'),
+    h('Water on earth'),
+    p('About three-quarters of the earth’s surface is covered with water, but nearly all of it (about 97 out of every 100 parts) is salty sea water. Only about 3 parts in 100 are fresh water — and most of that is frozen in ice caps and glaciers. Less than 1 part in 100 is fresh water we can easily use.'),
+    keys('Rain is the main source of fresh water.', 'Surface water: rivers, lakes, tanks. Groundwater: wells, borewells.', 'About 97% of earth’s water is salty; only about 3% is fresh, and most of that is ice.'),
+    remember('Even though our planet looks blue, usable fresh water is very scarce — every drop must be saved.'),
+    tip('Imagine all the earth’s water in 100 buckets: 97 are salty, 2 are frozen, and only about 1 is fresh water we can use.'),
+  ],
+  examples: [
+    ex('If all the water on earth is shown as 100 litres, about how many litres would be fresh water?', ['About 97 out of 100 parts are salty.', '100 − 97 = 3'], 'About 3 litres'),
+    ex('Why does a village well become dry in summer when there was little rain?', ['Wells take water from groundwater.', 'Groundwater is filled up by rain soaking into the soil.', 'Little rain means little refilling.'], 'Because groundwater was not recharged by enough rain.'),
+  ],
+  practice: [
+    mcq('src', 'Rain fills both surface water and groundwater.', [
+      ['The main source of all fresh water is…', 'Rain', ['The sea', 'Ice factories', 'Bottles'], 'It falls from clouds.', 'Rain fills rivers, lakes and groundwater.'],
+      ['Water from a borewell is…', 'Groundwater', ['Surface water', 'Sea water', 'Rainwater in clouds'], 'It is pumped up from below.', 'Borewells draw groundwater.'],
+      ['About how much of the earth’s water is salty sea water?', '97%', ['3%', '50%', '10%'], 'Almost all of it.', 'About 97% is in the seas and oceans.'],
+      ['Most of the earth’s fresh water is…', 'Frozen in ice and glaciers', ['In rivers', 'In village tanks', 'In bottles'], 'Think of the poles.', 'Ice caps and glaciers hold most fresh water.'],
+      ['Mission Bhagiratha in Telangana provides…', 'Treated drinking water to homes through pipes', ['Electricity', 'Free bicycles', 'Seeds'], 'Named after the legend who brought the Ganga down.', 'It supplies safe drinking water by pipeline.'],
+      ['Mission Kakatiya restores old…', 'Village tanks', ['Railway lines', 'Schools', 'Factories'], 'Cheruvulu built centuries ago.', 'It desilts and repairs tanks to store more rainwater.'],
+    ]),
+    sortT('sg', 'surface water', 'groundwater', [
+      ['River', true], ['Lake', true], ['Village tank', true], ['Pond', true], ['Reservoir behind a dam', true],
+      ['Borewell', false], ['Open well', false], ['Hand pump', false], ['Spring from the ground', false],
+    ], ['Is the water on top of the land, or under it?'], 'Rivers, lakes, ponds and tanks are surface water; wells, borewells and hand pumps draw groundwater.'),
+    tp('fresh', (r) => {
+      const total = r.pick([100, 200, 500, 1000, 50, 300]);
+      return numQ(`Imagine all the water on earth is ${total} buckets. About 97 out of every 100 buckets are salty. About how many buckets are fresh water?`, total * 3 / 100, undefined,
+        ['Fresh water is about 3 out of every 100.', `Find 3/100 of ${total}.`],
+        [`Fresh = 3 out of 100 → ${total} × 3 ÷ 100 = ${total * 3 / 100}`],
+        [{ when: String(total * 97 / 100), explain: 'That is the salty part. Fresh water is the remaining 3 out of 100.' }]);
+    }, 2),
+  ],
+};
+
+const wat3: OSpec = {
+  id: 'ts6.sc.water.safe', title: 'Safe drinking water, droughts and floods', prereqs: ['ts6.sc.water.sources'],
+  intro: [
+    h('From the lake to your tap'),
+    photo('💧', 'Clean water from a tap reaches us after many steps of treatment.'),
+    p('Water from rivers and lakes may look clean but can carry mud, germs and dirt. Drinking it can cause diseases like diarrhoea, cholera and typhoid. So water is treated before it is supplied.'),
+    stepsB('Water is pumped from a river or reservoir into big tanks.', 'Sedimentation: it is left to stand (often with alum) so mud settles.', 'Filtration: it passes through layers of sand and gravel that trap fine dirt.', 'Disinfection: chlorine (or bleaching powder) is added to kill germs.', 'Storage and supply: clean water is stored in overhead tanks and sent through pipes.'),
+    p('At home we can make water safer by boiling it, filtering it through a clean cloth or a water filter, and storing it in a clean covered vessel.'),
+    h('Too little and too much'),
+    def('Drought', 'A long period with little or no rain. Wells and tanks dry up, crops fail and animals suffer.'),
+    def('Flood', 'Too much water from very heavy rain, when rivers and tanks overflow and water covers land, homes and fields.'),
+    keys('Treatment: sedimentation → filtration → chlorination → supply.', 'At home: boil, filter, cover.', 'Droughts: too little rain. Floods: too much rain.', 'Save water: rainwater harvesting, fixing leaks, drip irrigation.'),
+    remember('Rainwater harvesting — collecting rooftop rainwater into pits or tanks — helps groundwater and protects against drought.'),
+    tip('If water looks clear, it can still contain germs — boil it when in doubt.'),
+  ],
+  examples: [
+    ex('Why is chlorine added to water at the treatment plant?', ['Sedimentation and filtration remove dirt but not all germs.', 'Chlorine kills germs.'], 'To kill disease-causing germs.'),
+    ex('Give two ways a village can prepare for drought.', ['Store rainwater in tanks and harvesting pits during the monsoon.', 'Use water carefully, e.g. drip irrigation in fields.'], 'Rainwater harvesting and careful use (drip irrigation)'),
+  ],
+  practice: [
+    orderT('treat', [
+      ['Put the stages of treating drinking water in order.', ['Pump water from the reservoir', 'Let mud settle (sedimentation)', 'Pass through sand and gravel (filtration)', 'Add chlorine (disinfection)', 'Store and supply through pipes'], 'Dirt is removed first, then germs are killed, then water is supplied.'],
+      ['Put the steps for making water safe at home in order.', ['Let the water stand so mud settles', 'Pour off and filter through a clean cloth', 'Boil the water', 'Cool it in a clean covered vessel', 'Drink using a clean ladle'], 'Clear the water first, then boil, then keep it covered.'],
+    ], ['What must be removed first — mud or germs?']),
+    mcq('safe', 'Dirt is removed by settling and filtering; germs by chlorine or boiling.', [
+      ['Which step kills germs in water?', 'Adding chlorine', ['Sedimentation', 'Pumping', 'Storing in tanks'], 'A chemical is used.', 'Chlorine disinfects water.'],
+      ['Boiling water at home makes it safe because…', 'Heat kills germs', ['It adds minerals', 'It makes water cold', 'It removes the vessel'], 'Germs cannot survive high heat.', 'Boiling kills most germs.'],
+      ['A long time with little or no rain is called a…', 'Drought', ['Flood', 'Cyclone', 'Monsoon'], 'Wells dry up.', 'Drought means water shortage due to lack of rain.'],
+      ['When rivers overflow after very heavy rain, it is a…', 'Flood', ['Drought', 'Famine of salt', 'Eclipse'], 'Too much water.', 'Floods happen when there is too much water.'],
+      ['Which disease spreads through unsafe drinking water?', 'Cholera', ['Fracture', 'Short sight', 'Sunburn'], 'It causes severe diarrhoea.', 'Cholera spreads through contaminated water.'],
+      ['Collecting rooftop rainwater in a pit is called…', 'Rainwater harvesting', ['Winnowing', 'Threshing', 'Ginning'], 'Harvesting the rain.', 'Rainwater harvesting recharges groundwater.'],
+    ]),
+    sortT('df', 'a cause or effect of drought', 'a cause or effect of floods', [
+      ['Monsoon fails for a season', true], ['Wells and borewells dry up', true], ['Cracks in the dry fields', true], ['Cattle lack drinking water', true],
+      ['Rivers overflow their banks', false], ['Very heavy rain for many days', false], ['Low-lying houses under water', false], ['Roads and bridges washed away', false],
+    ], ['Too little water or too much water?'], 'Droughts come from too little rain; floods from too much rain.'),
+  ],
+};
+
+const ch11: USpec = { id: 'ts6.sc.ch11', subject: 'chemistry', title: 'Water in Our Life', source: src(11), objectives: [wat1, wat2, wat3] };
+
+// =====================================================================================
+// Chapter 12 — Simple Electric Circuits
+// =====================================================================================
+const el1: OSpec = {
+  id: 'ts6.sc.electric.circuit', title: 'Cell, bulb, switch and the torch', prereqs: [],
+  intro: [
+    h('Making a bulb glow'),
+    photo('🔦', 'A torch has cells, a switch, a bulb and a shiny reflector.'),
+    def('Electric cell', 'A source of electricity. It has two terminals: the positive (+) terminal is the small metal cap on top, and the negative (−) terminal is the flat metal base.'),
+    def('Bulb', 'A glass globe with a thin coiled wire called the filament inside. The filament is joined to two terminals on the base. When electricity flows through the filament, it becomes very hot and glows.'),
+    def('Electric circuit', 'A complete, unbroken path from the + terminal of the cell, through wires and the bulb, back to the − terminal. Electricity flows only in a closed (complete) circuit.'),
+    def('Switch', 'A device that opens (breaks) or closes (completes) a circuit. ON = closed circuit, bulb glows; OFF = open circuit, bulb does not glow.'),
+    p('A torch is a simple circuit: two or more cells are placed one after another (+ of one touching − of the next), a sliding switch connects them to a small bulb, and a curved shiny reflector sends the light forward as a beam.'),
+    xp({
+      title: 'What if? Add more cells to a torch', formula: 'Total voltage = 1.5 V × number of cells',
+      res: ['V', 'Total voltage', 'V', '1.5 * n', 1],
+      vars: [['n', 'Number of cells in a row (+ to −)', '', 1, 4, 1, 2]],
+      notes: [['n', 'Each extra cell adds 1.5 V, so the bulb gets a bigger push and glows brighter (too many can fuse a small bulb).', 'Fewer cells give a smaller push, so the bulb glows dimmer.']],
+      mistakes: [['Joining + to + when adding cells', 'Cells must be joined + to − (one after another). Wrong way round, they cancel each other.']],
+      real: 'A torch with 2 cells uses 3 V; a torch with 3 cells uses 4.5 V and needs a bulb made for that voltage.',
+    }),
+    keys('Electricity flows only in a closed circuit.', 'A bulb glows when current flows through its filament.', 'A switch opens or closes the circuit.', 'In a torch, cells are joined + to −.'),
+    remember('If the filament breaks, the circuit is broken and the bulb is “fused” — it will not glow.'),
+    tip('Never experiment with the electricity from wall sockets. It can kill. Use only cells.'),
+  ],
+  examples: [
+    ex('Kiran joins a wire from the + terminal of a cell to one bulb terminal, but leaves the other bulb terminal unconnected. Will the bulb glow?', ['Electricity needs a complete path back to the − terminal.', 'The path is broken at the second bulb terminal.', 'This is an open circuit.'], 'No — the circuit is open.'),
+    ex('A torch uses 3 cells of 1.5 V each joined correctly. What is the total voltage?', ['Cells joined + to − add up.', '3 × 1.5 = 4.5'], '4.5 V'),
+  ],
+  practice: [
+    mcq('circ', 'A complete path is needed.', [
+      ['The bulb glows only when the circuit is…', 'Closed (complete)', ['Open (broken)', 'Wet', 'Painted'], 'Electricity needs a full loop.', 'Current flows only through a complete circuit.'],
+      ['The thin coiled wire inside a bulb is the…', 'Filament', ['Terminal', 'Switch', 'Reflector'], 'It glows when hot.', 'The filament glows when current flows through it.'],
+      ['The metal cap on top of a cell is its…', 'Positive (+) terminal', ['Negative (−) terminal', 'Filament', 'Switch'], 'Look for the + sign.', 'The small cap is the positive terminal.'],
+      ['What does a switch do?', 'Opens or closes the circuit', ['Makes electricity', 'Stores light', 'Makes the bulb hotter always'], 'ON and OFF.', 'A switch completes or breaks the circuit.'],
+      ['A bulb with a broken filament is said to be…', 'Fused', ['Charged', 'Switched on', 'Magnetic'], 'It will not glow any more.', 'A broken filament breaks the circuit.'],
+      ['What is the job of the shiny reflector in a torch?', 'To send the light forward as a beam', ['To make electricity', 'To hold the cells', 'To act as a switch'], 'It is like a curved mirror.', 'The reflector directs the light forward.'],
+    ]),
+    tp('volts', (r) => {
+      const n = r.int(1, 6);
+      return numQ(`${n} cells of 1.5 V each are joined + to − in a torch. What is the total voltage?`, rd(1.5 * n, 1), 'V',
+        ['Cells joined + to − add their voltages.', 'Multiply 1.5 V by the number of cells.'],
+        [`${n} × 1.5 V = ${rd(1.5 * n, 1)} V`],
+        [{ when: '1.5', explain: 'That is one cell. Cells in a row add their voltages.' }]);
+    }),
+    orderT('path', [
+      ['Follow the path of electricity in a torch circuit, starting at the cell.', ['+ terminal of the cell', 'Wire to the switch', 'Switch (ON)', 'Filament of the bulb', 'Back to the − terminal'], 'Electricity goes out from + and must come back to − through a closed path.'],
+      ['Put the steps for making a bulb glow in order.', ['Take a cell, a bulb and two wires', 'Join one wire from + terminal to one bulb terminal', 'Join the other wire from the other bulb terminal', 'Touch it to the − terminal', 'The bulb glows'], 'The loop is complete only when the last wire touches the − terminal.'],
+    ], ['Start at the + terminal.']),
+  ],
+};
+
+const el2: OSpec = {
+  id: 'ts6.sc.electric.conductors', title: 'Conductors and insulators', prereqs: ['ts6.sc.electric.circuit'],
+  intro: [
+    h('Which materials let electricity pass?'),
+    photo('🔩', 'Metal objects like nails and screws let electricity pass through them.'),
+    stepsB('Make a circuit with a cell, a bulb and two wires, leaving a gap between two wire ends.', 'Put different objects across the gap: a key, a coin, an eraser, a pencil, a plastic scale, a steel spoon.', 'If the bulb glows, the object lets electricity pass.', 'Make two lists.'),
+    def('Conductor', 'A material that allows electricity to pass through it — metals like copper, aluminium, iron, silver; also graphite (pencil lead), and impure water.'),
+    def('Insulator', 'A material that does not allow electricity to pass — plastic, rubber, wood, glass, paper, cloth, dry air.'),
+    p('Electric wires have a copper or aluminium core (conductor) covered with plastic (insulator). Electricians use screwdrivers and pliers with plastic or rubber handles. Switches are covered with plastic.'),
+    keys('Metals are good conductors.', 'Plastic, rubber, wood and glass are insulators.', 'Wires: conductor inside, insulator outside.', 'Our body conducts electricity — so electricity from sockets is dangerous.'),
+    remember('Never touch switches with wet hands: water on the skin helps electricity pass into the body.'),
+    tip('The pencil "lead" is graphite, which conducts. The wooden case does not.'),
+  ],
+  examples: [
+    ex('Diya tests a steel spoon and a plastic spoon in her circuit. Which one makes the bulb glow?', ['Steel is a metal — a conductor.', 'Plastic is an insulator.'], 'The steel spoon'),
+    ex('Why are electric wires covered with plastic?', ['The copper inside carries electricity.', 'Plastic does not conduct electricity.', 'So the covering protects us from shocks and stops wires touching each other.'], 'Plastic is an insulator that protects us.'),
+  ],
+  practice: [
+    sortT('ci', 'a conductor', 'an insulator', [
+      ['Copper wire', true], ['Iron nail', true], ['Aluminium foil', true], ['Steel spoon', true], ['Silver ring', true], ['Pencil lead (graphite)', true], ['Brass key', true],
+      ['Plastic scale', false], ['Rubber eraser', false], ['Wooden stick', false], ['Glass marble', false], ['Paper', false], ['Cotton thread', false],
+    ], ['Is it a metal (or graphite)?'], 'Metals and graphite conduct electricity; plastic, rubber, wood, glass, paper and cloth are insulators.'),
+    mcq('safe', 'Conductors carry electricity; insulators protect us.', [
+      ['Why do electricians use pliers with rubber handles?', 'Rubber is an insulator', ['Rubber is a conductor', 'Rubber is shiny', 'Rubber is magnetic'], 'It stops electricity reaching the hand.', 'Rubber does not conduct electricity.'],
+      ['The metal inside electric wires is usually…', 'Copper', ['Plastic', 'Rubber', 'Glass'], 'A good conductor.', 'Copper is a very good conductor.'],
+      ['Why should you not touch a switch with wet hands?', 'Water helps electricity pass into your body', ['Water makes the switch shiny', 'The switch will rust instantly', 'It is only bad manners'], 'Wet skin conducts better.', 'Impure water conducts electricity and can cause a shock.'],
+      ['Which of these is a conductor even though it is not a metal?', 'Graphite (pencil lead)', ['Plastic', 'Rubber', 'Wood'], 'It is inside a pencil.', 'Graphite conducts electricity.'],
+      ['Switch covers and plugs are made of plastic because plastic is…', 'An insulator', ['A conductor', 'A magnet', 'Transparent'], 'We touch them with our hands.', 'Plastic protects us from shocks.'],
+    ]),
+    tapT('ins', 'Tap every INSULATOR.', [
+      ['Plastic', true], ['Rubber', true], ['Dry wood', true], ['Glass', true], ['Paper', true],
+      ['Copper', false], ['Iron', false], ['Aluminium', false], ['Graphite', false],
+    ], ['Insulators do not let electricity pass.'], 'Plastic, rubber, dry wood, glass and paper are insulators; metals and graphite are conductors.'),
+  ],
+};
+
+const el3: OSpec = {
+  id: 'ts6.sc.electric.bulb', title: 'The story of the electric bulb', prereqs: ['ts6.sc.electric.circuit'],
+  intro: [
+    h('From oil lamps to LEDs'),
+    photo('💡', 'An electric bulb — one of the inventions that changed the world.'),
+    p('For thousands of years people used fire, oil lamps (deepam), candles and lanterns for light. In the 1800s many scientists tried to make light from electricity. In 1879 Thomas Alva Edison made a bulb that could glow for many hours, after testing hundreds of materials for the filament. Soon homes and streets began to be lit by electricity.'),
+    p('In such bulbs (incandescent bulbs) the filament — today made of tungsten — becomes white-hot and glows. But most of the electricity becomes heat, not light: an ordinary bulb gets too hot to touch.'),
+    def('CFL and LED', 'Newer lamps. A CFL (compact fluorescent lamp) and an LED (light emitting diode) give the same light as an ordinary bulb while using much less electricity and staying cool.'),
+    keys('Edison made a long-lasting electric bulb in 1879.', 'Filament bulbs waste much electricity as heat.', 'LED lamps use much less electricity and last longer.'),
+    remember('Switching to LED bulbs and switching off lights when not needed saves electricity and money.'),
+    tip('Edison said he did not fail — he found hundreds of ways that did not work. Scientists learn from every try.'),
+  ],
+  examples: [
+    ex('Why does an ordinary filament bulb feel hot after it has been on for some time?', ['The filament glows only when it is very hot.', 'Much of the electricity turns into heat, not light.'], 'Most of the electricity is changed into heat.'),
+    ex('Teja’s school replaces all old bulbs with LED lamps. Give two benefits.', ['LEDs use much less electricity for the same light.', 'They last much longer and stay cool.'], 'Less electricity used and longer life.'),
+  ],
+  practice: [
+    mcq('story', 'Remember the story and the newer lamps.', [
+      ['Who made a long-lasting electric bulb in 1879?', 'Thomas Alva Edison', ['Isaac Newton', 'C. V. Raman', 'Galileo'], 'He tested hundreds of filaments.', 'Edison made a practical electric bulb in 1879.'],
+      ['The filament of an ordinary bulb is now made of…', 'Tungsten', ['Plastic', 'Copper', 'Glass'], 'A metal that can become white-hot without melting.', 'Tungsten has a very high melting point.'],
+      ['Which lamp uses the LEAST electricity for the same light?', 'LED lamp', ['Filament bulb', 'Kerosene lantern', 'Candle'], 'Three letters, stays cool.', 'LED lamps are the most energy-efficient.'],
+      ['Most of the electricity used by a filament bulb becomes…', 'Heat', ['Sound', 'Magnetism', 'Water'], 'Try touching it carefully — don’t!', 'Filament bulbs waste most energy as heat.'],
+      ['Before electric bulbs, homes were lit by…', 'Oil lamps and candles', ['LED lamps', 'Solar panels', 'Tube lights'], 'Think of the deepam.', 'Fire-based lamps were used for thousands of years.'],
+    ]),
+    orderT('history', [
+      ['Put these sources of light in the order they came into use.', ['Fire and oil lamps', 'Candles and lanterns', 'Edison’s filament bulb', 'Tube lights and CFLs', 'LED lamps'], 'From flames to filaments to modern energy-saving lamps.'],
+    ], ['Which is the oldest? Which is the newest?']),
+    tapT('save', 'Tap every action that SAVES electricity.', [
+      ['Switching to LED lamps', true], ['Switching off lights when leaving a room', true], ['Using daylight to read', true], ['Switching off the fan in an empty room', true],
+      ['Leaving the TV on all night', false], ['Keeping lights on in the daytime', false], ['Using many old filament bulbs', false],
+    ], ['Which choices use less electricity?'], 'Efficient lamps and switching things off save electricity.'),
+  ],
+};
+
+const ch12: USpec = { id: 'ts6.sc.ch12', subject: 'physics', title: 'Simple Electric Circuits', source: src(12), objectives: [el1, el2, el3] };
+
+export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12];
