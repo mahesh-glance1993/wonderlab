@@ -1124,4 +1124,366 @@ const u6: USpec = {
   ],
 };
 
-export const units: USpec[] = [u1, u2, u3, u4, u5, u6];
+// =====================================================================================
+// Unit 7 — Sports (The Wonderful World of Chess) — follows the contents page
+// =====================================================================================
+const u7: USpec = {
+  id: 'ts7.en.u7', subject: 'english', title: 'Unit 7: Sports — The World of Chess', source: src(7),
+  note: 'Follows the book’s contents page (A. The Wonderful World of Chess; B. Chess (poem); C. Koneru Humpy). The unit’s self-assessment page still names an older reading (V.V.S. Laxman) — teacher to note the mismatch. Reading A is taught through well-known chess history; poem B at theme level.',
+  objectives: [
+    {
+      id: 'ts7.en.chess.read', title: 'Reading: The Wonderful World of Chess; Koneru Humpy', prereqs: [],
+      intro: [
+        h('Chess: a game born in India'),
+        p('Chess is believed to have begun in India about 1,500 years ago as a game called chaturanga — "four parts", standing for the four parts of an old Indian army: foot soldiers, horses, elephants and chariots.'),
+        stepsB(
+          'From India the game travelled to Persia (Iran), where it was called shatranj.',
+          'Through Arab traders and scholars it reached Europe, where the pieces slowly took their modern shapes and moves.',
+          'Today chess is played all over the world, in clubs, schools and online, and has world championships for men and women.',
+        ),
+        keys('The board has 64 squares (8 × 8), light and dark.', 'Each player has 16 pieces: 1 king, 1 queen, 2 rooks, 2 bishops, 2 knights and 8 pawns.', 'The aim is checkmate: the opponent’s king is attacked and has no escape.', 'Viswanathan Anand became India’s first Grandmaster in 1988 and later a world champion.'),
+        h('Poem B: Chess'),
+        p('The poem looks at the chessboard as a small world of its own — silent armies, careful moves and a battle fought with the mind instead of weapons.'),
+        h('Reading C: Koneru Humpy'),
+        p('Koneru Humpy was born in 1987 in Gudivada, Andhra Pradesh. Her father, a chess coach, trained her from a young age. In 2002, at just 15, she became a Grandmaster — at that time the youngest woman ever to earn the title. She has won the Women’s World Rapid Chess Championship and received the Padma Shri.'),
+        def('Grandmaster (GM)', 'The highest title a chess player can earn, given by the world chess body FIDE.'),
+        remember('Qualities a chess player needs: patience, concentration, planning ahead and accepting defeat gracefully.'),
+      ],
+      examples: [
+        ex('What does "chaturanga" stand for?', ['chatur = four; anga = parts (of an army).'], 'The four parts of an ancient Indian army: foot soldiers, horses, elephants and chariots.'),
+        ex('Why is Koneru Humpy’s 2002 achievement special?', ['Think about her age.'], 'She became a Grandmaster at 15 — then the youngest woman ever to do so.'),
+      ],
+      practice: [
+        mcq('comp', 'Recall the facts about chess and Koneru Humpy.', [
+          ['Where is chess believed to have begun?', 'India', ['China', 'Greece', 'England'], 'Think of chaturanga.', 'Chess began in India as chaturanga.'],
+          ['How many squares are on a chessboard?', '64', ['32', '48', '100'], '8 rows × 8 columns.', '8 × 8 = 64 squares.'],
+          ['What is the aim of a chess game?', 'To checkmate the opponent’s king', ['To capture every pawn', 'To reach the last row first', 'To collect the most pieces'], 'Which piece must be trapped?', 'The game is won by checkmate.'],
+          ['What was chess called in Persia?', 'Shatranj', ['Kabaddi', 'Pachisi', 'Ludo'], 'It came from chaturanga.', 'Persians called it shatranj.'],
+          ['Who was India’s first chess Grandmaster?', 'Viswanathan Anand', ['Koneru Humpy', 'P.V. Sindhu', 'Sachin Tendulkar'], 'He became GM in 1988.', 'Viswanathan Anand was the first Indian GM.'],
+          ['At what age did Koneru Humpy become a Grandmaster?', '15', ['10', '21', '30'], 'In 2002.', 'She became a GM at 15, in 2002.'],
+        ]),
+        matchT('pieces', 'chess word with its meaning', [
+          ['chaturanga', 'ancient Indian form of chess'], ['checkmate', 'king trapped with no escape'], ['Grandmaster', 'highest chess title'], ['pawn', 'the smallest piece; each player has eight'], ['FIDE', 'the world chess organisation'], ['Gudivada', 'Koneru Humpy’s hometown'],
+        ], ['One is a place; the rest are chess words.', 'Each side has eight pawns.']),
+        orderT('history', ['Start in India.', 'End with today.'], [
+          ['Chaturanga was played in India. | It travelled to Persia as shatranj. | Traders carried it to Europe. | Today it is played worldwide.', 'India → Persia → Europe → the world.'],
+          ['Koneru Humpy | became | a Grandmaster | at the age of fifteen.', 'Subject → verb → title → when.'],
+          ['Her father | trained her | from | a very young age.', 'Subject → verb + object → from → when.'],
+          ['A chess player | must think | several moves | ahead.', 'Subject → verb → what → direction.'],
+          ['In chess, | the battle | is fought | with the mind.', 'Phrase → subject → verb → how.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.sports.vocab', title: 'Vocabulary: sports words', prereqs: [],
+      intro: [
+        h('Words every sports fan uses'),
+        keys(
+          'People: athlete, player, captain, coach, referee / umpire, opponent, spectator, champion.',
+          'Places: stadium, court (tennis, badminton, kabaddi), ground / field (cricket, football), pitch, board (chess), track (running), pool.',
+          'Events: match, tournament, championship, final, medal, trophy, record.',
+          'Verbs: win, lose, draw (tie), score, defeat, compete, qualify.',
+        ),
+        def('Referee / umpire', 'The official who makes sure the rules are followed. Football and kabaddi use a referee; cricket and tennis use an umpire.'),
+        def('Spectator', 'A person who watches a match.'),
+        stepsB('Read the clue.', 'Decide: is it a person, a place, an event or an action?', 'Choose the word that fits that sport.'),
+        remember('win a match / a medal; beat or defeat a player (not "win a player").'),
+      ],
+      examples: [
+        ex('Where is badminton played: a court, a pitch or a pool?', ['Badminton is played indoors on a marked rectangle.'], 'a court'),
+        ex('Correct: "India won Australia in the final."', ['We win a match; we beat / defeat a team.'], 'India beat Australia in the final. / India won the final.'),
+      ],
+      practice: [
+        mcq('word', 'Is it a person, place, event or action?', [
+          ['The person who trains a team is the…', 'coach', ['spectator', 'opponent', 'referee'], 'A teacher for players.', 'A coach trains players.'],
+          ['People who watch a match are…', 'spectators', ['umpires', 'coaches', 'captains'], 'They sit in the stands.', 'Spectators watch.'],
+          ['Badminton is played on a…', 'court', ['pitch', 'track', 'pool'], 'An indoor marked area.', 'Badminton uses a court.'],
+          ['When neither side wins, the game is a…', 'draw', ['final', 'record', 'trophy'], 'Equal result.', 'A draw = a tie.'],
+          ['The person you play against is your…', 'opponent', ['coach', 'spectator', 'captain'], 'The other side.', 'An opponent is the player or team you face.'],
+          ['A series of matches to find a winner is a…', 'tournament', ['stadium', 'referee', 'pitch'], 'Many matches.', 'A tournament is a competition with many matches.'],
+        ]),
+        matchT('place', 'sport with where it is played', [
+          ['cricket', 'ground with a pitch'], ['swimming', 'pool'], ['chess', 'board'], ['running race', 'track'], ['badminton', 'court'], ['boxing', 'ring'],
+        ], ['Picture the place each sport needs.', 'Chess needs only a board.']),
+        errT('spot', ['win a match; beat a team.', 'Check the sports word in each part.'], [
+          ['India | won | Pakistan | in the final.', 1, 'India beat Pakistan in the final.', 'We win a match but beat a team.'],
+          ['The umpire | in the football match | showed | a yellow card.', 0, 'The referee in the football match showed a yellow card.', 'Football uses a referee.'],
+          ['Humpy | defeated | her coach | to win the title.', 2, 'Humpy defeated her opponent to win the title.', 'You play against an opponent, not your own coach.'],
+          ['Thousands of | referees | cheered | in the stadium.', 1, 'Thousands of spectators cheered in the stadium.', 'The people watching are spectators.'],
+          ['The batter | scored | three goals | in the cricket match.', 2, 'The batter scored fifty runs in the cricket match.', 'In cricket you score runs; goals are scored in football and hockey.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.adjorder.use', title: 'Grammar: adjectives and the order of adjectives', prereqs: [],
+      intro: [
+        h('Adjectives'),
+        def('Adjective', 'A word that describes a noun: a clever player, a wooden board, black pieces.'),
+        p('When we use more than one adjective before a noun, English follows a fixed order. It sounds wrong if we change it: "a wooden old box" ✗ → "an old wooden box" ✓.'),
+        h('The order (O-S-A-S-C-O-M-P)'),
+        stepsB(
+          'Opinion — beautiful, clever, lovely',
+          'Size — big, small, tall',
+          'Age — old, new, young',
+          'Shape — round, square, flat',
+          'Colour — black, white, red',
+          'Origin — Indian, Russian, Japanese',
+          'Material — wooden, silk, plastic',
+          'Purpose — chess (board), cricket (bat), sleeping (bag) — sits just before the noun',
+        ),
+        keys('A beautiful old wooden chessboard (opinion → age → material).', 'A tall young Indian player (size → age → origin).', 'A small round red ball (size → shape → colour).'),
+        remember('We rarely use more than three adjectives in one place. Numbers and determiners (a, the, two, my) come first of all: my two lovely black kittens.'),
+      ],
+      examples: [
+        ex('Order the adjectives: (wooden, old, a) ____ chessboard.', ['a first; age (old) before material (wooden).'], 'an old wooden chessboard'),
+        ex('Order: (Indian, young, talented) ____ player.', ['Opinion (talented) → age (young) → origin (Indian).'], 'a talented young Indian player'),
+      ],
+      practice: [
+        mcq('order', 'Opinion → Size → Age → Shape → Colour → Origin → Material → Purpose.', [
+          ['Choose the correct phrase.', 'a beautiful old wooden box', ['a wooden old beautiful box', 'an old beautiful wooden box', 'a beautiful wooden old box'], 'Opinion → age → material.', 'beautiful (opinion), old (age), wooden (material).'],
+          ['Choose the correct phrase.', 'a big black dog', ['a black big dog', 'a dog big black', 'big a black dog'], 'Size before colour.', 'big (size) → black (colour).'],
+          ['Choose the correct phrase.', 'a talented young Indian player', ['an Indian young talented player', 'a young talented Indian player', 'a talented Indian young player'], 'Opinion → age → origin.', 'talented → young → Indian.'],
+          ['Choose the correct phrase.', 'a small round silver medal', ['a round small silver medal', 'a silver small round medal', 'a small silver round medal'], 'Size → shape → material.', 'small → round → silver.'],
+          ['Choose the correct phrase.', 'a lovely red silk saree', ['a silk red lovely saree', 'a red lovely silk saree', 'a lovely silk red saree'], 'Opinion → colour → material.', 'lovely → red → silk.'],
+          ['Choose the correct phrase.', 'my two new cricket bats', ['two my new cricket bats', 'my new two cricket bats', 'my two cricket new bats'], 'Determiner → number → age → purpose.', 'my → two → new → cricket (purpose).'],
+        ]),
+        orderT('build', ['Determiners (a, an, my) come first.', 'The noun comes last.'], [
+          ['a | clever | young | chess | player', 'determiner → opinion → age → purpose → noun.'],
+          ['an | old | square | wooden | table', 'determiner → age → shape → material → noun.'],
+          ['a | big | white | Japanese | car', 'determiner → size → colour → origin → noun.'],
+          ['my | lovely | little | brown | puppy', 'determiner → opinion → size → colour → noun.'],
+          ['a | beautiful | long | silk | saree', 'determiner → opinion → size → material → noun.'],
+        ], 2),
+        mcq('kind', 'Which group does the adjective belong to?', [
+          ['In "a wooden board", "wooden" tells us the…', 'material', ['colour', 'size', 'age'], 'What is it made of?', 'wooden = material.'],
+          ['In "an Indian athlete", "Indian" tells us the…', 'origin', ['shape', 'opinion', 'material'], 'Where is the athlete from?', 'Indian = origin.'],
+          ['In "a brilliant move", "brilliant" tells us the…', 'opinion', ['size', 'colour', 'age'], 'What someone thinks of it.', 'brilliant = opinion.'],
+          ['In "a round table", "round" tells us the…', 'shape', ['colour', 'material', 'origin'], 'How it looks in outline.', 'round = shape.'],
+          ['In "an ancient game", "ancient" tells us the…', 'age', ['size', 'material', 'purpose'], 'How old?', 'ancient = age.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.profile.write', title: 'Writing: a profile of a sportsperson; a short message', prereqs: [],
+      intro: [
+        h('What is a profile?'),
+        p('A profile gives the key facts about a person in short, clear points or a short paragraph — like a card about a player.'),
+        stepsB(
+          'Name and sport.',
+          'Date and place of birth.',
+          'Family / coach / training.',
+          'Major achievements (titles, medals, records) with years.',
+          'Awards and honours.',
+          'Qualities and why they inspire others.',
+        ),
+        h('Model profile (our own)'),
+        keys('Name: P.V. Sindhu', 'Sport: Badminton', 'Born: 5 July 1995, Hyderabad', 'Coach: trained at the Pullela Gopichand Badminton Academy', 'Achievements: Olympic silver (2016), Olympic bronze (2020), World Champion (2019)', 'Qualities: hard-working, focused, never gives up'),
+        h('A short message'),
+        p('A message passes on information to someone who was not there. Write: date/time, To, the message (who called, what they said, what to do), From.'),
+        p('Model: 10 Nov, 5 p.m. — Anna, Coach Ravi called. Tomorrow’s practice starts at 6 a.m. instead of 7. Please bring your own racket. — Diya'),
+        remember('Profiles use short points and facts, not long stories. Messages must be short and must say who the message is from.'),
+      ],
+      examples: [
+        ex('Turn into a profile point: "Humpy became a GM in 2002 when she was 15."', ['Profiles use short points.'], 'Achievement: Grandmaster at 15 (2002).'),
+        ex('Write a message: Uncle phoned; the family function moved to Sunday.', ['Date/time, To, message, From.'], '12 Nov, 7 p.m. — Amma, Uncle called. The function is moved to Sunday. — Arjun'),
+      ],
+      practice: [
+        orderT('profile', ['Name comes first.', 'Qualities come at the end.'], [
+          ['Name and sport | Date and place of birth | Coach and training | Major achievements | Awards | Qualities', 'Who → birth → training → achievements → honours → qualities.'],
+          ['Date and time | To: Amma | Coach called; practice is at 6 a.m. | From: Diya', 'Message order: when → to whom → message → from whom.'],
+          ['Sindhu | trained hard | at an academy | in Hyderabad.', 'Subject → action → where → which city.'],
+          ['She | won | an Olympic silver medal | in 2016.', 'Subject → verb → what → when.'],
+          ['Her hard work | inspires | young players | all over India.', 'Subject → verb → object → where.'],
+        ]),
+        mcq('parts', 'Profiles are factual and brief; messages are short and clear.', [
+          ['Which line belongs in a sports profile?', 'Achievements: World Champion (2019)', ['Once upon a time she was born.', 'Dear Diary, today was fun.', 'Yours faithfully,'], 'Short and factual.', 'Profiles list facts like achievements.'],
+          ['Which is most important in a message?', 'Who it is from and what to do', ['A long description of the weather', 'A moral', 'A poem'], 'The reader was not there.', 'A message must say who sent it and the key information.'],
+          ['Which is the best quality-point for a profile?', 'Qualities: focused and determined', ['Qualities: she is a person', 'Qualities: blue', 'Qualities: 1995'], 'Describe the character.', 'Qualities describe the person’s character.'],
+          ['A profile is best written in…', 'short, clear points', ['long paragraphs of dialogue', 'rhyming verse', 'questions only'], 'Like a player card.', 'Short points make a profile easy to read.'],
+          ['Which detail goes under "Born"?', '5 July 1995, Hyderabad', ['Olympic silver', 'Hard-working', 'Badminton'], 'Date and place.', 'Birth details are date and place.'],
+        ]),
+        matchT('heads', 'profile detail with its heading', [
+          ['Badminton', 'Sport'], ['5 July 1995, Hyderabad', 'Born'], ['Olympic silver, 2016', 'Achievements'], ['Padma Bhushan', 'Awards'], ['Never gives up', 'Qualities'], ['Pullela Gopichand Academy', 'Training'],
+        ], ['Each detail fits exactly one heading.', 'A medal is an achievement; a national honour is an award.']),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Unit 8 — Nature (Snakes in India)
+// =====================================================================================
+const u8: USpec = {
+  id: 'ts7.en.u8', subject: 'english', title: 'Unit 8: Living with Nature', source: src(8),
+  note: 'Reading A is taught through well-established facts about Indian snakes; teacher to match with the textbook text. Poem B (Trees) and Reading C (A Letter from Mother Earth, pleasure reading) are taught at theme level only.',
+  objectives: [
+    {
+      id: 'ts7.en.snakes.read', title: 'Reading: Snakes in India', prereqs: [],
+      intro: [
+        h('About the reading'),
+        p('This reading gives facts about snakes in India and asks us to replace fear with understanding. India has around 300 kinds of snakes, but only a few are dangerous to people.'),
+        keys(
+          'Most snakes are non-venomous, for example the rat snake and the python (a python kills by squeezing, not by venom).',
+          'The "Big Four" venomous snakes cause most snakebites in India: the spectacled (Indian) cobra, the common krait, Russell’s viper and the saw-scaled viper.',
+          'The king cobra is the longest venomous snake in the world; it lives in forests.',
+          'Snakes are cold-blooded, have no eyelids or outer ears, shed their skin, and "smell" with their flicking tongues.',
+          'Snakes help farmers by eating rats and mice that destroy crops.',
+        ),
+        h('Safety and first aid (general)'),
+        stepsB('Keep calm and keep the person still.', 'Remove tight rings or bangles near the bite.', 'Do NOT cut the wound, suck the venom or tie a tight band.', 'Take the person to a hospital quickly for anti-venom.'),
+        h('Poem B and Reading C'),
+        p('The poem "Trees" celebrates trees — their beauty, shade and gifts to every living thing. Reading C, "A Letter from Mother Earth", imagines the Earth writing to humans, asking them to stop harming her and to care for nature.'),
+        def('Venomous', 'Able to inject poison (venom) by biting or stinging.'),
+      ],
+      examples: [
+        ex('Why are snakes called the "farmer’s friend"?', ['What do snakes eat?', 'Rats destroy crops.'], 'Because they eat rats and mice that damage crops.'),
+        ex('Name two of the "Big Four" venomous snakes.', ['Recall the list.'], 'The Indian cobra and the common krait (also Russell’s viper and the saw-scaled viper).'),
+      ],
+      practice: [
+        mcq('comp', 'Recall the facts about snakes.', [
+          ['Are most snakes in India venomous?', 'No, most are non-venomous', ['Yes, all of them', 'Yes, most of them', 'Only the small ones are safe'], 'Only a few are dangerous.', 'Most Indian snakes are non-venomous.'],
+          ['Which of these is one of the "Big Four"?', 'Russell’s viper', ['Rat snake', 'Python', 'Sand boa'], 'A venomous viper.', 'Russell’s viper is one of the Big Four.'],
+          ['How do snakes help farmers?', 'They eat rats that damage crops', ['They plough the fields', 'They eat weeds', 'They bring rain'], 'Think of pests.', 'Snakes control rats and mice.'],
+          ['What should you NOT do after a snakebite?', 'Cut the wound and suck the venom', ['Keep the person calm', 'Go to a hospital', 'Remove tight bangles'], 'One of these is harmful.', 'Cutting or sucking the wound is harmful.'],
+          ['Which is the longest venomous snake in the world?', 'King cobra', ['Common krait', 'Rat snake', 'Python'], 'It lives in forests.', 'The king cobra is the longest venomous snake.'],
+          ['How does a snake "smell" things?', 'With its flicking tongue', ['With its ears', 'With its eyelids', 'With its tail'], 'Watch a snake’s tongue.', 'The tongue picks up scents from the air.'],
+        ]),
+        matchT('facts', 'item with the matching fact', [
+          ['Python', 'kills by squeezing, not venom'], ['King cobra', 'longest venomous snake'], ['Venomous', 'able to inject poison'], ['Anti-venom', 'medicine given in hospital for snakebite'], ['Trees (poem)', 'celebrates the gifts of trees'], ['A Letter from Mother Earth', 'the Earth asks humans to care for nature'],
+        ], ['Two items are from poem B and reading C.', 'Anti-venom is a medicine.']),
+        orderT('aid', ['Stay calm first.', 'The hospital comes last.'], [
+          ['Keep calm. | Keep the person still. | Remove tight bangles or rings. | Rush to the hospital.', 'Calm → still → loosen → hospital.'],
+          ['Snakes | help farmers | by eating | rats and mice.', 'Subject → verb + object → by + -ing → what.'],
+          ['Only a few | Indian snakes | are | dangerous to people.', 'Quantity → subject → verb → description.'],
+          ['A snake | sheds | its old skin | several times a year.', 'Subject → verb → object → how often.'],
+          ['Do not | cut | the wound | after a snakebite.', 'Negative → verb → object → when.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.en.affix.vocab', title: 'Vocabulary: prefixes and suffixes', prereqs: [],
+      intro: [
+        h('Building words'),
+        def('Prefix', 'Letters added at the START of a word that change its meaning: un + safe = unsafe.'),
+        def('Suffix', 'Letters added at the END of a word that change its meaning or job: poison + ous = poisonous.'),
+        keys('Prefixes: un- (not): unkind · dis- (not / opposite): disagree · re- (again): rewrite · mis- (wrongly): misread · pre- (before): preview · non- (not): non-venomous', 'Suffixes: -ful (full of): harmful · -less (without): harmless · -ous (having): dangerous · -er / -or (person who): farmer, actor · -ness (state): kindness · -ly (in a way): quickly'),
+        stepsB('Find the root word.', 'Find the prefix or suffix.', 'Add their meanings together: harm + less = without harm.'),
+        remember('Spelling: happy → unhappy (double p is fine), use → useful, care → careless; danger → dangerous.'),
+      ],
+      examples: [
+        ex('What does "harmless" mean?', ['harm = hurt; -less = without.'], 'without harm; not dangerous'),
+        ex('Add a prefix to "venomous" to make its opposite.', ['non- = not.'], 'non-venomous'),
+      ],
+      practice: [
+        mcq('meaning', 'Root + affix meaning.', [
+          ['"Rewrite" means…', 'write again', ['write wrongly', 'not write', 'write before'], 're- = again.', 're + write = write again.'],
+          ['"Careless" means…', 'without care', ['full of care', 'care again', 'before care'], '-less = without.', 'care + less = without care.'],
+          ['"Misunderstand" means…', 'understand wrongly', ['understand again', 'understand fully', 'understand before'], 'mis- = wrongly.', 'mis- shows something done wrongly.'],
+          ['"Harmful" means…', 'causing harm', ['without harm', 'harm again', 'not harm'], '-ful = full of.', 'harm + ful = causing harm.'],
+          ['"Preview" means…', 'see before', ['see again', 'not see', 'see wrongly'], 'pre- = before.', 'pre + view = see before.'],
+          ['"Disagree" means…', 'not agree', ['agree again', 'agree before', 'agree fully'], 'dis- = not / opposite.', 'dis + agree = not agree.'],
+        ]),
+        mcq('make', 'Choose the right prefix or suffix.', [
+          ['Opposite of "safe":', 'unsafe', ['dissafe', 'missafe', 'presafe'], 'un- = not.', 'un + safe = unsafe.'],
+          ['A person who farms is a…', 'farmer', ['farmful', 'farmness', 'farmless'], '-er = person who.', 'farm + er = farmer.'],
+          ['Adjective from "danger":', 'dangerous', ['dangerful', 'dangerless', 'dangerly'], '-ous = having.', 'danger + ous = dangerous.'],
+          ['Noun from "kind":', 'kindness', ['kindful', 'kindous', 'kinder'], '-ness = state.', 'kind + ness = kindness.'],
+          ['Opposite of "venomous":', 'non-venomous', ['dis-venomous', 'mis-venomous', 're-venomous'], 'non- = not.', 'non + venomous.'],
+          ['Adjective meaning "full of use":', 'useful', ['useless', 'misuse', 'reuse'], '-ful = full of.', 'use + ful = useful.'],
+        ]),
+        matchT('affix', 'prefix or suffix with its meaning', [
+          ['re-', 'again'], ['mis-', 'wrongly'], ['pre-', 'before'], ['-less', 'without'], ['-ful', 'full of'], ['-er', 'a person who'],
+        ], ['Think of a word with each one: redo, misread, preview.', 'Think: careless, careful, teacher.']),
+      ],
+    },
+    {
+      id: 'ts7.en.subjpred.use', title: 'Grammar: subject and predicate; "until" and "as long as"', prereqs: [],
+      intro: [
+        h('Two parts of every sentence'),
+        def('Subject', 'Who or what the sentence is about: The king cobra | lives in forests.'),
+        def('Predicate', 'Everything said about the subject, starting with the verb: The king cobra | lives in forests.'),
+        stepsB(
+          'Find the main verb (lives, eat, was sleeping).',
+          'Ask "Who / what + verb?" — the answer is the subject.',
+          'The verb and everything after it is the predicate.',
+          'In commands, the subject "you" is hidden: (You) Keep calm.',
+          'In questions, the subject may sit after a helping verb: Do | snakes | have ears? (subject = snakes).',
+        ),
+        h('"until" and "as long as"'),
+        keys(
+          'until = up to the time when (then it stops): Stay here until the doctor comes.',
+          'as long as = (1) for the whole time that: Trees will give us shade as long as we protect them. (2) only if: You may play as long as you finish your homework.',
+          'After until / as long as, use the present tense for future meaning: until he comes (not "until he will come").',
+        ),
+        remember('until shows an END point; as long as shows a CONDITION or a whole period.'),
+      ],
+      examples: [
+        ex('Divide into subject and predicate: "My little brother loves snakes."', ['Verb: loves.', 'Who loves? My little brother.'], 'Subject: My little brother | Predicate: loves snakes.'),
+        ex('Choose: "Wait here ____ the bus arrives." (until / as long as)', ['The waiting stops when the bus arrives — an end point.'], 'until'),
+      ],
+      practice: [
+        mcq('subject', 'Find the verb, then ask "who or what?"', [
+          ['What is the subject of "The farmers in our village grow rice."?', 'The farmers in our village', ['grow rice', 'rice', 'our village'], 'Who grow rice?', 'Subject = the farmers in our village.'],
+          ['What is the predicate of "Snakes shed their skin."?', 'shed their skin', ['Snakes', 'their skin', 'Snakes shed'], 'The verb and what follows.', 'Predicate = shed their skin.'],
+          ['What is the subject of "Keep calm after a snakebite."?', '(You) — the hidden subject', ['calm', 'a snakebite', 'Keep'], 'It is a command.', 'In commands, the subject "you" is understood.'],
+          ['What is the subject of "Under the rock lay a sleeping python."?', 'a sleeping python', ['the rock', 'lay', 'Under the rock'], 'What lay under the rock?', 'The subject comes after the verb here: a sleeping python.'],
+          ['What is the predicate of "The old banyan tree gives us shade."?', 'gives us shade', ['The old banyan tree', 'us shade', 'shade'], 'Start from the verb.', 'Predicate = gives us shade.'],
+          ['What is the subject of "Do snakes have ears?"', 'snakes', ['ears', 'Do', 'have ears'], 'Who has (or does not have) ears?', 'In this question, the subject is "snakes".'],
+        ]),
+        mcq('until', 'End point → until; condition / whole time → as long as.', [
+          ['Keep the patient still ____ the ambulance arrives.', 'until', ['as long as', 'because', 'although'], 'The waiting ends when it arrives.', 'until = up to the time when.'],
+          ['You can borrow my book ____ you return it on Monday.', 'as long as', ['until', 'because', 'unless'], 'A condition.', 'as long as = only if.'],
+          ['The forest will stay green ____ we protect it.', 'as long as', ['until', 'because', 'although'], 'For the whole time that…', 'as long as = for the whole time that / on condition.'],
+          ['We waited at the stop ____ the last bus came.', 'until', ['as long as', 'so that', 'unless'], 'The wait ended then.', 'until marks the end point.'],
+          ['Don’t open your eyes ____ I say "Now!"', 'until', ['as long as', 'because', 'so'], 'Then you may open them.', 'until marks when the action ends.'],
+          ['Choose the correct sentence.', 'Stay inside until the rain stops.', ['Stay inside until the rain will stop.', 'Stay inside until the rain stopping.', 'Stay inside until the rain stopped will.'], 'Present tense after until for future.', 'until + present tense: the rain stops.'],
+        ]),
+        matchT('split', 'subject with its predicate', [
+          ['The king cobra', 'hisses and raises its hood.'], ['Tall neem trees', 'give cool shade in summer.'], ['Our science teacher', 'explained the experiment on the board.'], ['The heavy rain', 'fell all night on the tin roof.'], ['Mother Earth', 'is home to every living thing.'], ['The farmers', 'harvested the paddy in November.'],
+        ], ['Read each pair aloud as one sentence.', 'Check that the meaning makes sense.'], 4, 2),
+      ],
+    },
+    {
+      id: 'ts7.en.poster.write', title: 'Writing: a poster', prereqs: [],
+      intro: [
+        h('What is a poster?'),
+        p('A poster gives a message quickly to people passing by. It uses few words, big headings and a clear layout. Posters are used for awareness (save trees, snake safety), events and announcements.'),
+        stepsB(
+          'Organisation / issuer at the top (e.g. Eco Club, ZPHS Siddipet).',
+          'A catchy heading or slogan in big letters: SAVE SNAKES — THEY SAVE OUR CROPS!',
+          'Key facts or a short message in points.',
+          'What people should do (call to action): Call 108 in an emergency. Do not kill snakes.',
+          'Details if it is an event: date, time, venue, contact.',
+          'A drawing or symbol space (a box with "picture of a tree"); a border.',
+        ),
+        keys('Use slogans: short, rhyming or punchy — "Plant a tree, breathe free!"', 'Use capital letters and different sizes for headings.', 'Avoid long paragraphs.'),
+        remember('A poster is not a letter or an essay: no greeting, no "Yours faithfully", no long sentences.'),
+      ],
+      examples: [
+        ex('Write a slogan for a "Save Trees" poster.', ['Short, catchy, maybe rhyming.'], 'Trees are the lungs of the Earth — protect them!'),
+        ex('What four details does an event poster need?', ['What, when, where, contact.'], 'Name of the event, date and time, venue, and contact person / number.'),
+      ],
+      practice: [
+        orderT('layout', ['Who is issuing the poster goes at the top.', 'Contact details are at the bottom.'], [
+          ['Eco Club, ZPHS Siddipet | SAVE SNAKES, SAVE CROPS! | Most snakes are harmless. | Never kill a snake; call a rescuer. | Contact: Eco Club teacher', 'Issuer → slogan → facts → action → contact.'],
+          ['Vana Mahotsav Tree Planting | Date: 5 July | Time: 8 a.m. | Venue: School ground | All are welcome!', 'Event name → date → time → venue → invitation.'],
+          ['Plant | a tree, | breathe | free!', 'A short rhyming slogan.'],
+          ['Do not | kill | snakes; | call a rescuer.', 'A clear call to action.'],
+          ['Tall trees | give | cool shade | to everyone.', 'Subject → verb → object → to whom.'],
+        ]),
+        mcq('style', 'Posters are short, bold and clear.', [
+          ['Which is the best poster slogan?', 'Save water, save life!', ['Water is a liquid that is found in many places on Earth.', 'Dear students, I hope you are well.', 'Yours faithfully, the Principal'], 'Short and punchy.', 'Slogans are short and memorable.'],
+          ['Which of these does a poster NOT need?', 'A greeting like "Dear friends,"', ['A catchy heading', 'Key facts in points', 'A call to action'], 'A poster is not a letter.', 'Posters do not have letter-style greetings.'],
+          ['An event poster must include…', 'date, time and venue', ['a moral', 'a diary date', 'a bibliography'], 'When and where?', 'People need to know when and where the event is.'],
+          ['Which line is a call to action?', 'Join us — plant a sapling this Sunday!', ['Trees are green.', 'The Earth is round.', 'Snakes have no ears.'], 'It asks people to do something.', 'A call to action tells readers what to do.'],
+          ['How should the main heading look?', 'Big, bold capital letters', ['Tiny letters at the bottom', 'Hidden inside a paragraph', 'Written in pencil, very lightly'], 'It must catch the eye.', 'Headings must be big and bold.'],
+        ]),
+        matchT('part', 'poster part with an example', [
+          ['Issuer', 'Eco Club, ZPHS Siddipet'], ['Slogan', 'Plant a tree, breathe free!'], ['Fact', 'Most snakes are harmless.'], ['Call to action', 'Do not kill snakes — call a rescuer.'], ['Event details', 'Sunday, 8 a.m., school ground'], ['Contact', 'Phone the Eco Club teacher'],
+        ], ['Each example fits one part of the poster.', 'A call to action tells people what to do.']),
+      ],
+    },
+  ],
+};
+
+export const units: USpec[] = [u1, u2, u3, u4, u5, u6, u7, u8];
