@@ -1151,4 +1151,427 @@ const ch12 = U(12, 'The Kakatiyas - Emergence of a Regional Kingdom', [
   ]),
 ]);
 
-export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12];
+// =====================================================================================
+// Chapter 13 — The Kings of Vijayanagara
+// =====================================================================================
+const ch13 = U(13, 'The Kings of Vijayanagara', [
+  O('ts7.ss.vijay.city', 'Sources and the city of Vijayanagara', [
+    h('The city of victory'),
+    photo('🛕', 'The ruins of Hampi, on the Tungabhadra river in Karnataka, were once the capital Vijayanagara.'),
+    p('In 1336, two brothers, Harihara and Bukka, founded the Vijayanagara kingdom on the banks of the Tungabhadra. Four dynasties ruled it: Sangama, Saluva, Tuluva and Aravidu. Its capital, Vijayanagara ("city of victory"), is today the village of Hampi, a UNESCO World Heritage Site.'),
+    def('Sources', 'The materials from which historians learn about the past: inscriptions, coins, buildings and ruins, literature, and accounts of travellers.'),
+    p('Foreign travellers left vivid descriptions: Niccolo de Conti from Italy, Abdur Razzaq from Persia, and Domingo Paes and Fernao Nuniz from Portugal. They wrote about huge markets selling diamonds, pearls, silk and horses, about festivals like Mahanavami, and about the strong walls of the city.'),
+    stepsB('Several rings of massive stone walls protected the city.', 'The royal centre had palaces, the Mahanavami platform and the Lotus Mahal.', 'The sacred centre had temples like Virupaksha and Vitthala (with its stone chariot and musical pillars).', 'Canals and tanks brought water from the Tungabhadra for gardens and fields.', 'Busy bazaars sold gems, cloth and horses brought by sea from Arabia and Persia.'),
+    keys('Founded 1336 by Harihara and Bukka.', 'Dynasties: Sangama, Saluva, Tuluva, Aravidu.', 'Travellers: Conti, Abdur Razzaq, Paes, Nuniz.'),
+    remember('Vijayanagara was defeated at the Battle of Talikota (Rakshasi-Tangadi) in 1565 by an alliance of Deccan Sultanates, and the city was destroyed.'),
+  ], [
+    ex('Why are travellers\' accounts useful but not perfect sources?', ['They describe what visitors saw: markets, festivals, buildings.', 'But visitors may misunderstand customs or exaggerate.', 'So historians compare them with inscriptions and ruins.'], 'They give vivid details but must be checked against other sources.'),
+    ex('How many years did Vijayanagara last from its founding (1336) to the Battle of Talikota (1565)?', ['1565 − 1336 = 229.'], '229 years'),
+  ], [
+    orderT('dyn', 'Order the Vijayanagara dynasties.', ['Sangama', 'Saluva', 'Tuluva', 'Aravidu'], ['Harihara and Bukka were Sangamas.', 'Krishnadevaraya was a Tuluva; Aravidu came last.'], 'Sangama → Saluva → Tuluva → Aravidu.', 4),
+    matchT('trav', 'traveller with his homeland', [
+      ['Niccolo de Conti', 'Italy'], ['Abdur Razzaq', 'Persia'], ['Domingo Paes', 'Portugal'], ['Marco Polo', 'Venice (visited the Kakatiya kingdom)'], ['Fernao Nuniz', 'Portugal, a horse trader'],
+    ], ['Abdur Razzaq was an ambassador from Persia.', 'Paes and Nuniz were Portuguese.']),
+    mcq('vc', 'Think of Hampi and its founders.', [
+      ['Vijayanagara was founded in 1336 by…', 'Harihara and Bukka', ['Krishnadevaraya', 'Babur', 'Rudrama Devi'], 'Two brothers.', 'Harihara and Bukka founded it.'],
+      ['The ruins of Vijayanagara are at…', 'Hampi', ['Warangal', 'Thanjavur', 'Golconda'], 'On the Tungabhadra.', 'The capital is now Hampi.'],
+      ['Vijayanagara was defeated in 1565 at the Battle of…', 'Talikota', ['Panipat', 'Plassey', 'Tarain'], 'Also called Rakshasi-Tangadi.', 'The Deccan Sultanates won at Talikota.'],
+      ['Which temple has a famous stone chariot?', 'Vitthala temple', ['Thousand Pillar Temple', 'Brihadeshvara temple', 'Somnath'], 'At Hampi.', 'The stone chariot stands in the Vitthala temple complex.'],
+      ['Vijayanagara stood on the banks of the river…', 'Tungabhadra', ['Godavari', 'Musi', 'Kaveri'], 'A tributary of the Krishna.', 'The city was on the Tungabhadra.'],
+    ]),
+  ]),
+  O('ts7.ss.vijay.krishna', 'Armies, amaranayakas and Krishnadevaraya', [
+    h('Horses, forts and nayakas'),
+    p('Vijayanagara fought constant wars with the Bahmani kingdom and later the Deccan Sultanates over the fertile Raichur doab (land between the Krishna and Tungabhadra). Cavalry was vital, so kings imported fine horses from Arabia and Central Asia through west-coast ports, first from Arab and later Portuguese traders.'),
+    def('Amaranayaka', 'A military commander who was given an area (amaram) to govern and collect taxes from, in return for keeping a fixed number of horses, elephants and soldiers for the king and sending tribute. Similar to the Kakatiya nayankara system.'),
+    h('Krishnadevaraya (ruled 1509–1529)'),
+    stepsB('The greatest Tuluva king; won the Raichur doab (1520) and defeated the Gajapatis of Odisha.', 'Built temples and added grand gateways (raya gopurams) to temples.', 'Founded the town of Nagalapuram and built tanks and canals.', 'A scholar-king: wrote "Amuktamalyada" in Telugu; called "Andhra Bhoja".', 'His court had eight great Telugu poets, the Ashtadiggajas, including Allasani Peddana.'),
+    keys('Amaranayakas kept armies in return for territory.', 'Horses imported from Arabia and Central Asia.', 'Krishnadevaraya: 1509–1529, Amuktamalyada, Ashtadiggajas.'),
+    remember('"Desa bhashalandu Telugu lessa" ("Telugu is the best of the country\'s languages") is a line from Krishnadevaraya\'s Amuktamalyada.'),
+  ], [
+    ex('Why were horse traders so important to Vijayanagara?', ['Wars were won with cavalry.', 'Good war horses were not bred in South India.', 'So kings imported them through ports and valued horse traders.'], 'Cavalry needed imported horses.'),
+    ex('How long did Krishnadevaraya rule (1509–1529)?', ['1529 − 1509 = 20.'], '20 years'),
+  ], [
+    mcq('kd', 'Recall Krishnadevaraya and the army.', [
+      ['Krishnadevaraya wrote the Telugu work…', 'Amuktamalyada', ['Ramcharitmanas', 'Akbarnama', 'Arthashastra'], 'About the saint Andal.', 'He wrote Amuktamalyada.'],
+      ['The eight great poets of Krishnadevaraya\'s court were the…', 'Ashtadiggajas', ['Navaratnas', 'Nayanars', 'Alvars'], 'Ashta = eight.', 'They were called the Ashtadiggajas.'],
+      ['Amaranayakas were…', 'military commanders given territory to govern', ['foreign travellers', 'temple priests', 'British officers'], 'Like Kakatiya nayakas.', 'Amaranayakas kept troops in return for land.'],
+      ['The land between the Krishna and Tungabhadra was called the…', 'Raichur doab', ['Ganga doab', 'Deccan plateau', 'Kaveri delta'], 'Doab = land between two rivers.', 'The Raichur doab was much fought over.'],
+      ['Krishnadevaraya belonged to which dynasty?', 'Tuluva', ['Sangama', 'Aravidu', 'Kakatiya'], 'The third dynasty.', 'He was the greatest Tuluva ruler.'],
+    ]),
+    tapT('kdf', 'Tap the facts about Krishnadevaraya.', [
+      ['He wrote Amuktamalyada in Telugu', true], ['He ruled from 1509 to 1529', true], ['He added raya gopurams to temples', true], ['He was called Andhra Bhoja', true],
+      ['He founded Hyderabad', false], ['He was a Mughal emperor', false],
+    ], ['He was a Vijayanagara king and a poet.', 'Hyderabad was founded by a Qutb Shahi king.'], 'Amuktamalyada, 1509–1529, raya gopurams and the title Andhra Bhoja belong to him.'),
+    yearsT('yrs', [
+      ['Vijayanagara was founded', 1336, 'Krishnadevaraya became king', 1509],
+      ['Krishnadevaraya became king', 1509, 'he died', 1529],
+      ['Krishnadevaraya won the Raichur doab', 1520, 'Vijayanagara lost the Battle of Talikota', 1565],
+      ['Vijayanagara was founded', 1336, 'it lost the Battle of Talikota', 1565],
+      ['Krishnadevaraya died', 1529, 'Vijayanagara lost the Battle of Talikota', 1565],
+    ]),
+  ]),
+  O('ts7.ss.vijay.qutb', 'The Qutb Shahis of Golconda (1512–1687)', [
+    h('Golconda and the birth of Hyderabad'),
+    photo('🏢', 'The Charminar, built in 1591, stands at the heart of old Hyderabad.'),
+    p('When the Bahmani kingdom broke up, Sultan Quli, its governor at Golconda, became independent in about 1512 and founded the Qutb Shahi dynasty. It ruled most of today\'s Telangana and coastal Andhra until 1687.'),
+    stepsB('Sultan Quli Qutb Shah strengthened the Golconda fort.', 'Ibrahim Qutb Shah (1550–1580) patronised Telugu poets, who called him "Malki Bharam"; Hussain Sagar lake was built in his time (1563).', 'Muhammad Quli Qutb Shah founded Hyderabad in 1591 on the Musi river and built the Charminar; he wrote poems in Dakhni Urdu and Telugu.', 'The kingdom grew rich from diamonds (Kollur mines; the Koh-i-Noor is believed to be from this region), textiles and trade through Masulipatnam port.', 'In 1687 the Mughal emperor Aurangzeb captured Golconda after a long siege; Abul Hasan Tana Shah was the last king.'),
+    p('The Qutb Shahis ruled over a mixed population. Telugu and Persian were both used in administration, and ministers such as Madanna and Akkanna served Tana Shah. The Qutb Shahi tombs at Ibrahim Bagh are a fine example of their architecture.'),
+    keys('Qutb Shahis: 1512–1687, capital Golconda.', 'Muhammad Quli Qutb Shah founded Hyderabad (1591).', 'Aurangzeb conquered Golconda in 1687.'),
+    remember('Golconda was famous for diamonds; its fort has acoustics so a clap at the gate can be heard at the top.'),
+  ], [
+    ex('Why was Golconda so rich?', ['Diamonds from nearby mines.', 'Fine textiles exported through Masulipatnam.', 'Control of fertile Telangana lands.'], 'Diamonds, textiles and trade.'),
+    ex('How many years after Hyderabad was founded (1591) did the Mughals capture Golconda (1687)?', ['1687 − 1591 = 96.'], '96 years'),
+  ], [
+    orderT('qs', 'Order these Qutb Shahi events.', ['Sultan Quli becomes independent at Golconda', 'Hussain Sagar lake is built', 'Muhammad Quli founds Hyderabad and builds Charminar', 'Aurangzeb captures Golconda'], ['Independence came first (about 1512).', 'The Mughal conquest (1687) was last.'], 'c.1512 → 1563 → 1591 → 1687.', 4),
+    mcq('q', 'Think of Golconda and Hyderabad.', [
+      ['Who founded Hyderabad?', 'Muhammad Quli Qutb Shah', ['Krishnadevaraya', 'Akbar', 'Rudrama Devi'], 'In 1591.', 'Muhammad Quli Qutb Shah founded Hyderabad in 1591.'],
+      ['The Charminar was built in…', '1591', ['1336', '1857', '1947'], 'Same year as the city\'s founding.', 'Charminar dates from 1591.'],
+      ['Which Qutb Shahi ruler was called "Malki Bharam" by Telugu poets?', 'Ibrahim Qutb Shah', ['Tana Shah', 'Sultan Quli', 'Aurangzeb'], 'He patronised Telugu.', 'Ibrahim Qutb Shah was praised as Malki Bharam.'],
+      ['Golconda was captured in 1687 by…', 'Aurangzeb', ['Akbar', 'Babur', 'the British'], 'A Mughal emperor.', 'Aurangzeb took Golconda in 1687.'],
+      ['The Qutb Shahis\' main sea port was…', 'Masulipatnam', ['Calicut', 'Surat', 'Kolkata'], 'On the Andhra coast.', 'Masulipatnam (Machilipatnam) was their port.'],
+    ]),
+    matchT('qm', 'Qutb Shahi person or place with its fact', [
+      ['Sultan Quli', 'Founder of the dynasty'], ['Muhammad Quli Qutb Shah', 'Founded Hyderabad in 1591'], ['Tana Shah', 'Last Qutb Shahi king'], ['Madanna and Akkanna', 'Ministers of Tana Shah'], ['Golconda', 'Fort capital famous for diamonds'],
+    ], ['Tana Shah was the last.', 'Madanna and Akkanna were ministers.']),
+  ]),
+]);
+
+// =====================================================================================
+// Chapter 14 — Mughal Empire
+// =====================================================================================
+const ch14 = U(14, 'Mughal Empire', [
+  O('ts7.ss.mughal.who', 'Who were the Mughals; relations with other rulers', [
+    h('An empire from Kabul to the Deccan'),
+    p('The Mughals were descended from two great rulers of Central Asia: Genghis Khan (through the mother\'s side) and Timur (through the father\'s side). Babur, ruler of Kabul, defeated Ibrahim Lodi at the first Battle of Panipat in 1526 and founded the Mughal Empire in India.'),
+    stepsB('Babur (1526–1530): won Panipat (1526) using cannons and cavalry tactics.', 'Humayun (1530–1540, 1555–1556): lost to Sher Shah Sur, fled to Persia, regained Delhi.', 'Akbar (1556–1605): expanded the empire and built a strong administration.', 'Jahangir (1605–1627) and Shah Jahan (1627–1658): rich courts; Shah Jahan built the Taj Mahal.', 'Aurangzeb (1658–1707): largest empire, including the Deccan and Golconda; long wars.'),
+    p('The Mughals dealt with other rulers in two ways. Those who refused to accept their authority were fought. Many, especially Rajput rulers, accepted Mughal rule and became mansabdars; some married their daughters into the Mughal family. The Sisodiya Rajputs of Mewar resisted for a long time; Rana Pratap fought Akbar at Haldighati (1576). The Marathas under Shivaji challenged Aurangzeb.'),
+    keys('Babur won Panipat 1526.', 'Six great Mughals: Babur → Aurangzeb.', 'Alliances with Rajputs; resistance from Mewar and Marathas.'),
+    remember('After Aurangzeb\'s death in 1707 the empire weakened and regional states rose.'),
+  ], [
+    ex('Why did many Rajput rulers become allies of the Mughals?', ['The Mughals were powerful.', 'Allies kept their kingdoms and got high ranks (mansabs).', 'Marriage alliances created family ties.'], 'They kept their lands and gained high positions.'),
+    ex('How long did Akbar rule (1556–1605)?', ['1605 − 1556 = 49.'], '49 years'),
+  ], [
+    orderT('emp', 'Order the Mughal emperors.', ['Babur', 'Humayun', 'Akbar', 'Jahangir', 'Shah Jahan', 'Aurangzeb'], ['Akbar was Humayun\'s son.', 'Aurangzeb was the last of the great Mughals.'], 'Babur → Humayun → Akbar → Jahangir → Shah Jahan → Aurangzeb.'),
+    mcq('m', 'Think of Panipat and the emperors.', [
+      ['Babur founded the Mughal Empire after the first Battle of Panipat in…', '1526', ['1556', '1192', '1757'], 'He defeated Ibrahim Lodi.', 'The first Battle of Panipat was in 1526.'],
+      ['Which emperor built the Taj Mahal?', 'Shah Jahan', ['Akbar', 'Babur', 'Aurangzeb'], 'For his wife Mumtaz Mahal.', 'Shah Jahan built the Taj Mahal.'],
+      ['Rana Pratap of Mewar fought Akbar at…', 'Haldighati', ['Tarain', 'Talikota', 'Plassey'], 'In 1576.', 'The Battle of Haldighati was in 1576.'],
+      ['Which emperor lost his throne to Sher Shah Sur and later regained it?', 'Humayun', ['Akbar', 'Jahangir', 'Babur'], 'He fled to Persia.', 'Humayun lost to Sher Shah and returned in 1555.'],
+      ['Who challenged Aurangzeb in the Deccan?', 'Shivaji and the Marathas', ['Rudrama Devi', 'Rajaraja Chola', 'Mahmud of Ghazni'], 'Maratha leader.', 'Shivaji built a Maratha kingdom against the Mughals.'],
+    ]),
+    yearsT('yrs', [
+      ['Babur won the first Battle of Panipat', 1526, 'Akbar became emperor', 1556],
+      ['Akbar became emperor', 1556, 'Akbar died', 1605],
+      ['Akbar died', 1605, 'Aurangzeb died', 1707],
+      ['Babur won the first Battle of Panipat', 1526, 'Aurangzeb captured Golconda', 1687],
+      ['Shah Jahan became emperor', 1627, 'Aurangzeb became emperor', 1658],
+    ]),
+  ]),
+  O('ts7.ss.mughal.admin', 'Mansabdars, jagirdars, zabt and Akbar\'s sulh-i kul', [
+    h('Running a huge empire'),
+    def('Mansabdar', 'An officer holding a mansab (rank). The rank had two numbers: zat (personal rank and salary) and sawar (number of cavalrymen he had to keep).'),
+    def('Jagir', 'Revenue from a piece of land assigned to a mansabdar instead of a cash salary. He was a jagirdar, but did not live there or own the land; his agents collected revenue, and jagirs were transferred often.'),
+    def('Zabt', 'Akbar\'s revenue system, worked out by his minister Todar Mal: land was measured, average crop yields and prices over 10 years were studied, and a fixed tax in cash was set for each crop.'),
+    p('Zamindars were local landholders and village headmen who collected revenue for the empire and kept a share. They were powerful locally and sometimes rebelled when demands were too high.'),
+    h('Sulh-i kul: peace with all'),
+    p('Akbar ruled over people of many faiths. He held discussions in the Ibadat Khana at Fatehpur Sikri with scholars of many religions. He abolished the jizya tax on non-Muslims and the pilgrim tax. His idea of sulh-i kul ("universal peace") meant that all religions were to be respected and officials should treat everyone fairly. Abul Fazl wrote his history, the Akbarnama.'),
+    keys('Mansab = rank (zat + sawar).', 'Jagir = assigned revenue, not ownership.', 'Zabt (Todar Mal); sulh-i kul (Akbar).'),
+    remember('Sulh-i kul = peace with all; Akbar abolished jizya in 1564.'),
+  ], [
+    ex('A mansabdar has a rank of 5,000 zat and 3,000 sawar. What does each number tell us?', ['Zat 5,000 decides his status and salary.', 'Sawar 3,000 is the number of horsemen he must keep.'], 'Zat: personal rank/pay; sawar: cavalry to maintain.'),
+    ex('Why were jagirs transferred every few years?', ['So that mansabdars did not become too powerful in one area.', 'They could not build up local support to rebel.'], 'To keep mansabdars loyal and prevent local power bases.'),
+  ], [
+    matchT('t', 'Mughal term with its meaning', [
+      ['Mansab', 'Rank of an officer'], ['Zat', 'Personal rank and salary'], ['Sawar', 'Number of cavalrymen to keep'], ['Jagir', 'Assigned land revenue'], ['Zabt', 'Revenue system based on measured land'], ['Sulh-i kul', 'Peace with all'],
+    ], ['Sawar sounds like "rider".', 'Sulh = peace.']),
+    mcq('ad', 'Think of Akbar\'s policies.', [
+      ['Who designed Akbar\'s zabt revenue system?', 'Todar Mal', ['Abul Fazl', 'Birbal', 'Tansen'], 'Akbar\'s finance minister.', 'Raja Todar Mal designed zabt.'],
+      ['Akbar held religious discussions in the…', 'Ibadat Khana at Fatehpur Sikri', ['Red Fort at Delhi', 'Golconda fort', 'Taj Mahal'], 'House of worship.', 'Discussions took place in the Ibadat Khana.'],
+      ['Sulh-i kul means…', 'peace with all', ['war with all', 'tax on all', 'land for all'], 'Universal peace.', 'Sulh-i kul means universal peace.'],
+      ['Which tax did Akbar abolish?', 'Jizya', ['Zabt', 'Land revenue', 'Customs duty'], 'Tax on non-Muslims.', 'Akbar abolished the jizya in 1564.'],
+      ['Who wrote the Akbarnama?', 'Abul Fazl', ['Todar Mal', 'Babur', 'Kabir'], 'Akbar\'s friend and courtier.', 'Abul Fazl wrote the Akbarnama.'],
+    ]),
+    tapT('jag', 'Tap the TRUE statements about jagirdars.', [
+      ['They were mansabdars paid through assigned revenue', true], ['Their jagirs were transferred often', true], ['Their agents collected revenue', true],
+      ['They owned the land forever', false], ['They always lived in their jagirs', false], ['They were peasants', false],
+    ], ['A jagir was revenue, not ownership.', 'Transfers prevented local power.'], 'Jagirdars received revenue rights, not ownership, and were transferred often.'),
+  ]),
+  O('ts7.ss.mughal.later', 'The 17th century; Sardar Sarvai Papanna; the Asaf Jahis of Hyderabad', [
+    h('Strains in the empire'),
+    p('In the 17th century the empire reached its largest size under Aurangzeb, but long Deccan wars drained money. The number of mansabdars grew, jagirs fell short, and peasants were burdened with high revenue demands. Rebellions broke out among Marathas, Jats, Sikhs and others.'),
+    h('Sardar Sarvai Papanna'),
+    p('Sarvai Papanna (Papadu) Goud, from a toddy-tapper family of Tarikonda near Jangaon, gathered a band of ordinary people in the late 1600s and early 1700s. He built a fort at Khilashapur, captured Mughal forts and even Warangal for a time, and challenged Mughal officials and local zamindars. He was finally captured and killed (around 1710). Folk songs (ballads) in Telangana still celebrate him as a hero of the common people.'),
+    h('The Asaf Jahis of Hyderabad'),
+    stepsB('1707: Aurangzeb dies; the Mughal centre weakens.', '1713: Mir Qamaruddin is made Mughal governor of the Deccan; given the title Nizam-ul-Mulk.', '1724: he defeats a rival at Shakarkheda and becomes practically independent; founds the Asaf Jahi dynasty as Asaf Jah I.', 'Hyderabad becomes the capital; the rulers are called Nizams.', '1948: Hyderabad State joins the Indian Union.'),
+    keys('17th century: biggest empire but rising strain.', 'Sarvai Papanna: a people\'s rebel of Telangana.', 'Asaf Jah I founded Asaf Jahi rule (1724); Nizams ruled till 1948.'),
+    remember('The seven Asaf Jahi Nizams ruled Hyderabad from 1724 to 1948.'),
+  ], [
+    ex('Why is Sarvai Papanna remembered in folk songs?', ['He came from an ordinary family, not royalty.', 'He fought powerful Mughal officials and zamindars.', 'People saw him as a hero of the common folk.'], 'He was a commoner who challenged the powerful.'),
+    ex('How many years did the Asaf Jahis rule Hyderabad (1724–1948)?', ['1948 − 1724 = 224.'], '224 years'),
+  ], [
+    orderT('asaf', 'Order these events.', ['Golconda is captured by Aurangzeb', 'Aurangzeb dies', 'Nizam-ul-Mulk becomes independent as Asaf Jah I', 'Hyderabad State joins the Indian Union'], ['Golconda fell in 1687.', 'The merger was in 1948.'], '1687 → 1707 → 1724 → 1948.', 4),
+    mcq('pap', 'Think of Telangana in the 1700s.', [
+      ['Sarvai Papanna built his fort at…', 'Khilashapur', ['Golconda', 'Hampi', 'Thanjavur'], 'Near Jangaon.', 'His fort was at Khilashapur.'],
+      ['The founder of the Asaf Jahi dynasty was…', 'Mir Qamaruddin (Nizam-ul-Mulk, Asaf Jah I)', ['Muhammad Quli Qutb Shah', 'Aurangzeb', 'Tana Shah'], 'Mughal governor of the Deccan.', 'Nizam-ul-Mulk became Asaf Jah I in 1724.'],
+      ['Asaf Jahi rulers were called…', 'Nizams', ['Rajas', 'Peshwas', 'Nawabs of Bengal'], 'From Nizam-ul-Mulk.', 'They were the Nizams of Hyderabad.'],
+      ['Why did the Mughal Empire weaken in the late 1600s?', 'Long Deccan wars, shortage of jagirs and peasant revolts', ['There were no wars', 'Taxes were abolished', 'The British ruled it already'], 'Money and land ran short.', 'Costly wars and a jagir crisis weakened it.'],
+      ['Sarvai Papanna came from a family of…', 'toddy tappers', ['kings', 'Mughal nobles', 'Portuguese traders'], 'Goud community.', 'He was from a toddy-tapper (Goud) family.'],
+    ]),
+    yearsT('yrs', [
+      ['Aurangzeb died', 1707, 'Asaf Jah I became independent', 1724],
+      ['Asaf Jah I became independent', 1724, 'Hyderabad joined the Indian Union', 1948],
+      ['Golconda was captured by the Mughals', 1687, 'Asaf Jah I became independent', 1724],
+      ['Hyderabad was founded', 1591, 'Asaf Jah I became independent', 1724],
+      ['Aurangzeb captured Golconda', 1687, 'Aurangzeb died', 1707],
+    ]),
+  ]),
+]);
+
+// =====================================================================================
+// Chapter 15 — Establishment of the British Empire in India
+// =====================================================================================
+const ch15 = U(15, 'Establishment of the British Empire in India', [
+  O('ts7.ss.british.company', 'The East India Company: mercantilism and armed traders', [
+    h('Traders with guns'),
+    p('In 1600 Queen Elizabeth I gave the English East India Company a charter: the sole right to trade with the East. The Portuguese, Dutch and French also came. They competed fiercely, and their ships carried guns and soldiers.'),
+    def('Mercantilism', 'An economic idea of 16th–18th century Europe: a country becomes rich by exporting more than it imports and collecting gold and silver; colonies should supply cheap raw materials and buy its finished goods.'),
+    stepsB('The Company set up "factories" (trading posts) at Surat (1613), Madras (Fort St George, 1639), Bombay and Calcutta (1690s).', 'It bought cotton and silk cloth, indigo, pepper and saltpetre to sell in Europe.', 'It fortified its posts and hired Indian soldiers (sepoys).', 'Trade disputes with rulers turned into wars.', '1757: at the Battle of Plassey, Robert Clive defeated Siraj-ud-Daulah, Nawab of Bengal, helped by the treachery of Mir Jafar.', '1764: the Battle of Buxar; the next year the Company got the diwani (right to collect revenue) of Bengal.'),
+    keys('EIC charter: 1600.', 'Mercantilism: export more, import less, collect gold.', 'Plassey 1757; Buxar 1764; diwani 1765.'),
+    remember('With Bengal\'s revenue the Company paid for its army and its trade, turning traders into rulers.'),
+  ], [
+    ex('Why did European trading companies keep armies?', ['They competed with each other and sometimes fought.', 'They wanted to protect forts and force favourable trade terms.'], 'To fight rivals and protect and expand trade.'),
+    ex('How many years after its charter (1600) did the Company win at Plassey (1757)?', ['1757 − 1600 = 157.'], '157 years'),
+  ], [
+    orderT('eic', 'Order these events.', ['East India Company gets its charter', 'A factory is set up at Surat', 'Battle of Plassey', 'Battle of Buxar', 'Company gets the diwani of Bengal'], ['The charter came first (1600).', 'The diwani followed Buxar.'], '1600 → 1613 → 1757 → 1764 → 1765.'),
+    mcq('c', 'Think of Plassey and mercantilism.', [
+      ['The Battle of Plassey (1757) was won by…', 'Robert Clive of the East India Company', ['Siraj-ud-Daulah', 'Tipu Sultan', 'Akbar'], 'Mir Jafar betrayed the Nawab.', 'Clive defeated Siraj-ud-Daulah.'],
+      ['Mercantilism says a country becomes rich by…', 'exporting more than it imports and collecting gold and silver', ['importing everything', 'giving away its gold', 'stopping all trade'], 'Gold flows in.', 'Mercantilists wanted a surplus of exports.'],
+      ['The "diwani" given to the Company in 1765 was the right to…', 'collect revenue in Bengal', ['build temples', 'print books', 'sail to China'], 'Diwan = revenue officer.', 'The diwani was the right to collect land revenue.'],
+      ['Indian soldiers in the Company\'s army were called…', 'sepoys', ['mansabdars', 'nayakas', 'zamindars'], 'From the Persian sipahi.', 'Sepoys were Indian soldiers of the Company.'],
+      ['Which queen granted the East India Company its charter?', 'Elizabeth I', ['Victoria', 'Mary', 'Anne'], 'In 1600.', 'Queen Elizabeth I issued the charter in 1600.'],
+    ]),
+    matchT('m', 'item with what it is', [
+      ['Surat', 'Early English factory (trading post)'], ['Plassey', 'Battle of 1757'], ['Buxar', 'Battle of 1764'], ['Saltpetre', 'Used to make gunpowder'], ['Charter', 'Royal permission to trade'],
+    ], ['Two are battles.', 'Saltpetre is a chemical.']),
+  ]),
+  O('ts7.ss.british.rule', 'Interference in Indian kingdoms and the Revolt of 1857', [
+    h('From allies to masters'),
+    def('Subsidiary Alliance', 'A system introduced by Lord Wellesley (1798): an Indian ruler had to keep a Company army in his state and pay for it, could not keep his own army or make alliances without British permission, and had a British Resident at his court. The Nizam of Hyderabad was the first to accept it (1798).'),
+    def('Doctrine of Lapse', 'Lord Dalhousie\'s policy: if a ruler died without a natural-born son, his kingdom "lapsed" to the Company. Satara, Jhansi and Nagpur were taken this way. Awadh was annexed in 1856 on the charge of misrule.'),
+    h('The Revolt of 1857'),
+    stepsB('Sepoys were angry about low pay, service overseas and rumours that new cartridges were greased with cow and pig fat.', 'Peasants and rulers were angry about high taxes and lost kingdoms.', '10 May 1857: sepoys at Meerut rebel and march to Delhi.', 'They proclaim the old Mughal emperor Bahadur Shah Zafar their leader.', 'The revolt spreads: Rani Lakshmibai (Jhansi), Nana Saheb (Kanpur), Begum Hazrat Mahal (Lucknow), Kunwar Singh (Bihar), Tantia Tope.', 'By 1858 the British recapture Delhi and crush the revolt with great force.'),
+    keys('Subsidiary Alliance (1798): Nizam first.', 'Doctrine of Lapse: Jhansi, Satara, Nagpur.', 'Revolt began at Meerut, 10 May 1857.'),
+    remember('Bahadur Shah Zafar was exiled to Rangoon (Yangon), and the Mughal dynasty ended.'),
+  ], [
+    ex('Why did Rani Lakshmibai fight the British?', ['Her husband died; their adopted son was not accepted as heir.', 'Under the Doctrine of Lapse, Jhansi was annexed.', 'She fought to defend her kingdom.'], 'Jhansi was taken under the Doctrine of Lapse.'),
+    ex('How did the Subsidiary Alliance weaken Indian rulers?', ['They had to disband their own armies.', 'They paid for British troops.', 'A British Resident controlled their decisions.'], 'They lost military power and independence.'),
+  ], [
+    matchT('leaders', 'leader of 1857 with the place', [
+      ['Rani Lakshmibai', 'Jhansi'], ['Nana Saheb', 'Kanpur'], ['Begum Hazrat Mahal', 'Lucknow'], ['Kunwar Singh', 'Bihar'], ['Bahadur Shah Zafar', 'Delhi'],
+    ], ['The emperor was in Delhi.', 'Lucknow was the capital of Awadh.']),
+    mcq('r', 'Policies and the revolt.', [
+      ['Who introduced the Subsidiary Alliance?', 'Lord Wellesley', ['Lord Dalhousie', 'Robert Clive', 'Lord Curzon'], '1798.', 'Wellesley introduced it in 1798.'],
+      ['Which ruler first accepted the Subsidiary Alliance?', 'The Nizam of Hyderabad', ['Tipu Sultan', 'Rani Lakshmibai', 'Ranjit Singh'], 'In 1798.', 'The Nizam accepted it first.'],
+      ['The Revolt of 1857 began at…', 'Meerut', ['Hyderabad', 'Madras', 'Bombay'], 'On 10 May.', 'Sepoys rebelled at Meerut on 10 May 1857.'],
+      ['The rebels declared which person their leader?', 'Bahadur Shah Zafar', ['Lord Dalhousie', 'Akbar', 'Shivaji'], 'The last Mughal emperor.', 'Bahadur Shah Zafar was proclaimed leader.'],
+      ['The Doctrine of Lapse took over kingdoms when…', 'a ruler died without a natural-born son', ['a ruler won a war', 'it rained too little', 'trade grew'], 'Adopted sons not accepted.', 'Kingdoms "lapsed" without a natural heir.'],
+    ]),
+    tapT('cause', 'Tap the causes of the Revolt of 1857.', [
+      ['Rumours of greased cartridges', true], ['Annexation of kingdoms like Jhansi and Awadh', true], ['High land revenue on peasants', true], ['Low pay and poor treatment of sepoys', true],
+      ['The building of the Charminar', false], ['The Battle of Tarain', false],
+    ], ['Think of sepoys, rulers and peasants.', 'Two options are from other centuries.'], 'Cartridges, annexations, taxes and sepoy grievances caused the revolt.'),
+  ]),
+  O('ts7.ss.british.after', 'After the revolt; Hyderabad State and the British', [
+    h('Rule by the Crown'),
+    stepsB('1858: the British Parliament ends Company rule; India is ruled directly by the British Crown.', 'A Viceroy rules on behalf of the Crown; a Secretary of State in London oversees India.', 'Queen Victoria\'s Proclamation (1858) promises not to annex more princely states and to respect religious customs.', 'The army is reorganised: more British soldiers, fewer Indians from regions that rebelled.', 'Princely states such as Hyderabad continue under their rulers, but under British supervision.'),
+    h('Hyderabad in 1857'),
+    p('The Nizam and his chief minister Salar Jung I stayed loyal to the British. But in July 1857, Turrebaz Khan and Moulvi Allauddin led a band of rebels in an attack on the British Residency in Hyderabad. The attack failed; Turrebaz Khan was later captured and killed. Rebels also rose in places like Aurangabad and among Rohillas in the districts.'),
+    p('After 1857 the British rewarded the Nizam with titles and returned some districts. A British Resident stayed at Hyderabad, and British troops were stationed at the Secunderabad cantonment. Salar Jung I modernised the state\'s administration, revenue, courts and education.'),
+    keys('1858: Crown rule; Viceroy.', 'Queen\'s Proclamation: no more annexations.', 'Hyderabad 1857: Turrebaz Khan attacked the Residency.'),
+    remember('Koti Women\'s College in Hyderabad occupies the old British Residency building, where Turrebaz Khan\'s attack took place.'),
+  ], [
+    ex('Why did the British stop annexing princely states after 1858?', ['Annexations had angered rulers and helped cause the revolt.', 'Loyal princes had helped the British.', 'So the Crown promised to protect their thrones.'], 'To keep loyal princes on their side and avoid another revolt.'),
+    ex('Who ruled India after 1858, and through whom?', ['The British Crown and Parliament.', 'Through the Viceroy in India and the Secretary of State in London.'], 'The British Crown, through the Viceroy.'),
+  ], [
+    orderT('aft', 'Order these events.', ['Revolt begins at Meerut', 'Turrebaz Khan attacks the Residency in Hyderabad', 'British recapture Delhi', 'Queen Victoria\'s Proclamation'], ['Meerut was May 1857; Hyderabad was July 1857.', 'The Proclamation came in 1858.'], 'Meerut → Hyderabad attack → Delhi recaptured → Proclamation.', 4),
+    mcq('h', 'Hyderabad and the British after 1857.', [
+      ['Who led the attack on the British Residency at Hyderabad in 1857?', 'Turrebaz Khan', ['Salar Jung I', 'Rani Lakshmibai', 'Robert Clive'], 'With Moulvi Allauddin.', 'Turrebaz Khan led the attack in July 1857.'],
+      ['After 1858 India was ruled directly by…', 'the British Crown', ['the East India Company', 'the Mughal emperor', 'the Nizam'], 'Company rule ended.', 'The Crown took over in 1858.'],
+      ['Who was the Nizam\'s chief minister who modernised Hyderabad\'s administration?', 'Salar Jung I', ['Todar Mal', 'Abul Fazl', 'Madanna'], 'His family collection became a famous museum.', 'Salar Jung I carried out reforms.'],
+      ['The Queen\'s Proclamation (1858) promised to…', 'stop annexing princely states and respect religious customs', ['abolish all taxes', 'leave India immediately', 'make the Nizam emperor'], 'Reassure princes and people.', 'It promised no further annexations.'],
+      ['British troops near Hyderabad were stationed at…', 'Secunderabad cantonment', ['Golconda only', 'Warangal fort', 'Hampi'], 'A twin city of Hyderabad.', 'The Secunderabad cantonment housed British troops.'],
+    ]),
+    tapT('crown', 'Tap the changes made by the British after 1857.', [
+      ['Company rule ended; the Crown took over', true], ['A Viceroy was appointed', true], ['Annexation of princely states stopped', true], ['The army was reorganised', true],
+      ['India became independent', false], ['The Mughal emperor got more power', false],
+    ], ['Independence came in 1947.', 'The Mughal emperor was exiled.'], 'Crown rule, the Viceroy, no annexations and army changes followed 1857.'),
+  ]),
+]);
+
+// =====================================================================================
+// Chapter 16 — Making of Laws in the State Assembly
+// =====================================================================================
+const ch16 = U(16, 'Making of Laws in the State Assembly', [
+  O('ts7.ss.assembly.mla', 'The Legislative Assembly and election of MLAs', [
+    h('Who makes laws for Telangana?'),
+    photo('🏢', 'The Telangana Legislative Assembly meets in Hyderabad.'),
+    p('India is a federal country: some matters are decided by the Union (central) government and some by state governments. Laws for the state on subjects like police, agriculture, health and local government are made by the state legislature.'),
+    def('Legislative Assembly (Vidhan Sabha)', 'The house of elected representatives of a state. Telangana\'s Assembly has 119 elected members (MLAs).'),
+    def('Constituency', 'An area whose voters elect one representative. Telangana is divided into 119 Assembly constituencies.'),
+    stepsB('The Election Commission announces the election.', 'Candidates of parties and independents file nominations.', 'Campaigning: meetings, posters, door-to-door visits.', 'Voting day: every citizen aged 18 or above votes secretly using an EVM.', 'Counting: the candidate with the most votes in each constituency becomes the MLA for 5 years.'),
+    p('To be an MLA, a person must be a citizen of India and at least 25 years old. Some constituencies are reserved so that only candidates from Scheduled Castes (SC) or Scheduled Tribes (ST) can contest, ensuring that these communities are represented. All voters of that area still vote.'),
+    keys('Telangana Assembly: 119 MLAs.', 'Voting age 18; MLA age 25; term 5 years.', 'Reserved constituencies for SC and ST.'),
+    remember('In a reserved constituency, only SC (or ST) candidates can stand, but everyone in the constituency votes.'),
+  ], [
+    ex('Why are some constituencies reserved for SC and ST candidates?', ['These communities faced discrimination and were under-represented.', 'Reservation ensures they have a voice in law-making.'], 'To ensure fair representation for SC and ST communities.'),
+    ex('In a constituency, candidate A gets 52,000 votes, B gets 47,000 and C gets 8,000. Who wins?', ['The candidate with the most votes wins (even without more than half of all votes).', '52,000 is the highest.'], 'Candidate A'),
+  ], [
+    orderT('elect', 'Order the steps of an Assembly election.', ['Election is announced', 'Candidates file nominations', 'Campaigning', 'Voting by secret ballot on EVMs', 'Counting and declaration of results'], ['Candidates must register before campaigning.', 'Results come last.'], 'Announcement → nominations → campaign → voting → counting.'),
+    mcq('mla', 'Numbers and rules of the Assembly.', [
+      ['How many elected members does the Telangana Legislative Assembly have?', '119', ['294', '543', '40'], 'Same as the number of constituencies.', 'Telangana has 119 Assembly constituencies.'],
+      ['The minimum age to become an MLA is…', '25 years', ['18 years', '21 years', '35 years'], 'Older than the voting age.', 'An MLA must be at least 25.'],
+      ['The minimum voting age in India is…', '18 years', ['16 years', '21 years', '25 years'], 'Since 1989.', 'Citizens aged 18 and above can vote.'],
+      ['An MLA is normally elected for…', '5 years', ['2 years', '10 years', 'life'], 'Same as the Lok Sabha.', 'The Assembly\'s term is 5 years.'],
+      ['Who conducts elections in India?', 'The Election Commission', ['The Chief Minister', 'The District Collector alone', 'Political parties'], 'An independent body.', 'The Election Commission conducts elections.'],
+    ]),
+    tp('vote', (r) => {
+      const a = r.int(40, 70) * 1000, b = r.int(20, 39) * 1000, c = r.int(2, 15) * 1000;
+      return numQ(`In an Assembly constituency (illustrative), the winner got ${a.toLocaleString('en-IN')} votes and the runner-up got ${b.toLocaleString('en-IN')} votes; a third candidate got ${c.toLocaleString('en-IN')}. By how many votes did the winner win (the margin)?`, a - b,
+        ['Margin = winner\'s votes − runner-up\'s votes.', 'Ignore the third candidate.'], [`${a} − ${b} = ${a - b}`], [{ when: String(a - b - c), explain: 'Do not subtract the third candidate. The margin compares only the top two.' }], 0.001, 'votes');
+    }, 2),
+  ]),
+  O('ts7.ss.assembly.govt', 'Forming the government: Chief Minister and Council of Ministers', [
+    h('Majority makes the government'),
+    p('After the election, the party (or group of parties) that has a majority of MLAs forms the government. In Telangana, a majority means at least 60 of the 119 MLAs.'),
+    stepsB('The majority party elects its leader.', 'The Governor invites that leader to become Chief Minister (CM).', 'The CM chooses ministers; the Governor appoints them.', 'Each minister heads departments such as education, health or agriculture.', 'The government must keep the support of the majority in the Assembly; MLAs who are not in the government form the opposition.'),
+    def('Governor', 'The constitutional head of the state, appointed by the President of India. The Governor acts mostly on the advice of the Council of Ministers.'),
+    def('Council of Ministers', 'The CM and ministers who run the government departments and are together responsible to the Assembly.'),
+    def('Opposition', 'MLAs not in the government. They ask questions, criticise policies and keep the government accountable.'),
+    keys('Majority in Telangana: 60 of 119.', 'Governor appoints the CM and ministers.', 'Opposition keeps the government accountable.'),
+    remember('The Governor is the formal head; the Chief Minister is the real head of the state government.'),
+  ], [
+    ex('Party X wins 64 seats, Party Y 40 and others 15 in Telangana. Who forms the government?', ['Majority = 60 of 119.', '64 ≥ 60.', 'Party X has a majority.'], 'Party X'),
+    ex('Why is the opposition important in a democracy?', ['It questions the government in the Assembly.', 'It points out mistakes and suggests alternatives.', 'This keeps the government careful and accountable.'], 'It keeps the government accountable.'),
+  ], [
+    tp('maj', (r) => {
+      const total = r.pick([119, 175, 224, 234, 288, 403]);
+      const maj = Math.floor(total / 2) + 1;
+      return numQ(`A state assembly has ${total} seats. What is the smallest number of seats a party needs for a majority (more than half)?`, maj,
+        [`Half of ${total} is ${total / 2}.`, 'A majority must be MORE than half, so take the next whole number.'],
+        [`${total} ÷ 2 = ${total / 2}`, `More than half → ${maj} seats`], [{ when: String(total / 2), explain: 'Exactly half is not a majority; you need more than half.' }], 0.001, 'seats');
+    }, 2),
+    mcq('gov', 'Who does what in the state government.', [
+      ['Who appoints the Chief Minister?', 'The Governor', ['The President directly', 'The Prime Minister', 'The Collector'], 'The formal head of the state.', 'The Governor invites and appoints the majority leader as CM.'],
+      ['Who appoints the Governor?', 'The President of India', ['The Chief Minister', 'The voters', 'The Speaker'], 'From the Union level.', 'The President appoints the Governor.'],
+      ['MLAs who are not part of the ruling party or alliance form the…', 'opposition', ['cabinet', 'judiciary', 'Election Commission'], 'They oppose and question.', 'They are the opposition.'],
+      ['The real head of a state government is the…', 'Chief Minister', ['Governor', 'Speaker', 'Collector'], 'Leader of the majority.', 'The CM leads the government.'],
+    ]),
+    orderT('form', 'Order how a state government is formed.', ['Election results are declared', 'The majority party elects its leader', 'The Governor appoints the leader as Chief Minister', 'Ministers are appointed and given departments'], ['Results first.', 'Departments are given last.'], 'Results → leader chosen → CM appointed → ministers.', 4),
+  ]),
+  O('ts7.ss.assembly.laws', 'The Legislative Council and how laws are made', [
+    h('Two houses in Telangana'),
+    def('Legislative Council (Vidhan Parishad)', 'The upper house in some states, including Telangana (40 members). Members (MLCs) are elected by MLAs, local bodies, graduates and teachers, and some are nominated by the Governor. It is permanent; one-third retire every two years; members serve 6 years and must be at least 30.'),
+    h('From bill to law'),
+    stepsB('A minister (or a member) introduces a bill (proposed law) in the Assembly.', 'It is read and debated; members may suggest changes; it may go to a committee.', 'The Assembly votes; if a majority agrees, the bill is passed.', 'It goes to the Legislative Council, which can discuss and suggest changes but cannot stop it for long.', 'The Governor gives assent (signature); the bill becomes an Act (law).'),
+    p('The Assembly also passes the budget: the government\'s plan of income and spending for the year. Members ask questions in Question Hour to hold ministers to account. People and the media can influence laws by raising issues, protesting peacefully, and giving suggestions.'),
+    keys('Telangana has two houses: Assembly (119) and Council (40).', 'Bill → debate → vote → Council → Governor\'s assent → Act.', 'The Assembly passes the budget.'),
+    remember('A bill becomes a law only after the Governor signs it.'),
+  ], [
+    ex('A bill to protect village tanks is passed by the Assembly. What happens next?', ['It goes to the Legislative Council for discussion.', 'Then to the Governor for assent.', 'After assent it becomes an Act.'], 'Council discussion, then the Governor\'s assent.'),
+    ex('How is an MLC different from an MLA?', ['MLAs are directly elected by voters for 5 years.', 'MLCs are mostly indirectly elected or nominated, for 6 years.'], 'MLAs: direct, 5 years; MLCs: mostly indirect, 6 years.'),
+  ], [
+    orderT('bill', 'Order the steps by which a bill becomes a law in Telangana.', ['Bill introduced in the Assembly', 'Debate and discussion', 'Vote in the Assembly', 'Discussion in the Legislative Council', 'Governor gives assent'], ['Introduction comes first.', 'The Governor signs last.'], 'Introduce → debate → vote → Council → assent.'),
+    matchT('two', 'item with Assembly or Council fact', [
+      ['Legislative Assembly', '119 members directly elected'], ['Legislative Council', '40 members, mostly indirectly elected'], ['MLA term', '5 years'], ['MLC term', '6 years'], ['Governor\'s assent', 'Turns a bill into an Act'], ['Budget', 'Plan of yearly income and spending'],
+    ], ['Assembly is directly elected.', 'Council members serve longer.']),
+    mcq('law', 'Bills and houses.', [
+      ['A proposed law is called a…', 'bill', ['budget', 'verdict', 'charter'], 'It becomes an Act later.', 'A bill is a draft law.'],
+      ['How many members does the Telangana Legislative Council have?', '40', ['119', '17', '250'], 'Smaller than the Assembly.', 'The Council has 40 members.'],
+      ['The minimum age for an MLC is…', '30 years', ['18 years', '25 years', '40 years'], 'Older than for an MLA.', 'An MLC must be at least 30.'],
+      ['The time in the Assembly when members question ministers is…', 'Question Hour', ['Zero budget', 'Recess', 'Polling'], 'Usually the first hour.', 'Question Hour holds ministers accountable.'],
+    ]),
+  ]),
+]);
+
+// =====================================================================================
+// Chapter 17 — Implementation of Laws in the District
+// =====================================================================================
+const ch17 = U(17, 'Implementation of Laws in the District', [
+  O('ts7.ss.district.collector', 'The District Collector and Magistrate', [
+    h('The head of the district'),
+    p('Laws are made in Hyderabad, but they must work in every village. Telangana has 33 districts. In each district, the government\'s work is led by the District Collector.'),
+    def('District Collector', 'An IAS officer who heads the district administration: collects land revenue, maintains land records, oversees development schemes, elections, relief during floods or droughts, and coordinates all departments.'),
+    def('District Magistrate', 'The Collector also works as District Magistrate, responsible for law and order along with the Superintendent of Police; can issue prohibitory orders in emergencies.'),
+    stepsB('Revenue: land revenue and land records.', 'Law and order: with the police.', 'Development: schools, health, roads, welfare schemes.', 'Disaster management: floods, droughts, epidemics.', 'Elections: as District Election Officer.'),
+    p('The Collector holds weekly grievance days (Prajavani) where citizens can bring complaints directly. Collectors work with district officers of each department (education, health, agriculture) and with elected local bodies such as the Zilla Parishad.'),
+    keys('Telangana: 33 districts.', 'Collector: revenue, development, disaster, elections.', 'Also District Magistrate for law and order.'),
+    remember('The Collector is appointed by the government, not elected. MLAs and MPs are elected.'),
+  ], [
+    ex('A flood hits villages near the Godavari. What would the Collector do?', ['Coordinate rescue with police, fire services and disaster teams.', 'Open relief camps with food, water and medicines.', 'Assess losses and arrange compensation.'], 'Lead rescue, relief and compensation.'),
+    ex('Why is the Collector called the "Collector"?', ['The post began under British rule.', 'The main job then was to collect land revenue.'], 'Because the original duty was collecting land revenue.'),
+  ], [
+    tapT('duties', 'Tap the duties of a District Collector.', [
+      ['Maintaining land records', true], ['Organising flood relief', true], ['Conducting elections in the district', true], ['Overseeing welfare schemes', true], ['Hearing public grievances', true],
+      ['Passing laws in the Assembly', false], ['Judging criminal cases in the High Court', false],
+    ], ['Laws are made by MLAs.', 'High Court judges decide appeals.'], 'Land records, relief, elections, schemes and grievances are the Collector\'s work.'),
+    mcq('col', 'The Collector heads the district.', [
+      ['How many districts does Telangana have?', '33', ['10', '23', '119'], 'Reorganised in 2016 and later.', 'Telangana has 33 districts.'],
+      ['The District Collector is usually an officer of the…', 'IAS (Indian Administrative Service)', ['Indian Army', 'Election Commission only', 'High Court'], 'Selected by exam.', 'Collectors are IAS officers.'],
+      ['The Collector\'s weekly grievance day in Telangana is called…', 'Prajavani', ['Gram Sabha', 'Question Hour', 'Mission Kakatiya'], 'Voice of the people.', 'Prajavani lets citizens bring complaints.'],
+      ['As District Magistrate, the Collector is responsible for…', 'law and order', ['writing textbooks', 'running railways', 'printing money'], 'With the police.', 'The DM maintains law and order.'],
+    ]),
+    matchT('who', 'official with their level', [
+      ['District Collector', 'Head of the district'], ['Revenue Divisional Officer', 'Head of a revenue division'], ['Tahsildar', 'Head of a mandal'], ['Superintendent of Police', 'Head of district police'], ['Zilla Parishad Chairperson', 'Elected head of district local body'],
+    ], ['From biggest area to smaller ones.', 'Police and elected bodies are separate.']),
+  ]),
+  O('ts7.ss.district.tahsildar', 'The Tahsildar (MRO) and village revenue officers', [
+    h('Government at the mandal and village'),
+    p('Each district is divided into revenue divisions, and each division into mandals. The mandal revenue office (tahsil office) is where most people go for certificates and land matters.'),
+    def('Tahsildar (Mandal Revenue Officer, MRO)', 'The officer who heads the mandal revenue office: maintains land records, issues certificates (caste, income, residence), registers some transactions, and handles relief and welfare at the mandal level.'),
+    stepsB('A farmer applies for a correction in land records at the tahsil office.', 'Village-level revenue staff check the field and records.', 'The Revenue Inspector verifies and reports.', 'The Tahsildar examines the report and orders the correction.', 'The record (now often online, for example on the Dharani portal) is updated.'),
+    p('Village revenue officers and assistants have traditionally kept village land accounts, collected information on crops, helped during disasters and reported births, deaths and problems to the Tahsildar. Telangana has reorganised village-level revenue posts in recent years, and many land services are now online.'),
+    keys('District → revenue division → mandal → village.', 'Tahsildar/MRO: land records and certificates.', 'Village revenue staff keep local records.'),
+    remember('Income, caste and residence certificates needed for scholarships are issued by the Tahsildar\'s office.'),
+  ], [
+    ex('Sita needs an income certificate for a scholarship. Where should she apply?', ['Income certificates are revenue documents.', 'They are issued at the mandal level.'], 'At the Tahsildar (MRO) office, or online through Mee Seva.'),
+    ex('Order the administrative units from largest to smallest.', ['State → district → revenue division → mandal → village.'], 'State, district, division, mandal, village'),
+  ], [
+    orderT('units', 'Order the units from largest to smallest.', ['State', 'District', 'Revenue division', 'Mandal', 'Village'], ['A state contains districts.', 'The village is the smallest.'], 'State → district → division → mandal → village.'),
+    mcq('tah', 'Mandal-level administration.', [
+      ['The officer heading the mandal revenue office is the…', 'Tahsildar (MRO)', ['Collector', 'Governor', 'Sarpanch'], 'Also called Mandal Revenue Officer.', 'The Tahsildar heads the mandal revenue office.'],
+      ['Which certificate is issued by the Tahsildar\'s office?', 'Income certificate', ['Driving licence', 'Passport', 'Degree certificate'], 'Used for scholarships.', 'Income, caste and residence certificates come from the tahsil office.'],
+      ['Telangana\'s online land records portal is called…', 'Dharani', ['Prajavani', 'Mission Bhagiratha', 'Aadhaar'], 'For land records.', 'Dharani is the land records portal.'],
+      ['Who verifies field details before the Tahsildar orders a land record change?', 'Revenue Inspector and village revenue staff', ['The Chief Minister', 'The Governor', 'A school teacher'], 'Field checking.', 'Field staff verify and report to the Tahsildar.'],
+    ]),
+    tapT('cert', 'Tap documents usually obtained through the mandal revenue office (or Mee Seva).', [
+      ['Income certificate', true], ['Caste certificate', true], ['Residence certificate', true], ['Land record extract', true],
+      ['Passport', false], ['School marks memo', false],
+    ], ['Revenue office = land and certificates.', 'Passports come from the Passport Office.'], 'Income, caste, residence certificates and land records are revenue documents.'),
+  ]),
+  O('ts7.ss.district.walta', 'How laws are implemented: the Water, Land and Trees Act 2002', [
+    h('A law in action'),
+    p('In the early 2000s groundwater levels in many places were falling fast because of too many borewells, and trees were being cut. So the then Andhra Pradesh Assembly passed the Water, Land and Trees Act, 2002 (WALTA). It continues to apply in Telangana.'),
+    stepsB('Borewells: new wells and borewells need registration/permission; drilling near public drinking-water sources is restricted.', 'Over-exploited areas: in areas where groundwater is over-used, new borewells can be banned.', 'Sand and soil: removing sand from rivers needs permission.', 'Trees: cutting trees needs permission, and planting is required in return.', 'Rainwater harvesting: buildings must have recharge structures.'),
+    p('Implementation needs the whole chain: the state notifies rules; the Collector heads the district authority; the Tahsildar and village staff receive applications and inspect; groundwater officials measure water levels; police help stop illegal drilling and sand mining. Citizens can complain if they see violations.'),
+    keys('WALTA 2002 protects water, land and trees.', 'Borewells, sand mining and tree felling need permission.', 'Collector, Tahsildar, officials and citizens implement it.'),
+    remember('A law is only useful when officials enforce it and citizens support it.'),
+  ], [
+    ex('A farmer wants to drill a borewell next to the village drinking-water well. What would the law say?', ['WALTA restricts drilling close to public drinking-water sources.', 'His borewell could dry up the village well.', 'Permission would likely be refused.'], 'He would not get permission; it would harm the drinking-water source.'),
+    ex('How does WALTA connect to the Collector?', ['The Collector heads the district authority under the Act.', 'Orders, bans and inspections in the district are coordinated by the Collector\'s office.'], 'The Collector leads its implementation in the district.'),
+  ], [
+    tapT('walta', 'Tap the activities that need permission under WALTA.', [
+      ['Drilling a new borewell', true], ['Cutting down trees', true], ['Removing sand from a river bed', true],
+      ['Planting a tree in your yard', false], ['Building a rainwater pit', false], ['Drinking water from a tap', false],
+    ], ['The law controls actions that harm water, land and trees.', 'Planting and recharge are encouraged, not restricted.'], 'Borewells, tree felling and sand removal need permission.'),
+    orderT('impl', 'Order how a law like WALTA reaches a village.', ['The Assembly passes the Act', 'The Governor gives assent', 'The government notifies rules', 'The Collector directs district officials', 'The Tahsildar and village staff inspect and act'], ['Laws are passed before rules are made.', 'Village action is last.'], 'Pass → assent → rules → Collector → mandal and village.'),
+    mcq('wq', 'Purpose of WALTA.', [
+      ['WALTA stands for…', 'Water, Land and Trees Act', ['World Agriculture and Land Tax Act', 'Women and Labour Act', 'Water and Lake Tourism Act'], 'Three natural resources.', 'WALTA = Water, Land and Trees Act, 2002.'],
+      ['Why was WALTA passed?', 'Groundwater levels were falling and trees were being cut', ['There was too much rain', 'To build more factories', 'To stop farming'], 'Protect resources.', 'It aimed to save water, land and trees.'],
+      ['Which building feature does WALTA encourage?', 'Rainwater harvesting structures', ['Open drains into rivers', 'Concrete over all ground', 'Extra borewells'], 'Recharge groundwater.', 'Rainwater harvesting recharges groundwater.'],
+      ['If you see illegal sand mining from a river, you can…', 'complain to the Tahsildar or Collector', ['ignore it always', 'join in', 'complain to the airport'], 'Citizens help enforcement.', 'Officials act on citizens\' complaints.'],
+    ]),
+  ]),
+]);
+
+export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12, ch13, ch14, ch15, ch16, ch17];
