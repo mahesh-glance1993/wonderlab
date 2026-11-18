@@ -1613,4 +1613,515 @@ const el3: OSpec = {
 
 const ch12: USpec = { id: 'ts6.sc.ch12', subject: 'physics', title: 'Simple Electric Circuits', source: src(12), objectives: [el1, el2, el3] };
 
-export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12];
+// =====================================================================================
+// Chapter 13 — Learning How to Measure
+// =====================================================================================
+const ms1: OSpec = {
+  id: 'ts6.sc.measure.units', title: 'Story of measurement and standard units', prereqs: [],
+  intro: [
+    h('How long is a hand span?'),
+    photo('🖐️', 'A hand span — the distance from the tip of the thumb to the tip of the little finger, with fingers spread.'),
+    p('Long ago people measured with their bodies: a hand span, a cubit (elbow to fingertip), a foot, an arm length (baara) or a pace (step). Flower sellers still measure garlands in "moors" (elbow lengths).'),
+    p('But Ravi’s hand span is not the same as his father’s. If two people measure the same table in hand spans, they get different numbers. Trade and building need measurements that are the same for everybody.'),
+    def('Standard unit', 'A fixed, agreed unit that gives the same result whoever measures, such as the metre.'),
+    p('In the 1790s, France introduced the metric system. Today almost the whole world uses the International System of Units (SI). The SI unit of length is the metre (m).'),
+    keys('1 m = 100 cm', '1 cm = 10 mm', '1 km = 1000 m', 'Body units (span, cubit, foot, pace) are not standard — they differ from person to person.'),
+    remember('Measurement = a number + a unit. "5" means nothing; "5 m" tells us the length.'),
+    tip('To change a big unit into a smaller one, multiply (m → cm: × 100). To change a small unit into a bigger one, divide (cm → m: ÷ 100).'),
+  ],
+  examples: [
+    ex('Meena measures her desk as 6 hand spans and her teacher measures it as 4 hand spans. Who is wrong?', ['Both measured correctly.', 'Their hand spans have different lengths.', 'This is why we need a standard unit.'], 'Neither — hand spans are not a standard unit.'),
+    ex('Change 2 m 35 cm into centimetres.', ['2 m = 2 × 100 = 200 cm', '200 cm + 35 cm = 235 cm'], '235 cm'),
+  ],
+  practice: [
+    tp('m2cm', (r) => {
+      const m = r.int(1, 9), cm = r.int(5, 95);
+      return numQ(`Change ${m} m ${cm} cm into centimetres.`, m * 100 + cm, 'cm',
+        ['1 m = 100 cm.', 'Change the metres into cm, then add the extra cm.'],
+        [`${m} m = ${m * 100} cm`, `${m * 100} + ${cm} = ${m * 100 + cm} cm`],
+        [{ when: String(m + cm), explain: 'You added metres and centimetres directly. First change metres into centimetres.' }]);
+    }),
+    tp('conv', (r) => {
+      const kind = r.int(0, 2);
+      if (kind === 0) { const cm = r.int(2, 30); return numQ(`How many millimetres are there in ${cm} cm?`, cm * 10, 'mm', ['1 cm = 10 mm.'], [`${cm} × 10 = ${cm * 10} mm`], [{ when: String(cm / 10), explain: 'mm is smaller than cm, so the number should get bigger — multiply by 10.' }]); }
+      if (kind === 1) { const km = r.int(2, 9); return numQ(`How many metres are there in ${km} km?`, km * 1000, 'm', ['1 km = 1000 m.'], [`${km} × 1000 = ${km * 1000} m`], [{ when: String(km * 100), explain: '1 km is 1000 m, not 100 m.' }]); }
+      const cm = r.pick([300, 500, 700, 1200, 250, 450]);
+      return numQ(`Change ${cm} cm into metres.`, cm / 100, 'm', ['100 cm = 1 m.', 'Divide by 100.'], [`${cm} ÷ 100 = ${cm / 100} m`], [{ when: String(cm * 100), explain: 'Metres are bigger than centimetres, so the number gets smaller — divide by 100.' }]);
+    }),
+    mcq('std', 'Standard units give the same result for everyone.', [
+      ['Why are hand spans not a good unit for measuring?', 'They differ from person to person', ['They are too long', 'They are made of metal', 'Nobody has hands'], 'Compare your span with an adult’s.', 'Body measures vary, so results differ.'],
+      ['The SI unit of length is the…', 'Metre', ['Foot', 'Cubit', 'Hand span'], 'Used all over the world.', 'The metre is the SI unit of length.'],
+      ['A cubit is the length from the…', 'Elbow to the fingertip', ['Heel to toe', 'Thumb to little finger', 'Shoulder to wrist'], 'Flower sellers use it for garlands.', 'A cubit is elbow to fingertip.'],
+      ['Which country first introduced the metric system?', 'France', ['India', 'China', 'Japan'], 'In the 1790s.', 'The metric system began in France.'],
+      ['How many centimetres make one metre?', '100', ['10', '1000', '12'], 'Centi means hundredth.', '1 m = 100 cm.'],
+    ]),
+  ],
+};
+
+const ms2: OSpec = {
+  id: 'ts6.sc.measure.length', title: 'Measuring length correctly, including small lengths', prereqs: ['ts6.sc.measure.units'],
+  intro: [
+    h('Using a scale the right way'),
+    photo('📏', 'A 30 cm scale marked in centimetres and millimetres.'),
+    stepsB('Place the scale along the length of the object, touching it.', 'Line up one end of the object with the zero mark.', 'If the zero mark is broken, start at a clear mark like 1 cm and SUBTRACT it from the other reading.', 'Keep your eye exactly above the mark you read — looking from the side gives a wrong reading.'),
+    h('Curved lines'),
+    p('To measure a curved line (like the outline of a bangle or a map road), lay a thread carefully along it, mark the end, straighten the thread and measure it with the scale.'),
+    h('Very small lengths'),
+    p('One page of a book is too thin to measure with a scale. Measure the thickness of 100 pages pressed together and divide by 100. Similarly, wind a thin wire 20 times closely around a pencil, measure the width of the coil and divide by 20 to get the wire’s thickness.'),
+    keys('Start at zero, or subtract the starting mark.', 'Eye directly above the mark.', 'Thread for curved lines.', 'Measure many together and divide for very small lengths.'),
+    remember('Length of object = reading at end − reading at start.'),
+    tip('Measuring many and dividing also reduces your error.'),
+  ],
+  examples: [
+    ex('A pencil starts at the 2.0 cm mark and ends at the 14.5 cm mark. How long is it?', ['Length = end − start', '14.5 − 2.0 = 12.5'], '12.5 cm'),
+    ex('200 pages of a book together are 1 cm thick. How thick is one page in mm?', ['1 cm = 10 mm', '10 mm ÷ 200 = 0.05 mm'], '0.05 mm'),
+  ],
+  practice: [
+    tp('read', (r) => {
+      const s = r.int(1, 5), len = rd(r.int(30, 220) / 10, 1);
+      const e = rd(s + len, 1);
+      return numQ(`An eraser is measured with a broken scale. One end is at the ${s} cm mark and the other end is at the ${e} cm mark. How long is the eraser?`, len, 'cm',
+        ['The object did not start at zero.', 'Length = end reading − start reading.'],
+        [`${e} − ${s} = ${len} cm`],
+        [{ when: String(e), explain: 'That is the end reading. Subtract the starting mark because the object did not start at zero.' }]);
+    }),
+    tp('thin', (r) => {
+      const n = r.pick([50, 100, 200, 250, 500]), t = r.pick([5, 10, 15, 20, 25]);
+      return numQ(`${n} sheets of paper pressed together are ${t} mm thick. How thick is one sheet, in mm?`, rd(t / n, 3), 'mm',
+        ['All sheets have the same thickness.', 'Divide the total thickness by the number of sheets.'],
+        [`${t} ÷ ${n} = ${rd(t / n, 3)} mm`],
+        [{ when: String(t * n), explain: 'You multiplied. One sheet is much thinner than the whole pile, so divide.' }]);
+    }, 2),
+    mcq('how', 'Think about the correct method.', [
+      ['How should you measure the length of a curved line on a map?', 'Lay a thread along it, then measure the thread', ['Use a straight scale directly', 'Guess', 'Use a measuring cylinder'], 'Something that bends.', 'A thread follows the curve; then straighten and measure it.'],
+      ['When reading a scale, your eye should be…', 'Exactly above the mark', ['To the left of it', 'To the right of it', 'Far below the table'], 'Looking from the side causes error.', 'Viewing straight from above avoids error.'],
+      ['The zero mark of your scale is broken. What should you do?', 'Start from another clear mark and subtract it', ['Throw the scale away', 'Add 1 cm to every answer', 'Measure only half'], 'Use the difference of two readings.', 'Length = end reading − start reading.'],
+      ['How can you find the thickness of one page of a book?', 'Measure many pages together and divide', ['Measure one page with a scale', 'Weigh it', 'Fold it'], 'One page is too thin for a scale.', 'Measuring many and dividing gives the thickness of one.'],
+      ['A thin wire is wound 20 times closely around a pencil. The coil is 1 cm wide. The wire is…', '0.5 mm thick', ['20 mm thick', '1 cm thick', '2 mm thick'], '1 cm = 10 mm; divide by 20.', '10 mm ÷ 20 = 0.5 mm.'],
+    ]),
+  ],
+};
+
+const ms3: OSpec = {
+  id: 'ts6.sc.measure.area', title: 'Measuring area and volume', prereqs: ['ts6.sc.measure.length'],
+  intro: [
+    h('How much surface? How much space?'),
+    photo('🧱', 'A brick has length, breadth and height — it takes up space (volume).'),
+    def('Area', 'The amount of surface a flat shape covers. Measured in square units like cm² or m².'),
+    p('For a rectangle: Area = length × breadth. For an irregular shape like a leaf, place it on graph paper (1 cm squares), trace it and count: full squares count as 1, squares more than half covered count as 1, and squares less than half covered are left out.'),
+    xp({
+      title: 'What if? Change the size of a rectangle', formula: 'Area = length × breadth',
+      res: ['A', 'Area', 'cm²', 'l * b', 0],
+      vars: [['l', 'Length', 'cm', 1, 30, 1, 10], ['b', 'Breadth', 'cm', 1, 20, 1, 5]],
+      notes: [['l', 'A longer rectangle covers more squares.', 'A shorter rectangle covers fewer squares.'], ['b', 'A wider rectangle covers more squares.', 'A narrower rectangle covers fewer squares.']],
+      mistakes: [['Adding length and breadth', 'Adding gives half the perimeter, not the area. Area counts squares: multiply.'], ['Writing the unit as cm', 'Area is in square units: cm².']],
+      real: 'A classroom floor of 8 m by 6 m needs 48 square metres of tiles.',
+    }),
+    def('Volume', 'The amount of space an object takes up. For a cuboid: Volume = length × breadth × height, in cm³ or m³.'),
+    p('For an irregular solid like a stone: pour water into a measuring cylinder and note the level. Drop the stone in gently. The water rises. Volume of stone = new level − old level. (1 mL = 1 cm³.)'),
+    keys('Area of rectangle = l × b (cm², m²).', 'Irregular area: count squares on graph paper.', 'Volume of cuboid = l × b × h (cm³).', 'Irregular solid: rise in water level.'),
+    remember('1 mL of water takes up exactly 1 cm³ of space.'),
+    tip('Area has two lengths multiplied (square units); volume has three (cube units).'),
+  ],
+  examples: [
+    ex('A notebook cover is 20 cm long and 15 cm wide. Find its area.', ['Area = length × breadth', '20 × 15 = 300'], '300 cm²'),
+    ex('Water in a measuring cylinder is at 50 mL. A stone is dropped in and the level rises to 72 mL. Find the stone’s volume.', ['Volume = new level − old level', '72 − 50 = 22 mL', '1 mL = 1 cm³'], '22 cm³'),
+  ],
+  practice: [
+    tp('area', (r) => {
+      const l = r.int(4, 30), b = r.int(2, 20);
+      return numQ(`A rectangular card is ${l} cm long and ${b} cm wide. What is its area?`, l * b, 'cm²',
+        ['Area of a rectangle = length × breadth.'],
+        [`${l} × ${b} = ${l * b} cm²`],
+        [{ when: String(l + b), explain: 'You added. Area = length × breadth (multiply).' }, { when: String(2 * (l + b)), explain: 'That is the perimeter (distance around), not the area.' }]);
+    }),
+    tp('vol', (r) => {
+      const l = r.int(2, 12), b = r.int(2, 10), hh = r.int(2, 8);
+      return numQ(`A box is ${l} cm long, ${b} cm wide and ${hh} cm high. What is its volume?`, l * b * hh, 'cm³',
+        ['Volume of a cuboid = length × breadth × height.'],
+        [`${l} × ${b} × ${hh} = ${l * b * hh} cm³`],
+        [{ when: String(l + b + hh), explain: 'You added. Multiply all three lengths.' }, { when: String(l * b), explain: 'That is only the area of the base. Multiply by the height too.' }], 0.001);
+    }, 2),
+    tp('disp', (r) => {
+      const a = r.pick([20, 30, 40, 50, 60]), v = r.int(5, 35);
+      return numQ(`Water in a measuring cylinder is at ${a} mL. ${who(r)} drops a stone in and the water rises to ${a + v} mL. What is the volume of the stone in cm³?`, v, 'cm³',
+        ['The stone pushes aside water equal to its own volume.', 'Volume = new level − old level; 1 mL = 1 cm³.'],
+        [`${a + v} − ${a} = ${v} mL = ${v} cm³`],
+        [{ when: String(a + v), explain: 'That is the new water level. Subtract the starting level.' }]);
+    }),
+  ],
+};
+
+const ch13: USpec = { id: 'ts6.sc.ch13', subject: 'physics', title: 'Learning How to Measure', source: src(13), objectives: [ms1, ms2, ms3] };
+
+// =====================================================================================
+// Chapter 14 — Movements in Animals
+// =====================================================================================
+const mv1: OSpec = {
+  id: 'ts6.sc.movement.muscles', title: 'Muscles and how they work', prereqs: [],
+  intro: [
+    h('Feel your muscles'),
+    photo('💪', 'When you bend your arm, the muscle on the front of the upper arm bulges.'),
+    p('Hold your upper arm with your other hand and slowly bend and straighten your elbow. You feel a soft part become hard and bulge, then relax. That is a muscle working.'),
+    def('Muscle', 'A soft body part that can contract (become shorter and thicker) and relax. Muscles move bones and other body parts.'),
+    p('Muscles are joined to bones by strong cords called tendons. A muscle can only PULL when it contracts — it cannot push. So muscles work in pairs: one pulls a bone one way, the other pulls it back.'),
+    keys('To bend the arm: the biceps (front) contracts and the triceps (back) relaxes.', 'To straighten the arm: the triceps contracts and the biceps relaxes.', 'Muscles can only pull, never push.'),
+    remember('The heart is also a muscle; it contracts and relaxes all our life without rest.'),
+    tip('Exercise and play make muscles stronger.'),
+  ],
+  examples: [
+    ex('Which muscle contracts when you lift a school bag by bending your elbow?', ['Bending the elbow pulls the lower arm up.', 'The muscle on the front of the upper arm does this.'], 'The biceps'),
+    ex('Why do muscles work in pairs?', ['A muscle can only pull when it contracts.', 'It cannot push the bone back.', 'A second muscle is needed to pull it the other way.'], 'Because muscles can only pull, not push.'),
+  ],
+  practice: [
+    mcq('mus', 'Muscles pull when they contract.', [
+      ['When you bend your arm, the biceps…', 'Contracts', ['Relaxes', 'Breaks', 'Disappears'], 'It bulges.', 'The biceps contracts to bend the arm.'],
+      ['When you straighten your arm, which muscle contracts?', 'Triceps', ['Biceps', 'Heart', 'Tongue'], 'It is at the back of the upper arm.', 'The triceps contracts to straighten the arm.'],
+      ['Muscles are joined to bones by…', 'Tendons', ['Nails', 'Hair', 'Veins'], 'Strong cords.', 'Tendons connect muscles to bones.'],
+      ['A muscle can only…', 'Pull', ['Push', 'Push and pull equally', 'Neither'], 'It gets shorter.', 'A contracting muscle pulls on the bone.'],
+      ['Which organ is a muscle that works all our life?', 'Heart', ['Skull', 'Hair', 'Nail'], 'It beats.', 'The heart is a muscular organ.'],
+      ['When a muscle contracts it becomes…', 'Shorter and thicker', ['Longer and thinner', 'Hard as bone forever', 'Transparent'], 'Feel your biceps.', 'Contraction shortens and thickens a muscle.'],
+    ]),
+    sortT('bend', 'contracts', 'relaxes', [
+      ['Biceps when bending the arm', true], ['Triceps when straightening the arm', true],
+      ['Triceps when bending the arm', false], ['Biceps when straightening the arm', false],
+      ['Calf muscle when standing on your toes', true], ['The muscle that lifts the forearm, while the arm hangs loosely straight down', false],
+    ], ['The muscle that does the pulling contracts; its partner relaxes.'], 'In a pair, the muscle doing the pulling contracts while the other relaxes.'),
+    orderT('lift', [
+      ['Put the events of lifting a cup to your mouth in order.', ['Brain sends a message to the arm', 'Biceps contracts', 'Biceps pulls the forearm bone', 'Elbow bends', 'Cup reaches the mouth'], 'The muscle contracts first, then the bone moves at the joint.'],
+      ['Put the events of straightening your arm in order.', ['Brain sends a message', 'Triceps contracts', 'Biceps relaxes', 'Forearm is pulled back', 'Arm becomes straight'], 'The partner muscle relaxes while the other one pulls.'],
+    ], ['What happens in the muscle before the bone moves?']),
+  ],
+};
+
+const mv2: OSpec = {
+  id: 'ts6.sc.movement.bones', title: 'Bones, skull and joints', prereqs: ['ts6.sc.movement.muscles'],
+  intro: [
+    h('The frame of the body'),
+    photo('🧘', 'Yoga poses use many bones, joints and muscles working together.'),
+    def('Skeleton', 'The framework of all the bones in the body. An adult has 206 bones. It gives shape, supports the body, protects soft organs and helps in movement.'),
+    keys('Skull: a box of bones joined tightly together that protects the brain. Only the lower jaw can move.', 'Backbone: made of 33 small bones (vertebrae); lets us bend and protects the spinal cord.', 'Ribcage: 12 pairs of ribs that protect the heart and lungs.'),
+    h('Joints'),
+    def('Joint', 'A place where two bones meet. Joints allow (or stop) movement.'),
+    keys('Ball-and-socket joint: moves in all directions — shoulder, hip.', 'Hinge joint: moves in one direction only, like a door hinge — elbow, knee, fingers.', 'Pivot joint: lets the head turn left and right — joint of the neck with the skull.', 'Gliding joint: bones slide over each other — wrist, ankle.', 'Fixed joint: does not move — between the skull bones.'),
+    remember('The top of your ear and tip of your nose are soft and bendable — they are cartilage, not bone.'),
+    tip('Try to bend your knee backwards and forwards — it moves only one way. That is a hinge!'),
+  ],
+  examples: [
+    ex('Which joint lets you swing your arm in a full circle?', ['Moving in all directions needs a round end in a cup.', 'The shoulder has this.'], 'Ball-and-socket joint (shoulder)'),
+    ex('Why can you not move the bones of your skull?', ['They are joined tightly at fixed joints.', 'This makes a strong box to protect the brain.'], 'They are joined by fixed joints to protect the brain.'),
+  ],
+  practice: [
+    tp('joint', (r) => {
+      const pool: [string, string][] = [
+        ['Shoulder', 'Ball-and-socket joint'], ['Hip', 'Ball-and-socket joint'],
+        ['Elbow', 'Hinge joint'], ['Knee', 'Hinge joint'], ['Finger', 'Hinge joint'],
+        ['Neck (turning the head)', 'Pivot joint'], ['Wrist', 'Gliding joint'], ['Ankle', 'Gliding joint'],
+        ['Bones of the skull', 'Fixed joint'],
+      ];
+      const [m, a] = r.pick(pool);
+      return {
+        type: 'mcq', prompt: `What kind of joint is found at the ${m.toLowerCase()}?`, ...choose(r, a, ['Ball-and-socket joint', 'Hinge joint', 'Pivot joint', 'Gliding joint', 'Fixed joint'].filter((x) => x !== a)),
+        hints: ['All directions → ball-and-socket; one direction → hinge; turning → pivot; sliding → gliding; no movement → fixed.'],
+        mistakes: [{ when: 'wrong', explain: 'Move that part of your own body and see how it moves.' }],
+        solution: [`${m} → ${a.toLowerCase()}.`],
+      };
+    }),
+    mcq('bones', 'Skeleton: shape, support, protection, movement.', [
+      ['How many bones does an adult human have?', '206', ['106', '306', '26'], 'A little over two hundred.', 'An adult skeleton has 206 bones.'],
+      ['The skull protects the…', 'Brain', ['Heart', 'Stomach', 'Lungs'], 'It is in the head.', 'The skull is a bony box around the brain.'],
+      ['The ribcage protects the…', 'Heart and lungs', ['Brain', 'Kidneys only', 'Eyes'], 'In the chest.', 'Ribs form a cage around the heart and lungs.'],
+      ['The only bone of the skull that can move is the…', 'Lower jaw', ['Forehead bone', 'Back of the head', 'Nose bone'], 'You use it to chew.', 'The lower jaw moves; the other skull bones are fixed.'],
+      ['How many pairs of ribs do we have?', '12', ['6', '24', '33'], 'Count on a chart.', 'There are 12 pairs of ribs.'],
+      ['The soft, bendable part at the top of your ear is…', 'Cartilage', ['Bone', 'Muscle', 'Tendon'], 'It is not hard like bone.', 'The ear and nose tip are made of cartilage.'],
+    ]),
+    matchT('job', 'part of the skeleton to its job', [
+      ['Skull', 'Protects the brain'], ['Ribcage', 'Protects the heart and lungs'], ['Backbone', 'Supports the body and lets it bend'], ['Hinge joint', 'Lets the knee bend one way'], ['Ball-and-socket joint', 'Lets the arm rotate fully'], ['Pivot joint', 'Lets the head turn'],
+    ], ['Think about where each one is.'], 4),
+  ],
+};
+
+const mv3: OSpec = {
+  id: 'ts6.sc.movement.animals', title: 'How other animals move', prereqs: ['ts6.sc.movement.bones'],
+  intro: [
+    h('Crawl, glide, fly and swim'),
+    photo('🐟', 'A fish swims by bending its body and moving its tail and fins.'),
+    keys('Earthworm: has no bones. It stretches the front of its body and then pulls up the back, using muscles and tiny bristles that grip the soil.', 'Snail: moves on a large muscular foot; slime helps it glide.', 'Cockroach: has a hard outer covering, three pairs of jointed legs to walk and two pairs of wings to fly.', 'Birds: light hollow bones, strong chest muscles and wings for flying; legs for walking and perching.', 'Fish: a streamlined (boat-shaped) body, fins and a strong tail for swimming.', 'Snake: a long backbone with many bones; it curves its body and pushes against the ground.'),
+    def('Streamlined body', 'A body that is pointed at the front and back and wider in the middle, so it moves easily through water or air.'),
+    p('Each animal’s way of moving suits its body and its habitat.'),
+    remember('An earthworm has no bones at all — it moves only with muscles and bristles.'),
+    tip('Watch an ant, a lizard or a crow for two minutes and describe how it moves.'),
+  ],
+  examples: [
+    ex('Why can a bird fly easily?', ['Its bones are hollow and light.', 'It has strong chest muscles to flap its wings.', 'Its body is streamlined.'], 'Light hollow bones, strong flight muscles, wings and a streamlined body.'),
+    ex('How does a fish change direction in water?', ['It bends its body and moves its tail.', 'The fins help it balance and steer.'], 'By using its tail and fins.'),
+  ],
+  practice: [
+    matchT('how', 'animal to how it moves', [
+      ['Earthworm', 'Muscles and tiny bristles'], ['Snail', 'Muscular foot'], ['Cockroach', 'Jointed legs and wings'], ['Bird', 'Wings and light hollow bones'], ['Fish', 'Fins and tail'], ['Snake', 'Curving its body against the ground'],
+    ], ['Picture each animal moving.'], 4),
+    mcq('anim', 'Body shape and parts suit the way of moving.', [
+      ['Which animal moves without any bones?', 'Earthworm', ['Snake', 'Fish', 'Bird'], 'It lives in soil.', 'Earthworms have no skeleton; they use muscles and bristles.'],
+      ['Birds’ bones are…', 'Hollow and light', ['Solid and heavy', 'Missing', 'Made of cartilage only'], 'Light bones help in flying.', 'Hollow bones make birds light for flight.'],
+      ['A fish’s body is…', 'Streamlined', ['Square', 'Flat like paper', 'Round like a ball'], 'Pointed at both ends.', 'A streamlined body moves easily through water.'],
+      ['How many pairs of legs does a cockroach have?', 'Three', ['Two', 'Four', 'Ten'], 'All insects have the same number.', 'Insects like cockroaches have three pairs of legs.'],
+      ['A snail moves using its…', 'Muscular foot', ['Wings', 'Fins', 'Legs'], 'It leaves a slimy trail.', 'A snail glides on its muscular foot.'],
+      ['A snake moves by…', 'Curving its body and pushing against the ground', ['Walking on legs', 'Flapping wings', 'Using fins'], 'It has a long backbone.', 'A snake makes curves and pushes on the ground.'],
+    ]),
+    tapT('bones', 'Tap every animal that HAS a backbone.', [
+      ['Snake', true], ['Fish', true], ['Bird', true], ['Frog', true], ['Cow', true],
+      ['Earthworm', false], ['Snail', false], ['Cockroach', false], ['Spider', false],
+    ], ['Earthworms, snails and insects have no backbone.'], 'Fish, frogs, snakes, birds and mammals have backbones; earthworms, snails and insects do not.'),
+  ],
+};
+
+const ch14: USpec = { id: 'ts6.sc.ch14', subject: 'biology', title: 'Movements in Animals', source: src(14), objectives: [mv1, mv2, mv3] };
+
+// =====================================================================================
+// Chapter 15 — Light, Shadows and Images
+// =====================================================================================
+const lt1: OSpec = {
+  id: 'ts6.sc.light.shadows', title: 'Light travels in straight lines — shadows', prereqs: [],
+  intro: [
+    h('Shadow play'),
+    photo('🔦', 'Shine a torch on your hand in a dark room and make shadow animals on the wall.'),
+    p('Look at sunlight coming through a gap in the window into a dusty room — you see straight beams. Light travels in straight lines. It cannot bend around an opaque object.'),
+    def('Shadow', 'A dark area formed behind an opaque object when it blocks light.'),
+    p('To get a shadow we need three things: a source of light, an opaque object and a screen (wall, ground) on which the shadow falls.'),
+    keys('Opaque objects make dark shadows; translucent objects make faint shadows; transparent objects make almost no shadow.', 'A shadow is always dark — it does not show the colour of the object.', 'Moving an object closer to the light makes its shadow bigger.', 'In sunlight, shadows are long in the morning and evening and shortest at noon.'),
+    remember('A shadow shows only the outline (shape) of the object, not its colour or details.'),
+    tip('Measure your shadow at 8 am, 12 noon and 4 pm. Notice both its length and its direction.'),
+  ],
+  examples: [
+    ex('A red ball and a green ball of the same size are held in torchlight. What colour are their shadows?', ['A shadow forms where light is blocked.', 'No light reaches that area, whatever the object’s colour.'], 'Both shadows are dark.'),
+    ex('Why is your shadow shortest at noon?', ['At noon the sun is nearly overhead.', 'Light falls almost straight down, so only a small area is blocked.'], 'Because the sun is high overhead.'),
+  ],
+  practice: [
+    mcq('sh', 'Light travels in straight lines and cannot pass through opaque objects.', [
+      ['A shadow is formed when an opaque object…', 'Blocks light', ['Reflects light like a mirror', 'Makes light', 'Is transparent'], 'Light cannot go through it.', 'An opaque object stops light, making a dark area behind it.'],
+      ['Which three things are needed to see a shadow?', 'Light source, opaque object, screen', ['Mirror, lens, water', 'Only a bulb', 'A magnet and a screen'], 'Where does the shadow fall?', 'You need light, something to block it and a surface to show it.'],
+      ['What colour is the shadow of a red rose?', 'Dark', ['Red', 'Green', 'White'], 'No light reaches the shadow.', 'Shadows are always dark.'],
+      ['Shadows are shortest at…', 'Noon', ['Sunrise', 'Sunset', 'Evening'], 'The sun is overhead then.', 'At noon the sun is highest, so shadows are shortest.'],
+      ['Which object casts almost no shadow?', 'Clear glass', ['Wooden board', 'Your hand', 'A book'], 'Light passes through it.', 'Transparent objects let light through.'],
+      ['Moving your hand closer to the torch makes its shadow…', 'Bigger', ['Smaller', 'Coloured', 'Disappear'], 'It blocks more of the light.', 'Closer to the source, an object blocks a wider cone of light.'],
+    ]),
+    tapT('shadow', 'Tap every object that makes a DARK shadow in sunlight.', [
+      ['Brick', true], ['Wooden door', true], ['Your body', true], ['Steel plate', true], ['Book', true],
+      ['Clear glass window', false], ['Clean water in a glass', false], ['Clear plastic sheet', false],
+    ], ['Only opaque objects block all the light.'], 'Opaque objects make dark shadows; transparent ones let light pass.'),
+    sortT('time', 'long', 'short', [
+      ['Your shadow at 7 am', true], ['Your shadow at 5 pm', true], ['A tree’s shadow at sunrise', true],
+      ['Your shadow at 12 noon', false], ['A pole’s shadow at midday', false], ['A tree’s shadow at noon', false],
+    ], ['Is the sun low or high in the sky?'], 'When the sun is low (morning, evening) shadows are long; when it is high (noon) they are short.'),
+  ],
+};
+
+const lt2: OSpec = {
+  id: 'ts6.sc.light.pinhole', title: 'The pinhole camera', prereqs: ['ts6.sc.light.shadows'],
+  intro: [
+    h('A camera made from a box'),
+    photo('📦', 'A cardboard box can become a pinhole camera.'),
+    stepsB('Take a closed box. Make a tiny hole with a pin in the middle of one side.', 'Cut a square window in the opposite side and cover it with tracing (or butter) paper.', 'Cover your head and the box with a dark cloth.', 'Point the pinhole at a bright object like a tree or a lit candle.', 'An image appears on the tracing paper — upside down!'),
+    p('Why upside down? Light travels in straight lines. Light from the TOP of the tree goes straight through the pinhole and reaches the BOTTOM of the screen; light from the bottom reaches the top. The rays cross at the pinhole.'),
+    xp({
+      title: 'What if? Move the tree or lengthen the box', formula: 'image height = object height × (box length ÷ object distance)',
+      res: ['i', 'Image height', 'cm', 'H * b / d', 1],
+      vars: [['H', 'Height of the object', 'cm', 50, 1000, 50, 400], ['b', 'Length of the box', 'cm', 10, 50, 5, 20], ['d', 'Distance of the object', 'cm', 200, 5000, 100, 1000]],
+      notes: [['d', 'The farther the object, the smaller its image.', 'The closer the object, the bigger its image.'], ['b', 'A longer box makes a bigger image.', 'A shorter box makes a smaller image.']],
+      mistakes: [['Thinking the image is upright', 'The rays cross at the pinhole, so the image is always upside down.']],
+      real: 'This is how the very first cameras worked — and the human eye also forms an upside-down image that the brain turns the right way up.',
+    }),
+    keys('A pinhole camera forms an upside-down (inverted) image.', 'It works because light travels in straight lines.', 'The image shows colours of the object.', 'A bigger hole makes a brighter but blurred image.'),
+    remember('If you make two pinholes, you get two images.'),
+    tip('Use butter paper for the screen — it is translucent, so the image can be seen from behind.'),
+  ],
+  examples: [
+    ex('In a pinhole camera, a boy standing upright appears…', ['Light from his head goes through the hole to the bottom of the screen.', 'Light from his feet reaches the top of the screen.'], 'Upside down'),
+    ex('A tree 400 cm tall is 1000 cm (10 m) away from a pinhole camera 20 cm long. How tall is its image?', ['image = object height × box length ÷ distance', '400 × 20 ÷ 1000 = 8'], '8 cm'),
+  ],
+  practice: [
+    tp('img', (r) => {
+      const H = r.pick([200, 300, 400, 500, 600]), b = r.pick([10, 20, 25, 30]), d = r.pick([500, 1000, 2000]);
+      const i = rd(H * b / d, 2);
+      return numQ(`An object ${H} cm tall is ${d} cm from a pinhole camera that is ${b} cm long. How tall is the image on the screen?`, i, 'cm',
+        ['image height = object height × box length ÷ object distance.'],
+        [`${H} × ${b} ÷ ${d} = ${i} cm`, 'The image is also upside down.'],
+        [{ when: String(rd(H * d / b, 2)), explain: 'You swapped the box length and the distance. Multiply by box length, divide by distance.' }], 0.02);
+    }, 3),
+    mcq('pin', 'Rays cross at the pinhole.', [
+      ['The image in a pinhole camera is…', 'Upside down', ['Upright', 'Always dark like a shadow', 'Never seen'], 'Rays cross at the hole.', 'The image is inverted.'],
+      ['A pinhole camera works because light…', 'Travels in straight lines', ['Bends around corners', 'Is a liquid', 'Is magnetic'], 'Straight rays cross at the pinhole.', 'Straight-line travel of light makes the inverted image.'],
+      ['Which material is best for the screen of a pinhole camera?', 'Tracing paper', ['Cardboard', 'Steel sheet', 'Wood'], 'You must see the image from behind.', 'Translucent tracing paper shows the image.'],
+      ['If the pinhole is made much bigger, the image becomes…', 'Brighter but blurred', ['Sharper', 'Upright', 'Coloured red'], 'More light, but rays overlap.', 'A large hole lets in more light but the image is not sharp.'],
+      ['Moving the object farther from the pinhole camera makes its image…', 'Smaller', ['Bigger', 'Upright', 'Disappear immediately'], 'Think of the explorer.', 'A farther object gives a smaller image.'],
+      ['Does the pinhole camera image show the colours of the object?', 'Yes', ['No, it is always black', 'Only red colour', 'Only at night'], 'It is an image, not a shadow.', 'Images show colours; shadows do not.'],
+    ]),
+    orderT('make', [
+      ['Put the steps for making a pinhole camera in order.', ['Take a closed cardboard box', 'Make a pinhole in one side', 'Cut a window in the opposite side', 'Cover the window with tracing paper', 'Point the pinhole at a bright object'], 'The box must be made before you point it at an object.'],
+      ['Put the path of light in a pinhole camera in order.', ['Light leaves the top of the tree', 'It travels in a straight line', 'It passes through the pinhole', 'It reaches the bottom of the screen', 'An upside-down image forms'], 'Light goes straight through the hole and crosses over.'],
+    ], ['What happens first?']),
+  ],
+};
+
+const lt3: OSpec = {
+  id: 'ts6.sc.light.image', title: 'Images and shadows — what is the difference?', prereqs: ['ts6.sc.light.pinhole'],
+  intro: [
+    h('Mirror, mirror'),
+    photo('👁️', 'We see an image when light from an object enters our eyes.'),
+    p('When you look into a mirror or still water, you see an image of yourself. Light from your face falls on the mirror and bounces back (is reflected) into your eyes.'),
+    def('Reflection', 'Light bouncing back from a shiny smooth surface like a mirror, polished steel or still water.'),
+    def('Image', 'A picture of an object formed by light — by reflection in a mirror or through a pinhole. It shows the colour and details of the object.'),
+    p('In a plane mirror the image is upright, the same size as you, and left and right are swapped: raise your right hand and your image raises its left. Words look reversed (that is why AMBULANCE is written backwards on the front of ambulances).'),
+    keys('Shadow: dark, no colour, only outline; formed when light is BLOCKED.', 'Image: shows colours and details; formed when light is REFLECTED (or passes through a pinhole).', 'Mirror image: upright, same size, left–right swapped.'),
+    remember('A shadow forms only behind an opaque object; an image needs light to reach your eye from the object.'),
+    tip('Write your name on paper and hold it up to a mirror — what do you notice?'),
+  ],
+  examples: [
+    ex('Give two differences between your shadow and your image in a mirror.', ['The shadow is dark; the image shows colours of your clothes.', 'The shadow shows only an outline; the image shows your eyes, nose and details.', 'A shadow forms when light is blocked; an image forms when light is reflected.'], 'Shadow: dark outline from blocked light. Image: coloured and detailed from reflected light.'),
+    ex('Why is the word AMBULANCE written in reverse on the front of the vehicle?', ['Drivers ahead see it in their rear-view mirror.', 'A mirror swaps left and right.', 'So the reversed word appears correctly.'], 'So that it reads correctly in a mirror.'),
+  ],
+  practice: [
+    sortT('is', 'true of a shadow', 'true of an image', [
+      ['Always dark', true], ['Shows only the outline', true], ['Formed when light is blocked', true], ['Needs an opaque object', true],
+      ['Shows the colours of the object', false], ['Formed by reflection in a mirror', false], ['Shows details like eyes and nose', false], ['Can be seen in still water', false],
+    ], ['Blocked light → shadow; reflected light → image.'], 'Shadows are dark outlines made by blocked light; images show colour and detail made by reflected light.'),
+    mcq('img-q', 'Images come from reflected light.', [
+      ['Light bouncing back from a mirror is called…', 'Reflection', ['Shadow', 'Evaporation', 'Conduction'], 'Re-flect = bend back.', 'Reflection is light bouncing back from a surface.'],
+      ['When you raise your right hand in front of a mirror, your image raises its…', 'Left hand', ['Right hand', 'Both hands', 'No hand'], 'Left and right swap.', 'A mirror swaps left and right.'],
+      ['Which surface gives the clearest image?', 'A plane mirror', ['A brick wall', 'Rough wood', 'A cloth'], 'Smooth and shiny.', 'Smooth shiny surfaces reflect light regularly.'],
+      ['The image in a plane mirror is…', 'Upright and the same size', ['Upside down and smaller', 'Always dark', 'Bigger and upside down'], 'Look at yourself.', 'A plane mirror gives an upright, same-size image.'],
+      ['Which can show the colour of your shirt?', 'Your image in a mirror', ['Your shadow', 'Both', 'Neither'], 'Shadows are always dark.', 'Images show colour; shadows do not.'],
+      ['Why is AMBULANCE written in reverse on the vehicle?', 'So it reads correctly in a mirror', ['It is a spelling mistake', 'To look stylish', 'So that nobody can read it'], 'Drivers ahead look in their mirrors.', 'Mirrors swap left and right, making the word read correctly.'],
+    ]),
+    tapT('shiny', 'Tap every surface that can form an image of your face.', [
+      ['Plane mirror', true], ['Still pond water', true], ['Polished steel plate', true], ['Shiny new spoon', true],
+      ['Brick wall', false], ['Cotton cloth', false], ['Rough wooden plank', false], ['Paper', false],
+    ], ['Smooth and shiny surfaces reflect light well.'], 'Mirrors, still water and polished metals form images; rough surfaces do not.'),
+  ],
+};
+
+const ch15: USpec = { id: 'ts6.sc.ch15', subject: 'physics', title: 'Light, Shadows and Images', source: src(15), objectives: [lt1, lt2, lt3] };
+
+// =====================================================================================
+// Chapter 16 — Living and Non-living
+// =====================================================================================
+const lv1: OSpec = {
+  id: 'ts6.sc.living.traits', title: 'Characteristics of living things', prereqs: [],
+  intro: [
+    h('Alive or not?'),
+    photo('🌱', 'A seed looks lifeless, but given water and warmth it sprouts — it is alive.'),
+    p('A bus moves, a fire grows bigger and a clock ticks — but they are not alive. How do we decide? Living things show ALL of these features together:'),
+    keys('Movement: animals move from place to place; plants move their parts (sunflower faces the sun, touch-me-not folds its leaves).', 'Need for food: for energy and growth. Plants make their own; animals eat.', 'Growth: living things grow by themselves from inside.', 'Breathing (respiration): they take in air and release energy from food.', 'Excretion: they remove wastes from their bodies.', 'Reproduction: they produce young ones of their own kind.', 'Response to changes (stimuli) around them, and a fixed life span — they are born and they die.'),
+    def('Stimulus', 'A change in the surroundings that a living thing responds to — light, heat, touch, sound, smell.'),
+    remember('A seed is living: it is resting (dormant) and grows when it gets water, air and warmth.'),
+    tip('A thing must show all the features — not just one — to be called living. A car moves and "takes in" fuel, but it does not grow or reproduce.'),
+  ],
+  examples: [
+    ex('A car moves and uses fuel. Is it living?', ['It moves, but only when someone drives it.', 'It does not grow, reproduce or respond by itself.', 'So it lacks most features of living things.'], 'No — it is non-living.'),
+    ex('How does the touch-me-not (attapatti) plant show it is living?', ['It responds to touch by folding its leaves.', 'Responding to a stimulus is a feature of living things.'], 'It responds to touch (a stimulus).'),
+  ],
+  practice: [
+    sortT('ln', 'living', 'non-living', [
+      ['Seed', true], ['Mushroom', true], ['Earthworm', true], ['Neem tree', true], ['Bacteria', true], ['Hen’s chick', true],
+      ['Car', false], ['Cloud', false], ['Fire', false], ['Clock', false], ['River water', false], ['Robot toy', false],
+    ], ['Does it grow, feed, breathe, excrete and reproduce by itself?'], 'Living things show all the life features; fire, clouds and machines may move or grow in size but do not breathe, reproduce or feed by themselves.'),
+    matchT('trait', 'example to the feature of living things it shows', [
+      ['A hen lays eggs', 'Reproduction'], ['A puppy becomes a dog', 'Growth'], ['A sunflower turns to the sun', 'Response to light'], ['We sweat and pass urine', 'Excretion'], ['A goat eats grass', 'Need for food'], ['A fish takes in oxygen from water', 'Breathing'],
+    ], ['Which life feature does each one show?'], 4),
+    mcq('trait-q', 'Living things show all the life features together.', [
+      ['Which feature is NOT shown by a moving bus?', 'Reproduction', ['Movement', 'Using fuel', 'Making sound'], 'Can a bus make baby buses?', 'Non-living things cannot reproduce.'],
+      ['Why do we say a seed is living?', 'It can grow into a plant when conditions are right', ['It is hard', 'It is small', 'It is brown'], 'Give it water and warmth.', 'A dormant seed grows when it gets water, air and warmth.'],
+      ['Removing wastes from the body is called…', 'Excretion', ['Reproduction', 'Respiration', 'Movement'], 'Sweat and urine.', 'Excretion removes waste.'],
+      ['A change around us that we respond to is called a…', 'Stimulus', ['Habitat', 'Fibre', 'Joint'], 'Light, heat, touch…', 'A stimulus is a change we respond to.'],
+      ['Plants show movement by…', 'Moving their parts, like leaves and flowers', ['Walking', 'Flying', 'Swimming'], 'Think of the touch-me-not.', 'Plants move parts but do not move from place to place.'],
+    ]),
+  ],
+};
+
+const lv2: OSpec = {
+  id: 'ts6.sc.living.microscope', title: 'The microscope', prereqs: ['ts6.sc.living.traits'],
+  intro: [
+    h('Seeing the invisible'),
+    photo('🔬', 'A compound microscope in the school laboratory.'),
+    p('Some living things and the parts of our body are too small to see with our eyes. A microscope uses lenses to make them look many times bigger (magnified).'),
+    p('In 1665 Robert Hooke saw tiny box-like cells in a thin slice of cork. A few years later, Antonie van Leeuwenhoek, using his own tiny lenses, became the first person to see bacteria and other microbes in a drop of water.'),
+    keys('Eyepiece: the lens you look through.', 'Objective lens: the lens close to the object.', 'Stage: the flat plate where the glass slide is placed, held by clips.', 'Mirror: reflects light up through the slide.', 'Coarse and fine adjustment knobs: move the tube up or down to focus.', 'Arm and base: to hold and support the microscope.'),
+    def('Magnification', 'How many times bigger the object looks. Total magnification = magnification of eyepiece × magnification of objective.'),
+    xp({
+      title: 'What if? Change the lenses', formula: 'Total magnification = eyepiece × objective',
+      res: ['M', 'Total magnification', '×', 'e * o', 0],
+      vars: [['e', 'Eyepiece magnification', '×', 5, 15, 5, 10], ['o', 'Objective magnification', '×', 4, 100, 1, 10]],
+      notes: [['e', 'A stronger eyepiece multiplies the whole picture.', 'A weaker eyepiece shows less detail.'], ['o', 'A stronger objective makes everything look bigger.', 'A weaker objective shows a wider area but less detail.']],
+      mistakes: [['Adding the two numbers', 'Each lens multiplies the size made by the other, so multiply: 10 × 40 = 400, not 50.']],
+      real: 'With a 10× eyepiece and a 40× objective, an onion cell looks 400 times bigger.',
+    }),
+    remember('Always carry a microscope with one hand under the base and one on the arm.'),
+    tip('Focus first with the low-power objective, then switch to the higher one.'),
+  ],
+  examples: [
+    ex('A microscope has a 10× eyepiece and a 40× objective. What is the total magnification?', ['Total = eyepiece × objective', '10 × 40 = 400'], '400×'),
+    ex('Which part of the microscope do you turn to make a blurred image sharp?', ['Focusing is done by moving the tube up or down.', 'The coarse knob moves it quickly; the fine knob makes small changes.'], 'The adjustment (focusing) knobs'),
+  ],
+  practice: [
+    tp('mag', (r) => {
+      const e = r.pick([5, 10, 15]), o = r.pick([4, 10, 40, 100]);
+      return numQ(`A microscope has an eyepiece of ${e}× and an objective of ${o}×. What is the total magnification? (Type the number only.)`, e * o, undefined,
+        ['Total magnification = eyepiece × objective.'],
+        [`${e} × ${o} = ${e * o}`, `The object looks ${e * o} times bigger.`],
+        [{ when: String(e + o), explain: 'You added. The magnifications multiply.' }]);
+    }),
+    matchT('parts', 'microscope part to its job', [
+      ['Eyepiece', 'Lens you look through'], ['Objective lens', 'Lens nearest the slide'], ['Stage', 'Holds the glass slide'], ['Mirror', 'Sends light up through the slide'], ['Adjustment knob', 'Focuses the image'], ['Base', 'Supports the microscope'],
+    ], ['Go from top to bottom of the microscope.'], 4),
+    mcq('hist', 'Hooke saw cells; Leeuwenhoek saw microbes.', [
+      ['Who first saw cells in a slice of cork?', 'Robert Hooke', ['Edison', 'Newton', 'Louis Pasteur'], 'In 1665.', 'Robert Hooke described cork cells in 1665.'],
+      ['Who first saw bacteria using his own lenses?', 'Antonie van Leeuwenhoek', ['Robert Hooke', 'Charles Darwin', 'C. V. Raman'], 'A Dutch lens-maker.', 'Leeuwenhoek first observed microbes.'],
+      ['The slide is placed on the…', 'Stage', ['Eyepiece', 'Mirror', 'Base'], 'A flat plate with clips.', 'The stage holds the slide.'],
+      ['Which part reflects light onto the slide?', 'Mirror', ['Eyepiece', 'Arm', 'Clip'], 'It is at the bottom.', 'The mirror reflects light up through the slide.'],
+      ['How should you carry a microscope?', 'One hand on the arm, one under the base', ['By the eyepiece', 'By the mirror', 'Upside down'], 'Support its weight safely.', 'Hold the arm and support the base.'],
+    ]),
+  ],
+};
+
+const lv3: OSpec = {
+  id: 'ts6.sc.living.bacteria', title: 'Bacteria — tiny living things', prereqs: ['ts6.sc.living.microscope'],
+  intro: [
+    h('Everywhere, but invisible'),
+    photo('🧪', 'Scientists grow bacteria in the laboratory to study them.'),
+    def('Bacteria', 'Very tiny living things made of a single cell, seen only with a microscope. They live in soil, water, air, food and inside our bodies.'),
+    p('Bacteria come in different shapes: rod-shaped, round (spherical), spiral and comma-shaped. They feed, grow, breathe and multiply very fast by dividing into two.'),
+    h('Useful bacteria'),
+    keys('Turn milk into curd, and help make cheese and idli/dosa batter rise.', 'Break down dead plants and animals into manure, cleaning the environment.', 'Bacteria in the root nodules of pulses (beans, peas) add nitrogen to the soil.', 'Good bacteria in our intestines help digestion.'),
+    h('Harmful bacteria'),
+    keys('Cause diseases such as cholera, typhoid and tuberculosis (TB).', 'Spoil food.'),
+    p('We protect ourselves by washing hands with soap, drinking boiled or treated water, covering food, keeping our surroundings clean and getting vaccinated.'),
+    remember('Not all bacteria are harmful — most are harmless and many are very useful.'),
+    tip('Wash your hands with soap for at least 20 seconds before eating and after using the toilet.'),
+  ],
+  examples: [
+    ex('Give one useful and one harmful effect of bacteria.', ['Useful: they turn milk into curd.', 'Harmful: some cause cholera through dirty water.'], 'Useful: curd making. Harmful: diseases like cholera.'),
+    ex('Why do farmers grow pulses in a field after a crop of paddy?', ['Pulses have bacteria in their root nodules.', 'These bacteria add nitrogen to the soil.', 'This makes the soil fertile for the next crop.'], 'Bacteria in pulse roots enrich the soil with nitrogen.'),
+  ],
+  practice: [
+    sortT('uh', 'useful', 'harmful', [
+      ['Turning milk into curd', true], ['Adding nitrogen to soil in pulse roots', true], ['Making compost from waste', true], ['Helping digestion in the intestine', true], ['Making idli batter rise', true],
+      ['Causing cholera', false], ['Causing typhoid', false], ['Spoiling cooked food', false], ['Causing tuberculosis', false],
+    ], ['Does it help us, or harm us?'], 'Bacteria help in curd, compost, soil fertility and digestion; some cause diseases and spoil food.'),
+    mcq('bac', 'Bacteria are tiny one-celled living things.', [
+      ['Bacteria are made of…', 'One cell', ['Many organs', 'Bones', 'Leaves'], 'They are the tiniest living things.', 'Bacteria are single-celled.'],
+      ['We can see bacteria only with a…', 'Microscope', ['Telescope', 'Magnet', 'Mirror'], 'They are invisible to the eye.', 'A microscope magnifies them.'],
+      ['Which disease is caused by bacteria?', 'Typhoid', ['A broken bone', 'Short sight', 'Sunburn'], 'Spread through unclean food and water.', 'Typhoid is a bacterial disease.'],
+      ['Bacteria in the root nodules of pulses…', 'Add nitrogen to the soil', ['Eat the roots', 'Make the plant blue', 'Stop rain'], 'They make soil fertile.', 'They fix nitrogen, enriching the soil.'],
+      ['Which habit protects us from harmful bacteria?', 'Washing hands with soap', ['Eating uncovered food', 'Drinking unboiled pond water', 'Skipping baths'], 'Clean hands, fewer germs.', 'Soap removes germs from our hands.'],
+      ['Bacteria multiply by…', 'Dividing into two', ['Laying eggs', 'Making seeds', 'Budding flowers'], 'One becomes two, two become four…', 'A bacterium splits into two new cells.'],
+    ]),
+    tapT('protect', 'Tap every habit that protects us from harmful bacteria.', [
+      ['Washing hands before eating', true], ['Drinking boiled water', true], ['Covering cooked food', true], ['Keeping surroundings clean', true], ['Getting vaccinated', true],
+      ['Eating food from open roadside stalls with flies', false], ['Drinking water straight from a pond', false], ['Leaving garbage near the house', false],
+    ], ['Which habits keep germs away from our food, water and hands?'], 'Clean hands, safe water, covered food, clean surroundings and vaccines protect us.'),
+  ],
+};
+
+const ch16: USpec = { id: 'ts6.sc.ch16', subject: 'biology', title: 'Living and Non-living', source: src(16), objectives: [lv1, lv2, lv3] };
+
+export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12, ch13, ch14, ch15, ch16];
