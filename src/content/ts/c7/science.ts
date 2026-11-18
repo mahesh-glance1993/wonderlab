@@ -944,4 +944,804 @@ const ch6: USpec = {
   ],
 };
 
-export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6];
+// =====================================================================================
+// Chapter 7 — Electric Current - Its Effect
+// =====================================================================================
+const ch7: USpec = {
+  id: 'ts7.sc.ch7', subject: 'physics', title: 'Electric Current - Its Effect', source: src(7),
+  objectives: [
+    {
+      id: 'ts7.sc.elec.circuit', title: 'Cells, symbols and circuit diagrams', prereqs: [],
+      activities: ['lab:circuit'],
+      intro: [
+        h('Drawing circuits the scientist\'s way'),
+        photo('🔦', 'Inside a torch, cells, a switch and a bulb are joined in a closed loop.'),
+        p('An electric cell (like the ones in a torch or TV remote) has two terminals: positive (+) and negative (−). A common dry cell gives 1.5 volts. Two or more cells joined together make a battery.'),
+        p('Electric current flows only when there is a complete, unbroken path from the + terminal, through the wires and the bulb, back to the − terminal. This path is a closed circuit. If the path is broken anywhere — a loose wire or an OFF switch — it is an open circuit and no current flows.'),
+        def('Electric circuit', 'A closed path through which electric current flows from one terminal of a cell back to the other.'),
+        h('Symbols save time'),
+        stepsB(
+          'Cell: a long thin line (+) and a short thick line (−).',
+          'Battery: two or more cell symbols joined end to end.',
+          'Switch (key): an open gap when OFF, a closed contact when ON.',
+          'Bulb: a circle with a cross or a loop inside.',
+          'Connecting wire: a straight line.',
+        ),
+        p('A circuit diagram uses these symbols to show how the parts are connected. By convention, current is shown flowing from the positive terminal through the circuit to the negative terminal.'),
+        keys('Cell: + is the long line, − the short thick line.', 'Battery = two or more cells joined.', 'Closed circuit → current flows; open circuit → no current.', 'A switch opens or closes the circuit.'),
+        remember('Never experiment with the mains supply at home (230 V) — it can kill. Use only cells for experiments.'),
+      ],
+      examples: [
+        ex('A bulb does not glow even though the switch is ON. Give two possible reasons.', ['Current needs a complete path.', 'The path may be broken: a loose wire or a fused (broken) filament.', 'Or the cell may be used up (dead).'], 'Loose connection / fused bulb / dead cell'),
+        ex('How do you tell the + terminal in the symbol of a cell?', ['The symbol has two parallel lines.', 'The longer, thinner line is positive.'], 'The longer thin line is +'),
+      ],
+      practice: [
+        mcq('sym', 'Recall the standard symbols.', [
+          ['In the symbol of a cell, the longer thin line represents…', 'The positive terminal', ['The negative terminal', 'The bulb', 'The switch'], 'Long = plus.', 'The long thin line is positive; the short thick line is negative.'],
+          ['A battery is…', 'A combination of two or more cells', ['A single bulb', 'A type of switch', 'A wire'], 'Think of a torch with 2–3 cells.', 'Several cells joined together make a battery.'],
+          ['When the switch is OFF, the circuit is…', 'Open — no current flows', ['Closed — current flows', 'Short-circuited', 'Doubled'], 'OFF leaves a gap.', 'An OFF switch makes a gap, breaking the path.'],
+          ['A dry cell usually gives a voltage of…', '1.5 V', ['230 V', '12 V', '0 V'], 'Look on a torch cell.', 'Common AA and D cells give 1.5 V.'],
+          ['Current flows in a circuit only if…', 'The path is complete from + to −', ['The bulb is new', 'The wire is red', 'The switch is OFF'], 'No gaps allowed.', 'Current needs a closed circuit.'],
+        ]),
+        matchT('match-sym', 'component to how its symbol looks', [
+          ['Cell', 'Long thin line and short thick line'], ['Battery', 'Several cell symbols in a row'], ['Open switch', 'A gap with a raised lever'], ['Connecting wire', 'A plain straight line'], ['Bulb', 'Circle with a cross or loop inside'],
+        ], ['A battery is just cells in a row.', 'An open switch shows a break.']),
+        tapT('tap-glow', 'Tap every situation in which the bulb WILL glow.', [
+          ['Fresh cell, good bulb, switch ON, all wires tight', true], ['Two fresh cells joined + to −, switch ON', true], ['Torch with fresh cells pressed ON', true],
+          ['Switch OFF', false], ['One wire disconnected from the cell', false], ['Bulb filament broken', false], ['Both wires on the same terminal of the cell', false],
+        ], ['Ask: is there a complete path from + to −?', 'A broken filament or OFF switch breaks the path.'], 'The bulb glows only in a closed circuit with a working cell and bulb.'),
+      ],
+    },
+    {
+      id: 'ts7.sc.elec.series', title: 'Series and parallel circuits', prereqs: ['ts7.sc.elec.circuit'],
+      activities: ['lab:circuit'],
+      intro: [
+        h('One path or many paths?'),
+        photo('💡', 'Bulbs at home are connected so that each can be switched on or off by itself.'),
+        p('In a series circuit, components are connected one after another in a single loop, so the same current passes through all of them. In a parallel circuit, components are connected across the same two points, each on its own separate branch.'),
+        h('Cells in series'),
+        p('When cells are joined in series — the + of one touching the − of the next, as in a torch — their voltages add up. Two 1.5 V cells give 3 V; three give 4.5 V. A bulb glows brighter with more cells in series (up to its rated value).'),
+        f('Total voltage of n identical cells in series = n × voltage of one cell', 'total voltage equals number of cells times the voltage of one cell'),
+        xp({
+          title: 'What if? Adding cells in series', formula: 'V = n × V₁',
+          res: ['V', 'Total voltage of the battery', 'V', 'n * V1', 1],
+          vars: [['n', 'Number of cells in series', '', 1, 8, 1, 2], ['V1', 'Voltage of one cell', 'V', 1, 2, 0.5, 1.5]],
+          notes: [['n', 'Each extra cell adds its voltage — the bulb gets brighter.', 'Fewer cells, less voltage — the bulb gets dimmer.'], ['V1', 'Higher-voltage cells give a bigger total.', 'Lower-voltage cells give a smaller total.']],
+          mistakes: [['Joining + to + in series', 'In series the + of one cell must touch the − of the next, or the voltages cancel.'], ['Thinking cells in parallel add voltage', 'Only series cells add voltage; parallel cells keep the same voltage but last longer.']],
+          real: 'A TV remote uses 2 × 1.5 V = 3 V; a big torch may use 3 cells = 4.5 V.',
+        }),
+        h('Bulbs in series vs parallel'),
+        stepsB(
+          'Bulbs in series: if one bulb fuses or is removed, the single path breaks and ALL bulbs go off. Adding more bulbs in series makes each one dimmer.',
+          'Bulbs in parallel: each bulb has its own path. If one fuses, the others keep glowing, and each glows with full brightness.',
+          'House wiring is parallel, so each fan, light and TV works independently with its own switch.',
+          'Old serial decoration lights went completely dark if one tiny bulb failed — they were in series.',
+        ),
+        keys('Series: one path; parallel: separate branches.', 'Cells in series add voltage: n × 1.5 V.', 'One bulb fails in series → all off; in parallel → others stay on.', 'Homes are wired in parallel.'),
+      ],
+      examples: [
+        ex('A toy needs 6 V. How many 1.5 V cells must be joined in series?', ['n = total voltage ÷ voltage of one cell', '= 6 ÷ 1.5 = 4'], '4 cells'),
+        ex('In a Diwali light string, one bulb fused and the whole string went dark. How were the bulbs connected?', ['If one failure stops all bulbs, there is only one path.', 'A single path means series.'], 'In series'),
+      ],
+      practice: [
+        tp('cells', (r) => {
+          const n = r.pick([2, 3, 4, 5, 6]);
+          return numQ(`${n} cells of 1.5 V each are joined in series. What is the total voltage?`, n * 1.5, 'V',
+            ['Voltages of cells in series add up.', `Multiply ${n} × 1.5.`],
+            [`Total = ${n} × 1.5 V = ${n * 1.5} V`],
+            [{ when: '1.5', explain: 'That is the voltage of only one cell. In series, the voltages add.' }]);
+        }),
+        tp('how-many', (r) => {
+          const n = r.pick([2, 3, 4, 6, 8]);
+          const thing = r.pick(['toy car', 'radio', 'torch', 'clock']);
+          return numQ(`A ${thing} needs ${n * 1.5} V. How many 1.5 V cells must be joined in series?`, n, undefined,
+            ['Number of cells = total voltage ÷ voltage of one cell.', `${n * 1.5} ÷ 1.5`],
+            [`n = ${n * 1.5} ÷ 1.5 = ${n} cells`]);
+        }, 2),
+        mcq('sp', 'One path (series) or many paths (parallel)?', [
+          ['In a series circuit of 3 bulbs, one bulb fuses. The other two…', 'Go off', ['Glow brighter', 'Keep glowing normally', 'Start flashing'], 'Only one path exists.', 'The single path is broken, so no current flows anywhere.'],
+          ['Electrical wiring in our homes is in…', 'Parallel', ['Series', 'Neither', 'A single loop'], 'Each fan has its own switch.', 'Parallel wiring lets each appliance work independently.'],
+          ['Adding more bulbs in series with one cell makes each bulb…', 'Dimmer', ['Brighter', 'Exactly the same', 'Explode'], 'The same cell must push current through more bulbs.', 'More bulbs in series reduce the current, so each is dimmer.'],
+          ['Two bulbs in parallel with a cell; one is unscrewed. The other…', 'Keeps glowing', ['Goes off', 'Becomes dimmer than zero', 'Fuses'], 'It has its own branch.', 'In parallel each bulb has a separate path.'],
+          ['In a torch, cells are placed so that…', 'The + of one touches the − of the next (series)', ['+ touches +', '− touches −', 'They do not touch'], 'Their voltages should add.', 'Series connection adds the voltages.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.sc.elec.heat', title: 'Heating effect of current; fuses, MCBs and CFLs', prereqs: ['ts7.sc.elec.circuit'],
+      intro: [
+        h('Why does a bulb get hot?'),
+        photo('🔥', 'The red-hot coil of an electric heater shows the heating effect of current.'),
+        p('When current flows through a wire, the wire gets warm. If the wire is thin and made of a special alloy, it can become red hot. This is the heating effect of electric current.'),
+        def('Heating effect of current', 'The production of heat in a wire when electric current flows through it.'),
+        p('Uses: electric iron, kettle, water heater (geyser), toaster, room heater and soldering iron all have a coil (element) usually of nichrome. An ordinary (incandescent) bulb has a very thin tungsten filament that becomes so hot it glows and gives light — but most of the energy is wasted as heat.'),
+        h('Safety: fuses and MCBs'),
+        p('Too much current — from switching on too many appliances at once (overloading) or from wires touching each other (short circuit) — can overheat wires and start a fire. A fuse is a short piece of thin wire with a low melting point placed in the circuit. When the current becomes too large, the fuse wire melts and breaks the circuit, protecting the house. Modern homes use MCBs (miniature circuit breakers), switches that trip off automatically when current is too high and can simply be switched on again.'),
+        h('Saving energy'),
+        p('CFLs (compact fluorescent lamps) and LED bulbs give the same light as ordinary bulbs while using much less electricity and staying cooler. Always buy appliances with the ISI mark.'),
+        keys('Current heats wires: heaters, irons, kettles use nichrome; bulbs use tungsten.', 'Fuse wire melts when current is too high; MCB trips off.', 'Short circuit and overloading are dangerous.', 'CFLs and LEDs save electricity.'),
+        remember('Never replace a fuse wire with an ordinary copper wire — it will not melt in time and can cause a fire.'),
+      ],
+      examples: [
+        ex('Why does a 60 W ordinary bulb feel hot after some time?', ['Current through the thin tungsten filament heats it so much that it glows.', 'Much of the energy comes out as heat.'], 'Because of the heating effect of current in the filament'),
+        ex('In a house, the AC, geyser, iron and heater are switched on together and the MCB trips. Why?', ['Many high-power appliances together draw a very large current.', 'This is overloading.', 'The MCB senses the large current and switches off.'], 'Overloading — current became too high'),
+      ],
+      practice: [
+        mcq('heat', 'Think of the heating effect and safety devices.', [
+          ['The element of an electric iron is usually made of…', 'Nichrome', ['Copper', 'Plastic', 'Glass'], 'It is an alloy that gets red hot without melting.', 'Nichrome resists current and becomes hot.'],
+          ['A fuse protects a circuit by…', 'Melting and breaking the circuit when current is too high', ['Increasing the current', 'Storing electricity', 'Making the bulb brighter'], 'It is a deliberately weak link.', 'The thin fuse wire melts first, stopping the current.'],
+          ['An MCB is better than a fuse because…', 'It switches off automatically and can be reset without replacing any wire', ['It never switches off', 'It makes appliances run faster', 'It works without electricity'], 'Think about what happens after it trips.', 'An MCB just needs to be switched back on.'],
+          ['The filament of an ordinary bulb is made of…', 'Tungsten', ['Nichrome', 'Copper', 'Iron'], 'It has a very high melting point.', 'Tungsten can glow white-hot without melting.'],
+          ['A short circuit happens when…', 'Live and neutral wires touch directly', ['A bulb is switched off', 'A cell is removed', 'A fan is cleaned'], 'Current takes a shortcut.', 'Touching wires let a huge current flow.'],
+          ['Which lamp gives the same light using the least electricity?', 'LED', ['Ordinary filament bulb', 'Kerosene lamp', 'Room heater'], 'It stays cool.', 'LEDs waste very little energy as heat.'],
+        ]),
+        tapT('tap-heat', 'Tap every appliance that works mainly on the HEATING effect of current.', [
+          ['Electric iron', true], ['Kettle', true], ['Geyser', true], ['Toaster', true], ['Room heater', true], ['Soldering iron', true],
+          ['Ceiling fan', false], ['Mobile phone screen', false], ['Electric doorbell', false],
+        ], ['Its main job is to produce heat.', 'Fans and bells use the magnetic effect, not heating.'], 'Irons, kettles, geysers, toasters, heaters and soldering irons are built to make heat.'),
+        matchT('match-safety', 'term to its meaning', [
+          ['Fuse', 'Thin wire that melts when current is too high'], ['MCB', 'Switch that trips off automatically on high current'], ['Overloading', 'Too many appliances on one circuit'], ['Short circuit', 'Live and neutral wires touching'], ['CFL', 'Energy-saving fluorescent lamp'], ['ISI mark', 'Sign of tested, safe quality'],
+        ], ['Two are devices, two are problems.', 'ISI is a quality certification mark.']),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Chapter 8 — Air, Winds and Cyclones
+// =====================================================================================
+const ch8: USpec = {
+  id: 'ts7.sc.ch8', subject: 'physics', title: 'Air, Winds and Cyclones', source: src(8),
+  objectives: [
+    {
+      id: 'ts7.sc.air.pressure', title: 'Air exerts pressure; moving air and wind', prereqs: [],
+      intro: [
+        h('Air pushes on everything'),
+        photo('🎈', 'A balloon swells because the air inside pushes on its walls in all directions.'),
+        p('Air is all around us and it has weight. The air above us presses on every surface — this push is air pressure. We use it when we drink through a straw, fill a bicycle tube or use a rubber sucker on a wall.'),
+        def('Air pressure', 'The force with which air pushes on a unit area of a surface.'),
+        stepsB(
+          'Air expands on heating: a balloon tied to a bottle in hot water swells up.',
+          'Hot air is lighter (less dense) and rises; cooler air sinks — that is why smoke goes up.',
+          'Increased wind speed is accompanied by reduced air pressure: blow between two hanging papers and they come TOGETHER, not apart.',
+          'During storms, fast wind over a roof lowers the pressure above it, and the higher pressure inside can lift tin roofs off.',
+        ),
+        def('Wind', 'Moving air. Air moves from a region of high pressure to a region of low pressure.'),
+        keys('Air has weight and exerts pressure in all directions.', 'Air expands when heated; warm air rises.', 'Fast-moving air has lower pressure.', 'Wind blows from high pressure to low pressure.'),
+        remember('The bigger the difference in pressure, the faster the wind.'),
+        tip('Experiment: blow hard over a strip of paper held below your lips — it rises, because the fast air above it has lower pressure.'),
+      ],
+      examples: [
+        ex('Two balloons hang a little apart. Teja blows air between them. What happens and why?', ['Blowing makes the air between them move fast.', 'Fast-moving air has low pressure.', 'The higher pressure on the outer sides pushes them together.'], 'They move towards each other'),
+        ex('Why does smoke from a chulha go upwards?', ['Smoke is carried by hot air from the fire.', 'Hot air expands and becomes lighter.', 'Lighter air rises.'], 'Hot air carrying smoke is lighter and rises'),
+      ],
+      practice: [
+        mcq('press', 'Air pushes; warm air rises; fast air has low pressure.', [
+          ['When air is heated, it…', 'Expands and rises', ['Contracts and sinks', 'Turns into water', 'Stays the same'], 'Think of a hot-air balloon.', 'Warm air expands, becomes lighter and rises.'],
+          ['Wind blows from…', 'High pressure to low pressure', ['Low pressure to high pressure', 'Cold to colder places only', 'Nowhere in particular'], 'Like water flowing downhill.', 'Air moves from where pressure is high to where it is low.'],
+          ['Blowing between two hanging sheets of paper makes them…', 'Come together', ['Fly apart', 'Fall down', 'Catch fire'], 'Fast air → low pressure.', 'Lower pressure between them lets outer air push them together.'],
+          ['During a strong storm, tin roofs are sometimes lifted off because…', 'Fast wind above the roof lowers the pressure there', ['The roof becomes lighter', 'Rain pushes it up', 'The house shakes'], 'Compare pressure above and below.', 'Higher pressure under the roof pushes it up.'],
+          ['We can suck juice through a straw because of…', 'Air pressure on the juice surface', ['Gravity pulling juice up', 'Magnetism', 'Heat'], 'Sucking lowers pressure in the straw.', 'The outside air pushes juice up into the low-pressure straw.'],
+        ]),
+        tapT('tap-press', 'Tap every observation that shows air EXERTS PRESSURE or EXPANDS on heating.', [
+          ['A balloon swells when its bottle is put in hot water', true], ['A rubber sucker sticks to a wall', true], ['A bicycle tube becomes hard when pumped', true], ['Drinking through a straw', true],
+          ['Ice melting in a glass', false], ['A magnet attracting iron', false], ['Sugar dissolving in water', false],
+        ], ['Look for air pushing or expanding.', 'Melting, magnetism and dissolving are not about air pressure.'], 'Balloon, sucker, tube and straw all work because of air pressure or expansion.'),
+        orderT('order-wind', 'Put the steps of how a breeze starts in order.', ['The Sun heats one area more than another', 'Air over the hotter area expands and rises', 'Pressure falls over the hot area', 'Cooler air from the high-pressure area moves in — wind'], ['Heating comes first.', 'Wind is the last effect.'], 'Uneven heating → rising air → low pressure → air rushes in.'),
+      ],
+    },
+    {
+      id: 'ts7.sc.air.winds', title: 'Winds caused by uneven heating: breezes and monsoons', prereqs: ['ts7.sc.air.pressure'],
+      intro: [
+        h('Why the sea breeze cools the coast in the afternoon'),
+        photo('🌬️', 'A cool breeze blows from the sea towards the land in the afternoon.'),
+        p('The Sun does not heat everything equally. Land heats up and cools down faster than water. This uneven heating creates pressure differences and therefore winds.'),
+        stepsB(
+          'Sea breeze (day): land becomes hotter than the sea; warm air over land rises; cooler air from the sea blows towards the land.',
+          'Land breeze (night): land cools faster than the sea; warmer air over the sea rises; cooler air from the land blows towards the sea.',
+          'Equator and poles: the equator gets the most direct sunlight; warm air there rises and cooler air from the poles moves in.',
+          'Monsoon: in summer the Indian landmass heats up strongly; moist winds blow in from the Indian Ocean and Arabian Sea — the south-west monsoon — bringing rain to Telangana from June.',
+        ),
+        def('Monsoon', 'Seasonal winds that reverse direction between summer and winter; the summer monsoon brings most of India\'s rain.'),
+        keys('Land heats and cools faster than water.', 'Day: sea breeze (sea → land). Night: land breeze (land → sea).', 'Uneven heating of equator and poles drives big wind systems.', 'South-west monsoon winds bring rain to Telangana in June–September.'),
+        remember('Fishermen use the land breeze at dawn to sail out and the sea breeze in the afternoon to sail back.'),
+      ],
+      examples: [
+        ex('In the afternoon on Visakhapatnam beach, which way does the breeze blow?', ['By day, land is hotter than the sea.', 'Air over land rises, lowering pressure there.', 'Cool air flows from sea to land.'], 'From the sea to the land (sea breeze)'),
+        ex('Why do monsoon winds carry so much water?', ['They blow over the warm ocean for thousands of kilometres.', 'They pick up water vapour by evaporation.', 'When they rise over land, the vapour condenses and falls as rain.'], 'They pick up moisture over the ocean'),
+      ],
+      practice: [
+        mcq('breeze', 'Land heats and cools faster than water.', [
+          ['During the day, the breeze at a beach blows…', 'From sea to land', ['From land to sea', 'Straight upwards', 'Not at all'], 'Which is hotter in the day?', 'Land is hotter; air rises over it and sea air moves in.'],
+          ['At night, the breeze at a beach blows…', 'From land to sea', ['From sea to land', 'Downwards only', 'In circles'], 'Land cools faster.', 'The sea stays warmer at night, so air moves from land to sea.'],
+          ['Land heats up faster than water. This causes…', 'Uneven heating and winds', ['Earthquakes', 'Tides', 'Eclipses'], 'Different temperatures → different pressures.', 'Uneven heating creates pressure differences that drive winds.'],
+          ['The rain-bearing monsoon winds reach Telangana from the…', 'South-west', ['North-east in summer', 'North pole', 'Himalayas'], 'They come from the Arabian Sea side.', 'The south-west monsoon arrives in June.'],
+          ['Air at the equator generally…', 'Gets heated, expands and rises', ['Sinks because it is cold', 'Stays still', 'Freezes'], 'The equator gets the most direct sunlight.', 'Warm equatorial air rises and cooler air moves in from the poles.'],
+        ]),
+        tp('which', (r) => {
+          const day = r.next() < 0.5;
+          const place = r.pick(['Visakhapatnam', 'Chennai', 'Kakinada', 'Puri', 'Kochi', 'Mumbai']);
+          const time = day ? r.pick(['2 pm', '3 pm', 'noon', '11 am']) : r.pick(['10 pm', 'midnight', '3 am', '4 am']);
+          const ans = day ? 'Sea breeze — from sea to land' : 'Land breeze — from land to sea';
+          return {
+            type: 'mcq', prompt: `At ${time} on a clear day at ${place} beach, which breeze blows?`,
+            ...choose(r, ans, [day ? 'Land breeze — from land to sea' : 'Sea breeze — from sea to land', 'No breeze at all']),
+            hints: ['Is the land hotter or cooler than the sea at this time?', 'Air moves from the cooler (high-pressure) area to the warmer one.'],
+            mistakes: [{ when: 'wrong', explain: day ? 'In daytime the land is hotter, so cool sea air flows to land.' : 'At night the land is cooler, so air flows from land to sea.' }],
+            solution: [day ? 'Daytime: land hotter → air rises over land → sea breeze.' : 'Night: land cooler → air rises over the sea → land breeze.'],
+          };
+        }),
+        matchT('match-wind', 'situation to the wind it causes', [
+          ['Hot land, cooler sea (day)', 'Sea breeze'], ['Cool land, warmer sea (night)', 'Land breeze'], ['Indian land heated strongly in summer', 'South-west monsoon'], ['Hot equator, cold poles', 'Winds from poles towards equator'],
+        ], ['Air flows towards the warmer region.', 'The monsoon is a giant seasonal sea breeze.'], 4),
+      ],
+    },
+    {
+      id: 'ts7.sc.air.cyclones', title: 'Cyclones: how they form and how to stay safe', prereqs: ['ts7.sc.air.winds'],
+      intro: [
+        h('A giant spinning storm'),
+        photo('🌀', 'From a satellite, a cyclone looks like a huge spiral of clouds with a calm "eye" in the middle.'),
+        p('Over warm ocean water (above about 26 °C), air takes in a lot of water vapour and rises. As it rises it cools and the vapour condenses into clouds, releasing heat. This heat warms the air further so it rises faster, the pressure at the centre drops very low, and air from all around rushes in, spinning. A cyclone is born.'),
+        def('Cyclone', 'A huge, fast-spinning storm system around a centre of very low pressure, formed over warm oceans, with strong winds and heavy rain.'),
+        p('The calm, clear centre is the eye (10–30 km wide). Around it the winds can reach 150–250 km/h. Cyclones from the Bay of Bengal often hit the coasts of Andhra Pradesh, Odisha and Tamil Nadu; as they move inland they bring very heavy rain to Telangana too.'),
+        h('Staying safe'),
+        stepsB(
+          'Listen to IMD cyclone warnings on radio, TV and mobile alerts.',
+          'Move to a cyclone shelter or a strong building if asked to evacuate.',
+          'Keep drinking water, dry food, a torch and medicines ready.',
+          'Do not touch fallen electric wires; do not go near the sea or flooded rivers.',
+          'Fishermen must not go to sea after a warning.',
+        ),
+        keys('Cyclones form over warm oceans.', 'Rising moist air → condensation releases heat → very low pressure → winds spiral in.', 'The eye is calm; strongest winds are around it.', 'Warnings, shelters and preparedness save lives.'),
+        remember('Satellites and radar now help scientists warn people days before a cyclone arrives.'),
+      ],
+      examples: [
+        ex('Why do cyclones form over oceans and not over deserts?', ['Cyclones need huge amounts of water vapour.', 'Condensation of this vapour releases the heat that powers the storm.', 'Deserts have little water to evaporate.'], 'They need warm water and moisture from the ocean'),
+        ex('People in the eye of a cyclone feel calm weather. Why should they still not go outside?', ['The eye is only the centre.', 'After it passes, the strong winds on the other side arrive suddenly from the opposite direction.'], 'Strong winds return as the other side of the cyclone passes'),
+      ],
+      practice: [
+        orderT('form', 'Put the steps of cyclone formation in order.', [
+          'Sun heats the ocean surface strongly', 'Warm, moist air rises over the ocean', 'Water vapour condenses into clouds and releases heat', 'Pressure at the centre drops very low', 'Air rushes in from all sides and spirals around the centre',
+        ], ['It all starts with the Sun heating water.', 'The spiral is the final stage.'], 'Heating → rising moist air → condensation heat → very low pressure → spiralling winds.', 2),
+        mcq('cyc', 'Think of warm oceans and low pressure.', [
+          ['The calm centre of a cyclone is called the…', 'Eye', ['Wall', 'Tail', 'Root'], 'It is at the very middle.', 'The eye is a calm, clear region of very low pressure.'],
+          ['Cyclones that affect Telangana mostly form over the…', 'Bay of Bengal', ['Thar Desert', 'Himalayas', 'Deccan plateau'], 'An ocean to the east.', 'Bay of Bengal cyclones move west over the east coast.'],
+          ['Which agency in India issues cyclone warnings?', 'India Meteorological Department (IMD)', ['Railway Board', 'Election Commission', 'Reserve Bank'], 'It studies weather.', 'IMD monitors cyclones with satellites and radar.'],
+          ['What gives a cyclone its energy?', 'Heat released when water vapour condenses', ['Wind from mountains', 'Electricity from lightning only', 'The Moon\'s gravity'], 'Warm oceans provide the vapour.', 'Condensation releases heat that powers the rising air.'],
+          ['Which is a SAFE action during a cyclone warning?', 'Move to a cyclone shelter', ['Go to the beach to watch', 'Touch fallen wires', 'Go fishing'], 'Safety first.', 'Shelters protect people from wind and floods.'],
+        ]),
+        tapT('tap-safe', 'Tap every action that is SAFE when a cyclone warning is issued.', [
+          ['Listen to warnings on radio and TV', true], ['Store drinking water and dry food', true], ['Move to a cyclone shelter if told to', true], ['Keep a torch and medicines ready', true],
+          ['Go out to sea to fish', false], ['Stand under a tree in the wind', false], ['Touch fallen electric wires', false],
+        ], ['Think: would this protect you or put you at risk?', 'Sea, trees and wires are dangerous during cyclones.'], 'Listening, storing supplies and sheltering keep you safe.'),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Chapter 9 — Reflection of Light
+// =====================================================================================
+const ch9: USpec = {
+  id: 'ts7.sc.ch9', subject: 'physics', title: 'Reflection of Light', source: src(9),
+  objectives: [
+    {
+      id: 'ts7.sc.light.rays', title: 'Rays of light, laws of reflection and the periscope', prereqs: [],
+      activities: ['lab:light'],
+      intro: [
+        h('Light travels in straight lines'),
+        photo('🔦', 'A torch beam in a dusty room shows that light travels in straight lines.'),
+        p('Look at a candle flame through a straight pipe — you can see it. Bend the pipe and the flame disappears. Light travels in straight lines. A line with an arrow showing the direction of light is called a ray; a bundle of rays is a beam.'),
+        p('When light falls on a smooth shiny surface like a mirror, it bounces back. This is reflection. The ray that falls on the mirror is the incident ray, the ray that bounces off is the reflected ray, and the line drawn at 90° to the mirror at that point is the normal.'),
+        def('Laws of reflection', '(1) The angle of incidence equals the angle of reflection (∠i = ∠r). (2) The incident ray, the reflected ray and the normal all lie in the same plane.'),
+        p('Angles are always measured from the NORMAL, not from the mirror. If a ray makes 30° with the mirror surface, its angle of incidence is 90° − 30° = 60°.'),
+        h('The periscope'),
+        p('A periscope has two plane mirrors fixed at 45° at the two ends of a tube, facing each other. Light from an object reflects twice and reaches the eye, so you can see over a wall or, in a submarine, above the water.'),
+        keys('Light travels in straight lines.', '∠i = ∠r, measured from the normal.', 'Angle from the mirror → subtract from 90° to get ∠i.', 'Periscope: two mirrors at 45°.'),
+        remember('If the ray falls along the normal (∠i = 0°), it is reflected straight back.'),
+      ],
+      examples: [
+        ex('A ray falls on a plane mirror with an angle of incidence of 35°. Find the angle of reflection.', ['∠r = ∠i', '= 35°'], '35°'),
+        ex('A ray makes an angle of 20° with the mirror surface. Find the angle of reflection.', ['Angle of incidence is measured from the normal.', '∠i = 90° − 20° = 70°', '∠r = ∠i = 70°'], '70°'),
+      ],
+      practice: [
+        tp('ir', (r) => {
+          const i = r.pick([15, 20, 25, 30, 40, 45, 50, 55, 60, 70]);
+          return numQ(`A ray of light strikes a plane mirror at an angle of incidence of ${i}°. What is the angle of reflection?`, i, '°',
+            ['Use the first law of reflection.', 'Angle of incidence = angle of reflection.'],
+            [`∠r = ∠i = ${i}°`],
+            [{ when: String(90 - i), explain: 'Both angles are measured from the normal, and they are equal. No subtraction is needed here.' }]);
+        }),
+        tp('surface', (r) => {
+          const a = r.pick([10, 20, 25, 30, 35, 40, 50, 60]);
+          return numQ(`A ray makes an angle of ${a}° with the SURFACE of a plane mirror. What is the angle of reflection?`, 90 - a, '°',
+            ['Angles are measured from the normal, which is at 90° to the mirror.', `∠i = 90° − ${a}°`],
+            [`∠i = 90° − ${a}° = ${90 - a}°`, `∠r = ∠i = ${90 - a}°`],
+            [{ when: String(a), explain: `${a}° is measured from the mirror. Measure from the normal: 90° − ${a}°.` }]);
+        }, 2),
+        tp('between', (r) => {
+          const i = r.pick([20, 25, 30, 35, 40, 45]);
+          return numQ(`The angle of incidence is ${i}°. What is the angle between the incident ray and the reflected ray?`, 2 * i, '°',
+            ['The angle between the rays = ∠i + ∠r.', `∠r is also ${i}°.`],
+            [`∠i + ∠r = ${i}° + ${i}° = ${2 * i}°`]);
+        }, 3),
+        mcq('ref', 'Recall the laws and the periscope.', [
+          ['The angle of incidence is measured between the incident ray and…', 'The normal', ['The mirror surface', 'The reflected ray', 'The floor'], 'The normal is at 90° to the mirror.', 'All reflection angles are measured from the normal.'],
+          ['In a periscope the mirrors are fixed at an angle of…', '45°', ['90°', '30°', '0°'], 'They turn the light through 90° each.', 'Mirrors at 45° turn the light down the tube and then to the eye.'],
+          ['A ray that falls along the normal is reflected…', 'Straight back along the same path', ['Along the mirror', 'At 45°', 'Not at all'], '∠i = 0°.', 'If ∠i = 0°, ∠r = 0°.'],
+          ['Which shows that light travels in straight lines?', 'We cannot see a candle flame through a bent pipe', ['A mirror shows our face', 'The sky is blue', 'Water boils'], 'Think of the pipe experiment.', 'Light cannot follow a bend; it goes straight.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.sc.light.plane', title: 'Images in a plane mirror; lateral inversion; multiple images', prereqs: ['ts7.sc.light.rays'],
+      activities: ['lab:light'],
+      intro: [
+        h('What is special about your mirror image?'),
+        photo('🪟', 'A smooth, shiny surface like a still window pane or a mirror forms an image.'),
+        stepsB(
+          'Erect — the image is upright, not upside down.',
+          'Same size as the object.',
+          'As far behind the mirror as the object is in front of it.',
+          'Virtual — it cannot be caught on a screen.',
+          'Laterally inverted — left and right are swapped.',
+        ),
+        def('Lateral inversion', 'The left–right reversal of an image formed by a plane mirror. Raise your right hand and your image raises its left.'),
+        p('That is why "AMBULANCE" is painted as a mirror-reversed word on the front of ambulances — drivers ahead read it correctly in their rear-view mirrors.'),
+        h('Multiple images'),
+        p('Two plane mirrors placed at an angle form several images, because light reflects from one mirror to the other again and again. A kaleidoscope uses three mirror strips to make beautiful repeating patterns.'),
+        f('n = 360° / θ − 1', 'number of images equals 360 divided by the angle, minus 1'),
+        xp({
+          title: 'What if? Mirrors at an angle', formula: 'n = 360/θ − 1',
+          res: ['n', 'Number of images', '', '360 / th - 1', 0],
+          vars: [['th', 'Angle between the mirrors (θ)', '°', 30, 120, 30, 90]],
+          notes: [['th', 'Opening the mirrors wider gives fewer images.', 'Closing the mirrors gives more images.']],
+          mistakes: [['Forgetting to subtract 1', '360/θ counts the object itself as one of the "copies"; the images are one fewer.'], ['Using any angle', 'The formula works neatly when θ divides 360 exactly (30°, 60°, 90°, 120°…).']],
+          real: 'Mirrors at 60° give 5 images — the basis of a kaleidoscope pattern; parallel mirrors in a salon give endless images.',
+        }),
+        keys('Plane mirror image: erect, same size, virtual, laterally inverted.', 'Image distance behind = object distance in front.', 'Two mirrors at θ: n = 360/θ − 1 images.', 'Parallel mirrors give infinitely many images.'),
+        remember('If you stand 2 m in front of a mirror, your image is 2 m behind it — 4 m away from you.'),
+      ],
+      examples: [
+        ex('Diya stands 1.5 m in front of a plane mirror. How far is her image from her?', ['Image is 1.5 m behind the mirror.', 'Distance from Diya = 1.5 + 1.5 = 3 m'], '3 m'),
+        ex('How many images are formed by two mirrors at 60°?', ['n = 360/60 − 1', '= 6 − 1 = 5'], '5 images'),
+      ],
+      practice: [
+        tp('distance', (r) => {
+          const d = r.pick([0.5, 1, 1.5, 2, 2.5, 3, 4]);
+          const n = who(r);
+          return numQ(`${n} stands ${d} m in front of a plane mirror. What is the distance between ${n} and the image?`, 2 * d, 'm',
+            ['The image is as far behind the mirror as the object is in front.', `Image is ${d} m behind; add both distances.`],
+            [`${d} m + ${d} m = ${2 * d} m`],
+            [{ when: String(d), explain: 'That is the distance from the mirror. The question asks for the distance from the person to the image.' }]);
+        }),
+        tp('images', (r) => {
+          const th = r.pick([30, 36, 40, 45, 60, 72, 90, 120]);
+          return numQ(`Two plane mirrors are placed at an angle of ${th}° to each other with a coin between them. How many images of the coin are formed?`, 360 / th - 1, undefined,
+            ['Use n = 360/θ − 1.', `360 ÷ ${th} = ${360 / th}`],
+            [`n = 360/${th} − 1 = ${360 / th} − 1 = ${360 / th - 1}`],
+            [{ when: String(360 / th), explain: 'Subtract 1 — the object itself is not an image.' }]);
+        }, 2),
+        mcq('lateral', 'Think of standing in front of a mirror.', [
+          ['You raise your RIGHT hand in front of a mirror. Your image raises its…', 'Left hand', ['Right hand', 'Both hands', 'No hand'], 'Left and right swap.', 'A plane mirror shows lateral inversion.'],
+          ['Why is AMBULANCE written in reverse on the front of the vehicle?', 'So drivers ahead read it correctly in their mirrors', ['To look stylish', 'Because of a printing error', 'So it can be read at night'], 'Mirror images are laterally inverted.', 'The mirror reverses it back to normal.'],
+          ['The image in a plane mirror is…', 'Virtual and erect', ['Real and inverted', 'Real and erect', 'Virtual and inverted'], 'It cannot be caught on a screen and is upright.', 'Plane mirrors form virtual, erect images.'],
+          ['Compared with the object, a plane mirror image is…', 'The same size', ['Bigger', 'Smaller', 'Half the size'], 'Your image is as tall as you.', 'Plane mirror images are the same size.'],
+          ['Which word looks the same in a plane mirror?', 'TOOT', ['BAG', 'CAT', 'DOG'], 'Look for letters that are symmetric left-to-right.', 'T and O are left–right symmetric, and TOOT reads the same backwards.'],
+          ['Two parallel mirrors facing each other form…', 'Infinitely many images', ['One image', 'Two images', 'No image'], 'Light bounces back and forth.', 'Repeated reflections between parallel mirrors form endless images.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.sc.light.curved', title: 'Concave and convex mirrors; real and virtual images', prereqs: ['ts7.sc.light.plane'],
+      intro: [
+        h('Look into a steel spoon'),
+        photo('🥄', 'The inside of a spoon acts like a concave mirror; the back acts like a convex mirror.'),
+        p('A spherical mirror is curved like part of a ball. If the reflecting surface is curved inwards (like a cave), it is a concave mirror. If it bulges outwards, it is a convex mirror.'),
+        def('Real image', 'An image that can be obtained on a screen; it is always inverted.'),
+        def('Virtual image', 'An image that cannot be obtained on a screen; it is erect (as in a plane mirror).'),
+        stepsB(
+          'Concave mirror, object far away: real, inverted and smaller image (you see yourself upside down in a spoon held far away).',
+          'Concave mirror, object very close: virtual, erect and ENLARGED image — used as a shaving or make-up mirror and by dentists.',
+          'Concave mirrors also collect light: torches, vehicle headlights and solar cookers use them.',
+          'Convex mirror, always: virtual, erect and smaller image, but shows a WIDE area — used as rear-view mirrors in vehicles and at sharp turns on ghat roads.',
+        ),
+        keys('Concave: caves in; can form real or virtual images.', 'Convex: bulges out; always virtual, erect, diminished.', 'Real images can be caught on a screen and are inverted.', 'Uses: concave — dentist, torch, headlight; convex — rear-view mirror.'),
+        remember('Only a concave mirror can form a real image; plane and convex mirrors give only virtual images.'),
+      ],
+      examples: [
+        ex('Which mirror should a bus driver use to see the traffic behind, and why?', ['The driver needs a wide view.', 'A convex mirror gives an erect, small image of a large area.'], 'Convex mirror — wide field of view'),
+        ex('A dentist uses a small mirror to see a tooth enlarged. Which mirror is it?', ['An enlarged, erect image of a close object is needed.', 'A concave mirror gives this when the object is very close.'], 'Concave mirror'),
+      ],
+      practice: [
+        matchT('use', 'use to the mirror needed', [
+          ['Rear-view mirror of a scooter', 'Convex mirror'], ['Dentist\'s mirror', 'Concave mirror'], ['Torch reflector', 'Concave mirror'], ['Dressing-table mirror', 'Plane mirror'], ['Mirror at a sharp ghat-road bend', 'Convex mirror'], ['Solar cooker reflector', 'Concave mirror'],
+        ], ['Wide view → convex; enlarging or focusing light → concave.', 'An ordinary full-size image → plane.']),
+        mcq('cc', 'Concave caves in; convex bulges out.', [
+          ['Which mirror ALWAYS forms a virtual, erect and diminished image?', 'Convex mirror', ['Concave mirror', 'Plane mirror', 'None'], 'Think of a rear-view mirror.', 'A convex mirror always gives small, erect, virtual images.'],
+          ['A real image is one that…', 'Can be caught on a screen', ['Cannot be caught on a screen', 'Is always erect', 'Only forms in plane mirrors'], 'Real light rays meet there.', 'Real images form where light actually meets, so a screen shows them.'],
+          ['The inner surface of a shiny steel spoon behaves like a…', 'Concave mirror', ['Convex mirror', 'Plane mirror', 'Lens'], 'It curves inward.', 'An inward-curved surface is concave.'],
+          ['Which mirror can form an enlarged image?', 'Concave mirror', ['Convex mirror', 'Plane mirror', 'All of them'], 'Shaving mirrors magnify.', 'A concave mirror magnifies a close object.'],
+          ['A convex mirror is used at blind turns on hill roads because…', 'It shows a wider area', ['It makes things bigger', 'It forms real images', 'It is cheaper'], 'Drivers need to see more of the road.', 'Convex mirrors give a wide field of view.'],
+          ['Only one kind of mirror can form a real image. Which?', 'Concave', ['Convex', 'Plane', 'Any mirror'], 'It converges light.', 'Concave mirrors bring light rays together to a real image.'],
+        ]),
+        tapT('tap-real', 'Tap every image that is VIRTUAL.', [
+          ['Your image in a plane mirror', true], ['Image in a scooter rear-view (convex) mirror', true], ['Enlarged face in a shaving mirror held close', true], ['Your image on the back of a spoon', true],
+          ['Upside-down image of a distant tree on a screen using a concave mirror', false], ['Image of the Sun focused on paper by a concave mirror', false],
+        ], ['Virtual images cannot be caught on a screen.', 'Images formed on a screen or paper are real.'], 'Plane and convex mirror images, and close-up concave images, are virtual.'),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Chapter 10 — Nutrition in Plants
+// =====================================================================================
+const ch10: USpec = {
+  id: 'ts7.sc.ch10', subject: 'biology', title: 'Nutrition in Plants', source: src(10),
+  objectives: [
+    {
+      id: 'ts7.sc.plantnut.nutrients', title: 'What plants need: water, air and mineral nutrients', prereqs: [],
+      intro: [
+        h('Plants make their own food — but need raw materials'),
+        photo('🌱', 'A young seedling takes water and minerals from the soil and air through its leaves.'),
+        p('Animals, including us, must eat other organisms for food — we are heterotrophs. Green plants make their own food — they are autotrophs ("auto" = self, "troph" = nourishment).'),
+        def('Autotroph', 'An organism that makes its own food from simple substances, like green plants.'),
+        def('Heterotroph', 'An organism that depends on other organisms for food.'),
+        p('To make food, plants need water and minerals from the soil and carbon dioxide from the air. Important mineral nutrients are nitrogen (N), phosphorus (P) and potassium (K). Roots absorb water and dissolved minerals, and tiny tubes carry them up the stem to the leaves.'),
+        p('Growing crops again and again on the same field uses up these nutrients. Farmers add manure and fertilisers (like urea for nitrogen) to replace them. Pulse crops (redgram, greengram, groundnut) have root nodules with Rhizobium bacteria that take nitrogen from the air and add it to the soil — so farmers grow pulses between cereal crops (crop rotation).'),
+        keys('Green plants are autotrophs; animals are heterotrophs.', 'Raw materials: water, minerals (N, P, K) and carbon dioxide.', 'Manures and fertilisers replace soil nutrients.', 'Rhizobium in pulse root nodules fixes nitrogen.'),
+        remember('Rhizobium gives the plant nitrogen; the plant gives Rhizobium food and shelter. Both gain — this is called symbiosis.'),
+      ],
+      examples: [
+        ex('A farmer near Jangaon grows redgram after a season of jowar. Why does this help the soil?', ['Redgram is a pulse.', 'Its root nodules contain Rhizobium bacteria.', 'They fix nitrogen from the air into the soil, replacing what jowar used.'], 'Redgram restores nitrogen to the soil'),
+        ex('Is a mushroom an autotroph or a heterotroph?', ['A mushroom is not green — it has no chlorophyll.', 'It cannot make its own food; it absorbs food from dead matter.'], 'Heterotroph'),
+      ],
+      practice: [
+        mcq('auto', 'Auto = self; hetero = other.', [
+          ['Organisms that make their own food are called…', 'Autotrophs', ['Heterotrophs', 'Parasites', 'Saprotrophs'], 'Auto means self.', 'Autotrophs make food themselves.'],
+          ['Which nutrient do Rhizobium bacteria add to the soil?', 'Nitrogen', ['Iron', 'Oxygen', 'Iodine'], 'It is the most common gas in air.', 'Rhizobium fixes atmospheric nitrogen.'],
+          ['Rhizobium lives in the root nodules of…', 'Pulse (leguminous) plants', ['Rice', 'Mango trees', 'Cactus'], 'Think of redgram and groundnut.', 'Legumes host Rhizobium in root nodules.'],
+          ['Plants absorb water and minerals mainly through their…', 'Roots', ['Flowers', 'Fruits', 'Petals'], 'They are in the soil.', 'Roots absorb water and dissolved minerals.'],
+          ['Growing different crops one after another on a field to keep it fertile is called…', 'Crop rotation', ['Irrigation', 'Harvesting', 'Weeding'], 'Crops take turns.', 'Alternating cereals and pulses restores nitrogen.'],
+          ['Humans are heterotrophs because…', 'We depend on other organisms for food', ['We make food in sunlight', 'We have chlorophyll', 'We absorb minerals through our skin'], 'Where does our food come from?', 'We eat plants and animals.'],
+        ]),
+        tapT('tap-auto', 'Tap every AUTOTROPH.', [
+          ['Paddy plant', true], ['Neem tree', true], ['Grass', true], ['Green algae in a pond', true], ['Tulsi plant', true],
+          ['Cow', false], ['Mushroom', false], ['Human', false], ['Cuscuta (dodder)', false],
+        ], ['Autotrophs are green and make food using sunlight.', 'Mushrooms and Cuscuta are not green.'], 'Green plants and algae make their own food; animals, fungi and Cuscuta cannot.'),
+        matchT('match-nut', 'term to its meaning', [
+          ['Autotroph', 'Makes its own food'], ['Heterotroph', 'Depends on others for food'], ['Rhizobium', 'Bacterium that fixes nitrogen'], ['Fertiliser', 'Factory-made chemical that adds nutrients like N, P, K'], ['Manure', 'Decomposed plant and animal waste'],
+        ], ['Two are kinds of organisms, one is a bacterium.', 'Manure is natural; fertiliser is factory-made.']),
+      ],
+    },
+    {
+      id: 'ts7.sc.plantnut.photo', title: 'Photosynthesis: why plants need light', prereqs: ['ts7.sc.plantnut.nutrients'],
+      intro: [
+        h('The food factory in every leaf'),
+        photo('🍃', 'Leaves are green because of chlorophyll, which traps the energy of sunlight.'),
+        p('Leaves are the food factories of a plant. Their cells contain a green pigment, chlorophyll, which captures energy from sunlight. Using this energy, the leaf combines carbon dioxide (taken in through tiny pores called stomata) with water (brought up from the roots) to make glucose, a sugar. Oxygen is released.'),
+        f('carbon dioxide + water → (sunlight, chlorophyll) → glucose + oxygen', 'carbon dioxide plus water, in sunlight with chlorophyll, gives glucose and oxygen'),
+        def('Photosynthesis', 'The process by which green plants make food (glucose) from carbon dioxide and water using sunlight energy captured by chlorophyll, releasing oxygen.'),
+        p('Glucose is soon changed into starch and stored. So the presence of starch in a leaf is proof that photosynthesis took place.'),
+        h('Showing that light is needed'),
+        stepsB(
+          'Keep a potted plant in the dark for 2–3 days so its leaves use up their starch (destarching).',
+          'Cover part of one leaf with black paper on both sides.',
+          'Keep the plant in sunlight for a few hours.',
+          'Pluck the leaf, boil it in water, then in alcohol (in a water bath, with the teacher) to remove chlorophyll.',
+          'Wash it and add iodine solution.',
+          'Uncovered parts turn blue-black (starch made); the covered part does not — no light, no photosynthesis.',
+        ),
+        keys('Raw materials: carbon dioxide + water.', 'Needs: sunlight + chlorophyll.', 'Products: glucose (stored as starch) + oxygen.', 'CO₂ enters through stomata.'),
+        remember('Photosynthesis provides almost all the food and oxygen on Earth. Every grain of rice began in a leaf!'),
+      ],
+      examples: [
+        ex('Why is the leaf boiled in alcohol before the iodine test?', ['Chlorophyll\'s green colour would hide the blue-black colour.', 'Alcohol dissolves chlorophyll, making the leaf pale.'], 'To remove chlorophyll so the colour change is visible'),
+        ex('In the black-paper experiment, the covered part does not turn blue-black. What does this prove?', ['No blue-black → no starch in that part.', 'That part got no light.', 'So without light, no food was made.'], 'Light is necessary for photosynthesis'),
+      ],
+      practice: [
+        orderT('starch', 'Put the steps of the "light is needed" experiment in order.', [
+          'Keep the plant in the dark for 2–3 days', 'Cover part of a leaf with black paper', 'Keep the plant in sunlight for some hours', 'Boil the leaf in alcohol to remove chlorophyll', 'Add iodine and observe',
+        ], ['First remove existing starch.', 'Iodine is added last.'], 'Destarch → cover → expose to light → decolourise → test with iodine.', 2),
+        mcq('ps', 'CO₂ + water + sunlight + chlorophyll → glucose + oxygen.', [
+          ['The green pigment that traps sunlight is…', 'Chlorophyll', ['Haemoglobin', 'Starch', 'Iodine'], 'It makes leaves green.', 'Chlorophyll captures light energy.'],
+          ['Carbon dioxide enters a leaf through…', 'Stomata', ['Roots', 'Flowers', 'Bark'], 'Tiny pores on leaves.', 'Stomata are pores that let gases in and out.'],
+          ['Which gas is released during photosynthesis?', 'Oxygen', ['Carbon dioxide', 'Nitrogen', 'Hydrogen'], 'It is the gas we breathe in.', 'Photosynthesis releases oxygen.'],
+          ['The food first made in photosynthesis is…', 'Glucose', ['Protein', 'Fat', 'Vitamin C'], 'A simple sugar.', 'Glucose is made and later stored as starch.'],
+          ['Presence of starch in a leaf is shown by…', 'Blue-black colour with iodine', ['Violet colour with copper sulphate', 'Oily patch', 'Pink colour with phenolphthalein'], 'Recall the food tests.', 'Iodine turns starch blue-black.'],
+          ['Which is NOT needed for photosynthesis?', 'Oxygen', ['Sunlight', 'Carbon dioxide', 'Water'], 'It is a product, not a raw material.', 'Oxygen is given out, not used.'],
+        ]),
+        tapT('tap-need', 'Tap everything a leaf NEEDS to carry out photosynthesis.', [
+          ['Sunlight', true], ['Chlorophyll', true], ['Carbon dioxide', true], ['Water', true],
+          ['Oxygen', false], ['Starch', false], ['Iodine', false],
+        ], ['Raw materials go in; products come out.', 'Oxygen and starch are products; iodine is only a test chemical.'], 'Sunlight, chlorophyll, carbon dioxide and water are needed.'),
+      ],
+    },
+    {
+      id: 'ts7.sc.plantnut.other', title: 'Parasitic, insectivorous and saprophytic plants', prereqs: ['ts7.sc.plantnut.photo'],
+      intro: [
+        h('Plants that don\'t play by the rules'),
+        photo('🌿', 'Most plants are green and make food — but some plants and fungi get food in other ways.'),
+        stepsB(
+          'Parasitic plants — Cuscuta (dodder, amarbel) is a yellow, leafless, thread-like climber. It has no chlorophyll. It winds around a host plant and sends special roots (haustoria) into it to suck food and water. The host weakens.',
+          'Partial parasites — mistletoe (and Loranthus on mango trees) is green and makes some food but takes water and minerals from the host tree.',
+          'Insectivorous plants — pitcher plant, Venus flytrap and sundew grow in soil poor in nitrogen. They trap and digest insects to get extra nitrogen, though they can also photosynthesise.',
+          'Saprotrophs — fungi like mushrooms and bread mould absorb food from dead and decaying matter. (Fungi are not true plants, but they were once grouped with them.)',
+          'Symbiosis — in a lichen, an alga makes food and a fungus gives shelter, water and minerals. Both gain.',
+        ),
+        def('Parasite', 'An organism that lives on or in another organism (the host) and takes food from it, harming it.'),
+        keys('Cuscuta: total parasite, no chlorophyll.', 'Pitcher plant: traps insects for nitrogen.', 'Mushrooms: saprotrophs on dead matter.', 'Lichen: alga + fungus helping each other.'),
+        remember('Saprotrophs and decomposers clean up dead matter and return nutrients to the soil.'),
+      ],
+      examples: [
+        ex('Cuscuta has yellow stems and no leaves. How does it get food?', ['No chlorophyll → it cannot photosynthesise.', 'It sends haustoria into a host plant and absorbs ready-made food.'], 'By taking food from the host plant — it is a parasite'),
+        ex('Why do insectivorous plants trap insects even though they are green?', ['They grow in soils poor in nitrogen.', 'Insects are a source of nitrogen.'], 'To get nitrogen missing from their soil'),
+      ],
+      practice: [
+        matchT('match-mode', 'organism to its way of getting food', [
+          ['Cuscuta (dodder)', 'Parasite — sucks food from a host'], ['Pitcher plant', 'Traps and digests insects'], ['Mushroom', 'Saprotroph — absorbs food from dead matter'], ['Lichen', 'Symbiosis of alga and fungus'], ['Mango tree', 'Autotroph — makes its own food'],
+        ], ['Only one is a normal green plant.', 'Saprotrophs feed on dead matter.']),
+        mcq('modes', 'How does each organism get its food?', [
+          ['A plant that lives on another plant and takes food from it is a…', 'Parasite', ['Saprotroph', 'Autotroph', 'Host'], 'It harms the other plant.', 'Parasites take food from a living host.'],
+          ['The plant on which Cuscuta grows is called the…', 'Host', ['Parasite', 'Saprotroph', 'Symbiont'], 'It hosts the visitor.', 'The plant giving food is the host.'],
+          ['Insectivorous plants usually grow in soil lacking…', 'Nitrogen', ['Water', 'Sunlight', 'Oxygen'], 'Insects are rich in protein.', 'They get nitrogen from insect bodies.'],
+          ['Bread mould and mushrooms are…', 'Saprotrophs', ['Autotrophs', 'Insectivorous plants', 'Parasites on animals'], 'They grow on dead material.', 'Saprotrophs absorb nutrients from dead, decaying matter.'],
+          ['In a lichen, the alga provides…', 'Food made by photosynthesis', ['Shelter only', 'Nitrogen from insects', 'Nothing'], 'The alga is green.', 'The alga photosynthesises; the fungus gives water, minerals and shelter.'],
+          ['Cuscuta is yellow because it lacks…', 'Chlorophyll', ['Water', 'Roots for sucking', 'Flowers'], 'The green pigment.', 'Without chlorophyll it cannot make food.'],
+        ]),
+        tapT('tap-hetero', 'Tap every organism that CANNOT make all of its own food.', [
+          ['Cuscuta', true], ['Mushroom', true], ['Bread mould', true], ['Pitcher plant (needs insects for nitrogen)', true],
+          ['Spinach', false], ['Paddy', false], ['Coconut palm', false],
+        ], ['Green plants with normal roots make their own food.', 'Insectivorous plants need extra nitrogen from insects.'], 'Parasites, fungi and insectivorous plants depend on other sources for part or all of their food.'),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Chapter 11 — Respiration in Organisms
+// =====================================================================================
+const ch11: USpec = {
+  id: 'ts7.sc.ch11', subject: 'biology', title: 'Respiration in Organisms', source: src(11),
+  objectives: [
+    {
+      id: 'ts7.sc.resp.humans', title: 'Breathing and respiration in humans', prereqs: [],
+      intro: [
+        h('Why do you breathe faster after running?'),
+        photo('💨', 'We breathe in air rich in oxygen and breathe out air with more carbon dioxide.'),
+        p('Food gives energy only when it is broken down inside our cells. This breakdown of food to release energy is respiration. Breathing is just the taking in of air and giving out of air — it supplies oxygen for respiration and removes carbon dioxide.'),
+        f('glucose + oxygen → carbon dioxide + water + energy', 'glucose plus oxygen gives carbon dioxide, water and energy'),
+        def('Aerobic respiration', 'Breakdown of glucose using oxygen, releasing a lot of energy.'),
+        def('Anaerobic respiration', 'Breakdown of glucose without oxygen, releasing less energy. In our muscles during hard exercise it makes lactic acid (causing cramps); in yeast it makes alcohol and carbon dioxide (used in baking and to make dough rise).'),
+        h('The path of air'),
+        stepsB('Nostrils → nasal cavity (hairs and mucus trap dust)', 'Windpipe (trachea)', 'Bronchi (two branches)', 'Lungs — tiny air sacs (alveoli) where oxygen passes into blood and carbon dioxide comes out'),
+        p('Breathing in (inhalation): the diaphragm moves down and the ribs move up and out — the chest cavity becomes bigger and air rushes in. Breathing out (exhalation): the diaphragm moves up and the ribs move down and in — air is pushed out. An adult at rest breathes about 15–18 times a minute; after exercise the rate goes up.'),
+        keys('Breathing ≠ respiration: breathing moves air; respiration releases energy in cells.', 'Aerobic: with oxygen, more energy. Anaerobic: without oxygen, less energy.', 'Inhale: diaphragm down, ribs up/out. Exhale: the reverse.', 'Lime water turns milky with the CO₂ in exhaled air.'),
+        remember('Muscle cramps after a hard race are due to lactic acid from anaerobic respiration; a hot water massage helps.'),
+      ],
+      examples: [
+        ex('Imran counts 72 breaths in 4 minutes. What is his breathing rate?', ['Breathing rate = breaths ÷ minutes', '= 72 ÷ 4 = 18'], '18 breaths per minute'),
+        ex('Why does dough with yeast rise when kept in a warm place?', ['Yeast respires anaerobically, breaking down sugar.', 'This produces carbon dioxide gas.', 'Gas bubbles make the dough rise.'], 'CO₂ from anaerobic respiration by yeast makes it rise'),
+      ],
+      practice: [
+        tp('rate', (r) => {
+          const rate = r.pick([14, 15, 16, 17, 18, 20, 24, 30]);
+          const m = r.pick([2, 3, 4, 5]);
+          const n = who(r);
+          return numQ(`${n} counts ${rate * m} breaths in ${m} minutes. What is the breathing rate per minute?`, rate, undefined,
+            ['Breathing rate = number of breaths ÷ number of minutes.', `Divide ${rate * m} by ${m}.`],
+            [`Rate = ${rate * m} ÷ ${m} = ${rate} breaths per minute`]);
+        }),
+        orderT('path', 'Put the path of air into the body in order.', ['Nostrils', 'Nasal cavity', 'Windpipe (trachea)', 'Bronchi', 'Air sacs (alveoli) in the lungs'], ['Air enters through the nose.', 'The air sacs are the very end.'], 'Air goes nose → nasal cavity → trachea → bronchi → alveoli.'),
+        mcq('resp', 'Breathing moves air; respiration releases energy.', [
+          ['During inhalation the diaphragm…', 'Moves down and the chest expands', ['Moves up', 'Stays still', 'Pushes air out'], 'More space pulls air in.', 'The diaphragm flattens downward, enlarging the chest.'],
+          ['Exhaled air turns lime water milky because it contains more…', 'Carbon dioxide', ['Oxygen', 'Nitrogen', 'Water'], 'It is the waste gas.', 'CO₂ reacts with lime water to make it milky.'],
+          ['Anaerobic respiration in muscles produces…', 'Lactic acid', ['Alcohol', 'Oxygen', 'Starch'], 'It causes cramps.', 'Without enough oxygen, muscles make lactic acid.'],
+          ['Yeast respiring without oxygen produces…', 'Alcohol and carbon dioxide', ['Lactic acid only', 'Oxygen and water', 'Starch'], 'Used in baking.', 'Yeast ferments sugar into alcohol and CO₂.'],
+          ['Which releases MORE energy from the same glucose?', 'Aerobic respiration', ['Anaerobic respiration', 'Both equal', 'Neither releases energy'], 'Oxygen helps break glucose completely.', 'Complete breakdown with oxygen releases much more energy.'],
+          ['Respiration takes place in…', 'Every living cell', ['Only the lungs', 'Only the nose', 'Only the heart'], 'Every cell needs energy.', 'Breathing happens in lungs; respiration happens in all cells.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.sc.resp.animals', title: 'Breathing in other animals', prereqs: ['ts7.sc.resp.humans'],
+      intro: [
+        h('Not everyone has lungs'),
+        photo('🐟', 'Fish take oxygen dissolved in water through their gills.'),
+        stepsB(
+          'Earthworm — breathes through its moist skin. Gases pass through the slimy skin directly. That is why it comes out when soil is waterlogged after heavy rain.',
+          'Insects (cockroach, grasshopper) — small holes called spiracles on the sides of the body lead into air tubes (tracheae) that carry air to all parts.',
+          'Fish — gills on the sides of the head take oxygen dissolved in water.',
+          'Frog — breathes with lungs on land and through its moist skin in water.',
+          'Birds, cows, cats, snakes — lungs, like us.',
+          'Whales and dolphins — live in water but have lungs; they come up to breathe air through a blowhole.',
+        ),
+        keys('Earthworm: moist skin.', 'Insects: spiracles and tracheae.', 'Fish: gills.', 'Frog: lungs and skin.', 'Whale and dolphin: lungs (blowhole).'),
+        remember('The breathing organ always has a thin, moist surface with lots of blood vessels, so gases can pass easily.'),
+      ],
+      examples: [
+        ex('Why do earthworms come out of the soil after heavy rain?', ['Earthworms breathe through their skin using air in the soil.', 'When the soil is waterlogged, the air spaces fill with water.', 'They come up to get air.'], 'The soil air spaces fill with water, so they cannot breathe'),
+        ex('A dolphin lives in the sea. Does it have gills?', ['A dolphin is a mammal.', 'It surfaces regularly to breathe through its blowhole.'], 'No — it breathes air with lungs'),
+      ],
+      practice: [
+        matchT('match-organ', 'animal to its breathing organ', [
+          ['Earthworm', 'Moist skin'], ['Cockroach', 'Spiracles and tracheae'], ['Fish', 'Gills'], ['Frog', 'Lungs and moist skin'], ['Dolphin', 'Lungs (through a blowhole)'], ['Cow', 'Lungs'],
+        ], ['Insects breathe through holes along the body.', 'Not every water animal has gills.']),
+        mcq('animal', 'Match the animal to the way it gets air.', [
+          ['Spiracles are breathing holes found in…', 'Insects', ['Fish', 'Earthworms', 'Birds'], 'Think of a cockroach.', 'Insects have spiracles leading into tracheae.'],
+          ['Fish use their gills to take in…', 'Oxygen dissolved in water', ['Air from above the water', 'Carbon dioxide', 'Food'], 'Water contains dissolved gases.', 'Gills absorb oxygen dissolved in water.'],
+          ['A frog in water breathes mainly through its…', 'Moist skin', ['Gills', 'Spiracles', 'Ears'], 'Adult frogs do not have gills.', 'Gases pass through its thin, moist skin.'],
+          ['A whale must come to the surface because…', 'It breathes air with lungs', ['It has gills that need air', 'It needs sunlight', 'It is too heavy'], 'Whales are mammals.', 'Whales breathe air through a blowhole.'],
+          ['An earthworm\'s skin must stay moist because…', 'Gases dissolve and pass through moist skin', ['It needs to slide', 'It drinks through skin', 'It is always in water'], 'Dry skin blocks gas exchange.', 'Gas exchange needs a moist surface.'],
+        ]),
+        tapT('tap-lungs', 'Tap every animal that breathes with LUNGS.', [
+          ['Human', true], ['Crow', true], ['Cow', true], ['Snake', true], ['Dolphin', true], ['Frog (on land)', true],
+          ['Fish', false], ['Earthworm', false], ['Cockroach', false],
+        ], ['Mammals, birds and reptiles have lungs.', 'Fish, earthworms and insects do not.'], 'Mammals (including dolphins), birds, reptiles and adult frogs have lungs.'),
+      ],
+    },
+    {
+      id: 'ts7.sc.resp.plants', title: 'Respiration in plants', prereqs: ['ts7.sc.resp.humans'],
+      intro: [
+        h('Plants respire too — day and night'),
+        photo('🌳', 'Every living cell of a tree — in leaves, stem and roots — respires all the time.'),
+        p('Plants also break down glucose to get energy. They take in oxygen and give out carbon dioxide, day and night. In daylight photosynthesis is much faster, so overall the plant gives out more oxygen than it uses; at night only respiration happens.'),
+        stepsB(
+          'Leaves exchange gases through stomata.',
+          'Stems of woody plants have tiny openings called lenticels.',
+          'Roots take oxygen from air in the spaces between soil particles. Over-watering fills these spaces and roots can die.',
+          'Mangrove trees in swampy soil grow special breathing roots (pneumatophores) that stick up above the mud.',
+          'Germinating seeds respire rapidly — they give out carbon dioxide and heat.',
+        ),
+        def('Respiration vs photosynthesis', 'Photosynthesis uses CO₂ and gives O₂ (only in light, only in green parts); respiration uses O₂ and gives CO₂ (always, in all living cells).'),
+        keys('Plants respire 24 hours a day.', 'Gas exchange: stomata (leaves), lenticels (stems), soil air (roots).', 'Over-watering suffocates roots.', 'Germinating seeds release CO₂ and heat.'),
+        remember('Photosynthesis makes food; respiration uses food to release energy.'),
+      ],
+      examples: [
+        ex('Why should pot plants not be over-watered?', ['Roots respire using oxygen in soil air spaces.', 'Too much water fills these spaces.', 'Roots get no oxygen and may rot.'], 'Roots cannot get oxygen in waterlogged soil'),
+        ex('Germinating moong seeds in a closed flask make lime water milky. What does this show?', ['Lime water turns milky with carbon dioxide.', 'The seeds are respiring.'], 'Germinating seeds respire and release CO₂'),
+      ],
+      practice: [
+        mcq('plant', 'All living cells respire.', [
+          ['Plants respire…', 'All the time, day and night', ['Only during the day', 'Only at night', 'Never'], 'Living cells always need energy.', 'Respiration is continuous in all living cells.'],
+          ['Woody stems exchange gases through…', 'Lenticels', ['Stomata only', 'Gills', 'Spiracles'], 'Tiny openings in the bark.', 'Lenticels let air into woody stems.'],
+          ['Roots get oxygen from…', 'Air spaces between soil particles', ['Leaves only', 'Rainwater', 'Sunlight'], 'Soil has tiny gaps.', 'Air in soil pores supplies roots.'],
+          ['Mangroves growing in swamps have…', 'Breathing roots that grow upward above the mud', ['Gills', 'No roots', 'Spiracles'], 'Swampy mud has little air.', 'Pneumatophores take in air above the waterlogged mud.'],
+          ['Which process happens ONLY in light?', 'Photosynthesis', ['Respiration', 'Both', 'Neither'], 'It needs sunlight energy.', 'Photosynthesis needs light; respiration does not.'],
+          ['A heap of germinating seeds becomes warm because…', 'Respiration releases heat energy', ['The Sun heats them', 'They photosynthesise', 'Water is hot'], 'Energy is released in respiration.', 'Rapid respiration in seeds gives out heat.'],
+        ]),
+        matchT('compare', 'feature to the process', [
+          ['Uses oxygen, gives carbon dioxide', 'Respiration'], ['Uses carbon dioxide, gives oxygen', 'Photosynthesis'], ['Happens only in light', 'Photosynthesis'], ['Happens in all living cells', 'Respiration'], ['Makes food (glucose)', 'Photosynthesis'], ['Releases energy from food', 'Respiration'],
+        ], ['Photosynthesis builds food; respiration breaks it down.', 'Respiration never stops.'], 2),
+        tapT('tap-plants', 'Tap every statement that is TRUE.', [
+          ['Leaves exchange gases through stomata', true], ['Roots need oxygen from soil air', true], ['Plants respire at night', true], ['Germinating seeds give out carbon dioxide', true],
+          ['Plants do not respire at all', false], ['Only animals need oxygen', false], ['Respiration happens only in leaves', false],
+        ], ['All living plant cells respire.', 'Watch for "only" and "not at all".'], 'Plants respire in all cells, day and night, through stomata, lenticels and roots.'),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Chapter 12 — Reproduction in Plants
+// =====================================================================================
+const ch12: USpec = {
+  id: 'ts7.sc.ch12', subject: 'biology', title: 'Reproduction in Plants', source: src(12),
+  objectives: [
+    {
+      id: 'ts7.sc.repro.flower', title: 'Parts of a flower; unisexual and bisexual flowers', prereqs: [],
+      intro: [
+        h('A flower is a reproductive organ'),
+        photo('🌸', 'A hibiscus (mandara) flower has both male and female parts.'),
+        p('Flowers are not just for decoration — they are where seeds are made. Look at a hibiscus or datura flower from outside to inside:'),
+        stepsB(
+          'Sepals (green, outermost) — together called the calyx; they protect the bud.',
+          'Petals (coloured) — together called the corolla; they attract insects.',
+          'Stamens — the MALE parts. Each has a stalk (filament) and an anther, which makes pollen grains.',
+          'Pistil (carpel) — the FEMALE part in the centre: a sticky stigma at the top, a tube-like style and a swollen ovary at the bottom containing ovules. Each ovule has an egg cell.',
+        ),
+        def('Bisexual flower', 'A flower with both stamens and pistil, e.g. hibiscus, mustard, rose, datura.'),
+        def('Unisexual flower', 'A flower with either stamens (male flower) or pistil (female flower), e.g. bottle gourd, cucumber, maize, papaya.'),
+        keys('Calyx (sepals) → protection; corolla (petals) → attraction.', 'Stamen = anther + filament (male), makes pollen.', 'Pistil = stigma + style + ovary (female), contains ovules.', 'Bisexual: both parts. Unisexual: only one.'),
+        remember('In papaya, male flowers and female flowers usually grow on different plants — only plants with female flowers bear fruit.'),
+      ],
+      examples: [
+        ex('A bottle gourd plant has some flowers with only stamens and others with only a pistil. What type are they?', ['Each flower has only one kind of sex organ.'], 'Unisexual flowers'),
+        ex('Name the parts of the pistil from top to bottom.', ['The sticky top catches pollen — stigma.', 'The tube below — style.', 'The swollen base with ovules — ovary.'], 'Stigma, style, ovary'),
+      ],
+      practice: [
+        matchT('match-part', 'flower part to its job', [
+          ['Sepals', 'Protect the bud'], ['Petals', 'Attract insects'], ['Anther', 'Makes pollen grains'], ['Stigma', 'Sticky surface that receives pollen'], ['Ovary', 'Contains ovules; becomes the fruit'], ['Filament', 'Stalk that holds the anther'],
+        ], ['Anther and filament make the stamen.', 'Stigma, style and ovary make the pistil.']),
+        mcq('flower', 'Male = stamen; female = pistil.', [
+          ['The male part of a flower is the…', 'Stamen', ['Pistil', 'Sepal', 'Petal'], 'It makes pollen.', 'The stamen (anther + filament) is male.'],
+          ['Ovules are found in the…', 'Ovary', ['Anther', 'Stigma', 'Petal'], 'The swollen base of the pistil.', 'The ovary contains ovules.'],
+          ['A flower with both stamens and pistil is…', 'Bisexual', ['Unisexual', 'Male only', 'Female only'], 'Bi = two.', 'Bisexual flowers have both reproductive parts.'],
+          ['Which plant has unisexual flowers?', 'Bottle gourd', ['Hibiscus', 'Mustard', 'Rose'], 'Look for separate male and female flowers.', 'Gourds have separate male and female flowers.'],
+          ['All the sepals together are called the…', 'Calyx', ['Corolla', 'Pistil', 'Ovary'], 'Corolla is for petals.', 'Sepals form the calyx.'],
+        ]),
+        orderT('order-parts', 'Order the parts of a bisexual flower from OUTSIDE to INSIDE.', ['Sepals', 'Petals', 'Stamens', 'Pistil'], ['Green parts are outermost.', 'The female part is at the very centre.'], 'Sepals → petals → stamens → pistil (centre).'),
+      ],
+    },
+    {
+      id: 'ts7.sc.repro.pollination', title: 'Pollination, fertilisation and fruit formation', prereqs: ['ts7.sc.repro.flower'],
+      intro: [
+        h('How a flower becomes a fruit'),
+        photo('🦋', 'Butterflies and bees carry pollen from flower to flower while drinking nectar.'),
+        p('For seeds to form, pollen grains must reach the stigma. The transfer of pollen from the anther to the stigma is pollination.'),
+        stepsB(
+          'Self-pollination: pollen lands on the stigma of the same flower or another flower of the same plant.',
+          'Cross-pollination: pollen reaches a flower of a different plant of the same kind.',
+          'Agents: insects (bees, butterflies — attracted by colour, scent and nectar), wind (maize, grasses, paddy — light, dry pollen), water (some water plants) and birds (sunbirds on drumstick and coral tree flowers).',
+        ),
+        def('Fertilisation', 'The fusion of the male cell (from pollen) with the egg cell (in the ovule) to form a zygote.'),
+        p('After landing on the stigma, a pollen grain grows a tube down the style to the ovule. The male cell travels down and fuses with the egg — fertilisation. The zygote grows into an embryo. Then: the ovule becomes the seed, the ovary becomes the fruit, and the petals, sepals and stamens usually dry and fall off.'),
+        keys('Pollination = pollen transfer from anther to stigma.', 'Self vs cross pollination.', 'Agents: insects, wind, water, birds.', 'Ovule → seed; ovary → fruit; zygote → embryo.'),
+        remember('Bees are vital for farmers: many crops like sunflower and mango give much less fruit without insect pollinators.'),
+      ],
+      examples: [
+        ex('Maize flowers are small, dull and without scent, but make huge amounts of light pollen. Which agent pollinates them?', ['Insects are attracted by colour and scent — maize has none.', 'Light, plentiful pollen is carried by wind.'], 'Wind'),
+        ex('Which part of a mango flower becomes the mango fruit, and which becomes the seed (stone)?', ['After fertilisation the ovary grows into the fruit.', 'The ovule inside becomes the seed.'], 'Ovary → fruit; ovule → seed'),
+      ],
+      practice: [
+        orderT('order-fruit', 'Put the steps from flower to fruit in order.', ['Pollen forms in the anther', 'Pollen reaches the stigma (pollination)', 'Pollen tube grows down the style to the ovule', 'Male cell fuses with egg (fertilisation)', 'Ovule becomes seed and ovary becomes fruit'], ['Pollination comes before fertilisation.', 'Fruit forms last.'], 'Pollen → pollination → pollen tube → fertilisation → seed and fruit.', 2),
+        matchT('match-becomes', 'flower part to what it becomes after fertilisation', [
+          ['Ovary', 'Fruit'], ['Ovule', 'Seed'], ['Zygote', 'Embryo'], ['Petals', 'Dry and fall off'],
+        ], ['The fruit holds the seeds.', 'The embryo is the baby plant inside the seed.'], 4),
+        mcq('poll', 'Pollination first, then fertilisation.', [
+          ['Transfer of pollen from anther to stigma is…', 'Pollination', ['Fertilisation', 'Germination', 'Dispersal'], 'Pollen + -ation.', 'Pollination is the transfer of pollen.'],
+          ['Fusion of the male cell with the egg is…', 'Fertilisation', ['Pollination', 'Respiration', 'Germination'], 'It forms a zygote.', 'Fertilisation forms the zygote.'],
+          ['Pollen landing on the stigma of a flower on a DIFFERENT plant of the same kind is…', 'Cross-pollination', ['Self-pollination', 'Fertilisation', 'Vegetative propagation'], 'Pollen crossed between plants.', 'Cross-pollination involves two plants.'],
+          ['Brightly coloured, scented flowers with nectar are usually pollinated by…', 'Insects', ['Wind', 'Water', 'Nobody'], 'Who is attracted by colour and smell?', 'Colour, scent and nectar attract insects.'],
+          ['After fertilisation, the ovary develops into the…', 'Fruit', ['Seed', 'Petal', 'Root'], 'It surrounds the seeds.', 'The ovary wall becomes the fruit.'],
+          ['Wind-pollinated flowers usually have…', 'Light, dry pollen in large amounts', ['Bright petals and nectar', 'Strong scent', 'Very few pollen grains'], 'Most of the pollen gets lost in the air.', 'Plenty of light pollen improves the chance of reaching a stigma.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.sc.repro.asexual', title: 'Asexual reproduction: vegetative propagation, budding, spores', prereqs: ['ts7.sc.repro.flower'],
+      intro: [
+        h('New plants without seeds'),
+        photo('🥔', 'Each "eye" on a potato can sprout into a new plant.'),
+        p('Some plants can produce new plants without seeds — from roots, stems or leaves, or from single cells. This is asexual reproduction. The new plants are exact copies of the parent.'),
+        stepsB(
+          'Stem cuttings: rose, hibiscus, sugarcane, money plant — a piece of stem with a node grows roots.',
+          'Stem tubers: potato — "eyes" (buds) sprout into new plants.',
+          'Rhizomes: ginger and turmeric — underground stems with buds.',
+          'Bulbs: onion and garlic.',
+          'Leaf buds: Bryophyllum — tiny plants grow from buds on the leaf edges.',
+          'Roots: sweet potato and dahlia.',
+          'Budding: yeast — a small bud grows out and separates.',
+          'Fragmentation: Spirogyra (pond alga) — breaks into pieces, each grows into a new alga.',
+          'Spore formation: bread mould, mushrooms, ferns and mosses release tiny spores with tough coats that survive bad conditions and grow when they land on a moist place.',
+        ),
+        def('Vegetative propagation', 'Growing new plants from vegetative parts (root, stem, leaf) instead of seeds.'),
+        keys('Asexual: one parent, no seeds, identical offspring.', 'Vegetative: cuttings, tubers, rhizomes, bulbs, leaf buds.', 'Budding (yeast), fragmentation (Spirogyra), spores (mould, ferns).', 'Advantages: faster, and good varieties are copied exactly.'),
+        remember('Sugarcane is planted using stem pieces with nodes (setts), not seeds.'),
+      ],
+      examples: [
+        ex('How is ginger usually grown on farms?', ['Ginger is an underground stem (rhizome) with buds.', 'Pieces of rhizome are planted.'], 'From rhizome pieces — vegetative propagation'),
+        ex('Why does bread kept in a moist, warm place get mouldy?', ['Spores of bread mould are present in the air.', 'They land on bread and grow in warm, moist conditions.'], 'Air-borne spores of bread mould germinate on it'),
+      ],
+      practice: [
+        matchT('match-veg', 'plant to how it is usually propagated', [
+          ['Potato', 'Stem tuber "eyes"'], ['Ginger', 'Rhizome'], ['Onion', 'Bulb'], ['Bryophyllum', 'Buds on leaf edges'], ['Rose', 'Stem cutting'], ['Sugarcane', 'Stem pieces with nodes'],
+        ], ['Potato and ginger are both underground stems, of different kinds.', 'Bryophyllum is famous for leaf buds.']),
+        matchT('match-asex', 'organism to its method of asexual reproduction', [
+          ['Yeast', 'Budding'], ['Spirogyra', 'Fragmentation'], ['Bread mould', 'Spore formation'], ['Potato', 'Vegetative propagation'],
+        ], ['Yeast grows bumps; Spirogyra breaks.', 'Mould releases spores.'], 4),
+        mcq('asex', 'Asexual = one parent, no seeds.', [
+          ['In asexual reproduction, the new plants are…', 'Identical to the parent', ['Very different from the parent', 'Always weaker', 'Always seeds'], 'Only one parent is involved.', 'Offspring are exact copies.'],
+          ['Spores can survive bad conditions because they…', 'Have a hard protective coat', ['Are very large', 'Contain water', 'Are made of glass'], 'Think of protection.', 'A tough coat protects spores from heat and dryness.'],
+          ['Yeast reproduces mainly by…', 'Budding', ['Seeds', 'Fragmentation', 'Cuttings'], 'A small bulge grows out.', 'A bud grows from the yeast cell and separates.'],
+          ['Which is an ADVANTAGE of vegetative propagation?', 'Good qualities of the parent are kept exactly', ['It needs pollinators', 'It makes plants different', 'It always needs seeds'], 'Copies are identical.', 'Vegetative propagation preserves desired traits.'],
+          ['Turmeric is grown from…', 'Rhizomes', ['Spores', 'Leaf buds', 'Seeds only'], 'Same as ginger.', 'Turmeric is an underground stem (rhizome).'],
+          ['Ferns and mosses reproduce by…', 'Spores', ['Seeds', 'Bulbs', 'Tubers'], 'They have no flowers.', 'Ferns and mosses release spores.'],
+        ]),
+      ],
+    },
+  ],
+};
+
+export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12];
