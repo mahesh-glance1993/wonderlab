@@ -2074,7 +2074,7 @@ const ch15: USpec = {
         xp({
           title: 'What if? Moisture in a soil sample', formula: 'M = (W − D) / W × 100',
           res: ['M', 'Moisture content', '%', '(W - D) / W * 100', 1],
-          vars: [['W', 'Mass of wet soil', 'g', 60, 200, 5, 100], ['D', 'Mass after drying', 'g', 40, 60, 1, 80]],
+          vars: [['W', 'Mass of wet soil', 'g', 100, 200, 5, 100], ['D', 'Mass after drying', 'g', 50, 100, 1, 80]],
           notes: [['W', 'More mass before drying (for the same dry mass) means more water was present.', 'Less wet mass means less water was present.'], ['D', 'A heavier dry sample means less water was lost.', 'A lighter dry sample means more water was lost.']],
           mistakes: [['Dividing by the dry mass', 'Moisture content is usually given as a percentage of the wet (original) mass.'], ['Forgetting × 100', 'Multiply by 100 to turn the fraction into a percentage.']],
           real: 'Clayey soil after rain can hold 30–40% water; dry sandy soil may hold less than 5%.',
