@@ -1574,4 +1574,427 @@ const ch17 = U(17, 'Implementation of Laws in the District', [
   ]),
 ]);
 
-export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12, ch13, ch14, ch15, ch16, ch17];
+// =====================================================================================
+// Theme IV — Social Organisation and Inequities
+// Chapter 18 — Caste Discrimination and the Struggle for Equalities
+// =====================================================================================
+const ch18 = U(18, 'Caste Discrimination and the Struggle for Equalities', [
+  O('ts7.ss.caste.ambedkar', 'Dr B.R. Ambedkar and discrimination in schools', [
+    h('A thirsty boy at school'),
+    p('Bhimrao Ambedkar was born in 1891 at Mhow (now in Madhya Pradesh) in the Mahar community, which was treated as "untouchable". At school he and his brother had to sit on a gunny sack they brought from home, apart from other children. When thirsty, he could drink only if the peon poured water into his hands from a height; if the peon was absent, he went thirsty.'),
+    def('Untouchability', 'The cruel practice of treating some castes as "impure", refusing to touch them, share water, food, temples or schools with them. It is a crime in India today.'),
+    def('Discrimination', 'Treating a person or group unfairly because of who they are, such as caste, religion, gender or disability.'),
+    stepsB('1891: born at Mhow.', 'Studied despite humiliation; earned degrees from Columbia University (USA) and the London School of Economics.', '1927: led the Mahad Satyagraha so that Dalits could draw water from a public tank.', 'Founded organisations and newspapers to fight caste discrimination.', '1947–1949: chaired the Drafting Committee of the Indian Constitution.', '1956: died; honoured with the Bharat Ratna in 1990.'),
+    keys('Ambedkar faced untouchability even in school.', 'He became a great scholar and leader.', 'He chaired the Constitution\'s Drafting Committee.'),
+    remember('Ambedkar\'s message: "Educate, Agitate, Organise."'),
+  ], [
+    ex('What did the Mahad Satyagraha (1927) demand?', ['Dalits were not allowed to take water from the public Chavdar tank at Mahad.', 'Ambedkar led people to drink water from it.', 'It asserted the equal right to public resources.'], 'Equal right of Dalits to use public water.'),
+    ex('How was young Bhimrao discriminated against at school?', ['He had to sit separately on a sack.', 'He could not touch the water tap and depended on a peon to get water.'], 'Separate seating and denial of water.'),
+  ], [
+    orderT('life', 'Order the events of Dr Ambedkar\'s life.', ['Born at Mhow', 'Studied in the USA and London', 'Led the Mahad Satyagraha', 'Chaired the Constitution Drafting Committee', 'Awarded the Bharat Ratna'], ['Education came before the movements.', 'The Bharat Ratna was given after his death (1990).'], '1891 → studies → 1927 → 1947–49 → 1990.'),
+    mcq('amb', 'Recall Ambedkar\'s life.', [
+      ['Dr Ambedkar was chairman of the…', 'Drafting Committee of the Constitution', ['Election Commission', 'East India Company', 'Planning Commission'], 'He is called the architect of the Constitution.', 'He chaired the Drafting Committee.'],
+      ['The Mahad Satyagraha (1927) was about…', 'the right to draw water from a public tank', ['salt tax', 'land revenue', 'cotton trade'], 'Chavdar tank.', 'It asserted Dalits\' right to public water.'],
+      ['Ambedkar\'s famous message was…', 'Educate, Agitate, Organise', ['Do or Die', 'Jai Jawan Jai Kisan', 'Quit India'], 'Three action words.', '"Educate, Agitate, Organise" was his call.'],
+      ['Ambedkar was born in…', '1891', ['1857', '1947', '1920'], 'Late 19th century.', 'He was born on 14 April 1891.'],
+      ['Treating some people as "impure" and refusing to touch them is called…', 'untouchability', ['cooperation', 'democracy', 'secularism'], 'Banned by Article 17.', 'Untouchability is now a crime.'],
+    ]),
+    tapT('disc', 'Tap examples of discrimination.', [
+      ['Making a child sit separately because of caste', true], ['Refusing water from a common tap to some people', true], ['Not letting someone enter a temple because of caste', true], ['Paying a woman less for the same work', true],
+      ['Giving every student the same textbook', false], ['Letting everyone drink from the same tap', false],
+    ], ['Discrimination = unfair treatment because of who someone is.', 'Equal treatment is not discrimination.'], 'Separate seating, denial of water or temple entry and unequal pay are discrimination.'),
+  ]),
+  O('ts7.ss.caste.origins', 'Origins of the caste system and striving for equality', [
+    h('How did caste begin?'),
+    p('In ancient times, society was described in terms of four varnas: Brahmanas, Kshatriyas, Vaishyas and Shudras. Over centuries many jatis (castes) grew, often linked to occupations, and were arranged in a ranking. Birth decided caste; marriage outside one\'s caste was discouraged; some groups were treated as "untouchable". These rules gave privileges to some and denied rights, education and dignity to others.'),
+    p('Many people questioned this. Buddha and Mahavira rejected birth-based superiority; bhakti saints said all are equal before God. In modern times reformers fought caste:'),
+    stepsB('Jyotirao Phule (Maharashtra) started schools for girls and lower castes (from 1848) and wrote "Gulamgiri" (Slavery).', 'Narayana Guru (Kerala): "One caste, one religion, one God for humankind."', 'Periyar E.V. Ramasamy (Tamil Nadu) led the Self-Respect Movement.', 'B.S. Venkatrao of Hyderabad (1896–1953), called the "Ambedkar of Hyderabad", worked for Adi-Hindu (Dalit) education and rights, ran hostels and schools, and became a minister in Hyderabad State.', 'Bhagya Reddy Varma (1888–1939) of Hyderabad led the Adi-Hindu movement and started many schools for Dalit children.'),
+    keys('Caste: birth-based, ranked groups.', 'Reformers: Phule, Narayana Guru, Periyar, Ambedkar.', 'Hyderabad: B.S. Venkatrao and Bhagya Reddy Varma.'),
+    remember('Equality means every person has the same dignity and rights, whatever their birth.'),
+  ], [
+    ex('Why did reformers like Bhagya Reddy Varma focus on schools?', ['Lower castes had been denied education.', 'Education gives jobs, confidence and the power to claim rights.'], 'Education was key to dignity and equality.'),
+    ex('What does Narayana Guru\'s slogan "One caste, one religion, one God for humankind" teach?', ['All humans belong to one family.', 'Divisions by caste are man-made and unfair.'], 'All people are equal.'),
+  ], [
+    matchT('ref', 'reformer with their work', [
+      ['Jyotirao Phule', 'Schools for girls and lower castes; wrote Gulamgiri'], ['Narayana Guru', 'One caste, one religion, one God'], ['Periyar', 'Self-Respect Movement'], ['B.S. Venkatrao', '"Ambedkar of Hyderabad"'], ['Bhagya Reddy Varma', 'Adi-Hindu movement and schools in Hyderabad'],
+    ], ['Two of them worked in Hyderabad.', 'Periyar was from Tamil Nadu.']),
+    mcq('or', 'Caste and those who fought it.', [
+      ['Who was called the "Ambedkar of Hyderabad"?', 'B.S. Venkatrao', ['Salar Jung I', 'Turrebaz Khan', 'Todar Mal'], 'He worked for Adi-Hindu rights.', 'B.S. Venkatrao earned this title.'],
+      ['Which reformer wrote "Gulamgiri"?', 'Jyotirao Phule', ['Periyar', 'Kabir', 'Basavanna'], 'Gulamgiri means slavery.', 'Phule wrote Gulamgiri (1873).'],
+      ['In the caste system, a person\'s caste was decided by…', 'birth', ['merit', 'election', 'wealth only'], 'It was inherited.', 'Caste was fixed by birth.'],
+      ['The Self-Respect Movement was led by…', 'Periyar E.V. Ramasamy', ['Narayana Guru', 'Gandhi', 'Akbar'], 'Tamil Nadu.', 'Periyar started it in 1925.'],
+    ]),
+    tapT('eq', 'Tap the people who opposed birth-based inequality.', [
+      ['Buddha', true], ['Jyotirao Phule', true], ['Bhagya Reddy Varma', true], ['Narayana Guru', true], ['Dr B.R. Ambedkar', true],
+      ['Mahmud of Ghazni', false], ['Robert Clive', false],
+    ], ['Think of reformers and teachers of equality.', 'A raider and a Company officer are not reformers.'], 'Buddha, Phule, Bhagya Reddy Varma, Narayana Guru and Ambedkar opposed caste inequality.'),
+  ]),
+  O('ts7.ss.caste.equality', 'Equality after independence', [
+    h('The Constitution promises equality'),
+    p('Independent India\'s Constitution (in force from 26 January 1950) made equality a fundamental right.'),
+    stepsB('Article 14: equality before the law for everyone.', 'Article 15: no discrimination on grounds of religion, race, caste, sex or place of birth; public places like wells, tanks, shops and roads are open to all.', 'Article 17: untouchability is abolished and its practice is a punishable offence.', 'Reservation (affirmative action): seats in education, government jobs, and legislatures for SC, ST and backward classes, to make up for long denial of opportunity.', 'Laws: Protection of Civil Rights Act (1955); SC and ST (Prevention of Atrocities) Act (1989).'),
+    p('Laws alone are not enough. Discrimination still happens in some places, in housing, marriage, temples and jobs. Change needs education, awareness and each of us treating everyone with respect. Residential schools and scholarships in Telangana help many SC, ST and BC children study.'),
+    keys('Articles 14, 15, 17 guarantee equality and abolish untouchability.', 'Reservations give fair opportunities.', 'Laws punish atrocities, but attitudes must also change.'),
+    remember('Article 17 abolished untouchability. Practising it is a crime.'),
+  ], [
+    ex('Why does the Constitution allow reservation if it promises equality?', ['Some groups were denied education and jobs for centuries.', 'Treating unequal people "the same" keeps them behind.', 'Reservation gives them a fair chance to catch up.'], 'To give a fair chance to groups denied opportunity for centuries.'),
+    ex('A hotel refuses to serve a person because of caste. Which Article is broken?', ['Article 15 bans discrimination by caste in public places like shops and hotels.', 'Article 17 also bans untouchability.'], 'Article 15 (and Article 17).'),
+  ], [
+    matchT('art', 'Constitutional provision with its meaning', [
+      ['Article 14', 'Equality before the law'], ['Article 15', 'No discrimination in public places'], ['Article 17', 'Untouchability abolished'], ['Reservation', 'Seats in education and jobs for disadvantaged groups'], ['Atrocities Act 1989', 'Punishes crimes against SC and ST'],
+    ], ['17 is about untouchability.', '14 is the general equality article.']),
+    mcq('eqa', 'Equality in the Constitution.', [
+      ['Which Article abolishes untouchability?', 'Article 17', ['Article 14', 'Article 21', 'Article 370'], 'Seventeen.', 'Article 17 abolishes untouchability.'],
+      ['The Indian Constitution came into force on…', '26 January 1950', ['15 August 1947', '2 October 1869', '26 November 1949'], 'Republic Day.', 'It took effect on 26 January 1950.'],
+      ['Reservation aims to…', 'give fair opportunities to groups denied them for centuries', ['punish all students', 'stop education', 'favour the rich'], 'Catching up.', 'Reservation is a form of affirmative action.'],
+      ['Which law (1989) punishes atrocities against SC and ST people?', 'SC and ST (Prevention of Atrocities) Act', ['WALTA', 'Factory Act', 'Right to Education Act'], 'Prevention of crimes.', 'The 1989 Act protects SC and ST people.'],
+    ]),
+    tapT('stillq', 'Tap the actions that help end caste discrimination.', [
+      ['Sitting and eating together with all classmates', true], ['Reporting untouchability to authorities', true], ['Respecting everyone\'s dignity', true], ['Supporting education for all children', true],
+      ['Keeping separate cups for some people', false], ['Refusing to play with a child because of caste', false],
+    ], ['Inclusion ends discrimination.', 'Separation and exclusion continue it.'], 'Sharing, reporting, respect and education help end discrimination.'),
+  ]),
+]);
+
+// =====================================================================================
+// Chapter 19 — Livelihood and Struggles of Urban Workers
+// =====================================================================================
+const ch19 = U(19, 'Livelihood and Struggles of Urban Workers', [
+  O('ts7.ss.workers.factory', 'Permanent factory workers and trade unions', [
+    h('A secure job'),
+    p('Imagine two workers in the same factory near Hyderabad. Ramesh is a permanent worker: he has an appointment letter, a fixed monthly salary, paid leave, provident fund (PF) savings, health insurance (ESI) and cannot be removed without proper reason. Suresh is a contract worker hired through a contractor: he is paid by the day, gets no paid leave and can be sent away any time.'),
+    def('Formal (organised) sector', 'Workplaces registered with the government, where labour laws on wages, hours, safety and benefits apply.'),
+    def('Trade union', 'An association of workers that bargains together with the employer for fair wages, safe conditions and job security.'),
+    stepsB('Workers join a union and elect leaders.', 'The union presents demands (wages, safety, bonus).', 'Talks (collective bargaining) with management.', 'If talks fail: peaceful protests or strikes, as allowed by law.', 'An agreement is signed; conflicts can also go to labour officers or courts.'),
+    p('Labour laws set an 8-hour working day, overtime pay, minimum wages, safety rules and benefits. 1 May is celebrated as May Day (International Workers\' Day).'),
+    keys('Permanent workers: fixed pay, leave, PF, ESI, job security.', 'Contract workers lack many benefits.', 'Unions bargain collectively for workers.'),
+    remember('One worker alone has little power; workers together in a union can bargain.'),
+  ], [
+    ex('List two differences between a permanent and a contract worker.', ['Permanent: monthly salary, benefits like PF and leave.', 'Contract: daily wage, few benefits, can be removed easily.'], 'Security of job and benefits.'),
+    ex('Why are trade unions useful to workers?', ['A single worker cannot easily argue with a big company.', 'United workers can bargain for better wages and safety.'], 'Collective strength in bargaining.'),
+  ], [
+    orderT('union', 'Order how a trade union raises a demand.', ['Workers form or join a union', 'The union lists demands', 'Union talks with the management', 'If talks fail, peaceful protest', 'An agreement is signed'], ['The union must exist first.', 'Agreement is the goal.'], 'Join → demands → talks → protest if needed → agreement.'),
+    matchT('ben', 'benefit with its meaning', [
+      ['Provident Fund (PF)', 'Savings for retirement from salary and employer'], ['ESI', 'Health insurance for workers'], ['Paid leave', 'Days off with salary'], ['Minimum wage', 'Lowest pay allowed by law'], ['Overtime', 'Extra pay for extra hours'],
+    ], ['PF is for the future.', 'ESI is for health.']),
+    mcq('perm', 'Permanent vs contract.', [
+      ['Which worker has the most job security?', 'A permanent worker', ['A daily wage worker', 'A contract worker', 'A casual worker'], 'Appointment letter.', 'Permanent workers cannot be removed without reason.'],
+      ['May Day (1 May) is celebrated as…', 'International Workers\' Day', ['Teachers\' Day', 'Republic Day', 'Handloom Day'], 'For workers\' rights.', 'May Day honours workers.'],
+      ['Labour laws usually fix a working day of…', '8 hours', ['16 hours', '2 hours', '24 hours'], 'The workers\' movement fought for it.', 'The 8-hour day is standard.'],
+      ['When a union and management negotiate together, it is called…', 'collective bargaining', ['auction', 'election', 'taxation'], 'Collective = together.', 'Collective bargaining is negotiation by the group.'],
+    ]),
+  ]),
+  O('ts7.ss.workers.informal', 'Construction sites, brick kilns and informal work', [
+    h('Work without security'),
+    photo('🧱', 'Brick kilns and construction sites employ many seasonal migrant workers.'),
+    p('Most workers in Indian cities are in the informal (unorganised) sector: construction labourers, brick kiln workers, street vendors, domestic workers, auto drivers, porters and many others.'),
+    def('Informal sector', 'Small, often unregistered work where labour laws are poorly followed: no fixed pay, no paid leave, no social security, and the job can end any day.'),
+    stepsB('Construction workers gather at labour addas (street corners) early morning hoping to be hired for the day.', 'Many are migrants from villages in Telangana and other states, coming after crop failure or debt.', 'Brick kiln workers often come as whole families for 6–8 months, paid an advance that ties them to the kiln owner.', 'Working conditions: heavy loads, heat, dust, few safety measures, temporary shelters.', 'Children may miss school when families migrate.'),
+    def('Bonded labour', 'Forced labour in which a worker must keep working to repay a loan or advance. It is illegal in India (abolished in 1976).'),
+    p('The government has set up a Building and Other Construction Workers Welfare Board, which registers workers and gives benefits like accident insurance and help for children\'s education. Seasonal hostels and worksite schools help migrant children continue learning.'),
+    keys('Most urban workers are in the informal sector.', 'Construction and brick kilns rely on migrants.', 'Bonded labour is illegal; welfare boards give some protection.'),
+    remember('Bonded labour was abolished by law in 1976.'),
+  ], [
+    ex('Why do brick kiln families get trapped?', ['They take an advance before the season.', 'Low wages make it hard to repay.', 'They must keep working for the same owner; this can become bonded labour.'], 'Advances and low wages trap them in debt.'),
+    ex('Why do construction workers wait at labour addas?', ['They have no permanent employer.', 'Contractors come to hire workers day by day.'], 'They are hired daily with no fixed job.'),
+  ], [
+    tapT('inf', 'Tap the workers who are usually in the INFORMAL sector.', [
+      ['Construction labourer', true], ['Street vendor', true], ['Domestic worker', true], ['Brick kiln worker', true], ['Head-load porter', true],
+      ['Permanent bank officer', false], ['Government school teacher', false],
+    ], ['Informal = no fixed job security or benefits.', 'Government and bank jobs are formal.'], 'Labourers, vendors, domestic and kiln workers and porters are usually informal.'),
+    mcq('bk', 'Migrants, kilns and sites.', [
+      ['Forced work to repay a loan is called…', 'bonded labour', ['collective bargaining', 'overtime', 'pension'], 'Bound by debt.', 'Bonded labour is forced work against debt; it is illegal.'],
+      ['Bonded labour was abolished in India in…', '1976', ['1857', '1947', '2009'], 'An Act of the 1970s.', 'The Bonded Labour System (Abolition) Act was passed in 1976.'],
+      ['Why do many villagers migrate to cities for construction work?', 'Crop failure, debt and lack of work in villages', ['Cities have no jobs', 'They are paid in gold', 'Villages are too crowded with factories'], 'Push factors.', 'Rural distress pushes people to migrate.'],
+      ['Which board helps registered construction workers?', 'The Building and Other Construction Workers Welfare Board', ['The Election Commission', 'The Railway Board', 'The Cricket Board'], 'Welfare for builders.', 'This board gives insurance and education help.'],
+    ]),
+    matchT('wk', 'term with its meaning', [
+      ['Labour adda', 'Place where daily workers wait to be hired'], ['Advance', 'Money paid before work begins'], ['Migrant worker', 'Worker who moves from home to find work'], ['Informal sector', 'Work without job security or benefits'], ['Worksite school', 'School for children of migrant workers'],
+    ], ['Adda is a gathering place.', 'Migrants move.']),
+  ]),
+  O('ts7.ss.workers.global', 'Workers\' rights as a global concern; SEWA', [
+    h('Workers everywhere'),
+    p('Today many goods are made in one country and sold in another. Clothes sold in Europe may be stitched in Bangladesh or Tiruppur. So the rights of workers are a global concern.'),
+    def('International Labour Organization (ILO)', 'A United Nations agency (founded 1919) that sets international standards for workers: fair wages, safe workplaces, no child labour, no forced labour, and freedom to form unions.'),
+    p('When factories ignore safety, disasters happen, like the collapse of the Rana Plaza garment building in Bangladesh (2013), which killed over 1,100 workers. Afterwards, global brands were pressed to check safety in factories that supplied them.'),
+    h('SEWA: women organise'),
+    p('In 1972, Ela Bhatt founded SEWA (Self Employed Women\'s Association) in Ahmedabad. Its members are poor women who work for themselves: vendors, home-based workers (stitching, rolling beedis or agarbatti), head-loaders and waste-pickers.'),
+    stepsB('Organise women workers into a union.', 'Start a cooperative bank so women can save and borrow at fair rates.', 'Form cooperatives to sell products and get fair prices.', 'Provide health care, child care, insurance and training.', 'Fight for vendors\' rights to sell in public places.'),
+    keys('ILO (1919) sets global labour standards.', 'Rana Plaza (2013) showed the cost of unsafe work.', 'SEWA (Ela Bhatt, 1972) organises self-employed women.'),
+    remember('SEWA shows that even informal workers can organise and win rights.'),
+  ], [
+    ex('Why should a shopper in Europe care about a garment worker in Asia?', ['The shirt they buy may have been made in unsafe conditions.', 'Buyers and brands can demand fair and safe work.'], 'Their purchases are linked to that worker\'s conditions.'),
+    ex('How did SEWA\'s bank help women vendors?', ['They had been borrowing from moneylenders at very high interest.', 'SEWA bank gave loans at fair rates and let them save safely.'], 'Fair loans and safe savings.'),
+  ], [
+    mcq('sewa', 'ILO and SEWA.', [
+      ['SEWA was founded by…', 'Ela Bhatt', ['Ambedkar', 'Phule', 'Ela Gandhi'], 'In Ahmedabad, 1972.', 'Ela Bhatt founded SEWA.'],
+      ['SEWA stands for…', 'Self Employed Women\'s Association', ['Social Equality Workers\' Assembly', 'State Electricity Water Authority', 'South East Workers\' Association'], 'Its members work for themselves.', 'SEWA = Self Employed Women\'s Association.'],
+      ['The International Labour Organization was founded in…', '1919', ['1947', '1972', '2013'], 'After the First World War.', 'The ILO was set up in 1919.'],
+      ['The Rana Plaza collapse (2013) happened in…', 'Bangladesh', ['India', 'Britain', 'Nigeria'], 'A garment factory building.', 'It was in Bangladesh.'],
+      ['Which of these is an ILO standard?', 'No child labour', ['16-hour days', 'No unions allowed', 'Unpaid work'], 'Protecting workers.', 'The ILO opposes child labour.'],
+    ]),
+    tapT('sw', 'Tap the services SEWA provides to its members.', [
+      ['A cooperative bank', true], ['Child care', true], ['Health insurance', true], ['Training and marketing help', true],
+      ['Free cars for every member', false], ['Selling weapons', false],
+    ], ['Think of savings, health and livelihood.', 'Two options are absurd.'], 'Banking, child care, insurance and training are SEWA services.'),
+    orderT('sewao', 'Order these events about workers\' rights.', ['ILO is founded', 'India becomes independent', 'SEWA is founded', 'Bonded labour is abolished in India', 'Rana Plaza collapses'], ['ILO 1919; India 1947.', 'SEWA 1972, bonded labour abolition 1976, Rana Plaza 2013.'], '1919 → 1947 → 1972 → 1976 → 2013.'),
+  ]),
+]);
+
+// =====================================================================================
+// Theme V — Religion and Society
+// Chapter 20 — Folk-Religion
+// =====================================================================================
+const ch20 = U(20, 'Folk - Religion', [
+  O('ts7.ss.folk.deities', 'Folk deities of Telangana', [
+    h('Goddesses of the village'),
+    photo('🪔', 'Village goddesses are worshipped with lamps, turmeric, neem leaves and offerings.'),
+    p('Almost every village in Telangana has its own guardian goddess, often a simple stone smeared with turmeric and kumkum under a tree or in a small shrine. People believe she protects the village from disease, drought and danger. Priests are often from the village communities themselves, not only Brahmanas.'),
+    stepsB('Pochamma: worshipped to protect from diseases such as smallpox and fever; women offer bonam to her.', 'Maisamma: guardian of village boundaries, tanks and fields; her shrine often stands at the village edge or tank bund.', 'Gangamma: goddess of water; worshipped by fishing and farming communities near tanks and rivers.', 'Yellamma (Renuka): widely worshipped goddess; the Balkampet Yellamma temple in Hyderabad is famous.', 'Potharaju: the brother and guardian of the goddesses; in Bonalu he leads processions with a whip, painted with turmeric.', 'Beerappa: deity of the Kuruma (shepherd) community; festivals with drumming (dappu) and stories (Beerappa katha).'),
+    keys('Village goddesses protect from disease, drought and danger.', 'Pochamma, Maisamma, Gangamma, Yellamma, Potharaju, Beerappa.', 'Priests often come from local communities.'),
+    remember('Folk religion is the faith of ordinary people, closely tied to their land, water, cattle and health.'),
+  ], [
+    ex('Why are many Maisamma shrines found at village boundaries or tank bunds?', ['People believe she guards the village, fields and tank.', 'Her shrine at the edge "protects" those entering the village.'], 'She is a guardian of boundaries, tanks and fields.'),
+    ex('Which deity is specially worshipped by Kuruma shepherds?', ['Kurumas are a shepherd community.', 'Their deity is Beerappa.'], 'Beerappa'),
+  ], [
+    matchT('dei', 'deity with what people seek from them', [
+      ['Pochamma', 'Protection from diseases'], ['Maisamma', 'Guardian of village boundaries and tanks'], ['Gangamma', 'Goddess of water'], ['Potharaju', 'Brother and guardian of the goddesses'], ['Beerappa', 'Deity of the Kuruma shepherds'], ['Yellamma', 'Goddess worshipped at Balkampet'],
+    ], ['Ganga = water.', 'Potharaju leads Bonalu processions.']),
+    mcq('fd', 'Folk deities of Telangana.', [
+      ['Folk deities are mostly worshipped to…', 'protect the village from disease and danger', ['win elections', 'build factories', 'travel abroad'], 'Village guardians.', 'They are protectors of village life.'],
+      ['Who leads Bonalu processions, carrying a whip?', 'Potharaju', ['Pochamma', 'Beerappa', 'Gangamma'], 'Painted with turmeric.', 'Potharaju dances ahead of the procession.'],
+      ['Balkampet in Hyderabad has a famous temple of…', 'Yellamma', ['Beerappa', 'Rudrama Devi', 'Basavanna'], 'Renuka.', 'Balkampet Yellamma temple is famous.'],
+      ['The Kuruma community traditionally worships…', 'Beerappa', ['Maisamma only', 'Nataraja', 'Vitthala'], 'Shepherds\' deity.', 'Beerappa is the Kuruma deity.'],
+    ]),
+    tapT('feat', 'Tap the features of folk religion in Telangana villages.', [
+      ['Goddesses shown as simple stones with turmeric', true], ['Shrines under trees or at village edges', true], ['Priests from local communities', true], ['Offerings of food, neem and turmeric', true],
+      ['Only huge stone temples built by emperors', false], ['Worship allowed only in a foreign language', false],
+    ], ['Folk religion is simple and local.', 'Royal temples are a different tradition.'], 'Simple stones, local shrines, local priests and offerings mark folk religion.'),
+  ]),
+  O('ts7.ss.folk.festivals', 'Community worship: Bonalu, Peerila Panduga, Urs and Jahangir Peer Dargah', [
+    h('Festivals that bring everyone together'),
+    p('Folk festivals in Telangana are community events: the whole village or neighbourhood joins, whatever their caste or religion.'),
+    stepsB('Bonalu: in the month of Ashada (July–August), women carry decorated pots (bonam) of rice cooked with milk and jaggery on their heads to offer to Mahakali / Yellamma / Pochamma. Celebrated at Golconda, Secunderabad (Ujjaini Mahankali) and Lal Darwaza. It is an official state festival of Telangana.', 'Peerila Panduga (Moharram): peerlu (metal hand-shaped standards) are installed and carried in processions; in many villages Hindus and Muslims together take part, walk on fire pits and offer jaggery.', 'Urs: the death anniversary of a Sufi saint, celebrated at his dargah with qawwali, a sandal (sandalwood paste) procession and fairs; people of all faiths attend.', 'Jahangir Peer Dargah (near Kothur, Ranga Reddy/Mahabubnagar region): shrine of two Sufi brothers; Hindus and Muslims come to make vows and offer thanks.'),
+    keys('Bonalu: Ashada month; women carry bonam pots.', 'Peerila Panduga: shared by Hindus and Muslims.', 'Urs at dargahs; Jahangir Peer Dargah draws all faiths.'),
+    remember('Bonalu was declared an official state festival of Telangana in 2014.'),
+  ], [
+    ex('What is a "bonam"?', ['A pot of rice cooked with milk and jaggery (and sometimes curd).', 'Women carry it on their heads to offer to the goddess.'], 'A pot of food offered to the goddess.'),
+    ex('Why are Peerila Panduga and Urs good examples of shared culture?', ['People of different religions take part together.', 'They share processions, music, vows and food.'], 'Hindus and Muslims celebrate them together.'),
+  ], [
+    matchT('fest', 'festival or place with its description', [
+      ['Bonalu', 'Women carry pots of food to the goddess'], ['Peerila Panduga', 'Processions of peerlu during Moharram'], ['Urs', 'Death anniversary of a Sufi saint'], ['Jahangir Peer Dargah', 'Shrine visited by people of all faiths'], ['Ashada', 'Month in which Bonalu is celebrated'],
+    ], ['Bonam is a pot.', 'Urs is held at a dargah.']),
+    mcq('bon', 'Shared festivals.', [
+      ['Bonalu is celebrated in the month of…', 'Ashada', ['Chaitra', 'Kartika', 'Magha'], 'July–August.', 'Bonalu is held in Ashada.'],
+      ['In Bonalu, the bonam is carried by…', 'women', ['only priests', 'only kings', 'only children'], 'On their heads.', 'Women carry the bonam pots.'],
+      ['Peerlu are carried during…', 'Moharram (Peerila Panduga)', ['Diwali', 'Christmas', 'Sankranti'], 'Hand-shaped standards.', 'Peerlu are part of Moharram processions.'],
+      ['An Urs celebrates…', 'the death anniversary of a Sufi saint', ['a king\'s coronation', 'a harvest of cotton', 'the new year'], 'Held at a dargah.', 'Urs marks the saint\'s union with God.'],
+      ['Bonalu became an official state festival of Telangana in…', '2014', ['1947', '1956', '1999'], 'The year Telangana was formed.', 'It was declared a state festival in 2014.'],
+    ]),
+    tapT('share', 'Tap the festivals/places where people of different religions commonly take part together in Telangana.', [
+      ['Peerila Panduga', true], ['Urs at dargahs', true], ['Jahangir Peer Dargah', true], ['Bonalu (people of many communities join)', true],
+      ['A private family puja closed to outsiders', false], ['A meeting only for one caste\'s elders', false],
+    ], ['Look for public, community events.', 'Closed, private events are not shared.'], 'Peerila Panduga, Urs, Jahangir Peer and Bonalu bring people together.'),
+  ]),
+  O('ts7.ss.folk.antiquity', 'Antiquity of folk traditions and mixing with other traditions', [
+    h('Very old, always changing'),
+    p('Worship of mother goddesses is very old. Clay female figurines found at ancient sites, including those of the Harappan civilisation, suggest that people worshipped mother goddesses thousands of years ago. Stone circles, memorial stones (hero stones) and sacred trees are also ancient forms of worship.'),
+    stepsB('Ancient: mother goddess figurines, sacred trees, snakes and stones.', 'Over time: local goddesses are linked to big traditions, for example Yellamma identified with Renuka, mother of Parashurama.', 'Village deities get temples, and big temples adopt local festivals.', 'Sufi saints\' dargahs and Moharram enter village life, mixing with local customs like fire-walking and vows.', 'Today: folk festivals are celebrated in cities too, with new forms like decorated floats and music.'),
+    def('Syncretism (mixing of traditions)', 'When beliefs and practices of different religions or cultures blend, so that people share rituals, festivals and places of worship.'),
+    p('Folk traditions are kept alive by oral stories, songs and performances: Oggu katha (Kuruma and Yadava storytellers), Sharada kathalu, Burra katha and the Gusadi dance of the Raj Gonds during Dandari festival.'),
+    keys('Mother goddess worship is thousands of years old.', 'Folk and "big" traditions mixed over time.', 'Oral traditions keep folk religion alive.'),
+    remember('Mixing of traditions is why Hindus visit dargahs and Muslims join Bonalu in many places of Telangana.'),
+  ], [
+    ex('How do historians know mother goddess worship is very old?', ['Archaeologists found clay female figurines at ancient sites.', 'They seem to have been used in worship.'], 'From ancient figurines found in excavations.'),
+    ex('How is Yellamma an example of mixing traditions?', ['She began as a local folk goddess.', 'Later she was identified with Renuka from the Puranas.'], 'A folk goddess was linked to a Puranic figure.'),
+  ], [
+    mcq('ant', 'Old traditions and mixing.', [
+      ['Clay female figurines from ancient sites suggest the worship of…', 'mother goddesses', ['kings', 'machines', 'planets only'], 'Very old belief.', 'They suggest mother goddess worship.'],
+      ['Yellamma is identified in the Puranas with…', 'Renuka', ['Sita', 'Rudrama Devi', 'Mumtaz Mahal'], 'Mother of Parashurama.', 'Yellamma is linked to Renuka.'],
+      ['Oggu katha is performed by storytellers of the…', 'Kuruma and Yadava communities', ['Mughal court', 'British army', 'Portuguese traders'], 'With a small drum (oggu).', 'Oggu katha belongs to Kuruma and Yadava storytellers.'],
+      ['The Gusadi dance is performed by the…', 'Raj Gonds during Dandari', ['Cholas', 'Kakatiyas at court', 'Mughals'], 'Adilabad tribes.', 'Raj Gonds perform Gusadi during Dandari.'],
+      ['Mixing of beliefs and rituals from different traditions is called…', 'syncretism', ['mercantilism', 'nayankara', 'zabt'], 'Blending.', 'Syncretism means blending traditions.'],
+    ]),
+    orderT('mix', 'Order how a village goddess tradition grows over time.', ['A sacred stone under a tree is worshipped', 'The goddess gets a small shrine', 'She is linked to a Puranic goddess', 'A bigger temple and annual festival develop'], ['Simple forms come first.', 'A big festival comes later.'], 'Stone → shrine → linked to Puranas → temple and festival.', 4),
+    matchT('oral', 'tradition with its description', [
+      ['Oggu katha', 'Story-singing with a small drum by Kurumas and Yadavas'], ['Burra katha', 'Story told with a drum shaped like a skull (burra)'], ['Gusadi', 'Dance of the Raj Gonds with peacock-feather headgear'], ['Hero stone', 'Memorial stone for a fallen warrior'], ['Sacred grove', 'Patch of forest protected for a deity'],
+    ], ['Gusadi dancers wear peacock feathers.', 'Hero stones honour warriors.']),
+  ]),
+]);
+
+// =====================================================================================
+// Chapter 21 — Devotional Paths to the Divine
+// =====================================================================================
+const ch21 = U(21, 'Devotional Paths to the Divine', [
+  O('ts7.ss.bhakti.basava', 'Philosophy and Bhakti; Basavanna\'s Virashaivism; saints of Maharashtra', [
+    h('Loving God directly'),
+    p('Bhakti means loving devotion to God. Bhakti saints taught that anyone, of any caste or gender, can reach God through sincere love, without costly rituals. They composed songs in people\'s own languages (Tamil, Kannada, Marathi, Telugu, Hindi), not only Sanskrit. Earlier, in Tamil Nadu (6th–9th centuries), the Nayanars (devotees of Shiva) and Alvars (devotees of Vishnu) had spread bhakti.'),
+    h('Basavanna and the Virashaivas'),
+    p('In the 12th century in Karnataka, Basavanna (Basaveshwara), a minister at the Kalachuri court in Kalyana, started the Virashaiva (Lingayat) movement with Allama Prabhu and Akkamahadevi. They opposed caste, ritual and the idea of impurity, and wore a small linga. Their teachings were short, powerful Kannada poems called vachanas. Basavanna\'s Anubhava Mantapa was a hall where people of all castes, including women, discussed spiritual questions.'),
+    h('Saints of Maharashtra'),
+    stepsB('Jnaneshwar (13th century): wrote the Jnaneshwari, a Marathi explanation of the Bhagavad Gita.', 'Namdev: a tailor-saint whose songs are also in the Guru Granth Sahib.', 'Eknath (16th century).', 'Tukaram (17th century): famous for his abhangs (devotional songs).', 'They worshipped Vitthala (Vithoba) at Pandharpur; the annual pilgrimage (wari) still continues.'),
+    keys('Bhakti: love of God open to all.', 'Basavanna: Virashaivism, vachanas, Anubhava Mantapa.', 'Maharashtra saints: Jnaneshwar, Namdev, Eknath, Tukaram; Vitthala at Pandharpur.'),
+    remember('Bhakti saints used the language of the people, so their songs spread to every village.'),
+  ], [
+    ex('Why did bhakti saints sing in local languages?', ['Ordinary people did not know Sanskrit.', 'Local languages carried the message to everyone.'], 'So that common people could understand and join.'),
+    ex('What was special about Basavanna\'s Anubhava Mantapa?', ['People of all castes met there.', 'Women also took part in discussions.'], 'It was open to all castes and to women.'),
+  ], [
+    matchT('saint', 'saint with their fact', [
+      ['Basavanna', 'Founded Virashaivism; vachanas'], ['Akkamahadevi', 'Woman Virashaiva poet'], ['Jnaneshwar', 'Wrote the Jnaneshwari'], ['Tukaram', 'Composed abhangs'], ['Namdev', 'Tailor-saint of Maharashtra'],
+    ], ['Vachanas are Kannada.', 'Abhangs are Marathi.']),
+    mcq('bh', 'Bhakti and its saints.', [
+      ['Basavanna\'s followers are known as…', 'Virashaivas (Lingayats)', ['Sufis', 'Nathpanthis', 'Alvars'], 'They wear a small linga.', 'His followers are Virashaivas or Lingayats.'],
+      ['Virashaiva teachings were written as…', 'vachanas in Kannada', ['abhangs in Marathi', 'dohas in Hindi', 'ghazals in Persian'], 'Short sayings.', 'Vachanas are Kannada poems.'],
+      ['The saints of Maharashtra worshipped Vitthala at…', 'Pandharpur', ['Hampi', 'Ajmer', 'Varanasi'], 'Annual wari pilgrimage.', 'Vitthala\'s temple is at Pandharpur.'],
+      ['Bhakti means…', 'loving devotion to God', ['war', 'trade', 'tax collection'], 'Devotion.', 'Bhakti is loving devotion.'],
+      ['The Nayanars were devotees of…', 'Shiva', ['Vishnu', 'Vitthala', 'Buddha'], 'Alvars were for Vishnu.', 'Nayanars worshipped Shiva.'],
+    ]),
+    tapT('bht', 'Tap the teachings common to bhakti saints.', [
+      ['God can be reached through sincere love', true], ['All castes are equal before God', true], ['Songs in people\'s own languages', true], ['Costly rituals are not necessary', true],
+      ['Only kings can worship', false], ['Only Sanskrit prayers count', false],
+    ], ['Bhakti was open to all.', 'Exclusion goes against bhakti.'], 'Love, equality, local languages and simple worship are bhakti teachings.'),
+  ]),
+  O('ts7.ss.bhakti.sufi', 'Nathpanthis, Siddhas and Yogis; Islam and Sufism', [
+    h('Other paths'),
+    p('Nathpanthis, Siddhas and Yogis rejected rituals and the caste order. They believed the way to God was through meditation and training of the body and mind (yoga). Many came from groups considered "low" in society and were popular among ordinary people.'),
+    h('Islam and Sufism'),
+    p('Islam teaches that there is one God (Allah) and that Prophet Muhammad is His messenger. Muslims follow the Quran. Islam reached India through traders on the west coast from the 7th century and later with the Turkish rulers.'),
+    def('Sufis', 'Muslim mystics who sought union with God through love and devotion, like a lover seeking the beloved. They rejected outward show and taught compassion to all.'),
+    stepsB('A Sufi master (pir or shaikh) guided disciples (murids) in a khanqah (hospice).', 'They used poetry, music (qawwali) and dance (sama) to express love for God.', 'Khanqahs were open to all; free kitchens fed the poor.', 'After the master\'s death his tomb (dargah) became a place of pilgrimage.', 'Famous Chishti saints: Khwaja Muinuddin Chishti (Ajmer), Nizamuddin Auliya (Delhi).'),
+    keys('Nathpanthis/Siddhas/Yogis: yoga and meditation, no rituals.', 'Sufis: Muslim mystics; love of God.', 'Khanqah, qawwali, dargah; Ajmer and Delhi.'),
+    remember('Hazrat Nizamuddin\'s disciple Amir Khusrau was a great poet and musician.'),
+  ], [
+    ex('Why did people of all faiths visit Sufi dargahs?', ['Sufis taught love and compassion for everyone.', 'Their khanqahs fed the poor and were open to all.', 'People believed the saints\' blessings helped them.'], 'Sufis were open, kind and seen as holy by all.'),
+    ex('How was the Nathpanthi path different from temple ritual?', ['They did not depend on priests or temple rituals.', 'They used yoga and meditation to seek truth.'], 'Inner discipline instead of external rituals.'),
+  ], [
+    matchT('suf', 'Sufi term with its meaning', [
+      ['Khanqah', 'Hospice where a Sufi master lived'], ['Dargah', 'Tomb of a Sufi saint'], ['Qawwali', 'Devotional singing'], ['Pir', 'Sufi master'], ['Murid', 'Disciple'], ['Urs', 'Death anniversary of a saint'],
+    ], ['Dargah is a tomb.', 'Pir teaches; murid learns.']),
+    mcq('sf', 'Sufis and yogis.', [
+      ['The dargah of Khwaja Muinuddin Chishti is at…', 'Ajmer', ['Delhi', 'Hyderabad', 'Pandharpur'], 'In Rajasthan.', 'His dargah is in Ajmer.'],
+      ['Sufis sought God through…', 'love and devotion', ['war', 'wealth', 'magic tricks'], 'Like a lover and beloved.', 'Sufis emphasised love of God.'],
+      ['Nathpanthis and yogis believed in…', 'meditation and training of body and mind', ['animal sacrifice', 'caste rules', 'temple taxes'], 'Yoga.', 'They used yoga and meditation.'],
+      ['Who was Amir Khusrau?', 'Poet and musician, disciple of Nizamuddin Auliya', ['A Mughal emperor', 'A Kakatiya king', 'A Portuguese traveller'], 'Delhi, 13th–14th century.', 'Khusrau was Nizamuddin\'s famous disciple.'],
+    ]),
+    tapT('sfx', 'Tap the TRUE statements about Sufis.', [
+      ['They were Muslim mystics', true], ['They used music and poetry in worship', true], ['Their khanqahs often fed the poor', true], ['People of many faiths visited them', true],
+      ['They demanded expensive rituals', false], ['They fought only for land', false],
+    ], ['Sufis valued love and simplicity.', 'They rejected show and wealth.'], 'Mysticism, music, charity and openness marked the Sufis.'),
+  ]),
+  O('ts7.ss.bhakti.kabir', 'Kabir and Guru Nanak', [
+    h('Kabir: a weaver-poet'),
+    p('Kabir lived in Varanasi in the 15th–16th centuries. He was raised in a family of Muslim weavers (julahas). He rejected both Hindu and Muslim ritualism, idol worship and caste. He believed in one formless God, whom he called by many names: Rama, Hari, Allah, Khuda. His sayings (dohas and sakhis) in simple Hindi are still sung today.'),
+    h('Guru Nanak and Sikhism'),
+    stepsB('1469: Guru Nanak is born at Talwandi (Nankana Sahib, now in Pakistan).', 'He travels widely, meeting holy people of all faiths.', 'He settles at Kartarpur on the Ravi river, where a community gathers.', 'Teachings: one God (Ek Onkar); remember God\'s name (nam japna), honest work (kirat karna), sharing with others (vand chhakna); equality of all.', 'Langar: a common kitchen where everyone eats together regardless of caste, religion or status.', '1539: dies; his successors are the Sikh Gurus. In 1604 Guru Arjan compiles the Adi Granth, which includes Kabir\'s and Namdev\'s verses.'),
+    keys('Kabir: one formless God; against ritual and caste.', 'Guru Nanak (1469–1539): nam, kirat, vand; langar.', 'Guru Granth Sahib includes Kabir and Namdev.'),
+    remember('Guru Nanak\'s three principles: nam japna, kirat karna, vand chhakna.'),
+  ], [
+    ex('What does the langar teach?', ['Everyone sits together on the floor and eats the same food.', 'Caste, religion and wealth do not matter there.'], 'Equality and sharing.'),
+    ex('How many years did Guru Nanak live (1469–1539)?', ['1539 − 1469 = 70.'], '70 years'),
+  ], [
+    mcq('kn', 'Kabir and Guru Nanak.', [
+      ['Kabir lived mainly in…', 'Varanasi', ['Hyderabad', 'Kartarpur', 'Ajmer'], 'On the Ganga.', 'Kabir lived in Varanasi (Benares).'],
+      ['Kabir\'s family worked as…', 'weavers', ['kings', 'soldiers', 'priests'], 'Julahas.', 'He was raised among Muslim weavers.'],
+      ['Guru Nanak was born in…', '1469', ['1526', '1891', '1336'], 'At Talwandi.', 'Guru Nanak was born in 1469.'],
+      ['A common kitchen where all eat together is a…', 'langar', ['khanqah', 'mandapa', 'jagir'], 'In every gurdwara.', 'The langar serves everyone equally.'],
+      ['Guru Nanak settled at…', 'Kartarpur', ['Pandharpur', 'Hampi', 'Warangal'], 'On the Ravi.', 'He set up a community at Kartarpur.'],
+    ]),
+    matchT('nanak', 'Guru Nanak\'s teaching with its meaning', [
+      ['Nam japna', 'Remembering God\'s name'], ['Kirat karna', 'Earning by honest work'], ['Vand chhakna', 'Sharing with others'], ['Langar', 'Community kitchen for all'], ['Ek Onkar', 'There is one God'],
+    ], ['Vand = share.', 'Kirat = work.']),
+    yearsT('yrs', [
+      ['Guru Nanak was born', 1469, 'Guru Nanak died', 1539],
+      ['Guru Nanak was born', 1469, 'the Adi Granth was compiled', 1604],
+      ['Basavanna began his work (about)', 1160, 'Guru Nanak was born', 1469],
+      ['Guru Nanak died', 1539, 'the Adi Granth was compiled', 1604],
+      ['Babur won at Panipat', 1526, 'Guru Nanak died', 1539],
+    ]),
+  ]),
+]);
+
+// =====================================================================================
+// Theme VI — Culture and Communication
+// Chapter 22 — Rulers and Buildings
+// =====================================================================================
+const ch22 = U(22, 'Rulers and Buildings', [
+  O('ts7.ss.build.temple', 'Engineering skills and temple construction', [
+    h('How were great temples built?'),
+    photo('🛕', 'The Ramappa temple near Mulugu shows the skill of Kakatiya builders.'),
+    p('Between the 8th and 18th centuries, kings built temples, mosques, tanks, forts, palaces and tombs. Big buildings showed a ruler\'s power, wealth and devotion, and gave work to thousands of masons, sculptors and labourers.'),
+    def('Trabeate (post and lintel)', 'A method in which a horizontal beam (lintel) is laid across two vertical pillars. Used in early Indian temples.'),
+    def('Arch', 'A curved structure in which the weight above is carried down to the sides by a keystone at the top. It became common in India after the 12th century.'),
+    stepsB('Garbhagriha: the small inner sanctum housing the main deity.', 'Mandapa: a pillared hall where people gather.', 'Shikhara (north) or vimana (south): the tower over the sanctum.', 'Pradakshina path: a path to walk around the deity.', 'Gopuram: a tall gateway tower (especially in later southern temples).'),
+    p('Building an 11th-century temple like Thanjavur\'s was a huge project: granite blocks were quarried, carried on rollers and ramps, carved and fitted without cement. The top stone of the Thanjavur vimana weighs about 80 tonnes and is believed to have been raised up a long earthen ramp. Kakatiya builders used a "sandbox" foundation (filling pits with sand) to protect temples from earthquakes and made floating bricks for the Ramappa tower.'),
+    keys('Parts: garbhagriha, mandapa, shikhara/vimana, gopuram.', 'Trabeate vs arch.', 'Engineering: ramps, rollers, sandbox foundations.'),
+    remember('The Thanjavur temple tower is about 66 m high and was the tallest in India when it was built (about 1010 CE).'),
+  ], [
+    ex('How does an arch carry weight differently from a lintel?', ['A lintel is a flat beam; it can crack if the gap is wide.', 'An arch pushes the weight sideways and down along its curve.', 'So arches can span wider openings.'], 'The arch spreads the weight to the sides, spanning wider gaps.'),
+    ex('Why did the Kakatiyas use sandbox foundations?', ['Sand absorbs the shocks of earthquakes.', 'The temple above is protected from cracking.'], 'To protect temples from earthquake damage.'),
+  ], [
+    matchT('part', 'temple part with its meaning', [
+      ['Garbhagriha', 'Inner sanctum with the main deity'], ['Mandapa', 'Pillared hall for gathering'], ['Shikhara', 'Tower over the sanctum (north)'], ['Vimana', 'Tower over the sanctum (south)'], ['Gopuram', 'Tall gateway tower'],
+    ], ['Garbha = womb, the innermost place.', 'Gopuram is the gateway.']),
+    mcq('eng', 'Engineering of temples.', [
+      ['A horizontal beam placed across two pillars is…', 'trabeate (post and lintel)', ['an arch', 'a dome', 'a minaret'], 'Flat beam.', 'Post-and-lintel is the trabeate style.'],
+      ['The innermost sanctum of a temple is the…', 'garbhagriha', ['mandapa', 'gopuram', 'courtyard'], 'Where the main deity is.', 'The garbhagriha houses the main deity.'],
+      ['Ramappa temple\'s tower used…', 'light bricks that float in water', ['plastic sheets', 'steel girders', 'glass blocks'], 'Very porous.', 'Floating bricks reduced the load.'],
+      ['The Thanjavur temple was completed around…', '1010 CE', ['1591 CE', '1857 CE', '300 BCE'], 'Under Rajaraja I.', 'It was completed about 1010 CE.'],
+    ]),
+    tapT('work', 'Tap the people who were needed to build a large temple.', [
+      ['Stone quarry workers', true], ['Sculptors', true], ['Architects', true], ['Labourers to haul stone', true], ['Elephants and bullock teams', true],
+      ['Railway engineers with trains', false], ['Electric crane operators', false],
+    ], ['Think of the 11th century: no machines.', 'Railways and electricity came much later.'], 'Quarrymen, sculptors, architects, labourers and animals built temples.'),
+  ]),
+  O('ts7.ss.build.styles', 'New building styles: temples, mosques and tanks; why temples were destroyed', [
+    h('New ideas in stone'),
+    p('From the 12th century, rulers of the Delhi Sultanate brought the arch, the dome, minarets and the use of lime mortar. Indian craftsmen combined these with local skills, carving and designs, creating new styles.'),
+    stepsB('Qutb Minar (Delhi): begun about 1199 by Qutbuddin Aibak, completed by Iltutmish; about 73 m tall, decorated with carved inscriptions.', 'Mosques: a large courtyard, a prayer hall facing Mecca (west in India), a mihrab (niche) and often domes and minarets. Example: the Mecca Masjid in Hyderabad (begun by the Qutb Shahis, completed under Aurangzeb).', 'Tanks and reservoirs: rulers built tanks for water, like the Hauz Khas tank in Delhi (built by Alauddin Khalji) and Hussain Sagar in Hyderabad; Kakatiya tanks in Telangana.'),
+    h('Why were temples destroyed?'),
+    p('Temples were symbols of a king\'s power and were very rich. When one king defeated another, he often attacked the rival\'s royal temple to show the rival\'s god and king had lost, and took its wealth. Hindu kings did this too: for example, Rajendra Chola took images from rulers he defeated, and some rulers destroyed rivals\' temples. Turkish rulers such as Mahmud of Ghazni also attacked temples. At the same time, many rulers of all faiths built and protected places of worship of their subjects.'),
+    keys('New features: arch, dome, minaret, lime mortar.', 'Qutb Minar; Mecca Masjid; Hauz Khas and other tanks.', 'Temples were attacked mainly as symbols of power and wealth.'),
+    remember('Buildings tell us about rulers\' power, religious life and the technology of their times.'),
+  ], [
+    ex('Why did a victorious king attack his rival\'s royal temple?', ['The temple was a symbol of the rival king\'s power and his link to the deity.', 'It also held great wealth.', 'Attacking it showed his own superiority.'], 'To show power and take wealth.'),
+    ex('Name two new building features introduced after the 12th century.', ['The true arch, with a keystone.', 'The dome.'], 'The arch and the dome.'),
+  ], [
+    mcq('ns', 'New styles and reasons.', [
+      ['Who began building the Qutb Minar?', 'Qutbuddin Aibak', ['Akbar', 'Krishnadevaraya', 'Rajaraja I'], 'About 1199.', 'Qutbuddin Aibak began it; Iltutmish completed it.'],
+      ['The Mecca Masjid is in…', 'Hyderabad', ['Delhi', 'Ajmer', 'Thanjavur'], 'Near the Charminar.', 'Mecca Masjid stands in old Hyderabad.'],
+      ['In India, the prayer hall of a mosque faces…', 'west, towards Mecca', ['east', 'north', 'south'], 'Mecca is to the west of India.', 'Muslims pray facing Mecca, which is west of India.'],
+      ['Which feature became common in Indian buildings after the 12th century?', 'The true arch', ['The post and lintel', 'The thatched roof', 'The cave'], 'With a keystone.', 'Arches and domes became common.'],
+      ['Why were temples often attacked in wars?', 'They were symbols of royal power and held wealth', ['They were empty', 'They were forts only', 'They were always made of gold'], 'Power and riches.', 'Royal temples displayed power and stored wealth.'],
+    ]),
+    matchT('bld', 'building with its builder or fact', [
+      ['Qutb Minar', 'Begun by Qutbuddin Aibak'], ['Hauz Khas', 'Tank built by Alauddin Khalji'], ['Mecca Masjid', 'Mosque in Hyderabad'], ['Hussain Sagar', 'Lake built under the Qutb Shahis'], ['Brihadeshvara temple', 'Built by Rajaraja Chola'],
+    ], ['Hauz = tank.', 'Brihadeshvara is in Thanjavur.']),
+    tapT('newf', 'Tap the features of mosques.', [
+      ['Prayer hall facing Mecca', true], ['Mihrab (niche)', true], ['Courtyard', true], ['Minarets', true],
+      ['Garbhagriha with an idol', false], ['Gopuram gateway with sculptures of gods', false],
+    ], ['Mosques have no idols.', 'Gopurams belong to temples.'], 'Prayer hall, mihrab, courtyard and minarets are mosque features.'),
+  ]),
+  O('ts7.ss.build.vijay', 'Vijayanagara style; gardens, tombs and forts', [
+    h('Grand gateways and gardens'),
+    p('Vijayanagara builders added tall raya gopurams (royal gateways) that could be seen from far away, large pillared mandapas with carved horses and mythical animals, and temple chariot streets. The Vitthala temple at Hampi has a stone chariot and "musical pillars" that ring when tapped. The Lotus Mahal and elephant stables show a mix of Indian and Islamic styles (arches and domes).'),
+    def('Charbagh', 'A garden divided into four parts by water channels and walkways, introduced by the Mughals (Babur loved gardens).'),
+    stepsB('Gardens: Mughal charbaghs at Kashmir (Shalimar Bagh), Agra and Lahore.', 'Tombs: Humayun\'s tomb in Delhi (with a charbagh, high dome and double dome); the Taj Mahal at Agra built by Shah Jahan for Mumtaz Mahal; the Qutb Shahi tombs at Hyderabad.', 'Forts: Golconda fort (with acoustic signalling), Red Fort in Delhi (Shah Jahan), Agra fort (Akbar), Warangal fort (Kakatiyas), Bhongir fort.', 'Palaces: Chowmahalla Palace and Falaknuma Palace of the Nizams in Hyderabad.'),
+    keys('Vijayanagara: raya gopurams, mandapas, Vitthala temple.', 'Mughal: charbagh gardens, Humayun\'s tomb, Taj Mahal, Red Fort.', 'Hyderabad: Golconda fort, Qutb Shahi tombs, Chowmahalla.'),
+    remember('The Taj Mahal took about 20 years and thousands of workers to build (completed around 1653).'),
+  ], [
+    ex('Why did Vijayanagara kings build very tall gopurams?', ['They were visible from far away.', 'They announced the power and wealth of the king.'], 'To display royal power from a distance.'),
+    ex('What is a charbagh, and where can you see one?', ['A garden divided into four parts by water channels.', 'Humayun\'s tomb and the Taj Mahal have charbaghs.'], 'A four-part Mughal garden, e.g. at Humayun\'s tomb.'),
+  ], [
+    matchT('mon', 'monument with its place or builder', [
+      ['Taj Mahal', 'Agra, built by Shah Jahan'], ['Humayun\'s tomb', 'Delhi, with a charbagh'], ['Vitthala temple', 'Hampi, with a stone chariot'], ['Golconda fort', 'Hyderabad, Qutb Shahi stronghold'], ['Chowmahalla Palace', 'Palace of the Nizams'], ['Red Fort', 'Delhi, built by Shah Jahan'],
+    ], ['Two are in Hyderabad.', 'The stone chariot is at Hampi.']),
+    mcq('vs', 'Gardens, tombs and forts.', [
+      ['A garden divided into four parts by water channels is a…', 'charbagh', ['mandapa', 'khanqah', 'gopuram'], 'Char = four.', 'A charbagh has four parts.'],
+      ['The Taj Mahal was built by…', 'Shah Jahan', ['Akbar', 'Babur', 'Krishnadevaraya'], 'For Mumtaz Mahal.', 'Shah Jahan built it for his wife.'],
+      ['Tall royal gateways of Vijayanagara temples are called…', 'raya gopurams', ['minarets', 'charbaghs', 'stupas'], 'Raya = king.', 'Raya gopurams are royal gateways.'],
+      ['Which temple at Hampi has musical pillars?', 'Vitthala temple', ['Thousand Pillar Temple', 'Ramappa', 'Somnath'], 'It also has the stone chariot.', 'The Vitthala temple has musical pillars.'],
+      ['The Qutb Shahi tombs are in…', 'Hyderabad', ['Agra', 'Delhi', 'Hampi'], 'Near Golconda.', 'They are at Ibrahim Bagh near Golconda.'],
+    ]),
+    orderT('time', 'Order these buildings by the time they were built (earliest first).', ['Brihadeshvara temple, Thanjavur', 'Ramappa temple', 'Vitthala temple, Hampi', 'Charminar', 'Taj Mahal'], ['Thanjavur (c.1010) and Ramappa (1213) are earliest.', 'Charminar (1591) is before the Taj (1653).'], 'c.1010 → 1213 → 1500s → 1591 → 1653.'),
+  ]),
+]);
+
+export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12, ch13, ch14, ch15, ch16, ch17, ch18, ch19, ch20, ch21, ch22];
