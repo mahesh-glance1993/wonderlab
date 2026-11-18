@@ -1744,4 +1744,663 @@ const ch12: USpec = {
   ],
 };
 
-export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12];
+// =====================================================================================
+// Chapter 13 — Seed Dispersal
+// =====================================================================================
+const ch13: USpec = {
+  id: 'ts7.sc.ch13', subject: 'biology', title: 'Seed Dispersal', source: src(13),
+  objectives: [
+    {
+      id: 'ts7.sc.seed.why', title: 'Why seeds need to be dispersed', prereqs: [],
+      intro: [
+        h('What if every seed fell under its parent?'),
+        photo('🌳', 'A big tree shades the ground below it — seedlings there get little light.'),
+        p('A single neem or mango tree produces hundreds of seeds every year. If they all fell and grew right under the parent, the seedlings would be crowded together. They would compete with each other and with the parent tree for sunlight, water, minerals and space, and most would die.'),
+        def('Seed dispersal', 'The scattering of seeds away from the parent plant to new places.'),
+        stepsB(
+          'Avoids overcrowding under the parent plant.',
+          'Reduces competition for light, water, minerals and space.',
+          'Lets the plant reach and grow in new places (new habitats).',
+          'Lowers the chance that one disease or pest kills all the young plants together.',
+        ),
+        keys('Dispersal = carrying seeds away from the parent.', 'It prevents crowding and competition.', 'It spreads the plant to new areas.'),
+        remember('Plants cannot walk, so they use wind, water, animals and even explosions to send their seeds travelling.'),
+      ],
+      examples: [
+        ex('Seedlings growing in the deep shade under a banyan tree are thin and weak. Why?', ['The parent tree blocks most sunlight.', 'The seedlings also compete with the parent\'s roots for water and minerals.'], 'Too little light, water and minerals because of crowding — dispersal avoids this'),
+        ex('Give two benefits of seed dispersal.', ['Seeds land far apart, so there is less competition.', 'The plant can colonise new places.'], 'Less competition; spread to new areas'),
+      ],
+      practice: [
+        mcq('why', 'Think of crowding under the parent plant.', [
+          ['The main reason for seed dispersal is to…', 'Avoid crowding and competition near the parent', ['Make seeds heavier', 'Stop seeds from growing', 'Feed the parent plant'], 'Imagine all seeds under one tree.', 'Spreading seeds reduces competition for light, water and minerals.'],
+          ['Seedlings under a parent tree mostly lack…', 'Sunlight', ['Air', 'Gravity', 'Soil'], 'The big tree shades them.', 'The parent\'s canopy blocks sunlight.'],
+          ['Dispersal helps plants to…', 'Grow in new places', ['Stay only in one place', 'Lose their leaves', 'Stop flowering'], 'Seeds travel.', 'Seeds carried away can colonise new areas.'],
+          ['Which is NOT a benefit of seed dispersal?', 'More competition among seedlings', ['Less overcrowding', 'Reaching new habitats', 'Less competition for water'], 'Look for the bad one.', 'Dispersal reduces competition, it does not increase it.'],
+          ['Seedlings compete with each other for…', 'Light, water, minerals and space', ['Only oxygen', 'Only seeds', 'Nothing'], 'What does a plant need to grow?', 'Growing plants need light, water, minerals and space.'],
+        ]),
+        tapT('tap-why', 'Tap every reason why seeds are dispersed.', [
+          ['To avoid overcrowding', true], ['To reduce competition for light', true], ['To reduce competition for water and minerals', true], ['To reach new places to grow', true],
+          ['To make the parent tree taller', false], ['To stop the seeds from growing', false], ['To make fruits sweeter', false],
+        ], ['Dispersal helps the young plants survive.', 'It does nothing for the parent\'s height or the fruit\'s taste.'], 'Dispersal reduces crowding and competition and spreads the plant.'),
+        orderT('order-life', 'Put the stages of a plant\'s seed journey in order.', ['Flower is pollinated', 'Fruit and seeds form', 'Seeds are dispersed away from the parent', 'Seed germinates in a new place', 'Seedling grows into a new plant'], ['Seeds form inside the fruit after pollination.', 'Germination happens after the seed lands.'], 'Pollination → seeds → dispersal → germination → new plant.'),
+      ],
+    },
+    {
+      id: 'ts7.sc.seed.agents', title: 'Agents of seed dispersal: wind, water, animals, explosion', prereqs: ['ts7.sc.seed.why'],
+      intro: [
+        h('How seeds travel'),
+        photo('🌬️', 'Light, hairy or winged seeds are carried far by the wind.'),
+        stepsB(
+          'Wind — seeds are very light, have hairs (cotton, madar/jilledu, dandelion) or wings (drumstick, maple). They float or glide on the breeze.',
+          'Water — fruits have a fibrous or spongy coat and can float: coconut (carried across seas), lotus.',
+          'Animals — hooks and spines stick to fur and clothes (Xanthium, puncture vine, "love thorns" grass); fleshy, tasty fruits are eaten by birds and animals and the seeds pass out unharmed in their droppings (guava, banyan, peepal, tomato).',
+          'Explosion — dry fruits burst open with a jerk and shoot out seeds: castor, balsam, ladies\' finger (bhindi), pea and bean pods.',
+          'Humans — we carry seeds to farms and gardens across the world.',
+        ),
+        def('Agent of dispersal', 'Anything that carries seeds away from the parent plant: wind, water, animals, explosion or humans.'),
+        keys('Wind: light, hairy or winged seeds.', 'Water: floating, fibrous fruits (coconut).', 'Animals: hooks/spines, or fleshy fruits eaten by animals.', 'Explosion: pods burst (castor, balsam, bhindi).'),
+        remember('Banyan and peepal seedlings often grow on old walls and buildings — birds dropped the seeds there!'),
+      ],
+      examples: [
+        ex('A coconut fruit has a thick, fibrous husk. Which agent disperses it and how?', ['The fibrous husk traps air and makes the fruit float.', 'It can drift in sea water for long distances.'], 'Water — it floats'),
+        ex('After a walk through fields, Ravi finds small spiny seeds stuck to his socks. What kind of dispersal is this?', ['The seeds have hooks or spines.', 'They cling to animals (or people) and are carried away.'], 'Dispersal by animals (hooks/spines)'),
+      ],
+      practice: [
+        matchT('match-agent', 'seed or fruit to its agent of dispersal', [
+          ['Cotton (hairy seeds)', 'Wind'], ['Drumstick (winged seeds)', 'Wind'], ['Coconut', 'Water'], ['Xanthium (hooked fruit)', 'Animals'], ['Guava', 'Animals (eaten)'], ['Castor', 'Explosion'], ['Lotus', 'Water'], ['Balsam', 'Explosion'],
+        ], ['Hairs and wings → wind; floating → water.', 'Hooks and tasty flesh → animals; bursting pods → explosion.']),
+        tp('feature', (r) => {
+          const bank: [string, string][] = [
+            ['very light seeds with fine hairs', 'Wind'], ['flat seeds with papery wings', 'Wind'], ['a fibrous husk that floats', 'Water'], ['a spongy fruit that floats on ponds', 'Water'],
+            ['hooks that cling to fur', 'Animals'], ['a sweet, juicy pulp eaten by birds', 'Animals'], ['dry pods that burst open with a jerk', 'Explosion'], ['a capsule that splits and flings seeds', 'Explosion'],
+          ];
+          const [feat, agent] = r.pick(bank);
+          return {
+            type: 'mcq', prompt: `A plant's fruit or seed has ${feat}. Which agent most likely disperses it?`,
+            ...choose(r, agent, ['Wind', 'Water', 'Animals', 'Explosion'].filter((x) => x !== agent)),
+            hints: ['Each feature suits one way of travelling.', 'Light/hairy/winged → wind; floating → water; hooks/tasty → animals; bursting → explosion.'],
+            mistakes: [{ when: 'wrong', explain: `A seed with ${feat} is suited to ${agent.toLowerCase()} dispersal.` }],
+            solution: [`${feat[0].toUpperCase() + feat.slice(1)} → ${agent}.`],
+          };
+        }),
+        mcq('agents', 'Look at the seed\'s special feature.', [
+          ['Madar (jilledu) seeds have silky hairs. They are dispersed by…', 'Wind', ['Water', 'Explosion', 'Fish'], 'Hairs act like parachutes.', 'Silky hairs help the seeds float in air.'],
+          ['Ladies\' finger (bhindi) pods dry and split, flinging seeds. This is dispersal by…', 'Explosion', ['Wind', 'Water', 'Animals'], 'The pod bursts.', 'Bursting pods shoot seeds out.'],
+          ['Birds eating ripe banyan figs help disperse seeds because…', 'Seeds pass out unharmed in their droppings far away', ['Birds plant the seeds with their beaks', 'Seeds stick to feathers only', 'Birds destroy all seeds'], 'Seeds survive digestion.', 'Hard seed coats survive and are dropped in new places.'],
+          ['Why can a coconut float?', 'Its fibrous husk is light and traps air', ['It is hollow and empty', 'It has wings', 'It is filled with gas'], 'Think of the coir husk.', 'The fibrous husk makes it buoyant.'],
+          ['Drumstick (munaga) seeds have…', 'Papery wings', ['Hooks', 'Juicy pulp', 'A fibrous husk'], 'They glide in the wind.', 'Winged seeds are carried by wind.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.sc.seed.fruits', title: 'Seeds in fruits: from ovary to seed', prereqs: ['ts7.sc.seed.agents'],
+      intro: [
+        h('Open up a fruit'),
+        photo('🍉', 'A watermelon has many seeds; a mango has just one.'),
+        p('A fruit is the ripened ovary of a flower, and the seeds inside are the ripened ovules. So the number of seeds in a fruit depends on the number of ovules that were fertilised. A mango has one seed; a guava, papaya, watermelon or tomato has many; a pea pod has a row of several.'),
+        stepsB(
+          'Fleshy fruits — soft, juicy wall: mango, guava, tomato, papaya, grapes. Often eaten by animals.',
+          'Dry fruits — hard, dry wall: groundnut, pea pod, castor, cotton, mustard, paddy grain. Often dispersed by wind or explosion.',
+          'Parts of a seed — a seed coat that protects; one or two cotyledons (seed leaves) that store food; and the embryo, the baby plant.',
+          'Some fruits are seedless (cultivated banana, some grapes) — they are grown by vegetative propagation.',
+        ),
+        def('Fruit', 'The ripened ovary of a flower, which contains and protects the seeds.'),
+        keys('Ovary → fruit; ovule → seed.', 'Fleshy vs dry fruits.', 'Seed = seed coat + cotyledon(s) + embryo.', 'Some cultivated fruits are seedless.'),
+        remember('In botany, tomato, brinjal, ladies\' finger and cucumber are all fruits, because they develop from the ovary and contain seeds.'),
+      ],
+      examples: [
+        ex('Why does a pea pod contain many seeds but a mango only one?', ['Each seed develops from one ovule.', 'A pea ovary has many ovules; a mango ovary has one.'], 'Number of seeds = number of fertilised ovules'),
+        ex('Is a brinjal a fruit or a vegetable, scientifically?', ['It develops from the ovary of the flower.', 'It contains seeds.'], 'A fruit (botanically)'),
+      ],
+      practice: [
+        mcq('fruit', 'Ovary → fruit; ovule → seed.', [
+          ['A fruit develops from the…', 'Ovary', ['Ovule', 'Anther', 'Petal'], 'It surrounds the seeds.', 'The ripened ovary becomes the fruit.'],
+          ['A seed develops from the…', 'Ovule', ['Ovary', 'Stigma', 'Sepal'], 'It was inside the ovary.', 'Each fertilised ovule becomes a seed.'],
+          ['The part of a seed that stores food is the…', 'Cotyledon', ['Seed coat', 'Stigma', 'Anther'], 'Seed leaves.', 'Cotyledons store food for the growing embryo.'],
+          ['Which fruit has only ONE seed?', 'Mango', ['Guava', 'Papaya', 'Watermelon'], 'Think of the big stone.', 'A mango has a single large seed.'],
+          ['Botanically, which of these is a fruit?', 'Tomato', ['Potato', 'Carrot', 'Onion'], 'Does it come from a flower and contain seeds?', 'Tomato develops from the ovary and has seeds.'],
+          ['The baby plant inside a seed is the…', 'Embryo', ['Cotyledon', 'Seed coat', 'Ovary'], 'It grows into the new plant.', 'The embryo becomes the seedling.'],
+        ]),
+        tp('fleshy', (r) => {
+          const bank: [string, boolean][] = [['Mango', true], ['Guava', true], ['Tomato', true], ['Papaya', true], ['Grapes', true], ['Groundnut', false], ['Pea pod', false], ['Castor', false], ['Mustard pod', false], ['Paddy grain', false]];
+          const [fr, fl] = r.pick(bank);
+          return {
+            type: 'mcq', prompt: `Is ${fr.toLowerCase()} a fleshy fruit or a dry fruit?`, ...choose(r, fl ? 'Fleshy fruit' : 'Dry fruit', [fl ? 'Dry fruit' : 'Fleshy fruit']),
+            hints: ['Is the wall soft and juicy, or hard and dry when ripe?', 'Fleshy fruits are often eaten by animals.'],
+            mistakes: [{ when: 'wrong', explain: fl ? `${fr} has a soft, juicy wall — fleshy.` : `${fr} has a hard, dry wall when ripe — dry.` }],
+            solution: [`${fr}: ${fl ? 'fleshy fruit' : 'dry fruit'}.`],
+          };
+        }),
+        matchT('match-seed', 'part to its job', [
+          ['Seed coat', 'Protects the seed'], ['Cotyledon', 'Stores food'], ['Embryo', 'Grows into the new plant'], ['Fruit wall', 'Protects seeds and helps dispersal'],
+        ], ['The coat is on the outside.', 'The embryo is the baby plant.'], 4),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Chapter 14 — Water - Too Little to Waste
+// =====================================================================================
+const ch14: USpec = {
+  id: 'ts7.sc.ch14', subject: 'chemistry', title: 'Water - Too Little to Waste', source: src(14),
+  objectives: [
+    {
+      id: 'ts7.sc.water.sources', title: 'Sources of water on Earth; groundwater', prereqs: [],
+      intro: [
+        h('So much water, so little to drink'),
+        photo('💧', 'Every drop of fresh water is precious — very little of Earth\'s water is fit to drink.'),
+        p('About 71% of the Earth\'s surface is covered with water, yet most of it cannot be drunk. About 97% of all water is salty sea water. Of the remaining ~3% fresh water, about two-thirds is frozen in ice caps and glaciers. Less than 1% of all the water on Earth is fresh water we can easily use — in rivers, lakes, ponds and underground.'),
+        p('Water exists as solid (ice, snow), liquid (seas, rivers) and gas (water vapour). The water cycle — evaporation, condensation, precipitation — keeps it moving between them.'),
+        def('Groundwater', 'Water stored below the ground in the spaces between soil particles and rocks.'),
+        def('Water table', 'The upper level of groundwater below the surface. Wells and borewells must reach below it.'),
+        p('Rainwater soaks (infiltrates) into the ground and recharges groundwater. Layers of rock that hold groundwater are aquifers. When too many borewells pump out water faster than rain can replace it, the water table falls. Telangana\'s Mission Kakatiya restored thousands of old village tanks so that more rainwater is stored and groundwater is recharged; the Godavari and Krishna are the state\'s main rivers.'),
+        f('usable fresh water ≈ 1 out of every 100 parts of Earth\'s water (less than 1%)', 'less than one percent of earth\'s water is usable fresh water'),
+        keys('97% of Earth\'s water is salty; about 3% fresh.', 'Most fresh water is ice; under 1% is easily usable.', 'Groundwater is recharged by infiltration of rain.', 'Over-pumping lowers the water table.'),
+        remember('Telangana has few natural lakes; its traditional tanks (cheruvulu) built by the Kakatiyas store rainwater.'),
+      ],
+      examples: [
+        ex('If all Earth\'s water were 100 litres, about how much would be fresh water? About how much would be easily usable?', ['Fresh water ≈ 3% of 100 L = 3 L.', 'Usable is less than 1% — under 1 L, about a cup or two.'], 'About 3 L fresh; under 1 L usable'),
+        ex('Why does the water table fall in summer in many Telangana villages?', ['Little rain → little recharge.', 'More water is pumped for crops and homes.', 'Removal is faster than recharge.'], 'Pumping exceeds recharge'),
+      ],
+      practice: [
+        tp('share', (r) => {
+          const total = r.pick([100, 200, 500, 1000, 2000]);
+          const ask = r.pick(['salty', 'fresh'] as const);
+          const pct = ask === 'salty' ? 97 : 3;
+          return numQ(`Imagine all Earth\'s water as ${total} litres in a tank. About 97% is salty and 3% is fresh. How many litres would be ${ask}?`, total * pct / 100, 'L',
+            [`Find ${pct}% of ${total}.`, `${pct}% means ${pct} out of every 100.`],
+            [`${pct}% of ${total} = ${pct} × ${total} ÷ 100 = ${total * pct / 100} L`]);
+        }),
+        mcq('src', 'Most water is salty; most fresh water is frozen.', [
+          ['About what percentage of Earth\'s water is salty sea water?', '97%', ['50%', '3%', '10%'], 'Nearly all of it.', 'Oceans hold about 97% of all water.'],
+          ['Most of Earth\'s fresh water is found as…', 'Ice in ice caps and glaciers', ['Rivers', 'Lakes', 'Clouds'], 'It is frozen.', 'About two-thirds of fresh water is ice.'],
+          ['The upper level of groundwater is called the…', 'Water table', ['Aquifer', 'Water cycle', 'Sea level'], 'Wells must reach below it.', 'The water table is the top of the saturated layer.'],
+          ['Groundwater is replenished mainly by…', 'Rainwater seeping into the ground', ['Borewells', 'Evaporation', 'Factories'], 'Infiltration.', 'Rain soaking into soil recharges groundwater.'],
+          ['Mission Kakatiya in Telangana aims to…', 'Restore village tanks to store rainwater', ['Build airports', 'Plant cotton', 'Make salt'], 'It is about old irrigation tanks.', 'Restored tanks store water and recharge groundwater.'],
+          ['A layer of rock that holds groundwater is an…', 'Aquifer', ['Anther', 'Ammeter', 'Antacid'], 'Aqua = water.', 'Aquifers store and transmit groundwater.'],
+        ]),
+        tapT('tap-fresh', 'Tap every source of FRESH water.', [
+          ['Godavari river', true], ['Hussain Sagar lake (before pollution)', true], ['Village well', true], ['Rainwater', true], ['Glacier ice', true],
+          ['Bay of Bengal', false], ['Arabian Sea', false], ['Sea water at Visakhapatnam beach', false],
+        ], ['Seas and oceans are salty.', 'Rivers, lakes, wells, rain and glaciers hold fresh water.'], 'Rivers, lakes, wells, rain and glaciers are fresh; seas are salty.'),
+      ],
+    },
+    {
+      id: 'ts7.sc.water.impurities', title: 'Impurities, water-borne diseases, sewage and drainage', prereqs: ['ts7.sc.water.sources'],
+      intro: [
+        h('Clear water is not always clean water'),
+        photo('🪣', 'Water from tanks and wells should be filtered and boiled or chlorinated before drinking.'),
+        p('Water can carry suspended impurities (mud, sand, leaves), dissolved impurities (salts, chemicals, excess fluoride) and germs (bacteria, viruses, worm eggs). Germs in contaminated water cause water-borne diseases: cholera, typhoid, diarrhoea, dysentery and jaundice (hepatitis A). Stagnant water also breeds mosquitoes that spread malaria and dengue.'),
+        p('Some places, such as parts of Nalgonda district, have groundwater with too much fluoride, which causes fluorosis — stained teeth and bent, weak bones. Telangana\'s Mission Bhagiratha supplies treated surface water through pipes to homes to solve such problems.'),
+        h('Making water safe'),
+        stepsB('Sedimentation and decantation — let mud settle, pour off clear water.', 'Filtration — through a cloth, candle filter or sand-gravel filter.', 'Boiling — kills germs.', 'Chlorination — chlorine tablets or bleaching powder kill germs.'),
+        h('Sewage and drainage'),
+        p('Sewage is the used wastewater from homes, hospitals and industries. It contains dirt, food waste, urine and faeces, soaps and germs. It must flow through covered drains (sewers) to a wastewater treatment plant: screens remove large objects, grit settles out, sludge settles in big tanks, air is bubbled through so useful bacteria eat the waste, and the clear water is disinfected before release. Open, blocked drains breed mosquitoes and spread disease.'),
+        keys('Impurities: suspended, dissolved, germs.', 'Water-borne diseases: cholera, typhoid, diarrhoea, dysentery, jaundice.', 'Purify by settling, filtering, boiling, chlorinating.', 'Sewage needs covered drains and treatment plants.'),
+        remember('Never throw plastic, oil or food waste into drains — they block the sewers and cause overflow.'),
+      ],
+      examples: [
+        ex('After floods in a village, many children get diarrhoea. Why, and what should families do?', ['Flood water mixes sewage with drinking water sources.', 'Germs in the water cause diarrhoea.', 'Families should boil or chlorinate drinking water.'], 'Contaminated water; boil or chlorinate before drinking'),
+        ex('Why should drains be covered?', ['Open drains let flies and mosquitoes breed.', 'They spread smell and germs.'], 'To stop mosquitoes, flies and disease'),
+      ],
+      practice: [
+        mcq('dis', 'Germs in dirty water cause water-borne diseases.', [
+          ['Which is a water-borne disease?', 'Cholera', ['Night blindness', 'Goitre', 'Rickets'], 'It spreads through contaminated water.', 'Cholera bacteria spread through dirty water.'],
+          ['Boiling water makes it safe because it…', 'Kills germs', ['Removes all salts', 'Adds vitamins', 'Makes it colder'], 'High temperature.', 'Boiling kills most bacteria and viruses.'],
+          ['Too much fluoride in drinking water causes…', 'Fluorosis', ['Scurvy', 'Malaria', 'Cholera'], 'Seen in parts of Nalgonda.', 'Excess fluoride damages teeth and bones.'],
+          ['Used wastewater from homes and industries is called…', 'Sewage', ['Groundwater', 'Rainwater', 'Distilled water'], 'It flows into sewers.', 'Sewage is wastewater carried by sewers.'],
+          ['Stagnant water in open drains breeds…', 'Mosquitoes', ['Fish for food', 'Butterflies', 'Earthworms'], 'Malaria and dengue.', 'Mosquitoes lay eggs in stagnant water.'],
+          ['Chlorine tablets are added to water to…', 'Kill germs', ['Make it sweet', 'Remove mud', 'Add fluoride'], 'Disinfection.', 'Chlorine disinfects drinking water.'],
+        ]),
+        orderT('order-treat', 'Put the steps of a wastewater treatment plant in order.', ['Bar screens remove large objects', 'Grit and sand settle out', 'Sludge settles in a big tank', 'Air is bubbled in so bacteria break down waste', 'Clear water is disinfected and released'], ['Big objects are removed first.', 'Disinfection is last.'], 'Screening → grit removal → sedimentation → aeration → disinfection.', 2),
+        matchT('match-imp', 'impurity to the way of removing it', [
+          ['Mud and sand', 'Sedimentation and filtration'], ['Germs', 'Boiling or chlorination'], ['Leaves and plastic', 'Bar screens'], ['Floating oil and grease', 'Skimming off the surface'],
+        ], ['Big things are screened; small particles settle or are filtered.', 'Only heat or chemicals kill germs.'], 4),
+      ],
+    },
+    {
+      id: 'ts7.sc.water.conserve', title: 'Conserving water: every drop counts', prereqs: ['ts7.sc.water.sources'],
+      intro: [
+        h('A leaking tap wastes a bucketful a day'),
+        photo('💧', 'Drip, drip, drip — small leaks waste a lot of water over a day.'),
+        p('Since usable fresh water is so limited, we must use it wisely. Water conservation means saving water and using it carefully so that there is enough for everyone, including future generations.'),
+        stepsB(
+          'At home: close taps while brushing, fix leaking taps, use a bucket instead of a shower, reuse water from washing vegetables for plants.',
+          'In farms: drip irrigation and sprinklers give water directly to the roots and waste much less than flooding fields.',
+          'Rainwater harvesting: collect rain from rooftops into tanks or lead it into pits to recharge groundwater.',
+          'In villages: check dams, farm ponds and percolation tanks slow down rainwater so it soaks into the ground.',
+          'Protect lakes and tanks from encroachment and pollution.',
+        ),
+        def('Rainwater harvesting', 'Collecting and storing rainwater, or directing it into the ground to recharge groundwater.'),
+        xp({
+          title: 'What if? A dripping tap', formula: 'W = drops per minute × minutes × volume per drop',
+          res: ['W', 'Water wasted in a day', 'L', 'n * 1440 * v / 1000', 1],
+          vars: [['n', 'Drops per minute', '', 5, 120, 5, 30], ['v', 'Volume of one drop', 'mL', 0.05, 0.1, 0.01, 0.05]],
+          notes: [['n', 'A faster drip wastes more water every day.', 'A slower drip wastes less — but fixing it saves it all.'], ['v', 'Bigger drops waste more water.', 'Smaller drops waste less.']],
+          mistakes: [['Forgetting there are 1440 minutes in a day', '24 hours × 60 minutes = 1440 minutes.'], ['Forgetting to change mL into L', 'Divide millilitres by 1000 to get litres.']],
+          real: 'A tap dripping 60 drops a minute wastes over 4 litres a day — about 1500 litres in a year.',
+        }),
+        keys('Save water at home, in farms and in villages.', 'Drip irrigation saves water in farming.', 'Rainwater harvesting recharges groundwater.', 'Fix leaks — small drips add up.'),
+        remember('22 March is World Water Day.'),
+      ],
+      examples: [
+        ex('A tap drips 40 drops a minute and each drop is 0.05 mL. How much water is wasted in a day?', ['Minutes in a day = 24 × 60 = 1440.', 'Drops = 40 × 1440 = 57 600.', 'Volume = 57 600 × 0.05 = 2880 mL = 2.88 L.'], 'About 2.9 L per day'),
+        ex('Why is drip irrigation better than flooding a field?', ['Drip pipes deliver water drop by drop to each plant\'s roots.', 'Very little is lost to evaporation or runoff.'], 'It uses much less water'),
+      ],
+      practice: [
+        tp('drip', (r) => {
+          const n = r.pick([20, 30, 40, 50, 60]);
+          const hrs = r.pick([1, 2, 5, 10, 24]);
+          const mL = n * 60 * hrs * 0.05;
+          return numQ(`A tap drips ${n} drops per minute. Each drop is 0.05 mL. How many millilitres are wasted in ${hrs} hour${hrs > 1 ? 's' : ''}?`, mL, 'mL',
+            ['Find the number of minutes first.', `Drops = ${n} × ${hrs * 60} minutes; then multiply by 0.05 mL.`],
+            [`Minutes = ${hrs} × 60 = ${hrs * 60}`, `Drops = ${n} × ${hrs * 60} = ${n * hrs * 60}`, `Volume = ${n * hrs * 60} × 0.05 = ${rd(mL, 2)} mL`],
+            [{ when: String(rd(n * hrs * 0.05, 2)), explain: 'You forgot to change hours into minutes (× 60).' }], 0.01);
+        }, 2),
+        tapT('tap-save', 'Tap every action that SAVES water.', [
+          ['Closing the tap while brushing', true], ['Fixing a leaking tap', true], ['Watering plants with water used for washing vegetables', true], ['Rooftop rainwater harvesting', true], ['Using drip irrigation', true],
+          ['Washing the car with a running hose daily', false], ['Leaving the tap open while soaping hands', false], ['Letting the overhead tank overflow', false],
+        ], ['Ask: does this use less water or reuse it?', 'Running hoses and overflowing tanks waste water.'], 'Closing taps, fixing leaks, reusing water, harvesting rain and drip irrigation all save water.'),
+        mcq('cons', 'Every drop counts.', [
+          ['Collecting rain from rooftops and storing it is called…', 'Rainwater harvesting', ['Irrigation', 'Sewage treatment', 'Evaporation'], 'Harvesting = collecting.', 'Rainwater harvesting collects and stores rain.'],
+          ['Which irrigation method saves the most water?', 'Drip irrigation', ['Flooding the field', 'Open channels', 'Leaving pumps on all night'], 'Water goes straight to the roots.', 'Drip irrigation delivers small amounts directly to roots.'],
+          ['Check dams and percolation tanks help by…', 'Slowing rainwater so it soaks into the ground', ['Making water salty', 'Speeding water to the sea', 'Polluting water'], 'Recharge groundwater.', 'Held water seeps in and recharges groundwater.'],
+          ['World Water Day is on…', '22 March', ['5 June', '15 August', '14 November'], 'It is in March.', 'World Water Day is observed on 22 March.'],
+          ['How many minutes are there in one day?', '1440', ['240', '3600', '1000'], '24 × 60.', '24 hours × 60 minutes = 1440 minutes.'],
+        ]),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Chapter 15 — Soil - Our Life
+// =====================================================================================
+const ch15: USpec = {
+  id: 'ts7.sc.ch15', subject: 'biology', title: 'Soil - Our Life', source: src(15),
+  objectives: [
+    {
+      id: 'ts7.sc.soil.life', title: 'Uses of soil, soil life and soil horizons', prereqs: [],
+      intro: [
+        h('Soil is alive'),
+        photo('🪨', 'Soil forms very slowly as rocks are broken down by sun, wind, water and living things.'),
+        p('Soil is the thin top layer of the Earth\'s surface in which plants grow. It forms very slowly — it can take hundreds of years to make a centimetre — as rocks are broken down by heating and cooling, wind, water and the roots of plants. This breaking down is weathering. Rotting leaves and dead animals add humus, the dark, rich organic part of soil.'),
+        stepsB('Uses: growing crops and forests, a home for many organisms, making pots and bricks, building houses, filtering and storing rainwater.', 'Soil life: earthworms, ants, termites, beetles, millipedes, fungi and countless bacteria live in soil. They break down dead matter into humus and nutrients. Earthworms loosen and mix soil — they are called "farmers\' friends".'),
+        h('Soil horizons (layers)'),
+        stepsB(
+          'Topsoil (A horizon) — dark, soft, rich in humus and minerals; most roots and soil animals live here.',
+          'Subsoil (B horizon) — harder, less humus, more minerals and small stones.',
+          'Weathered rock (C horizon) — broken pieces of rock with cracks.',
+          'Bedrock — hard, solid rock that cannot be dug with a spade.',
+        ),
+        def('Soil profile', 'A vertical section through the soil showing its different layers (horizons).'),
+        keys('Soil forms from rock by weathering; humus comes from dead organisms.', 'Soil is home to earthworms, ants, fungi, bacteria.', 'Horizons: topsoil → subsoil → weathered rock → bedrock.', 'Topsoil is the most fertile layer.'),
+        remember('Losing just a few centimetres of topsoil can take centuries to replace.'),
+      ],
+      examples: [
+        ex('Why is topsoil darker than subsoil?', ['Topsoil has much more humus.', 'Humus, made from decayed plants and animals, is dark.'], 'It is rich in dark humus'),
+        ex('How do earthworms help farmers?', ['They burrow, loosening the soil so air and water can enter.', 'They eat dead matter and their castings add nutrients.'], 'They aerate and fertilise the soil'),
+      ],
+      practice: [
+        orderT('horizons', 'Order the soil layers from TOP to BOTTOM.', ['Topsoil (A horizon)', 'Subsoil (B horizon)', 'Weathered rock (C horizon)', 'Bedrock'], ['The humus-rich layer is on top.', 'Solid rock is at the bottom.'], 'Topsoil → subsoil → weathered rock → bedrock.'),
+        mcq('soil', 'Soil forms from rock and dead organisms.', [
+          ['The dark, rich organic matter in soil is…', 'Humus', ['Bedrock', 'Sand', 'Clay'], 'It comes from decayed organisms.', 'Humus is decomposed plant and animal matter.'],
+          ['Breaking down of rocks into small particles by sun, wind and water is…', 'Weathering', ['Erosion', 'Irrigation', 'Germination'], 'The weather does it.', 'Weathering breaks rocks into soil particles.'],
+          ['Earthworms are called farmers\' friends because they…', 'Loosen and enrich the soil', ['Eat the crops', 'Spread diseases', 'Make soil salty'], 'They burrow and recycle.', 'Burrowing aerates soil; castings add nutrients.'],
+          ['Most plant roots and soil animals are found in the…', 'Topsoil', ['Bedrock', 'Weathered rock', 'Subsoil only'], 'The most fertile layer.', 'Topsoil has humus, air and water.'],
+          ['A vertical section showing soil layers is called a…', 'Soil profile', ['Soil map', 'Water table', 'Aquifer'], 'Profile = side view.', 'A soil profile shows all horizons.'],
+        ]),
+        tapT('tap-life', 'Tap every organism that lives in and helps form fertile soil.', [
+          ['Earthworm', true], ['Bacteria', true], ['Fungi', true], ['Termites', true], ['Millipede', true],
+          ['Eagle', false], ['Fish', false], ['Cow', false],
+        ], ['Think of tiny decomposers and burrowers.', 'Large animals that live above ground are not soil organisms.'], 'Earthworms, bacteria, fungi, termites and millipedes live in soil and break down dead matter.'),
+      ],
+    },
+    {
+      id: 'ts7.sc.soil.types', title: 'Types of soil, moisture content and crops', prereqs: ['ts7.sc.soil.life'],
+      intro: [
+        h('Sandy, clayey or loamy?'),
+        photo('🌾', 'Paddy grows best in clayey soil that holds water; groundnut prefers lighter, sandy loam.'),
+        stepsB(
+          'Sandy soil — big particles with large air spaces; water drains away quickly; light and dry; poor in nutrients.',
+          'Clayey soil — very fine particles packed closely; holds a lot of water; sticky when wet, cracks when dry; good for paddy and wheat.',
+          'Loamy soil — a mixture of sand, clay and silt with humus; holds the right amount of water and air; best for most crops.',
+        ),
+        p('Telangana has red soils (chalka) in many districts, good for groundnut, millets and pulses, and black cotton soil (regadi) in the north and west, which holds moisture well and is ideal for cotton.'),
+        h('Measuring moisture content'),
+        p('Weigh a soil sample, dry it in the sun or an oven, and weigh it again. The loss in mass is the water it contained.'),
+        f('moisture % = (wet mass − dry mass) ÷ wet mass × 100', 'moisture percent equals wet mass minus dry mass, divided by wet mass, times 100'),
+        xp({
+          title: 'What if? Moisture in a soil sample', formula: 'M = (W − D) / W × 100',
+          res: ['M', 'Moisture content', '%', '(W - D) / W * 100', 1],
+          vars: [['W', 'Mass of wet soil', 'g', 60, 200, 5, 100], ['D', 'Mass after drying', 'g', 40, 60, 1, 80]],
+          notes: [['W', 'More mass before drying (for the same dry mass) means more water was present.', 'Less wet mass means less water was present.'], ['D', 'A heavier dry sample means less water was lost.', 'A lighter dry sample means more water was lost.']],
+          mistakes: [['Dividing by the dry mass', 'Moisture content is usually given as a percentage of the wet (original) mass.'], ['Forgetting × 100', 'Multiply by 100 to turn the fraction into a percentage.']],
+          real: 'Clayey soil after rain can hold 30–40% water; dry sandy soil may hold less than 5%.',
+        }),
+        keys('Sandy: drains fast; clayey: holds water; loamy: best balance.', 'Moisture % = loss in mass ÷ wet mass × 100.', 'Red soils → groundnut, millets; black soil → cotton; clayey → paddy.'),
+        remember('Percolation (how fast water drains) is fastest in sandy soil and slowest in clayey soil.'),
+      ],
+      examples: [
+        ex('A 50 g soil sample weighs 42 g after drying. Find its moisture content.', ['Water lost = 50 − 42 = 8 g', 'Moisture % = 8 ÷ 50 × 100 = 16%'], '16%'),
+        ex('Which soil type would you choose for growing paddy, and why?', ['Paddy needs standing water.', 'Clayey soil holds water best.'], 'Clayey soil — it retains water'),
+      ],
+      practice: [
+        tp('moist', (r) => {
+          const W = r.pick([20, 25, 40, 50, 80, 100, 200]);
+          const pct = r.pick([5, 10, 15, 20, 25, 30]);
+          const D = W - W * pct / 100;
+          return numQ(`A soil sample weighs ${W} g. After drying it weighs ${D} g. What is its moisture content as a percentage? (Type the number only.)`, pct, undefined,
+            ['Water lost = wet mass − dry mass.', `Divide the water lost by ${W} and multiply by 100.`],
+            [`Water lost = ${W} − ${D} = ${W - D} g`, `Moisture = ${W - D} ÷ ${W} × 100 = ${pct}%`],
+            [{ when: String(rd((W - D) / D * 100, 1)), explain: 'Divide by the WET mass, not the dry mass.' }, { when: String(W - D), explain: 'That is the water lost in grams. Turn it into a percentage of the wet mass.' }]);
+        }, 2),
+        matchT('match-soil', 'description to the soil type or crop', [
+          ['Large particles, drains fast', 'Sandy soil'], ['Fine particles, sticky, holds water', 'Clayey soil'], ['Mix of sand, clay and humus', 'Loamy soil'], ['Black soil that keeps moisture', 'Cotton'], ['Clayey soil with standing water', 'Paddy'], ['Red sandy loam', 'Groundnut'],
+        ], ['Particle size decides how fast water drains.', 'Telangana\'s black soil is famous for cotton.']),
+        mcq('types', 'Particle size controls water holding.', [
+          ['Which soil holds the MOST water?', 'Clayey soil', ['Sandy soil', 'Gravel', 'Pebbles'], 'Finest particles.', 'Tiny clay particles hold water tightly.'],
+          ['Which soil is best for most crops?', 'Loamy soil', ['Sandy soil', 'Pure clay', 'Rocky soil'], 'It is a balanced mixture.', 'Loam has good water, air and humus.'],
+          ['Water drains fastest through…', 'Sandy soil', ['Clayey soil', 'Loamy soil', 'Black soil'], 'Big air spaces.', 'Large spaces let water flow quickly.'],
+          ['Black cotton soil (regadi) is ideal for…', 'Cotton', ['Tea', 'Apples', 'Coconut'], 'The name tells you.', 'It holds moisture and suits cotton.'],
+          ['Pots and bricks are made from…', 'Clayey soil', ['Sandy soil', 'Gravel', 'Humus'], 'It is sticky and can be moulded.', 'Clay can be shaped and baked.'],
+        ]),
+      ],
+    },
+    {
+      id: 'ts7.sc.soil.conserve', title: 'Soil erosion and soil conservation', prereqs: ['ts7.sc.soil.life'],
+      intro: [
+        h('When soil runs away'),
+        photo('⛰️', 'On hill slopes, farmers cut steps (terraces) so that rain cannot wash away the soil.'),
+        p('The removal of the top layer of soil by wind or water is soil erosion. It happens most where the ground is bare: when forests are cut (deforestation), when animals overgraze the grass, or when fields are left empty. Fertile topsoil is lost, rivers fill with silt and floods increase.'),
+        def('Soil erosion', 'The removal of topsoil by wind, water or other agents.'),
+        def('Soil conservation', 'Methods that protect soil from erosion and keep it fertile.'),
+        stepsB(
+          'Plant trees and grass (afforestation) — roots bind the soil.',
+          'Terrace farming — step-like fields on slopes slow down running water.',
+          'Contour ploughing — ploughing across the slope, not up and down.',
+          'Strip cropping and cover crops — keep the ground covered.',
+          'Shelter belts — rows of trees that break the force of wind.',
+          'Check dams on streams and bunds around fields.',
+          'Avoid overgrazing; use manure instead of only chemical fertilisers; do not dump plastic.',
+        ),
+        keys('Erosion agents: wind and water.', 'Causes: deforestation, overgrazing, bare land.', 'Conservation: trees, terraces, contour ploughing, shelter belts, check dams.'),
+        remember('Plastic and too many pesticides pollute soil and harm the organisms that keep it fertile.'),
+      ],
+      examples: [
+        ex('A hill slope was cleared of trees. After the monsoon, gullies appeared and the soil was washed away. Why?', ['Tree roots used to hold the soil.', 'Without them, running rainwater carried away loose topsoil.'], 'Deforestation left soil unprotected against water erosion'),
+        ex('How does terrace farming prevent erosion?', ['Flat steps on a slope slow down running water.', 'Water soaks in instead of rushing downhill carrying soil.'], 'It slows running water on slopes'),
+      ],
+      practice: [
+        tapT('tap-cons', 'Tap every method that helps CONSERVE soil.', [
+          ['Planting trees', true], ['Terrace farming on hills', true], ['Ploughing across the slope', true], ['Growing shelter belts of trees', true], ['Building check dams', true],
+          ['Cutting down forests', false], ['Overgrazing by cattle', false], ['Leaving fields bare and dry', false],
+        ], ['Methods that cover or hold the soil help.', 'Removing plants exposes soil to erosion.'], 'Trees, terraces, contour ploughing, shelter belts and check dams protect soil.'),
+        matchT('match-cons', 'method to how it protects soil', [
+          ['Afforestation', 'Roots bind soil particles'], ['Terrace farming', 'Steps slow water on slopes'], ['Shelter belts', 'Trees reduce wind speed'], ['Contour ploughing', 'Furrows across the slope hold water'], ['Check dam', 'Slows stream water and traps silt'],
+        ], ['Some methods stop wind, others stop water.', 'Contour = following the level lines of the hill.']),
+        mcq('ero', 'Bare soil erodes; covered soil stays.', [
+          ['The main agents of soil erosion are…', 'Wind and water', ['Earthworms and ants', 'Sunlight and moonlight', 'Rocks and pebbles'], 'They carry soil away.', 'Wind blows and water washes topsoil away.'],
+          ['Which human activity increases soil erosion?', 'Deforestation', ['Planting trees', 'Building terraces', 'Mulching'], 'Removing plant cover.', 'Without trees, soil is exposed.'],
+          ['Too many cattle grazing the same land is called…', 'Overgrazing', ['Afforestation', 'Irrigation', 'Crop rotation'], 'Over + grazing.', 'Overgrazing removes grass cover and loosens soil.'],
+          ['Which layer of soil is lost first in erosion?', 'Topsoil', ['Bedrock', 'Weathered rock', 'Subsoil'], 'The uppermost layer.', 'Erosion removes the fertile topsoil first.'],
+          ['Rows of trees planted to slow down strong winds are…', 'Shelter belts', ['Check dams', 'Terraces', 'Bunds'], 'They shelter fields.', 'Shelter belts break wind force.'],
+        ]),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Chapter 16 — Forest - Our Life
+// =====================================================================================
+const ch16: USpec = {
+  id: 'ts7.sc.ch16', subject: 'biology', title: 'Forest - Our Life', source: src(16),
+  objectives: [
+    {
+      id: 'ts7.sc.forest.what', title: 'What a forest is; diversity in forests', prereqs: [],
+      intro: [
+        h('More than just trees'),
+        photo('🐅', 'Telangana\'s Amrabad and Kawal Tiger Reserves protect tigers and the forests they live in.'),
+        p('A forest is a large area thickly covered with trees, shrubs, herbs and climbers, together with the animals, birds, insects, fungi and microbes that live there. All of them depend on one another. Telangana\'s forests include the Nallamala hills (Amrabad Tiger Reserve), Kawal Tiger Reserve, the teak forests of Adilabad, and the Eturnagaram and Pakhal wildlife sanctuaries.'),
+        stepsB(
+          'Layers: emergent and canopy layer (tall trees like teak, maddi, nallamaddi), understorey (smaller trees), shrub layer, herb layer and the forest floor with dead leaves.',
+          'Food chains: grass → deer → tiger; leaves → caterpillar → bird. Many food chains link into a food web.',
+          'Decomposers: fungi and bacteria break down dead leaves and animals into humus, returning nutrients to the soil.',
+          'Forest gifts: timber, bamboo, fruits, honey, gum, medicinal plants, tendu leaves, fodder and firewood.',
+          'Forest services: give oxygen, absorb carbon dioxide, bring rain, prevent soil erosion and floods, recharge groundwater, give homes to wildlife and forest people.',
+        ),
+        def('Biodiversity', 'The variety of plants, animals and micro-organisms living in an area.'),
+        keys('A forest = trees + all the living things depending on them.', 'Forests have layers: canopy, understorey, shrubs, herbs, floor.', 'Food chains and decomposers keep the forest working.', 'Forests give products and protect soil, water and climate.'),
+        remember('A forest is a "dynamic living entity" — it grows, regenerates and keeps recycling its own nutrients.'),
+      ],
+      examples: [
+        ex('Write a forest food chain with three links.', ['Start with a producer: grass.', 'A herbivore eats it: deer.', 'A carnivore eats the herbivore: tiger.'], 'Grass → deer → tiger'),
+        ex('If all decomposers in a forest disappeared, what would happen?', ['Dead leaves and animals would pile up.', 'Nutrients would not return to the soil.', 'Plants would gradually lack nutrients.'], 'Dead matter would pile up and the soil would lose nutrients'),
+      ],
+      practice: [
+        orderT('chain', 'Arrange this forest food chain in order (from producer).', ['Grass', 'Grasshopper', 'Frog', 'Snake', 'Eagle'], ['Start with the plant.', 'The top predator comes last.'], 'Energy flows from producer to herbivore to carnivores.'),
+        mcq('forest', 'Everything in a forest is linked.', [
+          ['The top layer of a forest formed by the crowns of tall trees is the…', 'Canopy', ['Forest floor', 'Shrub layer', 'Herb layer'], 'Like a roof.', 'Tree crowns form the canopy.'],
+          ['Organisms that break down dead matter into humus are…', 'Decomposers', ['Producers', 'Herbivores', 'Carnivores'], 'Fungi and bacteria.', 'Decomposers recycle nutrients.'],
+          ['Forests help bring rain because…', 'Trees release water vapour through their leaves', ['Trees attract clouds magnetically', 'Animals make rain', 'Trees produce salt'], 'Transpiration.', 'Water vapour from trees helps form clouds.'],
+          ['Amrabad Tiger Reserve is in the…', 'Nallamala hills', ['Himalayas', 'Thar desert', 'Western Ghats of Kerala'], 'It lies in southern Telangana.', 'Amrabad is in the Nallamala forest.'],
+          ['Which is a product we get from forests?', 'Honey', ['Petrol', 'Plastic', 'Steel'], 'Bees live in forests.', 'Honey, gum, timber and fruits come from forests.'],
+          ['In the food chain grass → deer → tiger, the deer is a…', 'Herbivore', ['Producer', 'Carnivore', 'Decomposer'], 'It eats plants.', 'Deer eat plants — herbivores.'],
+        ]),
+        tapT('tap-service', 'Tap every way forests help us and the planet.', [
+          ['Give oxygen', true], ['Absorb carbon dioxide', true], ['Prevent soil erosion', true], ['Help recharge groundwater', true], ['Provide homes for wildlife', true],
+          ['Cause floods', false], ['Make the air dirtier', false], ['Turn soil into desert', false],
+        ], ['Think of what trees do for air, soil and water.', 'Forests reduce floods and deserts; they do not cause them.'], 'Forests give oxygen, absorb CO₂, protect soil and water and shelter wildlife.'),
+      ],
+    },
+    {
+      id: 'ts7.sc.forest.chenchus', title: 'The Chenchus and the forest', prereqs: ['ts7.sc.forest.what'],
+      intro: [
+        h('Living with the forest'),
+        photo('🍯', 'Collecting honey from the forest is a traditional skill of the Chenchu people.'),
+        p('The Chenchus are a tribal community who have lived for centuries in the Nallamala forests of Telangana (Nagarkurnool district, around the Amrabad Tiger Reserve) and Andhra Pradesh. Traditionally they were food gatherers and hunters, and they know the forest — its plants, animals, seasons and medicines — extremely well.'),
+        stepsB(
+          'They collect minor forest produce: honey, gum, tamarind, mahua (ippa) flowers, chironji (charoli) seeds, amla, roots and tubers.',
+          'They use forest plants as medicines and for making houses, baskets and tools.',
+          'They sell forest produce through the Girijan Co-operative Corporation (GCC), which pays a fair price.',
+          'Traditionally they take only what they need — for example, leaving part of a honeycomb so bees can rebuild — which helps keep the forest alive.',
+          'Today many Chenchus also work as forest guards and trackers that help protect tigers in Amrabad.',
+        ),
+        def('Minor forest produce', 'Forest products other than timber, such as honey, gum, fruits, seeds, leaves and medicinal plants.'),
+        keys('Chenchus: tribal people of the Nallamala forests.', 'They depend on minor forest produce.', 'They use the forest sustainably — taking only what they need.', 'Their knowledge helps protect the forest and its wildlife.'),
+        remember('Forest people and forests depend on each other: protecting forests also protects their way of life.'),
+      ],
+      examples: [
+        ex('Why do Chenchus leave part of a honeycomb behind?', ['If the whole comb is taken, the bee colony may die or leave.', 'Leaving part lets the bees rebuild, so honey is available again.'], 'So bees survive and honey can be collected again — sustainable use'),
+        ex('Give two examples of minor forest produce.', ['Products other than timber.', 'Honey and gum (also tamarind, mahua flowers, amla).'], 'Honey and gum'),
+      ],
+      practice: [
+        mcq('chenchu', 'Think of how a forest community lives.', [
+          ['The Chenchus traditionally live in the…', 'Nallamala forests', ['Thar desert', 'Sundarbans', 'Himalayan snowfields'], 'Southern Telangana hills.', 'Chenchus live in the Nallamala hills.'],
+          ['Which is a minor forest produce collected by Chenchus?', 'Honey', ['Coal', 'Iron ore', 'Plastic'], 'Not timber, not minerals.', 'Honey is a classic minor forest produce.'],
+          ['Taking only what is needed so the forest can renew itself is called…', 'Sustainable use', ['Deforestation', 'Overgrazing', 'Pollution'], 'It can be sustained for a long time.', 'Sustainable use protects resources for the future.'],
+          ['The Girijan Co-operative Corporation (GCC) helps tribal people by…', 'Buying forest produce at fair prices', ['Cutting forests', 'Building factories in forests', 'Selling plastic'], 'It is a co-operative.', 'GCC buys minor forest produce from tribal collectors.'],
+          ['Many Chenchus now help protect tigers by working as…', 'Forest guards and trackers', ['Bus drivers in cities', 'Bankers', 'Sailors'], 'They know the forest best.', 'Their forest knowledge helps wildlife protection.'],
+        ]),
+        tapT('tap-mfp', 'Tap every item that is MINOR FOREST PRODUCE.', [
+          ['Honey', true], ['Gum', true], ['Tamarind', true], ['Mahua (ippa) flowers', true], ['Amla', true], ['Tendu leaves', true],
+          ['Teak timber logs', false], ['Coal', false], ['Granite', false],
+        ], ['Minor produce is everything except timber (and minerals are not forest produce).', 'Leaves, fruits, flowers and honey count.'], 'Honey, gum, tamarind, mahua, amla and tendu leaves are minor forest produce.'),
+        matchT('match-use', 'forest item to how it is used', [
+          ['Honey', 'Food and medicine'], ['Bamboo', 'Baskets and huts'], ['Tendu leaves', 'Rolling beedis'], ['Mahua flowers', 'Food and oil-seed'], ['Medicinal herbs', 'Treating illness'],
+        ], ['Bamboo is strong and flexible.', 'Tendu leaves are a big source of income for forest people.']),
+      ],
+    },
+    {
+      id: 'ts7.sc.forest.conserve', title: 'Steps towards forest conservation', prereqs: ['ts7.sc.forest.what'],
+      intro: [
+        h('Saving forests for the future'),
+        photo('🌳', 'Planting and caring for saplings is one way everyone can help.'),
+        p('Forests are shrinking because trees are cut for timber, farming, roads, mining and housing, and because of forest fires and overgrazing. Loss of forests (deforestation) causes soil erosion, floods, less rain, higher temperatures and loss of wildlife.'),
+        stepsB(
+          'Protected areas: national parks, wildlife sanctuaries and tiger reserves (Kawal, Amrabad) protect forests and animals.',
+          'Afforestation and reforestation: planting trees. Telangana\'s Haritha Haram programme has planted crores of saplings across the state.',
+          'Van Mahotsav: a tree-planting festival held in the first week of July.',
+          'Community action: the Chipko movement (people hugging trees to stop felling) and Joint Forest Management, where villagers and the forest department protect forests together.',
+          'Personal action: use less paper and recycle it, avoid wasting wood, never start fires in forests, plant and look after trees.',
+        ),
+        def('Deforestation', 'Clearing of forests on a large scale for other uses.'),
+        keys('Causes of forest loss: felling, farming, mining, roads, fires, overgrazing.', 'Effects: erosion, floods, less rain, loss of wildlife.', 'Conservation: protected areas, Haritha Haram, Van Mahotsav, Chipko, JFM.', 'Everyone can help: recycle paper, plant trees.'),
+        remember('Recycling about one tonne of paper saves roughly 17 trees.'),
+      ],
+      examples: [
+        ex('Give two effects of deforestation.', ['Without roots, soil is washed away — erosion.', 'Animals lose their homes — loss of wildlife.'], 'Soil erosion and loss of wildlife (also floods, less rain)'),
+        ex('What was the Chipko movement?', ['Villagers in the Himalayas hugged trees ("chipko" = to stick).', 'This stopped contractors from cutting the trees.'], 'A people\'s movement where villagers hugged trees to save them'),
+      ],
+      practice: [
+        mcq('cons', 'Protect, plant and use wisely.', [
+          ['Telangana\'s large tree-planting programme is called…', 'Haritha Haram', ['Mission Bhagiratha', 'Mission Kakatiya', 'Rythu Bandhu'], 'Haritha = green.', 'Telangana Ku Haritha Haram aims to increase green cover.'],
+          ['Van Mahotsav is celebrated in the first week of…', 'July', ['January', 'March', 'December'], 'At the start of the monsoon.', 'Van Mahotsav is a July tree-planting festival.'],
+          ['In the Chipko movement, people…', 'Hugged trees to stop them from being cut', ['Planted rice', 'Built dams', 'Started forest fires'], 'Chipko means to stick.', 'Villagers embraced trees to protect them.'],
+          ['Which is a CAUSE of deforestation?', 'Clearing land for mining', ['Planting saplings', 'Recycling paper', 'Creating sanctuaries'], 'Something that removes trees.', 'Mining clears large forest areas.'],
+          ['Kawal in Telangana is a…', 'Tiger reserve', ['Desert', 'Sea port', 'Coal mine'], 'It protects big cats.', 'Kawal Tiger Reserve is in Nirmal/Mancherial area.'],
+          ['Recycling paper helps forests because…', 'Fewer trees need to be cut for new paper', ['It makes trees taller', 'It adds plastic to forests', 'It causes rain'], 'Paper comes from wood pulp.', 'Recycled paper reduces demand for wood.'],
+        ]),
+        tapT('tap-help', 'Tap every action that HELPS conserve forests.', [
+          ['Planting and caring for saplings', true], ['Recycling paper', true], ['Supporting wildlife sanctuaries', true], ['Reporting forest fires quickly', true], ['Using both sides of paper', true],
+          ['Cutting trees for firewood carelessly', false], ['Lighting campfires in dry forests', false], ['Letting cattle overgraze young plants', false],
+        ], ['Ask: does it save trees or harm them?', 'Fires, careless cutting and overgrazing damage forests.'], 'Planting, recycling, protecting and reporting fires all help.'),
+        matchT('match-cons', 'term to its meaning', [
+          ['Deforestation', 'Large-scale clearing of forests'], ['Afforestation', 'Planting trees on land without forest'], ['Wildlife sanctuary', 'Protected area for wild animals'], ['Chipko movement', 'Hugging trees to stop felling'], ['Haritha Haram', 'Telangana tree-planting programme'],
+        ], ['De- means removing; af- means adding.', 'Two are Indian movements or programmes.']),
+      ],
+    },
+  ],
+};
+
+// =====================================================================================
+// Chapter 17 — Changes Around Us
+// =====================================================================================
+const ch17: USpec = {
+  id: 'ts7.sc.ch17', subject: 'chemistry', title: 'Changes Around Us', source: src(17),
+  objectives: [
+    {
+      id: 'ts7.sc.change.types', title: 'Types of changes: physical and chemical', prereqs: [],
+      intro: [
+        h('Melting ice and burning paper — both are changes'),
+        photo('🧊', 'Ice melting into water is a physical change: it can be frozen back.'),
+        p('Things around us keep changing. We can group changes in many ways: slow (rusting, growth of a tree) or fast (burning a matchstick); reversible (melting wax) or irreversible (cooking rice); periodic (day and night, seasons) or non-periodic (an earthquake); desirable (ripening of fruit) or undesirable (spoiling of food).'),
+        def('Physical change', 'A change in shape, size, state or appearance in which no new substance is formed. It is usually reversible: melting ice, dissolving sugar, cutting paper, stretching a rubber band, making ice cream.'),
+        def('Chemical change', 'A change in which one or more new substances are formed with new properties. It is usually irreversible: burning wood, cooking food, rusting, curdling milk, digestion, ripening.'),
+        stepsB('Signs of a chemical change: a new colour, a gas is given off (bubbles), heat or light is given out or taken in, a new smell, a solid (precipitate) forms.', 'Example: baking soda + vinegar fizzes — carbon dioxide gas forms, which turns lime water milky.', 'Example: a magnesium ribbon burns with a dazzling white light and leaves white ash (magnesium oxide), which turns red litmus blue in water — a new, basic substance.', 'Example: an iron nail in blue copper sulphate solution — the solution turns green and a brown layer of copper coats the nail.'),
+        keys('Physical: no new substance, usually reversible.', 'Chemical: new substance, usually irreversible.', 'Signs: colour, gas, heat/light, smell, precipitate.', 'Other groupings: slow/fast, periodic/non-periodic, desirable/undesirable.'),
+        remember('Burning a candle shows both: melting wax is physical; burning wax (forming CO₂ and water) is chemical.'),
+      ],
+      examples: [
+        ex('Is dissolving salt in water a physical or chemical change?', ['No new substance forms; the salt is still salt.', 'Evaporating the water gives the salt back.'], 'Physical change'),
+        ex('When milk turns into curd, which kind of change is it?', ['Curd has a new taste and texture — lactic acid is formed.', 'Curd cannot be turned back into milk.'], 'Chemical change'),
+      ],
+      practice: [
+        tp('pc', (r) => {
+          const bank: [string, boolean][] = [
+            ['Melting of ice', true], ['Dissolving sugar in water', true], ['Cutting paper into pieces', true], ['Stretching a rubber band', true], ['Breaking a glass bottle', true], ['Freezing water into ice', true], ['Melting butter', true],
+            ['Burning paper', false], ['Rusting of iron', false], ['Cooking rice', false], ['Milk turning into curd', false], ['Ripening of a mango', false], ['Burning a magnesium ribbon', false], ['Digestion of food', false],
+          ];
+          const [s, phys] = r.pick(bank);
+          return {
+            type: 'mcq', prompt: `${s} — is this a physical change or a chemical change?`, ...choose(r, phys ? 'Physical change' : 'Chemical change', [phys ? 'Chemical change' : 'Physical change']),
+            hints: ['Is a new substance formed?', 'Physical changes alter only shape, size or state.'],
+            mistakes: [{ when: 'wrong', explain: phys ? 'No new substance forms — only the form or state changes. It is physical.' : 'A new substance with new properties forms. It is chemical.' }],
+            solution: [phys ? `${s}: no new substance → physical change.` : `${s}: new substance formed → chemical change.`],
+          };
+        }),
+        matchT('match-kind', 'change to its type', [
+          ['Day and night', 'Periodic change'], ['An earthquake', 'Non-periodic change'], ['Growth of a tree', 'Slow change'], ['Bursting of a cracker', 'Fast change'], ['Ripening of fruit', 'Desirable change'], ['Spoiling of food', 'Undesirable change'],
+        ], ['Periodic changes repeat at fixed intervals.', 'Desirable = we want it to happen.']),
+        tapT('tap-signs', 'Tap every observation that shows a CHEMICAL change has happened.', [
+          ['Bubbles of gas form when vinegar is added to baking soda', true], ['Blue copper sulphate solution turns green with an iron nail', true], ['Magnesium ribbon burns with bright light', true], ['Milk turns sour and smells different', true],
+          ['Ice cream melts', false], ['A sheet of paper is folded', false], ['Wax melts near a flame', false],
+        ], ['Look for new colour, gas, light/heat or smell.', 'Melting and folding only change form.'], 'Gas, colour change, light and new smell show new substances formed.'),
+      ],
+    },
+    {
+      id: 'ts7.sc.change.rust', title: 'Rusting of iron and how to prevent it; galvanisation', prereqs: ['ts7.sc.change.types'],
+      intro: [
+        h('Why old gates turn orange-brown'),
+        photo('🔩', 'An iron bolt left out in rain soon gets a flaky, reddish-brown coat of rust.'),
+        p('When iron objects are left in the open, a brown, flaky layer forms on them. This is rust, mainly iron oxide. Rusting is a slow chemical change.'),
+        f('iron + oxygen (from air) + water → rust (iron oxide)', 'iron plus oxygen plus water gives rust'),
+        p('Both oxygen and water (or moisture) are needed. A nail in dry air (a test tube with anhydrous calcium chloride to absorb moisture) does not rust. A nail in boiled water covered with a layer of oil (no dissolved air) does not rust either. Rusting is faster near the sea because salty, humid air speeds it up.'),
+        h('Preventing rust'),
+        stepsB(
+          'Painting — gates, grills, bridges.',
+          'Oiling or greasing — cycle chains, machine parts.',
+          'Galvanisation — coating iron with a thin layer of zinc (galvanised iron pipes and sheets).',
+          'Chrome plating or tin plating — taps, cycle handles, food tins.',
+          'Making alloys — stainless steel (iron mixed with chromium and nickel) does not rust.',
+        ),
+        def('Galvanisation', 'Depositing a layer of zinc on iron or steel to protect it from rusting.'),
+        keys('Rust = iron oxide; needs oxygen AND water.', 'Faster in humid, salty air.', 'Prevent: paint, oil/grease, galvanise (zinc), chrome plate, stainless steel.'),
+        remember('Rust flakes off and exposes fresh iron underneath, so rusting continues until the iron is eaten away.'),
+      ],
+      examples: [
+        ex('Why does a ship\'s iron hull rust faster than an iron gate in Hyderabad?', ['The ship is always in contact with water and moist air.', 'Sea water contains salt, which speeds up rusting.'], 'Constant moisture and salt speed up rusting'),
+        ex('Why are water pipes galvanised?', ['They carry water, so they are always moist.', 'A zinc coating stops air and water from reaching the iron.'], 'The zinc layer prevents rusting'),
+      ],
+      practice: [
+        mcq('rust', 'Rust needs oxygen and water.', [
+          ['Rusting of iron needs…', 'Both oxygen and water', ['Only oxygen', 'Only water', 'Neither'], 'Recall the test-tube experiment.', 'In dry air or air-free water, no rust forms.'],
+          ['Galvanisation means coating iron with…', 'Zinc', ['Copper', 'Gold', 'Plastic'], 'Galvanised iron sheets.', 'A zinc layer protects iron from rust.'],
+          ['Rust is mainly…', 'Iron oxide', ['Iron sulphate', 'Copper oxide', 'Common salt'], 'Iron + oxygen.', 'Rust is hydrated iron oxide.'],
+          ['Iron rusts fastest…', 'Near the sea', ['In a desert', 'In a vacuum', 'In dry air'], 'Salt and moisture.', 'Salty, humid sea air speeds up rusting.'],
+          ['Stainless steel does not rust because it is…', 'An alloy of iron with chromium and nickel', ['Pure iron', 'Painted', 'Made of zinc'], 'It is a mixture of metals.', 'Chromium and nickel protect the iron.'],
+          ['Rusting is a…', 'Slow chemical change', ['Fast physical change', 'Reversible physical change', 'Periodic change'], 'A new substance forms slowly.', 'Rust is a new substance formed over days or months.'],
+        ]),
+        matchT('match-prevent', 'object to the best way of preventing rust', [
+          ['Iron gate', 'Painting'], ['Cycle chain', 'Oiling or greasing'], ['Water pipe', 'Galvanisation (zinc coating)'], ['Bathroom tap', 'Chrome plating'], ['Kitchen utensils', 'Using stainless steel'],
+        ], ['Moving parts need oil, not paint.', 'Pipes are galvanised; taps are chrome-plated.']),
+        tapT('tap-rust', 'Tap every test tube in which an iron nail WILL rust.', [
+          ['Nail in tap water, open to air', true], ['Nail in moist air', true], ['Nail in salt water, open to air', true],
+          ['Nail in boiled water covered with an oil layer', false], ['Nail in dry air with calcium chloride', false], ['Nail coated with paint', false], ['Galvanised nail in air', false],
+        ], ['Rust needs BOTH air and water.', 'Oil layers, drying agents and coatings cut off air or water.'], 'Only nails exposed to both air and moisture rust.'),
+      ],
+    },
+    {
+      id: 'ts7.sc.change.crystal', title: 'Crystallisation', prereqs: ['ts7.sc.change.types'],
+      intro: [
+        h('Growing beautiful crystals'),
+        photo('✨', 'Crystals of salt, sugar and alum have flat faces and sharp edges.'),
+        p('Pure substances can often form large, regular crystals from their solutions. The process of getting large crystals of a pure substance from its solution is crystallisation. It is a physical change and is used to purify substances like sugar, salt and copper sulphate.'),
+        def('Crystallisation', 'Obtaining large, pure crystals of a substance by cooling or evaporating its saturated solution slowly.'),
+        stepsB(
+          'Take water in a beaker and heat it.',
+          'Add copper sulphate powder (with a few drops of dilute sulphuric acid, added by the teacher) and stir until no more dissolves — a saturated solution.',
+          'Filter the hot solution to remove undissolved impurities.',
+          'Leave it to cool slowly and undisturbed.',
+          'Blue crystals of copper sulphate form; separate and dry them.',
+        ),
+        p('Salt pans along the sea coast get common salt by evaporating sea water in the sun, but that salt is not pure. Crystallisation gives purer crystals. Alum (patika), sugar candy (kalakanda / misri) and copper sulphate crystals are made this way.'),
+        keys('Crystallisation gives large, pure crystals from a solution.', 'Steps: saturated hot solution → filter → cool slowly → crystals.', 'It is a physical change (the substance stays the same).', 'Evaporation of sea water gives impure salt; crystallisation purifies it.'),
+        remember('Slow cooling gives bigger crystals; fast cooling gives many tiny ones.'),
+      ],
+      examples: [
+        ex('Why is the hot copper sulphate solution filtered before cooling?', ['Undissolved particles and impurities would be trapped in the crystals.', 'Filtering removes them.'], 'To remove impurities so the crystals are pure'),
+        ex('Is crystallisation a physical or a chemical change?', ['The copper sulphate in the crystals is the same substance as before.', 'Only its form changes.'], 'Physical change'),
+      ],
+      practice: [
+        orderT('order-crys', 'Put the steps of crystallisation of copper sulphate in order.', ['Heat water in a beaker', 'Dissolve copper sulphate until no more dissolves', 'Filter the hot solution', 'Let it cool slowly without disturbing', 'Collect and dry the crystals'], ['A saturated solution is made first.', 'Crystals form only on cooling.'], 'Heat → saturate → filter → cool slowly → collect.'),
+        mcq('crys', 'Crystallisation purifies by forming crystals.', [
+          ['Crystallisation is used to…', 'Get pure substances as crystals', ['Make iron rust', 'Burn magnesium', 'Make curd'], 'Pure, large crystals.', 'Crystallisation separates a pure solid from impurities.'],
+          ['A solution in which no more solute can dissolve is…', 'Saturated', ['Dilute', 'Neutral', 'Acidic'], 'It is "full".', 'A saturated solution holds the maximum dissolved solute.'],
+          ['Crystallisation is a…', 'Physical change', ['Chemical change', 'Periodic change', 'Nuclear change'], 'The substance stays the same.', 'No new substance forms.'],
+          ['To get BIG crystals, the solution should be cooled…', 'Slowly and undisturbed', ['Quickly in ice', 'While stirring hard', 'By boiling it dry'], 'Crystals need time to grow.', 'Slow cooling lets crystals grow large.'],
+          ['Salt obtained by evaporating sea water in salt pans is…', 'Impure', ['Perfectly pure', 'Copper sulphate', 'Sugar'], 'Sea water has many dissolved substances.', 'Other salts and dirt remain; crystallisation purifies it.'],
+          ['Sugar candy (kalakanda) is made by…', 'Crystallisation of sugar', ['Burning sugar', 'Rusting', 'Galvanisation'], 'Large sugar crystals.', 'Slow cooling of a saturated sugar syrup gives sugar candy.'],
+        ]),
+        tapT('tap-crys', 'Tap every substance whose crystals can be grown by crystallisation in a school lab.', [
+          ['Copper sulphate', true], ['Alum', true], ['Sugar', true], ['Common salt', true],
+          ['Sand', false], ['Chalk powder', false], ['Iron filings', false],
+        ], ['The substance must dissolve in water.', 'Sand, chalk and iron do not dissolve in water.'], 'Only soluble substances can be crystallised from a water solution.'),
+      ],
+    },
+  ],
+};
+
+export const units: USpec[] = [ch1, ch2, ch3, ch4, ch5, ch6, ch7, ch8, ch9, ch10, ch11, ch12, ch13, ch14, ch15, ch16, ch17];
