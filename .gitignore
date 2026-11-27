@@ -7,3 +7,6 @@ tests/e2e/shots
 backups/
 .photo-cache
 public/pictures
+# published Android APK (scripts/publish-apk.mjs) — never commit the binary
+public/download/*.apk
+public/download/version.json

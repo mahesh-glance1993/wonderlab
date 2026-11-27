@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "WonderLab — learn, explore, create",
+  "name": "WonderLab — free learning for Nursery to Class 10",
   "short_name": "WonderLab",
-  "description": "Maths, physics, art, languages and games for Nursery to Class 10. No ads, no tracking.",
+  "description": "Free interactive lessons, notes, games and art for Nursery to Class 10 — Telangana SCERT syllabus, in English and Telugu. Works offline. No ads, no tracking.",
   "lang": "en",
   "dir": "ltr",
   "start_url": "/",
@@ -11,7 +11,7 @@
   "display_override": ["fullscreen", "standalone"],
   "orientation": "any",
   "background_color": "#F6F7FC",
-  "theme_color": "#F6F7FC",
+  "theme_color": "#3F6E58",
   "categories": ["education", "kids"],
   "icons": [
     { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },

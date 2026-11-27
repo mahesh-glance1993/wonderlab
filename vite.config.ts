@@ -2,7 +2,7 @@ import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { execSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { PACKS } from './src/shared/packs';
 import { copyPictures } from './scripts/copy-pictures.mjs';
@@ -23,7 +23,9 @@ function versionFile(): Plugin {
 }
 
 /** Public files the app shell needs offline (besides the page itself, cached as /__wl/index.html). */
-const SHELL_STATIC = ['/manifest.webmanifest', '/icon.svg', '/icon-192.png', '/icon-512.png', '/apple-touch-icon.png'];
+const SHELL_STATIC = ['/manifest.webmanifest', '/icon.svg', '/icon-192.png', '/icon-512.png', '/apple-touch-icon.png',
+  // self-hosted fonts (src/styles.css @font-face) so text looks the same offline
+  '/fonts/nunito.ttf', '/fonts/baloo2.ttf', '/fonts/andika-regular.ttf', '/fonts/andika-bold.ttf', '/fonts/noto-sans-telugu.ttf'];
 
 /**
  * Offline manifests, written after the bundle (so index.html exists):
@@ -74,7 +76,8 @@ function packsManifest(): Plugin {
         ...files.filter((f) => f.fileName.startsWith('assets/') && !inPack.has(f.fileName)).map((f) => f.fileName),
       ]);
       const entry = files.find((f) => f.type === 'chunk' && f.isEntry)?.fileName || '';
-      // Google Fonts stylesheet(s) linked from index.html; the downloader also caches their font files.
+      // Third-party font stylesheets linked from index.html (none since fonts are self-hosted under /fonts and
+      // shipped in the shell); kept so older manifests/downloaders stay compatible.
       const html = existsSync(join(outDir, 'index.html')) ? readFileSync(join(outDir, 'index.html'), 'utf-8') : '';
       const fonts = [...html.matchAll(/href="(https:\/\/fonts\.googleapis\.com\/css2[^"]+)"/g)].map((m) => m[1].replace(/&amp;/g, '&'));
       // recorded narration clips listed in public/audio/te/manifest.json
@@ -95,7 +98,8 @@ function packsManifest(): Plugin {
       const shellFiles = [...shell].map((n) => '/' + n).sort();
       const out = {
         v: 2, build: BUILD_ID, builtAt: BUILD.builtAt, entry: '/' + entry,
-        shell: { files: [...shellFiles, ...SHELL_STATIC.filter((f) => existsSync(join(outDir, f)))], bytes: [...shell].reduce((s, n) => s + sizeOf(n), 0) + new TextEncoder().encode(html).length },
+        shell: { files: [...shellFiles, ...SHELL_STATIC.filter((f) => existsSync(join(outDir, f)))], bytes: [...shell].reduce((s, n) => s + sizeOf(n), 0) + new TextEncoder().encode(html).length
+          + SHELL_STATIC.reduce((s, f) => { const fp = join(outDir, f); return s + (existsSync(fp) ? statSync(fp).size : 0); }, 0) },
         fonts, packs,
       };
       // sanity: every emitted asset is reachable offline via the shell or some pack

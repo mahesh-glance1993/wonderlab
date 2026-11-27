@@ -20,6 +20,7 @@
     "db:backup": "node scripts/backup-db.mjs",
     "icons": "node scripts/gen-icons.mjs",
     "pictures": "node scripts/copy-pictures.mjs",
+    "apk:publish": "node scripts/publish-apk.mjs",
     "check": "npm run typecheck && npm run lint && npm test && vite build"
   },
   "dependencies": {

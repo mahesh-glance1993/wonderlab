@@ -55,14 +55,13 @@ async function readyBuild() {
   } catch { return null; }
 }
 
-const isFontUrl = (u) => u.startsWith('https://fonts.googleapis.com/') || u.startsWith('https://fonts.gstatic.com/');
 
 async function fromAnyCache(req) {
   const ready = await readyBuild();
   const keys = (await caches.keys()).filter((k) => k.startsWith('wl-') && k !== META && k !== TTS);
   if (ready) keys.sort((a, b) => (a === `wl-build-${ready}` ? -1 : b === `wl-build-${ready}` ? 1 : 0));
   for (const k of keys) {
-    const r = await (await caches.open(k)).match(req, { ignoreSearch: !isFontUrl(req.url), ignoreVary: true });
+    const r = await (await caches.open(k)).match(req, { ignoreSearch: true, ignoreVary: true });
     // an opaque (no-cors) copy cannot answer a CORS request (e.g. the pack downloader's font fetch)
     if (r && !(r.type === 'opaque' && req.mode === 'cors')) return r;
   }
@@ -136,6 +135,8 @@ self.addEventListener('fetch', (e) => {
     return;
   }
   if (same && url.pathname.startsWith('/api/')) return; // private: network only, never cached
+  // Android APK + its version.json (/get-app): large and replaced on every release — straight to the network, never cached
+  if (same && url.pathname.startsWith('/download/')) return;
 
   if (req.mode === 'navigate') {
     // network first (fresh deploys reach every device); offline → verified build's page
@@ -172,14 +173,15 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  const isFont = url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com';
-  if (same || isFont) {
+  // self-hosted fonts (/fonts/*, also part of the offline shell); names change if a font file ever changes
+  const isFont = same && url.pathname.startsWith('/fonts/');
+  if (same) {
     e.respondWith((async () => {
       const hit = await fromAnyCache(req);
       if (hit) return hit;
       const res = await fetch(req);
       // hashed build assets and fonts are immutable: keep them for offline use
-      if ((res.ok || res.type === 'opaque') && ((same && url.pathname.startsWith('/assets/')) || isFont)) {
+      if (res.ok && (url.pathname.startsWith('/assets/') || isFont)) {
         const copy = res.clone();
         e.waitUntil(caches.open(RUNTIME).then((c) => c.put(req, copy)).catch(() => undefined));
       }

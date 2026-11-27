@@ -32,6 +32,8 @@ const Credits = lazy(() => import('./features/parent/Credits'));
 const Schools = lazy(() => import('./features/outreach/Schools'));
 const Support = lazy(() => import('./features/outreach/Support'));
 const Legal = lazy(() => import('./features/legal'));
+const Landing = lazy(() => import('./features/welcome/Landing'));
+const GetApp = lazy(() => import('./features/welcome/GetApp'));
 
 function Loading() {
   return <div className="center muted" style={{ padding: 40 }} role="status">Loading…</div>;
@@ -53,6 +55,13 @@ function NeedLearner({ children }: { children: ReactNode }) {
   if (!profiles.length) return <Navigate to="/setup" replace />;
   if (!profile) return <Navigate to={`/who?next=${encodeURIComponent(loc.pathname + loc.search)}`} replace />;
   return <AppShell>{children}</AppShell>;
+}
+/** "/" — the public landing page for visitors who are not signed in; the learner's home otherwise. */
+function HomeOrWelcome() {
+  const { ready, account } = useApp();
+  if (!ready) return <Loading />;
+  if (!account) return <Landing />;
+  return <NeedLearner><Home /></NeedLearner>;
 }
 function NeedEducator({ children }: { children: ReactNode }) {
   const { ready, account } = useApp();
@@ -98,7 +107,9 @@ export default function App() {
               <Route path="/who" element={<NeedAccount><Picker /></NeedAccount>} />
               <Route path="/parent/*" element={<NeedAccount><Parent /></NeedAccount>} />
               <Route path="/editor/*" element={<NeedEducator><Editor /></NeedEducator>} />
-              <Route path="/" element={<NeedLearner><Home /></NeedLearner>} />
+              <Route path="/" element={<HomeOrWelcome />} />
+              <Route path="/welcome" element={<Landing />} />
+              <Route path="/get-app" element={<GetApp />} />
               <Route path="/learn" element={<NeedLearner><Curriculum /></NeedLearner>} />
               <Route path="/next" element={<NeedLearner><Next /></NeedLearner>} />
               <Route path="/lesson/*" element={<NeedLearner><Lesson /></NeedLearner>} />

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import { ErrorBoundary } from './ui/ErrorBoundary';
 import { installErrorReporting } from './lib/errorReport';
+import './lib/installPrompt'; // listen for the browser's install prompt from the first moment (used by /get-app)
 import './styles.css';
 
 // After a new version is deployed, an open tab may ask for screen files that no longer exist.
