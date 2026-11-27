@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WonderLab Poster</title>
+<!--
+  Printable A4 poster. Self-contained: no external fonts, images or scripts.
+  Print: Chrome > Ctrl+P > A4, margins Default, "Background graphics" on.
+  QR code: replace the dashed .qr box with <img class="qr-img" src="qr.png" alt="QR code to learn.maheshglance.com">
+  Telugu text needs a native-speaker check before printing.
+  Reminder: a human should review this before sending or publishing.
+-->
+<style>
+  :root {
+    --bg: #F6F7FC; --surface: #FFFFFF; --surface2: #EEF0F8;
+    --text: #1D2540; --muted: #4F5B76;
+    --primary: #5145CD; --primary-ink: #FFFFFF;
+    --brand: #3F6E58; --cream: #FBF8F1; --sun: #F4C95D; --sky: #8ECAE6;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: "Nunito", "Segoe UI", Roboto, "Noto Sans", "Noto Sans Telugu", "Nirmala UI", "Gautami", Arial, sans-serif;
+    line-height: 1.35;
+  }
+  .page {
+    width: 210mm; min-height: 297mm; margin: 16px auto; padding: 14mm 14mm 10mm;
+    background: var(--cream); display: flex; flex-direction: column; gap: 6mm;
+    box-shadow: 0 2px 12px rgba(29,37,64,.15);
+  }
+  header { display: flex; align-items: center; gap: 5mm; }
+  .logo {
+    width: 22mm; height: 22mm; border-radius: 6mm; background: var(--brand);
+    display: grid; place-items: center; flex: none;
+  }
+  .logo svg { width: 15mm; height: 15mm; }
+  .brand { font-size: 13mm; font-weight: 800; color: var(--brand); letter-spacing: -.3mm; line-height: 1; }
+  .tag { font-size: 4.2mm; color: var(--muted); margin-top: 1.5mm; }
+  h1 { font-size: 9.5mm; line-height: 1.12; margin: 0; }
+  h1 .te { display: block; font-size: 7mm; margin-top: 2mm; color: var(--brand); }
+  .sub { font-size: 4.6mm; margin: 0; color: var(--muted); }
+  .sub b { color: var(--text); }
+  .points { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5mm; margin: 0; padding: 0; list-style: none; }
+  .points li {
+    background: var(--surface); border: .3mm solid #DADDEA; border-radius: 4mm;
+    padding: 3.2mm 3.8mm; display: grid; grid-template-columns: 9mm 1fr; gap: 2.5mm; align-items: start;
+  }
+  .ico { font-size: 7mm; line-height: 1; }
+  .en { font-size: 4.2mm; font-weight: 700; }
+  .te-s { font-size: 3.8mm; color: var(--muted); margin-top: 1mm; }
+  .get {
+    display: grid; grid-template-columns: 1fr 52mm; gap: 6mm; align-items: center;
+    background: var(--surface); border-radius: 5mm; padding: 5mm; border: .5mm solid var(--brand);
+  }
+  .get h2 { margin: 0 0 2mm; font-size: 6mm; color: var(--brand); }
+  .get ol { margin: 0; padding-left: 5mm; font-size: 4mm; }
+  .get li { margin-bottom: 1.6mm; }
+  .get li span { display: block; color: var(--muted); font-size: 3.6mm; }
+  .url { font-size: 5.4mm; font-weight: 800; color: var(--primary); margin-top: 3mm; word-break: break-all; }
+  .qr {
+    width: 50mm; height: 50mm; border: .8mm dashed var(--muted); border-radius: 3mm;
+    display: grid; place-items: center; text-align: center; font-size: 3.6mm; color: var(--muted); padding: 3mm;
+    background: #fff;
+  }
+  .qr-img { width: 50mm; height: 50mm; }
+  .schools {
+    background: var(--primary); color: var(--primary-ink); border-radius: 4mm; padding: 4mm 5mm;
+    font-size: 4.4mm; font-weight: 700;
+  }
+  .schools span { display: block; font-weight: 400; font-size: 3.9mm; margin-top: 1mm; }
+  footer { margin-top: auto; font-size: 3mm; color: var(--muted); display: flex; justify-content: space-between; gap: 4mm; }
+  .review-note { max-width: 210mm; margin: 0 auto 16px; padding: 0 16px; font-size: 13px; color: var(--muted); }
+
+  @media screen and (max-width: 840px) {
+    .page { width: auto; min-height: 0; margin: 0; padding: 20px 16px; box-shadow: none; }
+    .points, .get { grid-template-columns: 1fr; }
+    .qr { margin: 0 auto; }
+  }
+  @page { size: A4; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; width: 210mm; height: 297mm; overflow: hidden; }
+    .review-note { display: none; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 64 64" fill="none">
+        <circle cx="46" cy="14" r="7" fill="#F4C95D"/>
+        <circle cx="20" cy="12" r="4" fill="#8ECAE6"/>
+        <circle cx="28" cy="5" r="2.5" fill="#8ECAE6"/>
+        <path d="M24 20h16M28 20v12L16 54a4 4 0 0 0 3.5 6h25a4 4 0 0 0 3.5-6L36 32V20" stroke="#FBF8F1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M21 46h22" stroke="#FBF8F1" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand">WonderLab</div>
+      <div class="tag">Follows the Telangana SCERT syllabus · English &amp; తెలుగు</div>
+    </div>
+  </header>
+
+  <h1>Learn anything, Nursery to Class 10. Free.
+    <span class="te" lang="te">నర్సరీ నుంచి 10వ తరగతి వరకు, ఏదైనా నేర్చుకోండి. ఉచితంగా.</span>
+  </h1>
+  <p class="sub"><b>Lessons, practice and games</b> for Classes 1–10 and Nursery–UKG, on phone, tablet or computer.</p>
+
+  <ul class="points">
+    <li><span class="ico" aria-hidden="true">📚</span><div><div class="en">Every subject, Classes 1–10</div><div class="te-s" lang="te">1–10 తరగతుల అన్ని సబ్జెక్టులు: తెలుగు, హిందీ, ఇంగ్లీష్, గణితం, పరిసరాల విజ్ఞానం, సైన్స్, సాంఘిక శాస్త్రం</div></div></li>
+    <li><span class="ico" aria-hidden="true">🔍</span><div><div class="en">"What if?" sliders: move a value, see what changes and why</div><div class="te-s" lang="te">విలువ మార్చండి, ఏమి మారుతుందో, ఎందుకో చూడండి</div></div></li>
+    <li><span class="ico" aria-hidden="true">💡</span><div><div class="en">Practice with hints and kind feedback</div><div class="te-s" lang="te">సూచనలతో ప్రాక్టీస్: "బాగా చేశావు! ఇలాగే కొనసాగించు!"</div></div></li>
+    <li><span class="ico" aria-hidden="true">✍️</span><div><div class="en">Notes: type or handwrite, saved per subject</div><div class="te-s" lang="te">నోట్స్: టైప్ చేయండి లేదా చేత్తో రాయండి</div></div></li>
+    <li><span class="ico" aria-hidden="true">🎵</span><div><div class="en">Rhymes, stories and games for Nursery–UKG</div><div class="te-s" lang="te">చిన్నారులకు పాటలు, కథలు, ఆటలు</div></div></li>
+    <li><span class="ico" aria-hidden="true">📴</span><div><div class="en">Works offline · No ads · No chat</div><div class="te-s" lang="te">ఇంటర్నెట్ లేకపోయినా పనిచేస్తుంది · యాడ్స్ లేవు</div></div></li>
+  </ul>
+
+  <section class="get">
+    <div>
+      <h2>How to get it · <span lang="te">ఎలా పొందాలి</span></h2>
+      <ol>
+        <li>Android: scan the QR code, tap "Get the app"<span lang="te">QR కోడ్ స్కాన్ చేసి "Get the app" నొక్కండి</span></li>
+        <li>iPhone / iPad: open in Safari &gt; Share &gt; Add to Home Screen<span lang="te">Safariలో తెరిచి Share &gt; Add to Home Screen</span></li>
+        <li>Computer: open the website<span lang="te">కంప్యూటర్‌లో వెబ్‌సైట్ తెరవండి</span></li>
+      </ol>
+      <div class="url">learn.maheshglance.com</div>
+    </div>
+    <div class="qr" role="img" aria-label="Space for the QR code">Paste QR code here<br>learn.maheshglance.com</div>
+  </section>
+
+  <div class="schools">Schools: free one-class pilot → learn.maheshglance.com/schools
+    <span lang="te">పాఠశాలలకు: ఒక తరగతికి ఉచిత పైలట్</span>
+  </div>
+
+  <footer>
+    <span>WonderLab follows the SCERT chapter lists with its own explanations. It is not an official SCERT product.</span>
+    <span>Free for families · <span lang="te">కుటుంబాలకు ఉచితం</span></span>
+  </footer>
+</main>
+<p class="review-note">Screen-only note (not printed): Telugu needs a native-speaker check. Reminder: a human should review this before sending or publishing.</p>
+</body>
+</html>
+<!-- > Reminder: a human should review this before sending or publishing. -->
