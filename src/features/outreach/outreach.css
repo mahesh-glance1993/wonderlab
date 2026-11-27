@@ -1,0 +1,28 @@
+/* Public /schools and /support pages. Builds on styles.css tokens and utilities. */
+.outreach { max-width: 960px; margin: 0 auto; }
+.outreach h2 { margin: 0 0 10px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.outreach h3 { margin: 8px 0 4px; font-size: 1.05rem; }
+.outreach p { margin: 0 0 8px; }
+.outreach-hero h1 { margin: 0 0 8px; font-size: clamp(1.5rem, 1.15rem + 1.6vw, 2.3rem); text-wrap: balance; }
+.outreach-hero .lead { font-size: 1.1rem; max-width: 62ch; }
+.outreach-list { list-style: none; padding: 0; margin: 0; }
+.outreach-list li .icon { color: var(--primary); }
+.outreach-pilot { border-left: 6px solid var(--primary); }
+.outreach-two { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.outreach-fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.outreach-fieldset legend { font-weight: 800; margin-bottom: 6px; padding: 0; }
+.outreach-fieldset .error { font-weight: 700; font-size: .88rem; color: var(--bad); }
+.outreach-choice { display: inline-flex; gap: 8px; align-items: center; min-height: 44px; padding: 4px 10px; border: 2px solid var(--line); border-radius: var(--radius-sm); font-weight: 700; cursor: pointer; }
+.outreach-choice input { width: 20px; height: 20px; accent-color: var(--primary); flex: none; }
+.outreach-confirm { align-items: flex-start; padding: 10px 12px; }
+.outreach-confirm input { margin-top: 2px; }
+.outreach-confirm:has(input[aria-invalid='true']) { border-color: var(--bad); }
+.outreach-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.outreach-upi-body { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+.outreach-qr { width: min(100%, 240px); height: auto; aspect-ratio: 1; border-radius: var(--radius-sm); border: 1px solid var(--line); background: #fff; flex: none; }
+.outreach-upi-body .stack { flex: 1 1 240px; min-width: 0; }
+.outreach-upi-id { overflow-wrap: anywhere; }
+.outreach-ways { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.outreach-ways li { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.outreach-ways li > .icon { flex: none; }
+.outreach-ways li > span, .outreach-ways li > a { flex: 1 1 200px; min-width: 0; }

@@ -84,6 +84,8 @@ npx wrangler d1 execute wonderlab-restore --remote --file backups/wonderlab-prod
 | `RESEND_API_KEY` | secret (optional, email delivery) | `npx wrangler secret put RESEND_API_KEY --env production` |
 | `APP_ENV`, `APP_ORIGIN`, `SESSION_*`, `SHARED_IDLE_MIN`, `EMAIL_FROM` | vars | `wrangler.jsonc` → `env.production.vars`, then deploy |
 | `TTS_ENABLED` | var | set to `"false"` to switch natural narration off (cost control); the app falls back to device voices |
+| `LEADS_NOTIFY_EMAIL` | secret (optional) | operator address that gets an email for each `/schools` enquiry: `npx wrangler secret put LEADS_NOTIFY_EMAIL --env production`. Unset = enquiries are only stored. Sent with the normal email path (`RESEND_API_KEY`, else the `outbox` table) |
+| `VITE_SUPPORT_UPI_ID`, `VITE_SUPPORT_NAME` | **build-time** (optional) | UPI ID and payee name shown on `/support` (link + locally generated QR). Set in the shell or a gitignored `.env.production.local` before `npm run build`; unset = "Support options coming soon". Never commit a personal UPI ID |
 | `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` | GitHub Actions secrets | GitHub repo settings (deploy workflow only) |
 
 List secrets: `npx wrangler secret list --env production`. Never put secrets in `wrangler.jsonc`, `.dev.vars.example` or the repo. Local secrets go in `.dev.vars` (gitignored). Rotate the API token if anyone who had it leaves, and after any suspected leak.
@@ -100,6 +102,22 @@ List secrets: `npx wrangler secret list --env production`. Never put secrets in 
   ```bash
   npx wrangler d1 execute wonderlab --env production --remote --command "DELETE FROM rate_limits WHERE window_start < unixepoch() - 86400; DELETE FROM sessions WHERE expires_at < unixepoch() - 86400*7;"
   ```
+
+### School enquiries (leads)
+
+The public `/schools` page posts to `POST /api/leads` (validated by `src/shared/leads.ts`, 5 per IP per hour, hidden `website` honeypot). Rows go to the `leads` table (`migrations/0003_leads.sql`). They hold **adult staff contact details only**; the form tells staff not to enter child data.
+
+Operator access needs a signed-in account with role `admin` (same session check as the content editor, `worker/content.ts`; educators cannot see leads):
+
+- `GET /api/leads?status=new&limit=100` — newest first (`status`: `new`, `contacted`, `pilot`, `closed`).
+- `PATCH /api/leads/<id>` with `{"status":"contacted"}` (send the `X-WonderLab: 1` header, as for every state-changing API call).
+- `POST /api/leads/purge` — deletes leads older than 2 years (audited).
+
+**Retention: 2 years.** Leads older than 730 days can be deleted; do it at least yearly, via the purge endpoint or:
+```bash
+npx wrangler d1 execute wonderlab --env production --remote --command "DELETE FROM leads WHERE created_at < unixepoch() - 730*86400;"
+```
+Delete a single lead sooner if the person asks (`DELETE FROM leads WHERE id = '<id>'`).
 
 ## 6. Security headers
 

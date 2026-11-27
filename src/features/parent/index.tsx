@@ -42,7 +42,7 @@ export default function ParentArea() {
         </div>
         {account?.role !== 'parent' && <p style={{ marginTop: 24 }}><Button icon="edit" onClick={() => nav('/editor')}>Open content editor</Button></p>}
         <p className="muted small" style={{ marginTop: 24 }}>
-          <Icon name="image" /> Photos and pictures in WonderLab come from Wikimedia Commons and Microsoft Fluent Emoji. <Link to="/credits">Picture credits</Link>
+          <Icon name="image" /> Photos and pictures in WonderLab come from Wikimedia Commons and Microsoft Fluent Emoji. <Link to="/credits">Picture credits</Link> · <Link to="/schools">For schools</Link> · <Link to="/support">Support WonderLab</Link>
         </p>
         {confirmOut && (
           <Modal title="Unsaved work on this device" onClose={() => setConfirmOut(false)}>

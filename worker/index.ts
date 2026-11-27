@@ -9,6 +9,7 @@ import { content, admin } from './content';
 import { PACKS } from '../src/shared/packs';
 import { tts } from './tts';
 import { ops } from './ops';
+import { leads } from './leads';
 
 const app = new Hono<{ Bindings: Env; Variables: Vars }>();
 
@@ -49,6 +50,7 @@ app.route('/api/p', learner);
 app.route('/api/content', content);
 app.route('/api/admin', admin);
 app.route('/api/tts', tts);
+app.route('/api/leads', leads);
 app.get('/api/packs', (c) => c.json({ packs: PACKS }));
 
 // Local email sink so password recovery can be tested without a mail provider.

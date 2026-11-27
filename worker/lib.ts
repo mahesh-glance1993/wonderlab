@@ -14,6 +14,7 @@ export interface Env {
   RESEND_API_KEY?: string; // optional production email provider
   SEND_EMAIL?: { send: (m: unknown) => Promise<unknown> }; // optional Cloudflare Email binding
   TTS_ENABLED?: string; // 'false' turns off natural (Workers AI) narration
+  LEADS_NOTIFY_EMAIL?: string; // operator address for new /schools enquiries (unset = no notification)
   CF_VERSION_METADATA?: { id: string; tag: string; timestamp: string }; // deployment version (wrangler version_metadata binding)
 }
 export interface Account { id: string; username: string; email: string | null; email_verified: number; role: 'parent' | 'educator' | 'admin'; sec_question: number; pass_hash: string; sec_answer_hash: string }

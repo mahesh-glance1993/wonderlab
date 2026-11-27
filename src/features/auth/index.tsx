@@ -65,6 +65,7 @@ function SignIn() {
         <Button variant="primary" type="submit" disabled={s.busy} aria-busy={s.busy}>{s.busy ? 'Signing in…' : 'Sign in'}</Button>
         <div className="row auth-links"><Link to="/forgot">Forgot password?</Link><Link to="/forgot/username">Forgot username?</Link></div>
         <p className="center">New here? <Link to="/signup">Create a parent account</Link></p>
+        <p className="center small muted"><Link to="/schools">For schools and tuition centres</Link> · <Link to="/support">Support WonderLab</Link></p>
         <p className="muted small">You stay signed in until you sign out, the session expires, you reset your password, or this browser's data is cleared.</p>
       </form>
     </Shell>
