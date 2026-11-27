@@ -1,0 +1,99 @@
+/* Public pages (landing + get the app). Builds on the tokens in src/styles.css; phone first. */
+.wl-page { --wl-green: #3F6E58; --wl-green-bg: #E3EEE7; min-height: 100dvh; display: flex; flex-direction: column; overflow-x: clip; }
+:root[data-theme='dark'] .wl-page { --wl-green: #A6D6BB; --wl-green-bg: #1D3A2E; }
+.wl-page a.btn { text-decoration: none; }
+
+.wl-head { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 8px 10px; flex-wrap: wrap; padding: 8px 16px; padding-top: max(8px, env(safe-area-inset-top)); background: var(--surface); box-shadow: 0 1px 0 var(--line); }
+.wl-brand { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; font-family: var(--font-head); font-weight: 800; font-size: 1.3rem; color: var(--wl-green); text-decoration: none; border-radius: 12px; }
+.wl-brand img { border-radius: 10px; }
+
+.wl-main { flex: 1; width: 100%; max-width: 1120px; margin: 0 auto; padding: 20px 16px 40px; display: flex; flex-direction: column; gap: 36px; }
+.wl-main:focus { outline: none; }
+.wl-section > h2 { margin-bottom: 14px; }
+.wl-lead { font-size: 1.1rem; color: var(--muted); max-width: 60ch; margin: 0; }
+.wl-kicker { margin: 0 0 6px; font-weight: 800; color: var(--wl-green); text-transform: uppercase; letter-spacing: .06em; font-size: .85rem; }
+.wl-page[lang='te'] .wl-kicker { text-transform: none; letter-spacing: 0; }
+
+/* hero */
+.wl-hero { display: grid; gap: 24px; align-items: center; }
+.wl-hero h1 { font-size: clamp(1.7rem, 1.2rem + 2.4vw, 2.9rem); margin-bottom: 12px; }
+.wl-badges { list-style: none; padding: 0; margin: 18px 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.wl-badges .pill { padding: 6px 12px; font-size: .92rem; }
+.wl-badges .icon { width: 18px; height: 18px; }
+.wl-badge-free { background: var(--wl-green-bg); color: var(--wl-green); }
+.wl-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+.wl-ctas .btn { flex: 1 1 auto; }
+@media (min-width: 560px) { .wl-ctas .btn { flex: 0 0 auto; } }
+.btn.wl-wa { background: var(--wl-green-bg); color: var(--wl-green); }
+@media (min-width: 860px) { .wl-hero { grid-template-columns: 1.4fr 1fr; gap: 40px; } }
+
+/* what-if demo */
+.wl-demo { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.wl-demo-cap { font-family: var(--font-head); font-weight: 700; font-size: 1.15rem; }
+.wl-formula { margin: 0; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--c-math); color: var(--c-math-ink); font-weight: 800; font-size: 1.1rem; text-align: center; }
+.wl-demo-label { font-weight: 700; }
+.wl-range { width: 100%; min-height: 44px; accent-color: var(--primary); }
+.wl-bar { height: 14px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.wl-bar i { display: block; height: 100%; background: var(--wl-green); border-radius: inherit; transition: width var(--dur-local) var(--ease-standard); }
+.wl-demo-out { margin: 0; font-weight: 800; color: var(--wl-green); }
+
+/* features */
+.wl-features { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+.wl-feature h3 { margin: 10px 0 4px; }
+.wl-feature p { margin: 0; }
+.wl-feature-icon { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--wl-green-bg); color: var(--wl-green); }
+
+/* how it works */
+.wl-how { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+.wl-how-card { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+.wl-how-card h3 { display: flex; align-items: center; gap: 8px; margin: 0; }
+.wl-how-card .btn { margin-top: auto; }
+.wl-steps { margin: 0; padding-left: 1.4em; display: flex; flex-direction: column; gap: 8px; }
+.wl-steps li::marker { font-weight: 800; color: var(--wl-green); }
+
+/* call-to-action band */
+.wl-band { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; background: var(--wl-green-bg); box-shadow: none; }
+.wl-band h2 { margin-bottom: 6px; }
+.wl-band p { margin: 0; max-width: 60ch; }
+.wl-band .btn.wl-wa { background: var(--surface); }
+
+/* footer */
+.wl-foot { border-top: 1px solid var(--line); background: var(--surface); padding: 20px 16px; padding-bottom: max(20px, env(safe-area-inset-bottom)); text-align: center; }
+.wl-foot ul { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 6px; }
+.wl-foot a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; border-radius: 10px; }
+.wl-foot p { margin: 0 auto; max-width: 70ch; }
+.wl-foot .wl-indep { margin-bottom: 8px; }
+
+/* get the app */
+.wl-platforms { display: flex; flex-direction: column; gap: 16px; }
+.wl-platform { display: flex; flex-direction: column; gap: 12px; border: 2px solid transparent; }
+.wl-platform.mine { border-color: var(--wl-green); }
+.wl-platform-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.wl-platform-head h2 { display: flex; align-items: center; gap: 8px; margin: 0; }
+.wl-platform h3 { margin: 6px 0 0; }
+.wl-platform p { margin: 0; }
+.btn.wl-big { min-height: 56px; font-size: 1.1rem; align-self: flex-start; }
+@media (max-width: 480px) { .btn.wl-big { align-self: stretch; } }
+.wl-meta { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 0; }
+.wl-meta dt { font-size: .85rem; color: var(--muted); font-weight: 700; }
+.wl-meta dd { margin: 0; font-weight: 800; }
+.wl-sha { flex-basis: 100%; }
+.wl-sha code { font-family: ui-monospace, Consolas, monospace; font-size: .85rem; word-break: break-all; font-weight: 600; }
+.wl-pwa { padding-top: 12px; border-top: 1px solid var(--line); }
+.wl-pwa .btn { align-self: flex-start; }
+
+.wl-ios-steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); }
+.wl-ios-steps li { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 12px; border-radius: var(--radius-sm); background: var(--surface-2); text-align: center; }
+.wl-ios-steps li > span { display: block; }
+.wl-num { display: inline-grid; place-items: center; width: 26px; height: 26px; margin-right: 6px; border-radius: 999px; background: var(--wl-green); color: var(--surface); font-size: .9rem; }
+.wl-step-pic { width: 100px; height: auto; }
+.wl-ph-body { fill: var(--text); }
+.wl-ph-screen { fill: var(--surface); }
+.wl-ph-ui { fill: var(--surface-2); stroke: var(--line); stroke-width: 1; }
+.wl-ph-row { fill: var(--surface); }
+.wl-ph-hi-row { fill: var(--wl-green-bg); stroke: var(--wl-green); stroke-width: 2; }
+.wl-ph-ink { fill: var(--muted); }
+.wl-ph-hi { fill: none; stroke: var(--wl-green); stroke-width: 3; }
+.wl-ph-stroke { fill: none; stroke: var(--primary); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.wl-ph-text { font: 700 7px var(--font); fill: var(--text); }
+.wl-page .small { font-size: .88rem; }

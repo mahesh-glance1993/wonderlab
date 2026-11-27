@@ -1,14 +1,14 @@
 # Security + caching headers for static assets (Workers static assets `_headers`).
 # /api/* is handled by the Worker (run_worker_first) and sets its own headers in worker/index.ts.
 # CSP notes:
-#  - fonts: Google Fonts stylesheet (fonts.googleapis.com) + font files (fonts.gstatic.com);
-#    connect-src lists them too because the service worker re-fetches fonts for offline use.
+#  - fonts are self-hosted under /fonts (no third-party font requests, so visitors' IPs never reach a font CDN);
+#    data: is still allowed in font-src.
 #  - img-src data:/blob: — colouring pages are data: SVGs, art exports/previews use blob:/data: URLs.
 #  - media-src 'self' — narration audio from /api/tts and /audio/*; blob:/data: for generated clips.
 #  - React `style={{…}}` props are applied through the CSSOM, which style-src does not restrict,
 #    so no 'unsafe-inline' is needed. No inline <script> exists in the production index.html.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self' data:; img-src 'self' data: blob:; media-src 'self' blob: data:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -35,3 +35,14 @@
   Cache-Control: no-cache
 /shell.json
   Cache-Control: no-cache
+
+# Android APK for direct download (/get-app, scripts/publish-apk.mjs): always revalidate, never treated as a page.
+/download/*
+  Cache-Control: no-cache
+/download/*.apk
+  Content-Type: application/vnd.android.package-archive
+  Content-Disposition: attachment; filename="wonderlab.apk"
+
+# Self-hosted fonts (stable names; revalidate weekly).
+/fonts/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=2592000
