@@ -78,7 +78,8 @@ fun PictureCreditsList(modifier: Modifier = Modifier, contentPadding: PaddingVal
             Column(Modifier.widthIn(max = 760.dp).padding(bottom = 6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 Text("Photographs (shown from Class 1 upwards) are freely licensed images from Wikimedia Commons, used under the licence named for each one. " +
                     "Photos may be cropped and resized. Tap a source to see the original.", style = MaterialTheme.typography.bodyMedium, color = c.text)
-                Text("Pre-primary pictures and symbols: Microsoft Fluent Emoji 3D (MIT licence).", style = MaterialTheme.typography.bodySmall, color = c.muted)
+                Text("Pre-primary pictures and symbols: Microsoft Fluent Emoji 3D (MIT licence). Fonts: Andika, Baloo 2, Nunito and Noto Sans Telugu " +
+                    "(SIL Open Font License). Full licence notices: learn.maheshglance.com/third-party-notices.txt", style = MaterialTheme.typography.bodySmall, color = c.muted)
             }
         }
         items(list, key = { it.key }) { CreditRow(it) }

@@ -39,6 +39,8 @@ export default function Credits() {
         </p>
         <p className="muted" style={{ margin: 0 }}>
           Pre-primary pictures and symbols: <a href="https://github.com/microsoft/fluentui-emoji" target="_blank" rel="noopener noreferrer">Microsoft Fluent Emoji 3D</a> (MIT licence).
+          Fonts: Andika, Baloo 2, Nunito and Noto Sans Telugu (SIL Open Font License).{' '}
+          <a href="/third-party-notices.txt" target="_blank" rel="noopener noreferrer">Licences and notices</a>
         </p>
         {error && <div className="alert warn" role="alert">The list of picture credits could not be loaded. Check your internet connection and try again.</div>}
         {!list && !error && <p role="status" className="muted">Loading…</p>}

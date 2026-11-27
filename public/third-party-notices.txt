@@ -1,0 +1,93 @@
+WonderLab — third-party notices
+================================
+
+WonderLab's lessons, stories, activities, sound effects (synthesised in code) and app icon are original work.
+It also uses the third-party material listed below, under the licences named. Photographs are credited one by
+one on the "Picture credits" page (/credits on the website; Parent area > Picture credits in the apps).
+
+Keep this file in sync with: public/third-party-notices.txt (website) and
+android/shared/src/commonMain/composeResources/files/licenses/third-party-notices.txt (Android / iPad / iPhone apps).
+See docs/LEGAL_COMPLIANCE.md for the audit behind it.
+
+
+1. Photographs (Class 1-10) — Wikimedia Commons
+-----------------------------------------------
+225 photographs from Wikimedia Commons, each used under its own licence (CC0, public domain, CC BY 2.0-4.0 or
+CC BY-SA 2.0-4.0). Title, author, licence and source link for every photo: /credits (data:
+pictures/photos/credits.json). Photos were cropped and resized to 256 x 256 pixels. Adapted CC BY-SA photos are
+shared under the same CC BY-SA licence as their original.
+
+
+2. Pictures and symbols (Nursery-UKG) — Microsoft Fluent Emoji 3D
+-----------------------------------------------------------------
+Source: https://github.com/microsoft/fluentui-emoji (WebP copies via the @lobehub/fluent-emoji-3d package).
+
+MIT License
+
+Copyright (c) Microsoft Corporation.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+3. Fonts — SIL Open Font License 1.1 (https://openfontlicense.org)
+-------------------------------------------------------------------
+- Andika — Copyright (c) 2004-2022 SIL International (https://www.sil.org), with Reserved Font Names "Andika" and "SIL".
+- Baloo 2 — Copyright 2019 The Baloo 2 Project Authors (https://github.com/EkType/Baloo2)
+- Nunito — Copyright 2014 The Nunito Project Authors (https://github.com/googlefonts/nunito)
+- Noto Sans Telugu — Copyright 2022 The Noto Project Authors (https://github.com/notofonts/telugu)
+The fonts are used unmodified. The full licence text is embedded in each font file's metadata.
+
+
+4. Software libraries
+---------------------
+Website (MIT License — same text as in section 2, with these copyright lines):
+- React, React DOM, Scheduler — Copyright (c) Meta Platforms, Inc. and affiliates.
+- React Router, React Router DOM, @remix-run/router — Copyright (c) React Training LLC 2015-2019,
+  Copyright (c) Remix Software Inc. 2020-2021, Copyright (c) Shopify Inc. 2022-2023
+- Capacitor (@capacitor/core, @capacitor/ios) — Copyright (c) 2017-present Drifty Co.
+
+Interface icons are drawn in the style of Lucide; any shapes derived from Lucide are used under the ISC License:
+
+ISC License
+
+Copyright (c) for portions of Lucide are held by Cole Bemis 2013-2022 as part of Feather (MIT). All other
+copyright (c) for Lucide are held by Lucide Contributors 2022.
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby
+granted, provided that the above copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING
+ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL,
+DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE
+USE OR PERFORMANCE OF THIS SOFTWARE.
+
+Android / iPad / iPhone apps (Apache License 2.0, https://www.apache.org/licenses/LICENSE-2.0):
+- Kotlin standard library, kotlinx.coroutines, kotlinx.serialization, kotlinx-io, atomicfu — JetBrains s.r.o. and contributors
+- Compose Multiplatform, Skiko, JetBrains AndroidX lifecycle/navigation ports — JetBrains s.r.o. and contributors
+- AndroidX (core, activity, splashscreen, Compose, Material 3, Material Icons) — The Android Open Source Project
+- Ktor client — JetBrains s.r.o. and contributors; OkHttp, Okio — Square, Inc.
+- quickjs-kt — Dokar (https://github.com/dokar3/quickjs-kt), which embeds the QuickJS engine (MIT License,
+  Fabrice Bellard and Charlie Gordon)
+
+
+5. Narration voice
+------------------
+Natural English narration is generated on request by Cloudflare Workers AI (Deepgram Aura-2 model). Telugu and
+offline narration use the speech voice built into the device.
