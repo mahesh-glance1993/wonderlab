@@ -4,8 +4,41 @@
 .lesson .sm { font-size: .85rem; }
 
 .lesson-head { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: center; }
-.lesson-titles h1 { margin: 0; font-size: 1.6rem; }
+.lesson-titles h1 { margin: 0; font-size: 1.6rem; line-height: 1.25; }
 .lesson-unit { font-weight: 700; font-size: .9rem; }
+.lesson-chapter-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: none;
+  margin-bottom: 3px;
+  transition: all var(--dur-press) var(--ease-standard);
+}
+.lesson-chapter-link:hover {
+  text-decoration: underline;
+  transform: translateX(-2px);
+}
+.lesson-mastery-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+.lesson-mastery-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.lesson-mastery-pct {
+  color: var(--primary);
+  font-weight: 800;
+}
 .lesson-tools { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 .lesson-tools .btn .icon { width: 18px; height: 18px; }
 .lesson-mastery { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; max-width: 520px; }

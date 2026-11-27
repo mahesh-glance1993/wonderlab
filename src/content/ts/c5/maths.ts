@@ -782,7 +782,8 @@ const ch8: USpec = {
       ],
       practice: [
         tp('half', (r) => {
-          let l = r.int(3, 14), b = r.int(2, 10);
+          let l = r.int(3, 14);
+          const b = r.int(2, 10);
           if ((l * b) % 2) l += 1;
           return typed(`A rectangle ${l} cm long and ${b} cm wide is cut along a diagonal into two triangles. What is the area of ONE triangle?`, num((l * b) / 2, 'sq cm'),
             ['Find the area of the rectangle.', `${l} × ${b} = ${l * b}.`, 'One triangle is half of it.'],

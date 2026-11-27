@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-high":"#e0e8fd","secondary":"#006a61","on-primary-fixed-variant":"#3a30b1","surface-tint":"#534cca","on-secondary-fixed":"#00201d","on-secondary-container":"#006f66","tertiary-fixed-dim":"#ffb77d","surface":"#f9f9ff","primary-fixed-dim":"#c3c0ff","surface-bright":"#f9f9ff","error-container":"#ffdad6","outline-variant":"#c8c4d6","surface-container-highest":"#dbe2f7","on-error-container":"#93000a","error":"#ba1a1a","surface-variant":"#dbe2f7","on-tertiary-container":"#ffa658","on-surface":"#141c2a","on-error":"#ffffff","background":"#f9f9ff","on-primary-fixed":"#100069","on-tertiary-fixed-variant":"#6e3900","on-tertiary-fixed":"#2f1500","tertiary-fixed":"#ffdcc3","primary-fixed":"#e3dfff","surface-dim":"#d2daee","on-background":"#141c2a","surface-container-low":"#f0f3ff","inverse-on-surface":"#ecf0ff","surface-container":"#e8eeff","on-tertiary":"#ffffff","inverse-surface":"#293140","primary-container":"#3e35b5","secondary-fixed-dim":"#6bd8cb","on-surface-variant":"#464554","secondary-fixed":"#89f5e7","tertiary":"#522900","on-secondary":"#ffffff","inverse-primary":"#c3c0ff","on-primary-container":"#b6b3ff","secondary-container":"#86f2e4","on-secondary-fixed-variant":"#005049","tertiary-container":"#733c00","on-primary":"#ffffff","primary":"#25149f","outline":"#777585","surface-container-lowest":"#ffffff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","gutter-mobile":"1rem","space-sm":"0.5rem","space-xl":"2.5rem","space-md":"1rem","margin":"1.5rem","gutter-desktop":"2rem","margin-desktop":"3rem","space-xs":"0.25rem","margin-mobile":"1rem","space-lg":"1.5rem"},fontFamily:{"headline-sm":["Outfit"],"display-lg":["Outfit"],"title-lg":["Outfit"],"label-sm":["Be Vietnam Pro"],"label-lg":["Be Vietnam Pro"],"display-lg-mobile":["Outfit"],"title-md":["Be Vietnam Pro"],"headline-lg":["Outfit"],"headline-lg-mobile":["Outfit"],"headline-md":["Outfit"],"body-md":["Be Vietnam Pro"],"body-lg":["Be Vietnam Pro"],"body-sm":["Be Vietnam Pro"],"label-md":["Be Vietnam Pro"]},fontSize:{"headline-sm":["20px",{lineHeight:"28px",fontWeight:"600"}],"display-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"700"}],"title-lg":["18px",{lineHeight:"26px",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"600"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"600"}],"display-lg-mobile":["36px",{lineHeight:"44px",letterSpacing:"-0.01em",fontWeight:"700"}],"title-md":["16px",{lineHeight:"24px",fontWeight:"600"}],"headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-lg-mobile":["26px",{lineHeight:"34px",letterSpacing:"0em",fontWeight:"600"}],"headline-md":["24px",{lineHeight:"32px",fontWeight:"600"}],"body-md":["15px",{lineHeight:"24px",fontWeight:"400"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"body-sm":["13px",{lineHeight:"20px",fontWeight:"400"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between select-none"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-md flex items-center gap-space-sm"><img alt="WonderLab Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrA4yTm3qtGbshyr11WiRU9ymU2SMH4lx_9gfdWna7Xo1s5xW3jIsoJFyjFqbZJSVj-Bx6EbCe-aQalBKKtapvXwWP-cnhBkIJUBp-dmaIekvPzL5lfw1v1t-NpSsqVh1tQlT5L4jdx1ZYQIWev33MQVr9z6FRAZ-HL-3ks9IYdGvQd8xqyr0F9inX6mv5fxOShFFFMSenMkcmGiGiddNtAs6nwYsXuh4GYN5onvy9h0"/><div class="flex flex-col"><span class="font-title-lg text-title-lg text-primary tracking-tight leading-none">WonderLab</span><span class="font-label-sm text-label-sm text-secondary tracking-wider mt-0.5">STUDIO LEARNING</span></div></div><div class="flex-1 overflow-y-auto px-space-sm py-space-xs"><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg shadow-sm"><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="learner-hub" href="#"><span class="material-symbols-outlined text-xl">cottage</span><span>Home</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="curriculum" href="#"><span class="material-symbols-outlined text-xl">menu_book</span><span>Curriculum</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="what-next" href="#"><span class="material-symbols-outlined text-xl">auto_awesome</span><span>What Next</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="physics-lab" href="#"><span class="material-symbols-outlined text-xl">science</span><span>Physics Lab</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="art-studio" href="#"><span class="material-symbols-outlined text-xl">palette</span><span>Art Studio</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="games-play" href="#"><span class="material-symbols-outlined text-xl">sports_esports</span><span>Games &amp; Play</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="progress-badges" href="#"><span class="material-symbols-outlined text-xl">military_tech</span><span>Progress &amp; Badges</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="notes" href="#"><span class="material-symbols-outlined text-xl">edit_note</span><span>Notes</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="offline-downloads" href="#"><span class="material-symbols-outlined text-xl">download_for_offline</span><span>Offline Downloads</span></a></nav></div></div><div class="p-space-sm bg-surface-container-low/60"><div class="flex flex-col gap-1.5"><a class="flex items-center justify-between px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.02)] transition-colors group" data-path="parent-zone" href="#"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-outline group-hover:text-primary transition-colors">lock</span><span class="font-label-md text-label-md">Parent Area</span></div><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">PIN</span></a><div class="flex items-center justify-between px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.02)]"><div class="flex items-center gap-2 min-w-0"><div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-sm text-label-sm font-bold flex-shrink-0">A</div><div class="truncate"><p class="font-label-md text-label-md text-on-surface font-semibold leading-tight truncate">Aarav</p><p class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Learner</p></div></div><button aria-label="Switch learner" class="text-outline hover:text-primary transition-colors flex items-center justify-center p-1 rounded-md hover:bg-surface-container-high" type="button"><span class="material-symbols-outlined text-base">sync_alt</span></button></div></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)] z-40 px-space-gutter flex items-center justify-between select-none"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/30 text-on-surface"><span class="material-symbols-outlined text-secondary text-base">school</span><div class="flex items-center gap-1.5 font-label-md text-label-md font-semibold text-on-surface"><span>Class 5 (Ages 10–11)</span><span class="text-outline-variant">•</span><span class="text-on-surface-variant font-normal">NCERT &amp; Telangana Syllabus</span></div><button aria-label="Change Class" class="material-symbols-outlined text-sm text-outline hover:text-on-surface ml-0.5" type="button">expand_more</button></div><div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-lowest text-secondary shadow-[0_1px_4px_rgba(0,0,0,0.02)] border border-outline-variant/20"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-label-sm text-label-sm font-semibold">Offline Sync Active</span></div></div><div class="flex items-center gap-space-sm"><div class="flex items-center rounded-full bg-surface-container-low p-0.5 text-on-surface-variant"><button class="px-2.5 py-0.5 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-sm" type="button">EN</button><span class="text-outline-variant font-label-sm text-label-sm">|</span><button class="px-2.5 py-0.5 rounded-full hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">తెలుగు</button></div><div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-full border border-outline-variant/20"><button class="flex items-center gap-1 px-2 py-1 rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors font-label-sm text-label-sm" title="Ambient Focus Sound: Forest Stream" type="button"><span class="material-symbols-outlined text-base text-secondary">headphones</span><span class="hidden xl:inline">Focus Audio</span></button><div class="w-px h-3.5 bg-outline-variant/40"></div><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Reading &amp; Dyslexia Comfort Text Size" type="button"><span class="material-symbols-outlined text-lg">format_size</span></button><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Voice Explanation Mode" type="button"><span class="material-symbols-outlined text-lg">graphic_eq</span></button><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Theme Mood" type="button"><span class="material-symbols-outlined text-lg">light_mode</span></button></div><div class="flex items-center gap-2 pl-1 cursor-pointer group"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-surface-container-high group-hover:ring-primary transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK3kLrI1v8tK7Sr4INV-F5YCytflZmToeBEOZSdLPjCHpkDQ-DA0Cclydfk35jYmUTuzfE_UXHPm-ocvIoQuJzdzy8W6RCIZQg58PniYoxIZYuCgm7EEM3OnhjEousYF3ikhSEPFqJu6wfAsyd95sDsVvv8J8GiYSGisHYZOtiOKK_O7ipQrNzmgcQTg4A4XHhTpnvXC8B_Ornj6FlQNzp5TwogNFUyHJQD-z0Bfc"/><div class="hidden sm:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight group-hover:text-primary transition-colors">Aarav Reddy</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Class 5 · Explorer</span></div><span class="material-symbols-outlined text-outline text-base group-hover:text-on-surface transition-colors">keyboard_arrow_down</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Interactive Script for Games Navigation & Dynamic Slice Kitchen -->
+<script>
+    (function () {
+      window.pizzaGameState = {
+        denominator: 8,
+        selectedSlices: [false, false, false, false, false, false, false, false],
+        toppings: { basil: 0, tomato: 0, mushroom: 0 },
+        activeTool: 'basil',
+        timerMode: 'calm',
+        timeRemaining: 120,
+        timerInterval: null
+      };
+
+      window.setGameCategory = function (btn, catId) {
+        document.querySelectorAll('.game-nav-tab').forEach(el => {
+          el.className = 'game-nav-tab px-4 py-2.5 rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low';
+        });
+        btn.className = 'game-nav-tab px-4 py-2.5 rounded-full font-label-md text-label-md transition-all bg-primary text-on-primary shadow-sm font-bold';
+      };
+
+      window.setSliceDivision = function (denom) {
+        window.pizzaGameState.denominator = denom;
+        document.querySelectorAll('.slice-btn').forEach(btn => {
+          btn.classList.remove('bg-primary-container', 'text-on-primary');
+          btn.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+        });
+        const activeBtn = document.getElementById('slice-btn-' + denom);
+        if (activeBtn) {
+          activeBtn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+          activeBtn.classList.add('bg-primary-container', 'text-on-primary');
+        }
+        renderPizzaSlices();
+      };
+
+      window.selectToppingTool = function (tool) {
+        window.pizzaGameState.activeTool = tool;
+        document.querySelectorAll('.topping-tool-btn').forEach(el => {
+          el.classList.remove('ring-4', 'ring-primary/20', 'bg-surface-container-highest');
+        });
+        const target = document.getElementById('tool-' + tool);
+        if (target) {
+          target.classList.add('ring-4', 'ring-primary/20', 'bg-surface-container-highest');
+        }
+      };
+
+      window.togglePizzaSlice = function (idx) {
+        const state = window.pizzaGameState;
+        state.selectedSlices[idx] = !state.selectedSlices[idx];
+        const sliceEl = document.getElementById('pizza-slice-' + idx);
+        const iconEl = document.getElementById('slice-icon-' + idx);
+
+        if (state.selectedSlices[idx]) {
+          let color = '#86f2e4';
+          let icon = 'eco';
+          if (state.activeTool === 'tomato') {
+            color = '#ffdad6';
+            icon = 'nutrition';
+            state.toppings.tomato++;
+          } else if (state.activeTool === 'mushroom') {
+            color = '#ffdcc3';
+            icon = 'psychology';
+            state.toppings.mushroom++;
+          } else {
+            state.toppings.basil++;
+          }
+
+          if (sliceEl) sliceEl.setAttribute('fill', color);
+          if (iconEl) {
+            iconEl.textContent = icon;
+            iconEl.classList.remove('opacity-0');
+            iconEl.classList.add('opacity-100');
+          }
+        } else {
+          if (sliceEl) sliceEl.setAttribute('fill', '#ffe8cc');
+          if (iconEl) {
+            iconEl.classList.add('opacity-0');
+            iconEl.classList.remove('opacity-100');
+          }
+        }
+        updatePedagogicalMetrics();
+      };
+
+      window.updatePedagogicalMetrics = function () {
+        const state = window.pizzaGameState;
+        const count = state.selectedSlices.filter(Boolean).length;
+        const total = state.denominator;
+        const fractionText = count + '/' + total;
+        
+        const countEl = document.getElementById('selected-fraction-badge');
+        if (countEl) countEl.textContent = fractionText;
+
+        const meter = document.getElementById('fraction-progress-bar');
+        if (meter) {
+          const pct = Math.min(100, Math.round((count / total) * 100));
+          meter.style.width = pct + '%';
+        }
+
+        const feedbackBox = document.getElementById('feedback-message-area');
+        if (feedbackBox) {
+          if (count === 5 && total === 8) {
+            feedbackBox.innerHTML = `
+              <div class="flex items-center gap-2 text-secondary">
+                <span class="material-symbols-outlined text-xl">verified</span>
+                <span class="font-title-md text-title-md font-semibold">Perfect Order! You visualized 5/8 (3/8 basil + 2/8 tomato) of the whole pizza!</span>
+              </div>
+            `;
+          } else if (count > 0) {
+            feedbackBox.innerHTML = `
+              <div class="flex items-center gap-2 text-on-surface">
+                <span class="material-symbols-outlined text-lg text-primary">analytics</span>
+                <span class="font-body-sm text-body-sm">Currently showing <strong>${count} of ${total} slices</strong> (${fractionText} parts assembled).</span>
+              </div>
+            `;
+          } else {
+            feedbackBox.innerHTML = `
+              <div class="flex items-center gap-2 text-on-surface-variant">
+                <span class="material-symbols-outlined text-lg">info</span>
+                <span class="font-body-sm text-body-sm">Tap or click slices to place toppings. No rush or penalties.</span>
+              </div>
+            `;
+          }
+        }
+      };
+
+      window.renderPizzaSlices = function () {
+        const denom = window.pizzaGameState.denominator;
+        const container = document.getElementById('pizza-slices-group');
+        if (!container) return;
+
+        container.innerHTML = '';
+        window.pizzaGameState.selectedSlices = new Array(denom).fill(false);
+        const radius = 135;
+        const cx = 150;
+        const cy = 150;
+
+        for (let i = 0; i < denom; i++) {
+          const startAngle = (i * 2 * Math.PI) / denom - Math.PI / 2;
+          const endAngle = ((i + 1) * 2 * Math.PI) / denom - Math.PI / 2;
+
+          const x1 = cx + radius * Math.cos(startAngle);
+          const y1 = cy + radius * Math.sin(startAngle);
+          const x2 = cx + radius * Math.cos(endAngle);
+          const y2 = cy + radius * Math.sin(endAngle);
+
+          const largeArc = (endAngle - startAngle) > Math.PI ? 1 : 0;
+          const pathData = `M ${cx} ${cy} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z`;
+
+          const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          g.setAttribute('class', 'cursor-pointer group transition-transform duration-200 hover:opacity-95');
+          g.setAttribute('onclick', `togglePizzaSlice(${i})`);
+
+          const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('id', 'pizza-slice-' + i);
+          path.setAttribute('d', pathData);
+          path.setAttribute('fill', '#ffe8cc');
+          path.setAttribute('stroke', '#ffffff');
+          path.setAttribute('stroke-width', '2.5');
+
+          // Label angle for fraction icon / text
+          const midAngle = (startAngle + endAngle) / 2;
+          const labelR = radius * 0.65;
+          const lx = cx + labelR * Math.cos(midAngle);
+          const ly = cy + labelR * Math.sin(midAngle);
+
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.setAttribute('x', lx);
+          text.setAttribute('y', ly);
+          text.setAttribute('fill', '#522900');
+          text.setAttribute('font-size', denom === 8 ? '10' : '12');
+          text.setAttribute('font-weight', '600');
+          text.setAttribute('text-anchor', 'middle');
+          text.setAttribute('dominant-baseline', 'central');
+          text.textContent = '1/' + denom;
+
+          g.appendChild(path);
+          g.appendChild(text);
+          container.appendChild(g);
+        }
+        updatePedagogicalMetrics();
+      };
+
+      window.toggleZenTimer = function () {
+        const state = window.pizzaGameState;
+        const timerLabel = document.getElementById('zen-timer-display');
+        const timerBtn = document.getElementById('timer-mode-toggle-btn');
+        
+        if (state.timerMode === 'calm') {
+          state.timerMode = 'gentle';
+          state.timeRemaining = 120;
+          if (timerBtn) {
+            timerBtn.innerHTML = `
+              <span class="material-symbols-outlined text-sm text-secondary">hourglass_top</span>
+              <span class="font-label-sm text-label-sm font-semibold">2-Min Gentle Challenge</span>
+            `;
+          }
+          if (timerLabel) timerLabel.classList.remove('hidden');
+
+          clearInterval(state.timerInterval);
+          state.timerInterval = setInterval(() => {
+            if (state.timeRemaining > 0) {
+              state.timeRemaining--;
+              const m = Math.floor(state.timeRemaining / 60);
+              const s = state.timeRemaining % 60;
+              if (timerLabel) timerLabel.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
+            } else {
+              clearInterval(state.timerInterval);
+              if (timerLabel) timerLabel.textContent = 'Peaceful Pause';
+            }
+          }, 1000);
+        } else {
+          state.timerMode = 'calm';
+          clearInterval(state.timerInterval);
+          if (timerBtn) {
+            timerBtn.innerHTML = `
+              <span class="material-symbols-outlined text-sm text-secondary">spa</span>
+              <span class="font-label-sm text-label-sm font-semibold">Calm Mode (No Timer)</span>
+            `;
+          }
+          if (timerLabel) timerLabel.classList.add('hidden');
+        }
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        renderPizzaSlices();
+      });
+      // Safety initialisation if DOM already loaded
+      setTimeout(renderPizzaSlices, 50);
+    })();
+  </script>
+<!-- Section 1: Intentional Sub-Header & Ethical Pedagogy Notice -->
+<div class="px-space-gutter py-space-md bg-surface-container-low flex flex-col gap-3">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex flex-col gap-1 max-w-3xl">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified_user</span>
+            Safe Learning Sanctuary
+          </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Class 1 to 10 Studio Series</span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">
+          Mindful Educational Games
+        </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Meaningful learning, zero dark patterns, optional calm timers, no coin microtransactions or public rankings. Built strictly to support tactile conceptual clarity and spatial intuition.
+        </p>
+</div>
+<!-- DPDP & Safety Attributes Summary -->
+<div class="flex items-center gap-3 self-start md:self-auto bg-surface-container-lowest p-2 rounded-xl shadow-sm">
+<div class="flex items-center gap-1.5 px-2 py-1 bg-surface-container-low rounded-lg text-secondary">
+<span class="material-symbols-outlined text-sm">format_image_left</span>
+<span class="font-label-sm text-label-sm font-semibold">Zero Ads</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 bg-surface-container-low rounded-lg text-primary">
+<span class="material-symbols-outlined text-sm">timer_off</span>
+<span class="font-label-sm text-label-sm font-semibold">Anti-Addiction</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 bg-surface-container-low rounded-lg text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">lock_clock</span>
+<span class="font-label-sm text-label-sm font-semibold">DPDP Safe</span>
+</div>
+</div>
+</div>
+<!-- Curated Category Filter Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 pt-2">
+<button class="game-nav-tab px-4 py-2.5 rounded-full font-label-md text-label-md transition-all bg-primary text-on-primary shadow-sm font-bold flex items-center gap-2 flex-shrink-0" onclick="setGameCategory(this, 'all')">
+<span class="material-symbols-outlined text-base">apps</span>
+<span>All Games</span>
+</button>
+<button class="game-nav-tab px-4 py-2.5 rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low flex items-center gap-2 flex-shrink-0" onclick="setGameCategory(this, 'logic')">
+<span class="material-symbols-outlined text-base">calculate</span>
+<span>Logic &amp; Math Puzzles</span>
+</button>
+<button class="game-nav-tab px-4 py-2.5 rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low flex items-center gap-2 flex-shrink-0" onclick="setGameCategory(this, 'language')">
+<span class="material-symbols-outlined text-base">translate</span>
+<span>Language &amp; Telugu Words</span>
+</button>
+<button class="game-nav-tab px-4 py-2.5 rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low flex items-center gap-2 flex-shrink-0" onclick="setGameCategory(this, 'science')">
+<span class="material-symbols-outlined text-base">biotech</span>
+<span>Science Explorers</span>
+</button>
+<button class="game-nav-tab px-4 py-2.5 rounded-full font-label-md text-label-md transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low flex items-center gap-2 flex-shrink-0" onclick="setGameCategory(this, 'nursery')">
+<span class="material-symbols-outlined text-base">child_care</span>
+<span>Nursery Early Play</span>
+</button>
+</div>
+</div>
+<!-- Section 2: Active Playable Experience Showcase: Fraction Pizza Kitchen -->
+<div class="px-space-gutter py-space-lg flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-xl p-space-md lg:p-space-lg shadow-sm flex flex-col gap-6">
+<!-- Interactive Showcase Top Header & Zen Mode Selection -->
+<div class="flex flex-col md:flex-row md:items-center justify-between pb-4 gap-4 bg-surface-container-low/40 p-4 rounded-xl">
+<div class="flex items-start md:items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-2xl">local_pizza</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold">Class 5 Mathematics</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">NCERT &amp; SCERT Telangana</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface tracking-tight mt-0.5">
+              Fraction Pizza Kitchen / భిన్నాల పిజ్జా
+            </h1>
+</div>
+</div>
+<!-- Zen Timer / Calm Mode Switcher -->
+<div class="flex items-center gap-3 bg-surface-container-lowest p-1.5 rounded-xl shadow-sm self-start md:self-auto">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface transition-colors" id="timer-mode-toggle-btn" onclick="toggleZenTimer()">
+<span class="material-symbols-outlined text-sm text-secondary">spa</span>
+<span class="font-label-sm text-label-sm font-semibold">Calm Mode (No Timer)</span>
+</button>
+<div class="hidden px-2.5 py-1 bg-surface-container-high rounded-md font-label-sm text-label-sm font-mono text-primary font-bold" id="zen-timer-display">
+            02:00
+          </div>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-low text-on-surface-variant" title="Audio Pronunciation &amp; Instructions">
+<span class="material-symbols-outlined text-lg">volume_up</span>
+</button>
+</div>
+</div>
+<!-- Pedagogical Mission Banner -->
+<div class="bg-secondary/5 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-xl">assignment_turned_in</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">Today's Kitchen Mission</span>
+<p class="font-title-md text-title-md text-on-surface font-semibold">
+              Serve 3/8 slice with basil and 2/8 slice with tomatoes to complete the order!
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-lowest px-3 py-1.5 rounded-xl shadow-sm flex-shrink-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Fraction Formed:</span>
+<span class="font-title-md text-title-md font-bold text-primary" id="selected-fraction-badge">0/8</span>
+</div>
+</div>
+<!-- Game Stage & Workbench (2-Column Studio Grid) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left: Tactile Pizza Canvas Workbench (Col 7) -->
+<div class="lg:col-span-7 flex flex-col items-center justify-center bg-surface-container-low rounded-xl p-6 sm:p-8 relative min-h-[420px]">
+<!-- Denominator Slicing Switcher -->
+<div class="absolute top-4 left-4 flex items-center gap-1.5 bg-surface-container-lowest p-1 rounded-xl shadow-sm z-10">
+<span class="font-label-sm text-label-sm text-on-surface-variant px-2">Divide Into:</span>
+<button class="slice-btn px-2.5 py-1 rounded-lg font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant font-semibold hover:text-on-surface transition-colors" id="slice-btn-2" onclick="setSliceDivision(2)">
+              1/2 Halves
+            </button>
+<button class="slice-btn px-2.5 py-1 rounded-lg font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant font-semibold hover:text-on-surface transition-colors" id="slice-btn-4" onclick="setSliceDivision(4)">
+              1/4 Quarters
+            </button>
+<button class="slice-btn px-2.5 py-1 rounded-lg font-label-sm text-label-sm bg-primary-container text-on-primary font-semibold transition-colors" id="slice-btn-8" onclick="setSliceDivision(8)">
+              1/8 Eighths
+            </button>
+</div>
+<!-- Reset Canvas Button -->
+<button class="absolute top-4 right-4 flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface-variant font-label-sm text-label-sm shadow-sm transition-colors" onclick="renderPizzaSlices()" title="Reset Crust">
+<span class="material-symbols-outlined text-sm">refresh</span>
+<span>Reset</span>
+</button>
+<!-- SVG Visual Math Simulation Stage -->
+<div class="relative w-72 h-72 sm:w-80 sm:h-80 flex items-center justify-center mt-6">
+<!-- Wooden Serving Board Background -->
+<div class="absolute inset-0 rounded-full bg-tertiary-fixed shadow-md transform rotate-3 flex items-center justify-center">
+<div class="w-full h-full rounded-full border-4 border-dashed border-tertiary/10"></div>
+</div>
+<!-- Realtime SVG Pizza Pie Chart -->
+<svg class="w-64 h-64 sm:w-72 sm:h-72 relative z-10 drop-shadow-sm select-none" id="pizza-svg" viewbox="0 0 300 300">
+<!-- Pizza Crust Outer Ring -->
+<circle cx="150" cy="150" fill="#d4924b" r="142"></circle>
+<circle cx="150" cy="150" fill="#ffe2b5" r="137"></circle>
+<!-- Dynamic Slices Group rendered via script -->
+<g id="pizza-slices-group"></g>
+<!-- Central Hub Pin -->
+<circle cx="150" cy="150" fill="#522900" opacity="0.3" r="8"></circle>
+</svg>
+<!-- Tactile Micro Feedback Overlay -->
+<div class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-surface-container-lowest px-3 py-1 rounded-full shadow-sm text-center whitespace-nowrap z-20">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Touch slices to garnish</span>
+</div>
+</div>
+<!-- Visual Progress & Conceptual Bar below workbench -->
+<div class="w-full max-w-sm mt-6 flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>Portion Visualizer</span>
+<span class="text-primary font-semibold">5/8 Required Target</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-primary transition-all duration-300" id="fraction-progress-bar" style="width: 0%"></div>
+</div>
+</div>
+</div>
+<!-- Right: Pantry Ingredient Tools & Concept Insight (Col 5) -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<!-- Pantry Ingredient Trays (Drag / Click Select) -->
+<div class="bg-surface-container-low p-4 rounded-xl flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Pantry Garnishes</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">Click tool to equip</span>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<!-- Basil Tool -->
+<button class="topping-tool-btn ring-4 ring-primary/20 bg-surface-container-highest p-3 rounded-xl flex flex-col items-center gap-1 transition-all text-center" id="tool-basil" onclick="selectToppingTool('basil')">
+<div class="w-9 h-9 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">eco</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Fresh Basil</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Target: 3/8</span>
+</button>
+<!-- Tomato Tool -->
+<button class="topping-tool-btn bg-surface-container-lowest hover:bg-surface-container-highest p-3 rounded-xl flex flex-col items-center gap-1 transition-all text-center" id="tool-tomato" onclick="selectToppingTool('tomato')">
+<div class="w-9 h-9 rounded-full bg-error-container text-on-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">nutrition</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Sun Tomato</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Target: 2/8</span>
+</button>
+<!-- Mushroom Tool -->
+<button class="topping-tool-btn bg-surface-container-lowest hover:bg-surface-container-highest p-3 rounded-xl flex flex-col items-center gap-1 transition-all text-center" id="tool-mushroom" onclick="selectToppingTool('mushroom')">
+<div class="w-9 h-9 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">psychology</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Mushroom</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Extra Free</span>
+</button>
+</div>
+</div>
+<!-- Conceptual Insight & Telangana Bilingual Notation -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-base">school</span>
+<span class="font-label-md text-label-md font-semibold text-primary">Concept Spotlight: భిన్నం (Fraction)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              When an entire item is partitioned into <strong class="text-on-surface">8 equal parts</strong>, each part is known as <strong>1/8 (ఒక ఎనిమిదవ వంతు)</strong>. Adding 3 slices of basil and 2 slices of tomato gives:
+            </p>
+<div class="flex items-center justify-center gap-3 bg-surface-container-low py-3 px-4 rounded-xl">
+<div class="flex flex-col items-center font-title-md text-title-md font-bold text-secondary">
+<span>3</span>
+<div class="w-6 h-0.5 bg-secondary"></div>
+<span>8</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant">+</span>
+<div class="flex flex-col items-center font-title-md text-title-md font-bold text-on-error-container">
+<span>2</span>
+<div class="w-6 h-0.5 bg-error"></div>
+<span>8</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant">=</span>
+<div class="flex flex-col items-center font-title-md text-title-md font-bold text-primary">
+<span>5</span>
+<div class="w-6 h-0.5 bg-primary"></div>
+<span>8</span>
+</div>
+</div>
+<!-- Realtime Dynamic Growth Feedback Box -->
+<div class="p-3 bg-surface-container-low rounded-xl transition-all" id="feedback-message-area">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-lg">info</span>
+<span class="font-body-sm text-body-sm">Tap or click slices to place toppings. No rush or penalties.</span>
+</div>
+</div>
+</div>
+<!-- Action Bar: Verify / Hint -->
+<div class="flex items-center gap-3 pt-1">
+<button class="flex-1 min-h-[48px] rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold flex items-center justify-center gap-2 transition-colors shadow-sm" onclick="updatePedagogicalMetrics()">
+<span class="material-symbols-outlined text-lg">check_circle</span>
+<span>Submit Pizza Order</span>
+</button>
+<button class="px-4 min-h-[48px] rounded-lg bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-lg">lightbulb</span>
+<span>Hint</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Educational Game Browse Grid -->
+<div class="px-space-gutter pb-space-xl flex flex-col gap-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Curated Catalog</span>
+<span class="text-outline-variant">•</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">DPDP &amp; COPPA Safe</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight">
+          Explore Studio Puzzles &amp; Interactive Simulations
+        </h2>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Filter by standard:</span>
+<select class="px-3 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-sm outline-none">
+<option>All Classes (Nursery–Class 10)</option>
+<option>Primary (Class 1–5)</option>
+<option>Middle (Class 6–8)</option>
+<option>High School (Class 9–10)</option>
+</select>
+</div>
+</div>
+<!-- 4 High-Impact Pedagogical Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+<!-- Card 1: Telugu Aksharam Builder -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group">
+<div class="flex flex-col gap-3">
+<div class="relative w-full h-44 rounded-lg overflow-hidden bg-surface-container-low flex items-center justify-center">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="High quality clean pedagogical illustration of playful wooden alphabet blocks for Telugu script characters in a modern sunlit design studio, soft pastel blue and violet colors, clean digital art." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2oFZMNSzYuGfs3aNHROjUtI8cd3jdvxTAz9RzSNzffjlbHfYB8j0QewO9Yy9pbuG9JEC07VU-X8G4T6HNiNDmQli_WsXRVkHBEeLCF1ldpDWvl_NVd2vw5Hsgp9U5LEZTTszSy-bUOR-A2YcK3cDPsFt8CyQG-fK8ILWwZzCaDYPaP-0R52KAQ1SE6TjXtor807EiYJ6Q_q3z-mHJf0II_SZa008Skb09NW-YWJY"/>
+<div class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-secondary font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-xs">translate</span>
+<span>Telugu Bhasha</span>
+</div>
+<div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm">
+              Age 4–7
+            </div>
+</div>
+<div class="flex flex-col gap-1.5 mt-1">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Early Telugu Letter Puzzle</span>
+<span class="flex items-center text-secondary font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-secondary mr-1"></span>Foundational</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold group-hover:text-primary transition-colors">
+              Telugu Aksharam Builder / అక్షరాల అల్లిక
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Reassemble stroke parts of Telugu vowels (అచ్చులు) and consonants with tactile phonetic sound cues.
+            </p>
+</div>
+</div>
+<div class="mt-5 pt-3 bg-surface-container-low/40 -mx-5 -mb-5 p-4 rounded-b-xl flex flex-col gap-3">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">book</span> Primary Syllabus</span>
+<span class="text-secondary font-semibold">Zero Ads · DPDP</span>
+</div>
+<button class="w-full min-h-[44px] rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-label-md text-label-md font-bold flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+<span>Launch Activity</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Gravity & Pendulum Swing -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group">
+<div class="flex flex-col gap-3">
+<div class="relative w-full h-44 rounded-lg overflow-hidden bg-surface-container-low flex items-center justify-center">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Refined physics laboratory demonstration with sleek metallic pendulums, clean light wood workbench, vector trajectories and force arrows, scientific pedagogical aesthetic, soft indigo accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSP12iOX3WVe49R26bYCuGEsClagWgp1esFELJeV9SlKVryZU14k3zi_f4VWVeu8a7MX1uI93sYQYL9G3MOciXXjw750VghslrfDa95QRAEsl9NL4zxJAGF77F_inZ39SY-SXVt9fHAG6MOxJzwf9bqCUypYRef_HoKcgYpz2RXctXNmC3u0bXNgwz9S-sKpSmN0nfMOEFqLLYxQAY2BabQLscRCBK4gp480OlYaQ"/>
+<div class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-primary font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-xs">science</span>
+<span>Physics Studio</span>
+</div>
+<div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm">
+              Class 6–9
+            </div>
+</div>
+<div class="flex flex-col gap-1.5 mt-1">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Motion &amp; Periodic Time</span>
+<span class="flex items-center text-primary font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-primary mr-1"></span>Intermediate</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold group-hover:text-primary transition-colors">
+              Gravity &amp; Pendulum Swing
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Tune string lengths, adjust gravity environments from Earth to the Moon, and measure harmonic oscillation periods.
+            </p>
+</div>
+</div>
+<div class="mt-5 pt-3 bg-surface-container-low/40 -mx-5 -mb-5 p-4 rounded-b-xl flex flex-col gap-3">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">menu_book</span> NCERT Science</span>
+<span class="text-secondary font-semibold">Zero Ads · DPDP</span>
+</div>
+<button class="w-full min-h-[44px] rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-label-md text-label-md font-bold flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+<span>Launch Simulation</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Word Bloom: English & Telugu Synonyms -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group">
+<div class="flex flex-col gap-3">
+<div class="relative w-full h-44 rounded-lg overflow-hidden bg-surface-container-low flex items-center justify-center">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Warm aesthetic botanical illustration of blooming flower petals labeled with bilingual vocabulary words in English and South Indian Telugu script, clean studio lighting, calm color tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv8deBmghxUoEBYyPtFYRpgNW04kGtckm2pRhJsMzk8Y99k5F0t3uThT5mJS5U9TeZAL9ixAhv5xioAV8NywJXa87teCAiG2vjt4TdVU6pMd5U1fVSLj7NePlRkBA5l0EUngfPgRK1Ofy4-C-bKR60o4Nh-AI4UCMjzSwR0yFHgga07huIeZOQlHE9_2BmFhigmRMVxlerEhWrSUsnIPqnl1xNdYQlt0OHLWd7RQE"/>
+<div class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-secondary font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-xs">local_florist</span>
+<span>Bilingual Vocab</span>
+</div>
+<div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm">
+              Class 3–6
+            </div>
+</div>
+<div class="flex flex-col gap-1.5 mt-1">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Linguistic Roots &amp; Meanings</span>
+<span class="flex items-center text-secondary font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-secondary mr-1"></span>Relaxed</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold group-hover:text-primary transition-colors">
+              Word Bloom: Synonyms &amp; నానార్థాలు
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Connect synonym petals to the central root word. Deepens bilingual linguistic expression without competitive timers.
+            </p>
+</div>
+</div>
+<div class="mt-5 pt-3 bg-surface-container-low/40 -mx-5 -mb-5 p-4 rounded-b-xl flex flex-col gap-3">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">language</span> State Syllabus</span>
+<span class="text-secondary font-semibold">Zero Ads · DPDP</span>
+</div>
+<button class="w-full min-h-[44px] rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-label-md text-label-md font-bold flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+<span>Launch Activity</span>
+</button>
+</div>
+</div>
+<!-- Card 4: Animal Habitat Matcher -->
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between group">
+<div class="flex flex-col gap-3">
+<div class="relative w-full h-44 rounded-lg overflow-hidden bg-surface-container-low flex items-center justify-center">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Stylized ecological landscape map showing Indian deciduous forests, wetlands, and Western Ghats biomes with subtle animal silhouette icons, modern educational studio rendering, earthy teal and gold tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB7G5hH-rluXKwELChYDCCa_FXKvSdmX1coIO5kKjW6jgDQ1J2lbi8NBYlFNbQ4gBQqGMc4c4ZGf0L4GidWudoUCIuev9y7z0hkWE4c_tZczHh8eCiwqg8TJrlyXW8_ND7h6A_Co0xd1F65Xzax8FNp8R18cWZRISTlmTigZJtaj5OIlbLu0KL-A7ZBziaLFCnF5RyuhqrgHxbSYVEMav9wEo9rMBvvDcEiK1fPIU"/>
+<div class="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm text-tertiary font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-xs">forest</span>
+<span>Ecology &amp; EVS</span>
+</div>
+<div class="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm">
+              Class 4–7
+            </div>
+</div>
+<div class="flex flex-col gap-1.5 mt-1">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Environmental Studies</span>
+<span class="flex items-center text-primary font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-primary mr-1"></span>Exploration</span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold group-hover:text-primary transition-colors">
+              Animal Habitat Matcher
+            </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+              Investigate Deccan plateau flora, forest canopies, and bird sanctuaries. Match endemic species to their adaptations.
+            </p>
+</div>
+</div>
+<div class="mt-5 pt-3 bg-surface-container-low/40 -mx-5 -mb-5 p-4 rounded-b-xl flex flex-col gap-3">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-xs">eco</span> NCERT EVS</span>
+<span class="text-secondary font-semibold">Zero Ads · DPDP</span>
+</div>
+<button class="w-full min-h-[44px] rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-label-md text-label-md font-bold flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-lg">play_arrow</span>
+<span>Launch Activity</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 4: Mindful Play Parental Note & Screen Health Assurance -->
+<div class="mx-space-gutter mb-space-xl p-space-md rounded-xl bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest text-primary flex items-center justify-center shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-xl">self_improvement</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface font-semibold">
+          Pedagogical Wellness Commitment
+        </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Games do not employ streak-loss shaming, artificial wait times, or loot boxes. Aarav's activity is automatically logged in the Parent Area for screen-time transparency.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-2 flex-shrink-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Current Session: 14 mins</span>
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+</div>
+</div></main></div>
+</body></html>

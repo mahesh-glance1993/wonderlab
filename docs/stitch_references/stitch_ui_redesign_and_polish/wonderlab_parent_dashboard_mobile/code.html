@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100vh;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-error": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface": "#141c2a", "on-error-container": "#93000a", "surface": "#f9f9ff", "surface-container-highest": "#dbe2f7", "on-secondary-fixed": "#00201d", "on-primary-container": "#b6b3ff", "inverse-primary": "#c3c0ff", "tertiary-fixed": "#ffdcc3", "surface-tint": "#534cca", "secondary-container": "#86f2e4", "on-tertiary": "#ffffff", "secondary-fixed-dim": "#6bd8cb", "surface-container-low": "#f0f3ff", "error-container": "#ffdad6", "on-background": "#141c2a", "inverse-on-surface": "#ecf0ff", "surface-bright": "#f9f9ff", "primary-fixed-dim": "#c3c0ff", "on-primary-fixed-variant": "#3a30b1", "tertiary-fixed-dim": "#ffb77d", "on-surface-variant": "#464554", "surface-container-high": "#e0e8fd", "primary": "#25149f", "error": "#ba1a1a", "secondary": "#006a61", "primary-container": "#3e35b5", "secondary-fixed": "#89f5e7", "on-primary-fixed": "#100069", "on-primary": "#ffffff", "surface-container": "#e8eeff", "on-secondary": "#ffffff", "on-secondary-fixed-variant": "#005049", "on-tertiary-container": "#ffa658", "surface-variant": "#dbe2f7", "outline-variant": "#c8c4d6", "on-tertiary-fixed-variant": "#6e3900", "surface-dim": "#d2daee", "background": "#f9f9ff", "primary-fixed": "#e3dfff", "outline": "#777585", "on-tertiary-fixed": "#2f1500", "tertiary-container": "#733c00", "inverse-surface": "#293140", "tertiary": "#522900", "on-secondary-container": "#006f66" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xs": "0.25rem", "margin": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem", "gutter": "1.5rem", "space-sm": "0.5rem", "gutter-desktop": "2rem", "margin-desktop": "3rem", "space-lg": "1.5rem", "space-xl": "2.5rem", "gutter-mobile": "1rem" }, fontFamily: { "title-lg": ["Outfit"], "headline-sm": ["Outfit"], "body-lg": ["Be Vietnam Pro"], "body-sm": ["Be Vietnam Pro"], "body-md": ["Be Vietnam Pro"], "display-lg-mobile": ["Outfit"], "label-lg": ["Be Vietnam Pro"], "headline-md": ["Outfit"], "headline-lg-mobile": ["Outfit"], "headline-lg": ["Outfit"], "title-md": ["Be Vietnam Pro"], "label-md": ["Be Vietnam Pro"], "display-lg": ["Outfit"], "label-sm": ["Be Vietnam Pro"] }, fontSize: { "title-lg": ["18px", {"lineHeight": "26px", "fontWeight": "600"}], "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}], "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}], "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}], "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}], "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}], "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}], "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "0em", "fontWeight": "600"}], "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}], "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}], "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}], "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}], "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600"}] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(62,53,181,0.05)]"><div class="h-16 px-margin-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="w-11 h-11 rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-title-lg text-title-lg text-on-surface line-clamp-1">Parent Dashboard</h1></div><div class="flex items-center gap-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface px-margin-mobile"><div class="flex flex-col w-full pb-8">
+<!-- Parent Context Bar -->
+<div class="flex items-center justify-between py-2 px-1">
+<div class="flex items-center gap-space-xs bg-surface-container-high text-on-surface px-3 py-1.5 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-label-sm text-label-sm">Master PIN Guard Active</span>
+</div>
+<button class="flex items-center gap-1 text-primary font-label-md text-label-md active:opacity-75 transition-opacity" onclick="alert('Switching profile to Learner view...')" type="button">
+<span>Switch Profile</span>
+<span class="material-symbols-outlined text-[16px]">swap_horiz</span>
+</button>
+</div>
+<!-- Parent Greeting Banner -->
+<div class="mt-2 mb-4 bg-gradient-to-r from-surface-container-high via-surface-container-low to-surface-container-lowest rounded-xl p-4 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-primary-fixed flex items-center justify-center shrink-0">
+<img class="w-full h-full object-cover" data-alt="A warm, confident portrait of Priya Sharma, an Indian mother smiling gently wearing modern studio attire in front of warm indoor library ambient lighting with soft indigo hues." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwA57y9ljFgH5SrJL14Esnd09-Uzcvan8wwqwDA37U0nAyJ6tKwMWuxlP6cj6RRN0rIdT5GKo7Mi2QVRNjkndD2W8eeb53sEnnVhK58Fj18MV3Y6Pwx6kFCQXHmsGgY2VTh3xEQ2aPU_TmQgpwx5ihm9ktFtd7AmuRKW0UWT8BIw_mnH1_a5LPwi1w1dZM6QT_hLQm0mWTR4WBqfAqfnvnsgJA1sPlUHfgoL5N0sE"/>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase tracking-wider">Guardian Dashboard</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface leading-tight">Priya Sharma</h2>
+<span class="font-body-sm text-body-sm text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> 2 active learners safeguarded
+        </span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">notifications_none</span>
+</div>
+</div>
+<!-- Segmented Tabs Navigation -->
+<div class="flex items-center gap-1 p-1 bg-surface-container-high rounded-lg mb-5 overflow-x-auto no-scrollbar">
+<button class="tab-pill flex-1 py-2 px-3 rounded-[6px] font-label-md text-label-md text-center transition-all bg-surface-container-lowest text-primary shadow-sm font-semibold whitespace-nowrap" id="tab-btn-learners" onclick="switchTab('learners')" type="button">
+      Learners
+    </button>
+<button class="tab-pill flex-1 py-2 px-3 rounded-[6px] font-label-md text-label-md text-center transition-all text-on-surface-variant hover:text-on-surface whitespace-nowrap" id="tab-btn-usage" onclick="switchTab('usage')" type="button">
+      Usage &amp; Time
+    </button>
+<button class="tab-pill flex-1 py-2 px-3 rounded-[6px] font-label-md text-label-md text-center transition-all text-on-surface-variant hover:text-on-surface whitespace-nowrap" id="tab-btn-security" onclick="switchTab('security')" type="button">
+      Security &amp; DPDP
+    </button>
+<button class="tab-pill flex-1 py-2 px-3 rounded-[6px] font-label-md text-label-md text-center transition-all text-on-surface-variant hover:text-on-surface whitespace-nowrap" id="tab-btn-export" onclick="switchTab('export')" type="button">
+      Data Export
+    </button>
+</div>
+<!-- TAB 1: LEARNERS OVERVIEW -->
+<div class="flex flex-col gap-4" id="tab-content-learners">
+<!-- Learner Card 1: Aarav -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-primary-fixed-dim shrink-0">
+<img class="w-full h-full object-cover" data-alt="A portrait of Aarav Reddy, a 10 year old Indian boy smiling wearing a navy school jumper in an inspiring high tech digital science studio classroom setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7Kjfi4DFu8Q9F6ST3qMVzHUpXPQXIqw0AY9cKKWU5a5aaQIf-jO2fU264BYJf4vNJp9t_D81_2WCUtXAsLcVZPmTLE0mMHiHaUERcLOB6uheAk49AH3xc3lIufe6evU0YkTQfHn-a5e27LOlU_duIjhFC0LgsNhci6gsGU70fv-v14kn3ghD0NjsSekYv0yVSQ0pKpoihjpgS3PpS2pw7OWho7yYfh-wIyZ5OspM"/>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-title-md text-title-md text-on-surface">Aarav Reddy</h3>
+<span class="bg-surface-container text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">Class 5</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Age 10 · Active today (42m)</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Science Track
+        </span>
+</div>
+<!-- Pedagogical Progress Inset Recess -->
+<div class="bg-surface-container-low rounded-lg p-3 flex flex-col gap-2">
+<div class="flex justify-between items-center font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Curriculum Progress</span>
+<span class="text-primary font-semibold">14 of 18 Units (78%)</span>
+</div>
+<!-- Segmented Progress Bar -->
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden flex">
+<div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 78%;"></div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-on-surface font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary" style="font-variation-settings: 'FILL' 1;">science</span>
+<span>Next: <strong>Photosynthesis Step 4</strong></span>
+</div>
+<span class="material-symbols-outlined text-[18px] text-primary">arrow_forward_ios</span>
+</div>
+</div>
+<!-- Curfew & Safety Status Pill -->
+<div class="flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">bedtime</span>
+          Daily Bedtime Curfew: <span class="font-semibold text-on-surface">8:30 PM</span>
+</span>
+<button class="font-label-sm text-label-sm text-primary underline" onclick="switchTab('usage')" type="button">Adjust</button>
+</div>
+</div>
+<!-- Learner Card 2: Ananya -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl overflow-hidden bg-tertiary-fixed shrink-0">
+<img class="w-full h-full object-cover" data-alt="A candid portrait of Ananya Reddy, an energetic 4 year old Indian toddler girl with twin ponytails holding a soft colorful geometric toy in a gentle nursery studio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXxreiV-56JNnxOS9Dju3NppwHKZeN-91RYGpz2BN77j1hyI5Q4G6wCE5ATwrJ0TbfKIKPdsd3ml85AUr1siAeiDCOvim4YFM2St-E3XRyICLwAufIp64yMmBqDaf1Ojje9g-LCfOTdqIJVGYQXFnc8D0tPIxkOVcsrkq1U-FI07sNrYO6UAexBUjOx_p6pRUWY1BqoDP-MBnt4-ts-TsMu1Np6hsIkEjRh2bDMKw"/>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<h3 class="font-title-md text-title-md text-on-surface">Ananya Reddy</h3>
+<span class="bg-surface-container text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded-full">Nursery</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Age 4 · Active today (20m)</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">auto_stories</span>
+          Story Garden
+        </span>
+</div>
+<!-- Activity Summary Recess -->
+<div class="bg-surface-container-low rounded-lg p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Phonics Milestones</span>
+<span class="font-label-sm text-label-sm font-semibold text-tertiary">6 Phonics Tales Explored</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<div class="h-8 w-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[18px]">record_voice_over</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Telugu Narration Enabled</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Bilingual nursery phonics</span>
+</div>
+</div>
+</div>
+<!-- Quick Lock Details -->
+<div class="flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm pt-1">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-secondary">lock</span>
+          Picture PIN Lock: <span class="font-semibold text-secondary">Active (Elephant-Sun-Kite)</span>
+</span>
+<button class="font-label-sm text-label-sm text-primary underline" onclick="alert('Picture PIN reset challenge initiated')" type="button">Change</button>
+</div>
+</div>
+</div>
+<!-- TAB 2: USAGE & TIME CONTROLS -->
+<div class="hidden flex-col gap-4" id="tab-content-usage">
+<!-- Daily Study Limit Slider Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface">Daily Study Limit</h3>
+</div>
+<span class="font-title-lg text-title-lg text-primary font-bold" id="study-limit-display">45m</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Controls cumulative screen engagement across all sensory &amp; learning pods.</p>
+<!-- Range Slider -->
+<div class="flex flex-col gap-1 py-2">
+<input class="w-full accent-primary h-2 bg-surface-container-highest rounded-lg cursor-pointer" id="study-slider" max="120" min="15" oninput="document.getElementById('study-limit-display').innerText = this.value + 'm'" step="5" type="range" value="45"/>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>15 mins</span>
+<span>60 mins (Recommended)</span>
+<span>120 mins</span>
+</div>
+</div>
+</div>
+<!-- Bedtime Downtime Lockout Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[18px]">bedtime</span>
+</span>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Bedtime Lockout</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">8:30 PM to 6:30 AM</span>
+</div>
+</div>
+<!-- Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="bedtime-toggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Device locks automatically outside permitted hours. Offline emergency contact remains accessible.</p>
+</div>
+<!-- Sensory & Comfort Settings -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<h3 class="font-title-md text-title-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">visibility</span>
+        Sensory &amp; Accessibility Modes
+      </h3>
+<!-- Setting 1: Large UI Text -->
+<div class="flex items-center justify-between py-2 border-none">
+<div>
+<span class="font-title-md text-title-md text-on-surface block">Large UI Text</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Optimal for early readers &amp; visual clarity</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Setting 2: Reduced Animations -->
+<div class="flex items-center justify-between py-2 border-none">
+<div>
+<span class="font-title-md text-title-md text-on-surface block">Reduce Animations</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Prevents sensory overstimulation</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- TAB 3: SECURITY & DPDP SHIELD -->
+<div class="hidden flex-col gap-4" id="tab-content-security">
+<!-- Security Banner -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">verified_user</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">DPDP Act 2023 &amp; COPPA Compliant</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">WonderLab adheres to India's Digital Personal Data Protection Act: Zero behavioral profiling, zero third-party telemetry, 100% on-device local caching.</p>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> End-to-End Encrypted
+        </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-secondary font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> No Ad Trackers
+        </span>
+</div>
+</div>
+<!-- Guardian Recovery Key -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<h3 class="font-title-md text-title-md text-on-surface">Emergency Guardian Token</h3>
+<div class="bg-surface-container-low rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[18px]">chat</span>
+</div>
+<div>
+<span class="font-title-md text-title-md text-on-surface block">+91 98765 ••••92</span>
+<span class="font-label-sm text-label-sm text-secondary font-medium">WhatsApp OTP Verified</span>
+</div>
+</div>
+<button class="font-label-sm text-label-sm text-primary font-semibold py-1 px-3 bg-surface-container-lowest rounded-lg shadow-sm" onclick="alert('Verification token resent to registered mobile number.')" type="button">
+          Update
+        </button>
+</div>
+<!-- Change Master PIN Button -->
+<button class="w-full min-h-[48px] bg-surface-container hover:bg-surface-container-high text-primary font-title-md text-title-md rounded-lg flex items-center justify-center gap-2 transition-colors" onclick="showMasterPinModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">pin</span>
+        Change Master 6-Digit PIN
+      </button>
+<!-- Zero-Disruption Guarantee Box -->
+<div class="flex items-center gap-2 p-3 rounded-lg bg-surface-container-low text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0">offline_bolt</span>
+<span><strong>Zero-Disruption Guarantee:</strong> Children continue offline learning safely without interruption even during guardian password resets.</span>
+</div>
+</div>
+</div>
+<!-- TAB 4: DATA EXPORT & PURGE -->
+<div class="hidden flex-col gap-4" id="tab-content-export">
+<!-- Download Portfolio Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed shrink-0">
+<span class="material-symbols-outlined text-[22px]">download</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Encrypted Study Portfolio</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Export certified academic milestones, creative sketchpads, and phonics evaluations formatted for school transfer.</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2">
+<button class="min-h-[48px] rounded-lg bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-1.5 shadow-sm active:translate-y-0.5 transition-transform" onclick="triggerExport('PDF')" type="button">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+          Download PDF
+        </button>
+<button class="min-h-[48px] rounded-lg bg-surface-container text-primary font-label-lg text-label-lg flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-colors" onclick="triggerExport('JSON')" type="button">
+<span class="material-symbols-outlined text-[18px]">data_object</span>
+          Raw JSON Archive
+        </button>
+</div>
+</div>
+<!-- Data Sovereignty Deletion Safeguard Card -->
+<div class="bg-surface-container-lowest rounded-xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[20px]">warning</span>
+<h3 class="font-title-md text-title-md text-error">Family Account &amp; Data Purge</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Under DPDP Section 12, requesting account deletion will immediately sanitize Aarav and Ananya's records across all WonderLab local caches and cloud mirrors.</p>
+<button class="w-full min-h-[48px] bg-error-container text-on-error-container font-title-md text-title-md rounded-lg flex items-center justify-center gap-2 hover:opacity-90 active:translate-y-0.5 transition-all" onclick="showPurgeWarningModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">delete_forever</span>
+        Purge Family Account &amp; Data
+      </button>
+</div>
+</div>
+<!-- Interactive Modal: Master PIN Challenge -->
+<div class="fixed inset-0 z-50 bg-[#1d2540]/40 backdrop-blur-sm hidden items-center justify-center px-4" id="pin-modal">
+<div class="bg-surface-container-lowest rounded-xl max-w-sm w-full p-5 shadow-2xl flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Update Master PIN</h3>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant" onclick="hideMasterPinModal()" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Enter your new 6-digit guardian PIN to safeguard settings and purchase authorization.</p>
+<!-- PIN Display Circles -->
+<div class="flex justify-center gap-2 py-2">
+<input class="text-center font-headline-md text-headline-md tracking-widest w-48 py-2 bg-surface-container-low rounded-lg text-primary focus:outline-none focus:ring-2 focus:ring-primary" id="master-pin-input" maxlength="6" placeholder="••••••" type="password"/>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 min-h-[44px] bg-surface-container text-on-surface font-label-lg text-label-lg rounded-lg" onclick="hideMasterPinModal()" type="button">Cancel</button>
+<button class="flex-1 min-h-[44px] bg-primary text-on-primary font-label-lg text-label-lg rounded-lg" onclick="saveMasterPin()" type="button">Save PIN</button>
+</div>
+</div>
+</div>
+<!-- Interactive Modal: Purge Confirmation -->
+<div class="fixed inset-0 z-50 bg-[#1d2540]/40 backdrop-blur-sm hidden items-center justify-center px-4" id="purge-modal">
+<div class="bg-surface-container-lowest rounded-xl max-w-sm w-full p-5 shadow-2xl flex flex-col gap-4">
+<div class="w-12 h-12 rounded-full bg-error-container text-on-error-container flex items-center justify-center mx-auto">
+<span class="material-symbols-outlined text-[26px]">gavel</span>
+</div>
+<div class="text-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Confirm Account Purge</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">This operation cannot be reversed. Please enter your Master PIN to confirm permanent erasure.</p>
+</div>
+<input class="text-center font-title-md text-title-md py-2 bg-surface-container-low rounded-lg text-on-surface focus:outline-none" id="purge-pin-confirm" placeholder="Enter Master PIN" type="password"/>
+<div class="flex gap-2">
+<button class="flex-1 min-h-[44px] bg-surface-container text-on-surface font-label-lg text-label-lg rounded-lg" onclick="hidePurgeWarningModal()" type="button">Keep Account</button>
+<button class="flex-1 min-h-[44px] bg-error text-on-error font-label-lg text-label-lg rounded-lg" onclick="executePurge()" type="button">Confirm Purge</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function switchTab(tabKey) {
+    const tabs = ['learners', 'usage', 'security', 'export'];
+    tabs.forEach(key => {
+      const content = document.getElementById('tab-content-' + key);
+      const btn = document.getElementById('tab-btn-' + key);
+      if (key === tabKey) {
+        content.classList.remove('hidden');
+        content.classList.add('flex');
+        btn.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+        btn.classList.remove('text-on-surface-variant');
+      } else {
+        content.classList.add('hidden');
+        content.classList.remove('flex');
+        btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+        btn.classList.add('text-on-surface-variant');
+      }
+    });
+  }
+
+  function showMasterPinModal() {
+    const modal = document.getElementById('pin-modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    const input = document.getElementById('master-pin-input');
+    input.value = '';
+    input.focus();
+  }
+
+  function hideMasterPinModal() {
+    const modal = document.getElementById('pin-modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  function saveMasterPin() {
+    const val = document.getElementById('master-pin-input').value;
+    if (val.length === 6) {
+      alert('Guardian Master PIN updated successfully.');
+      hideMasterPinModal();
+    } else {
+      alert('Please enter a valid 6-digit Master PIN.');
+    }
+  }
+
+  function showPurgeWarningModal() {
+    const modal = document.getElementById('purge-modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function hidePurgeWarningModal() {
+    const modal = document.getElementById('purge-modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+
+  function executePurge() {
+    const pin = document.getElementById('purge-pin-confirm').value;
+    if (pin) {
+      alert('Account purge request dispatched under DPDP protocols. Sanitizing records...');
+      hidePurgeWarningModal();
+    } else {
+      alert('PIN verification is mandatory before cryptographic purge.');
+    }
+  }
+
+  function triggerExport(format) {
+    alert('Preparing encrypted ' + format + ' portfolio for Aarav & Ananya. Download ready shortly.');
+  }
+</script></main></body></html>

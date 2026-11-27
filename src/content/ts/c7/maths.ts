@@ -501,7 +501,8 @@ const ch2: USpec = {
             [`${q} was multiplied by ${k}.`, 'Do the same to the numerator.'], [`${q} × ${k} = ${q * k}`, `${n_(pp)} × ${k} = ${n_(pp * k)}`], [[String(-pp * k), 'Keep the minus sign.']]);
         }),
         tp('compare', (r) => {
-          let a = r.int(1, 8), b = r.int(2, 9), c = r.int(1, 8), d = r.int(2, 9);
+          let a = r.int(1, 8), c = r.int(1, 8), d = r.int(2, 9);
+          const b = r.int(2, 9);
           while (a * d === b * c) { c = r.int(1, 8); d = r.int(2, 9); }
           a = -a; c = -c;
           const big = a * d > c * b ? `${n_(a)}/${b}` : `${n_(c)}/${d}`;

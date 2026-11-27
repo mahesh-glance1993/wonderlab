@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;1,400&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "error-container": "#ffdad6",
+        "on-tertiary-fixed-variant": "#6e3900",
+        "on-error-container": "#93000a",
+        "primary-container": "#3e35b5",
+        "secondary": "#006a61",
+        "outline-variant": "#c8c4d6",
+        "surface-bright": "#f9f9ff",
+        "surface-container-low": "#f0f3ff",
+        "on-tertiary-container": "#ffa658",
+        "on-surface": "#141c2a",
+        "on-secondary-fixed": "#00201d",
+        "on-surface-variant": "#464554",
+        "on-primary-fixed-variant": "#3a30b1",
+        "tertiary-fixed": "#ffdcc3",
+        "tertiary-fixed-dim": "#ffb77d",
+        "on-secondary-container": "#006f66",
+        "secondary-fixed-dim": "#6bd8cb",
+        "surface-container-high": "#e0e8fd",
+        "secondary-fixed": "#89f5e7",
+        "inverse-primary": "#c3c0ff",
+        "on-secondary": "#ffffff",
+        "on-primary": "#ffffff",
+        "surface": "#f9f9ff",
+        "on-primary-container": "#b6b3ff",
+        "surface-container": "#e8eeff",
+        "secondary-container": "#86f2e4",
+        "primary-fixed-dim": "#c3c0ff",
+        "inverse-surface": "#293140",
+        "surface-variant": "#dbe2f7",
+        "on-error": "#ffffff",
+        "surface-dim": "#d2daee",
+        "surface-container-highest": "#dbe2f7",
+        "on-tertiary-fixed": "#2f1500",
+        "on-primary-fixed": "#100069",
+        "primary": "#25149f",
+        "on-background": "#141c2a",
+        "inverse-on-surface": "#ecf0ff",
+        "tertiary-container": "#733c00",
+        "outline": "#777585",
+        "primary-fixed": "#e3dfff",
+        "tertiary": "#522900",
+        "error": "#ba1a1a",
+        "surface-tint": "#534cca",
+        "surface-container-lowest": "#ffffff",
+        "on-tertiary": "#ffffff",
+        "background": "#f9f9ff",
+        "on-secondary-fixed-variant": "#005049"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "space-xl": "2.5rem",
+        "gutter-mobile": "1rem",
+        "space-md": "1rem",
+        "gutter": "1.5rem",
+        "space-sm": "0.5rem",
+        "space-lg": "1.5rem",
+        "margin": "1.5rem",
+        "space-xs": "0.25rem",
+        "margin-mobile": "1rem",
+        "margin-desktop": "3rem",
+        "gutter-desktop": "2rem"
+      },
+      "fontFamily": {
+        "display-lg": ["Outfit"],
+        "label-md": ["Be Vietnam Pro"],
+        "headline-lg-mobile": ["Outfit"],
+        "body-md": ["Be Vietnam Pro"],
+        "body-sm": ["Be Vietnam Pro"],
+        "headline-sm": ["Outfit"],
+        "title-lg": ["Outfit"],
+        "headline-lg": ["Outfit"],
+        "display-lg-mobile": ["Outfit"],
+        "title-md": ["Be Vietnam Pro"],
+        "label-sm": ["Be Vietnam Pro"],
+        "label-lg": ["Be Vietnam Pro"],
+        "headline-md": ["Outfit"],
+        "body-lg": ["Be Vietnam Pro"]
+      },
+      "fontSize": {
+        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+        "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "0em", "fontWeight": "600"}],
+        "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+        "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+        "title-lg": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+        "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+      }
+    }
+  }
+}</script></head><body class="bg-surface font-body-md text-on-surface select-none"><div class="fixed top-0 left-0 right-0 h-6 z-50 bg-surface/90 backdrop-blur-md px-gutter-mobile flex items-center justify-between text-on-surface-variant font-label-sm text-[11px]"><div class="flex items-center gap-space-xs font-semibold"><span class="text-on-surface">09:41 AM</span><span>•</span><span>WonderLab Studio</span></div><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[14px]">wifi</span><span class="material-symbols-outlined text-[14px]">battery_charging_full</span><span class="font-semibold text-on-surface">98%</span></div></div><aside class="fixed left-0 top-6 bottom-0 w-64 bg-surface-container-low/95 backdrop-blur-xl z-40 flex flex-col justify-between p-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col gap-space-md"><div class="flex items-center justify-between px-space-xs"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm"><span class="material-symbols-outlined text-[20px]">science</span></div><div><span class="font-title-lg text-title-lg tracking-tight text-on-surface block leading-none">WonderLab</span><span class="font-label-sm text-label-sm text-secondary block mt-0.5">Tablet Edition</span></div></div><button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">dock_to_left</span></button></div><div class="flex items-center justify-between bg-surface-container p-space-xs rounded-xl"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col"><span class="font-title-md text-title-md text-on-surface text-[14px] leading-tight">Aarav</span><span class="font-label-sm text-label-sm text-on-surface-variant text-[11px]">Class 5 • Explorer</span></div></div><span class="material-symbols-outlined text-on-surface-variant text-[18px] mr-1">verified_user</span></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-xl"><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all min-h-[44px] bg-primary-container text-on-primary-container font-semibold rounded-xl" data-path="home" href="#"><span class="material-symbols-outlined text-[20px]">home</span><span class="font-title-md text-title-md text-[14px]">Home</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="curriculum" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span class="font-title-md text-title-md text-[14px]">Curriculum</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="what-next" href="#"><span class="material-symbols-outlined text-[20px]">explore</span><span class="font-title-md text-title-md text-[14px]">What Next</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="physics-lab" href="#"><span class="material-symbols-outlined text-[20px]">biotech</span><span class="font-title-md text-title-md text-[14px]">Physics Lab</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="art-studio" href="#"><span class="material-symbols-outlined text-[20px]">palette</span><span class="font-title-md text-title-md text-[14px]">Art Studio</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="games" href="#"><span class="material-symbols-outlined text-[20px]">sports_esports</span><span class="font-title-md text-title-md text-[14px]">Games</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="notes" href="#"><span class="material-symbols-outlined text-[20px]">edit_note</span><span class="font-title-md text-title-md text-[14px]">Notes</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="parent-zone" href="#"><span class="material-symbols-outlined text-[20px]">family_restroom</span><span class="font-title-md text-title-md text-[14px]">Parent Zone</span></a></nav></div><div class="pt-space-sm flex flex-col gap-space-sm"><div class="flex items-center justify-between bg-surface-container-lowest p-space-xs rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.03)]"><span class="font-label-sm text-label-sm text-on-surface-variant px-space-xs flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">translate</span>Lang</span><div class="flex items-center gap-0.5 bg-surface-container p-0.5 rounded-full"><button class="px-space-sm py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm transition-all" type="button">EN</button><button class="px-space-sm py-0.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all" type="button">తెలుగు</button></div></div><div class="flex items-center justify-between px-space-xs text-on-surface-variant"><span class="font-label-sm text-label-sm">Device: iPad Pro 11\"</span><span class="material-symbols-outlined text-[16px]">volume_up</span></div></div></aside><div class="pl-64"><header class="fixed top-6 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl z-30 flex items-center justify-between px-gutter shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">search</span></div><span class="font-body-sm text-body-sm text-outline">Search lessons, simulations, experiments...</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-secondary-container/40 text-on-secondary-container px-space-sm py-1 rounded-full font-label-md text-label-md"><span class="material-symbols-outlined text-[16px]">local_fire_department</span><span>7 Day Streak</span></div><button class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><button class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">help_center</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-22 bg-surface min-h-[calc(100vh-1.5rem)] px-gutter"><div class="flex flex-col w-full pb-space-xl">
+<!-- Cupertino Header Bar Component with Frosted Ambient Sheen -->
+<header class="w-full bg-surface-container-lowest/80 backdrop-blur-xl rounded-[20px] shadow-[0_4px_24px_-4px_rgba(37,20,159,0.06)] p-space-md mb-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="relative">
+<div class="w-14 h-14 rounded-[18px] bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center text-on-primary shadow-[0_8px_16px_-4px_rgba(37,20,159,0.25)]">
+<span class="material-symbols-outlined text-[30px]" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-secondary rounded-full flex items-center justify-center shadow-sm">
+<span class="w-2 h-2 rounded-full bg-surface-container-lowest"></span>
+</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Namaste Aarav! ☀️</h1>
+<span class="px-space-xs py-0.5 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm">Active Lab</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1.5 mt-0.5">
+<span>Class 5 Standard</span>
+<span class="text-outline-variant">•</span>
+<span class="text-primary font-medium">NCERT &amp; Telangana State Board</span>
+</p>
+</div>
+</div>
+<!-- Cupertino Quick Status Hub & Language Pill -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<!-- Apple Pencil Status Pill -->
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-full shadow-sm text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">stylus</span>
+<span class="font-label-sm text-label-sm font-semibold">Pencil</span>
+<div class="flex items-center gap-1">
+<span class="w-6 h-2.5 bg-surface-variant rounded-sm overflow-hidden p-0.5 flex items-center">
+<span class="h-full bg-secondary rounded-xs w-4/5 block"></span>
+</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-[10px]">85%</span>
+</div>
+</div>
+<!-- Sync Status Pill -->
+<div class="flex items-center gap-1.5 bg-surface-container-low px-3 py-1.5 rounded-full text-secondary font-label-sm text-label-sm shadow-sm">
+<span class="material-symbols-outlined text-[16px]">cloud_done</span>
+<span>Offline Ready · 2 queued</span>
+</div>
+<!-- Segmented Language Switcher -->
+<div class="inline-flex p-1 bg-surface-container rounded-full text-on-surface-variant" role="tablist">
+<button class="px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm shadow-xs transition-all duration-200" id="lang-en" type="button">English</button>
+<button class="px-3 py-1 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all duration-200" id="lang-te" type="button">తెలుగు</button>
+</div>
+</div>
+</header>
+<!-- iPadOS Two-Column Responsive Workspace (65% / 35%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT MAIN CONTENT WORKSPACE (65% on Desktop/Tablet Landscape) -->
+<section class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- HERO CARD: Resume Botanical Exploration -->
+<div class="w-full bg-surface-container-lowest rounded-[22px] p-space-lg shadow-[0_8px_30px_rgba(62,53,181,0.05)] relative overflow-hidden flex flex-col md:flex-row gap-space-lg group">
+<!-- Subtle Radial Ambient Glow -->
+<div class="absolute -top-16 -right-16 w-60 h-60 bg-gradient-to-br from-secondary/15 via-primary/5 to-transparent rounded-full pointer-events-none blur-2xl"></div>
+<!-- Left Botanical Imagery Component with Depth Overlays -->
+<div class="relative w-full md:w-5/12 h-56 md:h-auto rounded-[16px] overflow-hidden shadow-sm flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="High-resolution microscopic cross section of a ficus leaf displaying translucent palisade mesophyll cells, vivid emerald chloroplasts, stomata vents glowing with gentle sunlight, pedagogical botanical visualization in warm studio lighting, indigo tint accent" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQdml6_uXZrVI4ub9OEkVIvOQcH0Jesl__4A3jWrW2clNUgbwh8NIigHgMWgFBnS7HzC3ttlhTnBwqu3ed9406uEIhzrDCalY69xq9CzkzpyL_mQ1q2kCbojBTpe8d8C413Aau2ow994OHQCUKRHMX215dFzq5XUUHEAx_TESnJ10-2ru-azEXrMfhhiBn2Hc3U3jRMohrgpZkyKO3N1dsS0BjOm6eLwI1PRUhgX0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-on-surface/20 to-transparent"></div>
+<div class="absolute top-3 left-3 bg-surface-container-lowest/90 backdrop-blur-md px-2.5 py-1 rounded-full shadow-xs flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold uppercase tracking-wider">Chapter 04</span>
+</div>
+<div class="absolute bottom-3 left-3 right-3 text-on-primary">
+<span class="font-label-sm text-label-sm text-secondary-fixed block">Botany &amp; Solar Capture</span>
+<span class="font-title-sm text-title-sm font-semibold tracking-tight leading-snug">Chlorophyll Synthesis</span>
+</div>
+</div>
+<!-- Right Content & Progress Section -->
+<div class="flex flex-col justify-between flex-grow z-10">
+<div>
+<div class="flex items-center justify-between gap-2 mb-space-xs">
+<span class="font-label-sm text-label-sm text-secondary font-bold tracking-wider uppercase">Current Quest</span>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">schedule</span>
+<span>12m remaining</span>
+</div>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight mb-2">
+              Photosynthesis: How Plants Make Food from Sunbeams
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-space-md">
+              Trace how stomata breathe in carbon dioxide, roots draw minerals from Hyderabad soil, and green chloroplasts transform sunlight into sweet glucose.
+            </p>
+</div>
+<!-- Progress Ring & Interactive Stats Row -->
+<div class="flex items-center justify-between bg-surface-container-low p-space-sm rounded-[16px] mb-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="relative w-12 h-12 flex items-center justify-center">
+<!-- SVG Circular Progress Bar (68%) -->
+<svg class="w-12 h-12 transform -rotate-90" viewbox="0 0 48 48">
+<circle class="text-surface-variant fill-none" cx="24" cy="24" r="19" stroke="currentColor" stroke-width="4.5"></circle>
+<circle class="text-primary fill-none transition-all duration-700" cx="24" cy="24" r="19" stroke="currentColor" stroke-dasharray="119.38" stroke-dashoffset="38.2" stroke-linecap="round" stroke-width="4.5"></circle>
+</svg>
+<span class="absolute font-headline-sm text-[13px] text-on-surface font-bold">68%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-[13px] text-on-surface font-semibold leading-tight">Concept Mastery</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 of 6 checkpoints</span>
+</div>
+</div>
+<!-- Audio Guide Pill Component -->
+<button class="flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded-full shadow-xs hover:bg-surface-container-high transition-colors" id="audio-toggle" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<div class="flex flex-col text-left">
+<span class="font-label-sm text-[10px] text-on-surface-variant leading-none">Audio Story</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">4:15 EN/తెలుగు</span>
+</div>
+</button>
+</div>
+<!-- Primary Cupertino Tap Target -->
+<div class="flex items-center gap-space-sm">
+<button class="flex-1 bg-primary hover:bg-primary-container text-on-primary py-3 px-space-md rounded-[14px] font-title-md text-title-md flex items-center justify-center gap-2 shadow-[0_6px_20px_-2px_rgba(37,20,159,0.28)] active:scale-[0.98] transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">play_circle</span>
+<span>Resume Lesson</span>
+</button>
+<button aria-label="Bookmarked notes" class="w-12 h-12 rounded-[14px] bg-surface-container-low hover:bg-surface-container-high flex items-center justify-center text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[22px]">bookmark</span>
+</button>
+</div>
+</div>
+</div>
+<!-- SECTION: Curiosity Studios (3-Column Tablet Grid) -->
+<div>
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[22px] text-primary">grid_view</span>
+<h3 class="font-title-lg text-title-lg text-on-surface tracking-tight">Curiosity Studios</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Class 5 Interactive Modules</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+<!-- Studio Card 1: Physics Lab (Optics & Prism) -->
+<div class="bg-surface-container-lowest rounded-[20px] p-space-md shadow-[0_4px_20px_-2px_rgba(62,53,181,0.04)] hover:shadow-[0_10px_28px_-4px_rgba(62,53,181,0.08)] flex flex-col justify-between transition-all group">
+<div>
+<div class="relative w-full h-32 rounded-[14px] overflow-hidden mb-space-sm bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Refraction experiment inside a dark studio showing a triangular glass prism splitting a beam of crisp white light into a vibrant seven-color visible spectrum onto a textured screen, accurate physical optics simulation styling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_3vp7U_f9ok9ICXN0wSoXoJsTNlV2Hn5dWuYhgOh0H26DujTZwQKYnjNJpD7n1hWhRaHEU5t1K-INKAINX6HyAUWSITN9QBtCdwNmRdkNvwjVAD1pLoLSgWTYsadzY_iSyAuG5IjPubrg04LM0tIbWubCqtRQGPVZDQWGjENhuEITMTqawupm6gOXlyZVdsmAzba6Thvc45PQRjXV5498ZNDcT0Wsyynhm5DrgiI"/>
+<span class="absolute top-2 left-2 bg-primary/80 backdrop-blur-md text-on-primary font-label-sm text-[10px] px-2 py-0.5 rounded-full font-semibold">Live Optics</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface font-semibold mb-1">Physics: Light &amp; Prisms</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[13px] line-clamp-2">Direct white rays through triangular lenses to unlock hidden rainbow wavelengths.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Simulation 2.4</span>
+<button class="px-3 py-1.5 rounded-full bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-label-sm text-label-sm flex items-center gap-1 transition-colors" type="button">
+<span>Enter Lab</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Studio Card 2: Fraction Kitchen -->
+<div class="bg-surface-container-lowest rounded-[20px] p-space-md shadow-[0_4px_20px_-2px_rgba(62,53,181,0.04)] hover:shadow-[0_10px_28px_-4px_rgba(62,53,181,0.08)] flex flex-col justify-between transition-all group">
+<div>
+<div class="relative w-full h-32 rounded-[14px] overflow-hidden mb-space-sm bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Wood-fired artisanal round pizza cut into precise fractional slices of fourths and eighths on a rustic culinary marble board with basil leaves, high contrast pedagogical math game aesthetics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCT8e4diRbcjNPCj6krfc17DakeGzIhKKlPUhV0U30yB1b0wCHhLBE3vPqs-NTBWo0vpVDB-GMEV_FuVOgBh0FtJlOCfe2BfiUmHpvHM3vXLSxH-qw_r93kVQhMEAWO27F4fa-_ZJ8zkmnbkGrXhfcdF6d_qeO0HhWs-eWRG4ElRN0UaalMr2pwSMP8V0zvgBovmwzfNVb7Rw2kCiJh1snnDrUH10zgn16Gqum5UFM"/>
+<span class="absolute top-2 left-2 bg-tertiary-container text-on-tertiary-container font-label-sm text-[10px] px-2 py-0.5 rounded-full font-semibold">Maths Cooking</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface font-semibold mb-1">Fraction Kitchen</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[13px] line-clamp-2">Slice wood-oven sourdough into 1/2, 3/8, and 5/6 to satisfy hungry restaurant guests.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Level 7 of 12</span>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Studio Card 3: Telugu Vachakam -->
+<div class="bg-surface-container-lowest rounded-[20px] p-space-md shadow-[0_4px_20px_-2px_rgba(62,53,181,0.04)] hover:shadow-[0_10px_28px_-4px_rgba(62,53,181,0.08)] flex flex-col justify-between transition-all group">
+<div>
+<div class="relative w-full h-32 rounded-[14px] bg-gradient-to-br from-surface-container-high to-surface-variant flex flex-col items-center justify-center p-3 mb-space-sm text-center">
+<span class="font-display-lg text-[28px] text-primary font-bold leading-none mb-1">వేమన</span>
+<span class="font-body-sm text-[12px] text-on-surface-variant italic">"ఉప్పుకప్పురంబు నొక్కపోలికనుండు..."</span>
+<div class="absolute bottom-2 right-2 flex items-center gap-1 bg-surface-container-lowest/80 backdrop-blur-xs px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px] text-secondary">mic</span>
+<span class="font-label-sm text-[10px] text-on-surface">Chant Along</span>
+</div>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface font-semibold mb-1">తెలుగు వాచకం (వేమన)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[13px] line-clamp-2">Master timeless Telugu moral couplets through rhythm, intonation, and story cards.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Audio Verse Active</span>
+<button class="px-3 py-1.5 rounded-full bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-label-sm text-label-sm flex items-center gap-1 transition-colors" type="button">
+<span>Listen</span>
+<span class="material-symbols-outlined text-[14px]">headphones</span>
+</button>
+</div>
+</div>
+<!-- Studio Card 4: Rangoli Symmetry -->
+<div class="bg-surface-container-lowest rounded-[20px] p-space-md shadow-[0_4px_20px_-2px_rgba(62,53,181,0.04)] hover:shadow-[0_10px_28px_-4px_rgba(62,53,181,0.08)] flex flex-col justify-between transition-all group">
+<div>
+<div class="relative w-full h-32 rounded-[14px] bg-surface-container flex items-center justify-center mb-space-sm overflow-hidden">
+<div class="absolute inset-0 opacity-20 bg-[radial-gradient(#25149f_1.5px,transparent_1.5px)] [background-size:12px_12px]"></div>
+<!-- Inline Geometric Rangoli Geometry Visual -->
+<svg class="w-20 h-20 text-primary transform group-hover:rotate-45 transition-transform duration-700" viewbox="0 0 100 100">
+<polygon fill="none" points="50,5 95,50 50,95 5,50" stroke="currentColor" stroke-width="2.5"></polygon>
+<circle cx="50" cy="50" fill="none" r="28" stroke="currentColor" stroke-dasharray="4,4" stroke-width="2"></circle>
+<polygon fill="none" points="50,20 80,50 50,80 20,50" stroke="#006a61" stroke-width="2"></polygon>
+<circle cx="50" cy="50" fill="#25149f" r="5"></circle>
+</svg>
+<div class="absolute top-2 right-2 bg-surface-container-lowest px-2 py-0.5 rounded-full shadow-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary">draw</span>
+<span class="font-label-sm text-[10px] text-on-surface font-semibold">Pencil Ready</span>
+</div>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface font-semibold mb-1">Rangoli Symmetry</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[13px] line-clamp-2">Explore 8-fold radial geometry and coordinate grids using Apple Pencil precision.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">Art + Geometry</span>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">brush</span>
+</button>
+</div>
+</div>
+<!-- Studio Card 5: What Next? AI Hub -->
+<div class="bg-surface-container-lowest rounded-[20px] p-space-md shadow-[0_4px_20px_-2px_rgba(62,53,181,0.04)] hover:shadow-[0_10px_28px_-4px_rgba(62,53,181,0.08)] flex flex-col justify-between transition-all group">
+<div>
+<div class="relative w-full h-32 rounded-[14px] bg-gradient-to-tr from-primary-container to-secondary p-3 mb-space-sm text-on-primary flex flex-col justify-between overflow-hidden">
+<div class="flex items-center justify-between z-10">
+<span class="font-label-sm text-[10px] bg-on-primary/20 backdrop-blur-md px-2 py-0.5 rounded-full font-semibold">Inquiry Graph</span>
+<span class="material-symbols-outlined text-[18px]">hub</span>
+</div>
+<div class="z-10">
+<span class="font-label-sm text-[11px] text-secondary-fixed block">Connected Discovery</span>
+<span class="font-title-md text-[13px] font-semibold leading-tight block">Sunlight Prism ⟷ Leaf Chlorophyll</span>
+</div>
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-surface-bright/10 rounded-full blur-md"></div>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface font-semibold mb-1">What Next? AI Hub</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[13px] line-clamp-2">See how light refraction ties directly to why green leaves absorb blue/red rays.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-secondary font-semibold">2 New Bridges</span>
+<button class="px-3 py-1.5 rounded-full bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-label-sm text-label-sm flex items-center gap-1 transition-colors" type="button">
+<span>Trace</span>
+<span class="material-symbols-outlined text-[14px]">auto_graph</span>
+</button>
+</div>
+</div>
+<!-- Studio Card 6: Aarav's Field Notes -->
+<div class="bg-surface-container-lowest rounded-[20px] p-space-md shadow-[0_4px_20px_-2px_rgba(62,53,181,0.04)] hover:shadow-[0_10px_28px_-4px_rgba(62,53,181,0.08)] flex flex-col justify-between transition-all group">
+<div>
+<div class="relative w-full h-32 rounded-[14px] bg-surface-container-low p-3 mb-space-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-label-sm font-semibold">Latest: 2 hours ago</span>
+<span class="material-symbols-outlined text-[18px]">sticky_note_2</span>
+</div>
+<div class="bg-surface-container-lowest p-2 rounded-[10px] shadow-xs">
+<p class="font-body-sm text-[12px] text-on-surface italic line-clamp-2">"Neem leaves under midday sun have warmer sap compared to shady side leaves..."</p>
+</div>
+<span class="font-label-sm text-[11px] text-secondary font-medium">Recorded with Pencil &amp; Mic</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface font-semibold mb-1">Aarav's Field Diary</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[13px] line-clamp-2">18 saved scientific hypotheses, leaf press scans, and voice notes.</p>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline">18 entries</span>
+<button class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">folder_open</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT TABLET SIDEBAR / WIDGET TRAY (35% on Desktop/Tablet Landscape) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-md">
+<!-- WIDGET 1: Daily Micro-Spark Snippet -->
+<div class="bg-surface-container-lowest rounded-[22px] p-space-md shadow-[0_4px_24px_-4px_rgba(37,20,159,0.05)] relative overflow-hidden">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-1.5 bg-tertiary-fixed text-on-tertiary-fixed px-2.5 py-0.5 rounded-full font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">local_fire_department</span>
+<span>Daily Micro-Spark</span>
+</div>
+<span class="font-label-sm text-[11px] text-on-surface-variant">Hyderabad Sunset</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold mb-2">
+          Why is the Charminar sky amber-orange at 6:30 PM?
+        </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md text-[13px]">
+          Short Rayleigh scattering lesson: Long red wavelengths push through dust particles while blue light scatters away.
+        </p>
+<!-- Inline Audio Quick Player Strip -->
+<div class="bg-surface-container-low rounded-[16px] p-space-sm flex items-center gap-space-sm">
+<button aria-label="Play snippet" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm flex-shrink-0 active:scale-95 transition-transform" id="micro-play-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+</button>
+<div class="flex-grow">
+<div class="flex items-center justify-between text-[11px] font-label-sm text-on-surface-variant mb-1">
+<span>0:42 / 1:20</span>
+<span class="text-secondary font-semibold">Telugu + EN</span>
+</div>
+<!-- Audio scrub wave representation -->
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden flex items-center">
+<div class="h-full bg-primary rounded-full w-2/5"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- WIDGET 2: Quick Apple Pencil Scratchpad -->
+<div class="bg-surface-container-lowest rounded-[22px] p-space-md shadow-[0_4px_24px_-4px_rgba(37,20,159,0.05)] flex flex-col">
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-1.5 text-on-surface font-title-md text-[15px] font-semibold">
+<span class="material-symbols-outlined text-[18px] text-primary">edit</span>
+<span>Hypothesis Scratchpad</span>
+</div>
+<!-- Apple-Style Mini Tool Selector -->
+<div class="flex items-center bg-surface-container p-0.5 rounded-full" id="pencil-tools">
+<button class="w-7 h-7 rounded-full bg-surface-container-lowest text-primary shadow-xs flex items-center justify-center transition-all" data-tool="pen" type="button">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+</button>
+<button class="w-7 h-7 rounded-full text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-all" data-tool="highlighter" type="button">
+<span class="material-symbols-outlined text-[14px]">brush</span>
+</button>
+<button class="w-7 h-7 rounded-full text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-all" data-tool="ruler" type="button">
+<span class="material-symbols-outlined text-[14px]">straighten</span>
+</button>
+</div>
+</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant mb-space-sm">Tap canvas with Apple Pencil to sketch or jot predictions.</p>
+<!-- Recessed Inset Drawing Canvas -->
+<div class="relative w-full h-44 bg-surface-container-low rounded-[16px] shadow-[inset_0_2px_4px_rgba(20,28,42,0.04)] p-space-sm overflow-hidden flex flex-col justify-between cursor-crosshair group">
+<svg class="absolute inset-0 w-full h-full pointer-events-none" id="pencil-sketch-preview">
+<path d="M 30,80 Q 70,20 120,60 T 200,45 T 260,110" fill="none" opacity="0.75" stroke="#25149f" stroke-linecap="round" stroke-width="2.5"></path>
+<circle cx="120" cy="60" fill="#006a61" r="3"></circle>
+<text fill="#464554" font-family="Be Vietnam Pro" font-size="10" x="125" y="55">CO₂ Intake Stomata</text>
+</svg>
+<div class="flex justify-end z-10">
+<button class="bg-surface-container-lowest/80 backdrop-blur-xs text-on-surface-variant hover:text-error px-2 py-0.5 rounded-full font-label-sm text-[10px] flex items-center gap-1 transition-colors" id="clear-scratchpad" type="button">
+<span class="material-symbols-outlined text-[12px]">delete_sweep</span>
+<span>Clear</span>
+</button>
+</div>
+<div class="flex items-center justify-between text-outline font-label-sm text-[11px] z-10 bg-surface-container-lowest/70 backdrop-blur-xs px-2.5 py-1 rounded-full">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">check</span>
+<span>Palm rejection on</span>
+</span>
+<span class="text-primary font-semibold">Save to Diary</span>
+</div>
+</div>
+</div>
+<!-- WIDGET 3: Weekly Lab Rhythm Widget -->
+<div class="bg-surface-container-lowest rounded-[22px] p-space-md shadow-[0_4px_24px_-4px_rgba(37,20,159,0.05)]">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">timelapse</span>
+<span class="font-title-md text-[15px] font-semibold text-on-surface">Weekly Lab Rhythm</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-bold">160 / 200 min</span>
+</div>
+<!-- Weekly Progress Bar -->
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden mb-space-md">
+<div class="h-full bg-gradient-to-r from-primary to-secondary rounded-full w-[80%]"></div>
+</div>
+<!-- Day of the Week Streak Badges -->
+<div class="grid grid-cols-7 gap-1 text-center">
+<!-- Mon: Done -->
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-[11px] text-on-surface-variant">M</span>
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-[12px] font-bold shadow-xs">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</div>
+<!-- Tue: Done -->
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-[11px] text-on-surface-variant">T</span>
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-[12px] font-bold shadow-xs">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</div>
+<!-- Wed: Done -->
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-[11px] text-on-surface-variant">W</span>
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-[12px] font-bold shadow-xs">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</div>
+<!-- Thu: Done -->
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-[11px] text-on-surface-variant">T</span>
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-[12px] font-bold shadow-xs">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</div>
+<!-- Fri: Today (Active) -->
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-[11px] text-primary font-bold">F</span>
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center text-[12px] font-bold ring-2 ring-secondary/30 shadow-xs">
+<span>★</span>
+</div>
+</div>
+<!-- Sat: Upcoming -->
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-[11px] text-outline">S</span>
+<div class="w-8 h-8 rounded-full bg-surface-container text-outline flex items-center justify-center text-[11px]">
+<span>-</span>
+</div>
+</div>
+<!-- Sun: Upcoming -->
+<div class="flex flex-col items-center gap-1">
+<span class="font-label-sm text-[11px] text-outline">S</span>
+<div class="w-8 h-8 rounded-full bg-surface-container text-outline flex items-center justify-center text-[11px]">
+<span>-</span>
+</div>
+</div>
+</div>
+</div>
+<!-- WIDGET 4: Safe Child Data & Privacy Seal -->
+<div class="bg-surface-container-low/70 rounded-[18px] p-space-sm flex items-center justify-between text-on-surface-variant text-[12px] font-label-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">verified_user</span>
+<span>DPDP 2023 &amp; COPPA Safe • Zero Ads</span>
+</div>
+<span class="text-primary font-semibold hover:underline cursor-pointer">Parent Gate</span>
+</div>
+</aside>
+</div>
+</div>
+<script>
+  (function initLearnerHome() {
+    // Language Toggle Segmented Pill
+    const langEn = document.getElementById('lang-en');
+    const langTe = document.getElementById('lang-te');
+
+    if (langEn && langTe) {
+      langEn.addEventListener('click', () => {
+        langEn.className = 'px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm shadow-xs transition-all duration-200';
+        langTe.className = 'px-3 py-1 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all duration-200';
+      });
+
+      langTe.addEventListener('click', () => {
+        langTe.className = 'px-3 py-1 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm shadow-xs transition-all duration-200';
+        langEn.className = 'px-3 py-1 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all duration-200';
+      });
+    }
+
+    // Audio Story Play/Pause Interactive Simulation
+    const audioToggle = document.getElementById('audio-toggle');
+    if (audioToggle) {
+      let isPlaying = false;
+      audioToggle.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        const icon = audioToggle.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.textContent = isPlaying ? 'pause' : 'play_arrow';
+        }
+      });
+    }
+
+    // Micro Spark Play Button Toggle
+    const microPlayBtn = document.getElementById('micro-play-btn');
+    if (microPlayBtn) {
+      let isMicroPlaying = false;
+      microPlayBtn.addEventListener('click', () => {
+        isMicroPlaying = !isMicroPlaying;
+        const icon = microPlayBtn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.textContent = isMicroPlaying ? 'pause' : 'play_arrow';
+        }
+      });
+    }
+
+    // Pencil Tool Selector Micro-interactions
+    const pencilTools = document.querySelectorAll('#pencil-tools button');
+    pencilTools.forEach(btn => {
+      btn.addEventListener('click', () => {
+        pencilTools.forEach(b => {
+          b.className = 'w-7 h-7 rounded-full text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-all';
+        });
+        btn.className = 'w-7 h-7 rounded-full bg-surface-container-lowest text-primary shadow-xs flex items-center justify-center transition-all';
+      });
+    });
+
+    // Scratchpad Clear micro-interaction
+    const clearBtn = document.getElementById('clear-scratchpad');
+    const sketchPreview = document.getElementById('pencil-sketch-preview');
+    if (clearBtn && sketchPreview) {
+      clearBtn.addEventListener('click', () => {
+        sketchPreview.style.transition = 'opacity 0.2s';
+        sketchPreview.style.opacity = '0';
+        setTimeout(() => {
+          sketchPreview.style.opacity = '0.75';
+        }, 1200);
+      });
+    }
+  })();
+</script></main></div></body></html>

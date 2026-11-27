@@ -296,7 +296,10 @@ function readObj(id: string, rd: Rd[], prereqs: string[]): OSpec {
 const NOTE = 'Original WonderLab teaching built from the lesson word and letter list; the textbook page is not reproduced. Telugu wording and rhymes need native-speaker / teacher review.';
 
 function lesson(ls: Lesson): USpec {
-  for (const i of ls.items) (i.sign ? KNOWN_S : KNOWN_L).includes(i.s) || (i.sign ? KNOWN_S : KNOWN_L).push(i.s);
+  for (const i of ls.items) {
+    const list = i.sign ? KNOWN_S : KNOWN_L;
+    if (!list.includes(i.s)) list.push(i.s);
+  }
   for (const w of ls.items.flatMap((i) => i.words)) if (!BANK.some((b) => b.w === w.w)) BANK.push(w);
   const knownL = [...KNOWN_L], knownS = [...KNOWN_S];
   // wordsObj reads BANK lazily inside templates, so later lessons' words also serve as distractors.

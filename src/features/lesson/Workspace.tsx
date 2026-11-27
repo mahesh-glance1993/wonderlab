@@ -212,11 +212,14 @@ function LessonWorkspace({ unit, o, templates }: { unit: Unit; o: Objective; tem
   const openNotes = () => nav(chapterNotePath(unit.id, unit.subject, chapter));
 
   return (
-    <Page title={L(o.title)} back="/learn" fullscreen actions={<ReportProblem lessonId={lessonId} questionId={reportQ?.id} contentVersion={reportQ?.version} />}>
+    <Page title={`${L(unit.title)} · ${L(o.title)}`} back="/learn" fullscreen actions={<ReportProblem lessonId={lessonId} questionId={reportQ?.id} contentVersion={reportQ?.version} />}>
       <div ref={rootRef} className={`lesson tier-${tier} ${scratch ? 'with-scratch' : ''}`}>
         <header className="lesson-head">
           <div className="lesson-titles">
-            <span className="muted lesson-unit">{L(unit.title)}</span>
+            <Link to="/learn" className="lesson-chapter-link" title="Back to Curriculum">
+              <Icon name="back" />
+              <span>{L(unit.title)}</span>
+            </Link>
             <h1>{L(o.title)}</h1>
           </div>
           <div className="lesson-tools">
@@ -229,9 +232,17 @@ function LessonWorkspace({ unit, o, templates }: { unit: Unit; o: Objective; tem
             {tier !== 'early' && <Button small icon="note" onClick={openNotes} title="My notes for this chapter">Notes</Button>}
           </div>
           <div className="lesson-mastery">
-            {mastery?.masteredAt
-              ? <span className="pill lq-mastered"><Icon name="star" />{t('mastered')}</span>
-              : <><span className="muted sm">{s('masteryProgress')}</span><Meter value={progress} label={s('masteryProgress')} /></>}
+            {mastery?.masteredAt ? (
+              <span className="pill lq-mastered"><Icon name="check" /> {t('mastered')}</span>
+            ) : (
+              <div className="lesson-mastery-wrap">
+                <div className="lesson-mastery-meta">
+                  <span className="lesson-mastery-label">{s('masteryProgress')}</span>
+                  <span className="lesson-mastery-pct">{Math.round(progress * 100)}%</span>
+                </div>
+                <Meter value={progress} label={s('masteryProgress')} />
+              </div>
+            )}
           </div>
         </header>
 

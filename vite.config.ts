@@ -115,6 +115,16 @@ function pictures(): Plugin {
 export default defineConfig({
   plugins: [pictures(), react(), packsManifest(), versionFile()],
   define: { __APP_VERSION__: JSON.stringify(`${BUILD.version}+${BUILD.commit}`), __BUILD_ID__: JSON.stringify(BUILD_ID) },
-  server: { proxy: { '/api': 'http://127.0.0.1:8787' } },
+  server: {
+    host: '127.0.0.1',
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8787',
+        changeOrigin: true,
+        timeout: 10000,
+      },
+    },
+  },
   build: { sourcemap: false, chunkSizeWarningLimit: 900 },
 });

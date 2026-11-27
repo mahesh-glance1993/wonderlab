@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;1,400&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "error-container": "#ffdad6",
+        "on-tertiary-fixed-variant": "#6e3900",
+        "on-error-container": "#93000a",
+        "primary-container": "#3e35b5",
+        "secondary": "#006a61",
+        "outline-variant": "#c8c4d6",
+        "surface-bright": "#f9f9ff",
+        "surface-container-low": "#f0f3ff",
+        "on-tertiary-container": "#ffa658",
+        "on-surface": "#141c2a",
+        "on-secondary-fixed": "#00201d",
+        "on-surface-variant": "#464554",
+        "on-primary-fixed-variant": "#3a30b1",
+        "tertiary-fixed": "#ffdcc3",
+        "tertiary-fixed-dim": "#ffb77d",
+        "on-secondary-container": "#006f66",
+        "secondary-fixed-dim": "#6bd8cb",
+        "surface-container-high": "#e0e8fd",
+        "secondary-fixed": "#89f5e7",
+        "inverse-primary": "#c3c0ff",
+        "on-secondary": "#ffffff",
+        "on-primary": "#ffffff",
+        "surface": "#f9f9ff",
+        "on-primary-container": "#b6b3ff",
+        "surface-container": "#e8eeff",
+        "secondary-container": "#86f2e4",
+        "primary-fixed-dim": "#c3c0ff",
+        "inverse-surface": "#293140",
+        "surface-variant": "#dbe2f7",
+        "on-error": "#ffffff",
+        "surface-dim": "#d2daee",
+        "surface-container-highest": "#dbe2f7",
+        "on-tertiary-fixed": "#2f1500",
+        "on-primary-fixed": "#100069",
+        "primary": "#25149f",
+        "on-background": "#141c2a",
+        "inverse-on-surface": "#ecf0ff",
+        "tertiary-container": "#733c00",
+        "outline": "#777585",
+        "primary-fixed": "#e3dfff",
+        "tertiary": "#522900",
+        "error": "#ba1a1a",
+        "surface-tint": "#534cca",
+        "surface-container-lowest": "#ffffff",
+        "on-tertiary": "#ffffff",
+        "background": "#f9f9ff",
+        "on-secondary-fixed-variant": "#005049"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "space-xl": "2.5rem",
+        "gutter-mobile": "1rem",
+        "space-md": "1rem",
+        "gutter": "1.5rem",
+        "space-sm": "0.5rem",
+        "space-lg": "1.5rem",
+        "margin": "1.5rem",
+        "space-xs": "0.25rem",
+        "margin-mobile": "1rem",
+        "margin-desktop": "3rem",
+        "gutter-desktop": "2rem"
+      },
+      "fontFamily": {
+        "display-lg": ["Outfit"],
+        "label-md": ["Be Vietnam Pro"],
+        "headline-lg-mobile": ["Outfit"],
+        "body-md": ["Be Vietnam Pro"],
+        "body-sm": ["Be Vietnam Pro"],
+        "headline-sm": ["Outfit"],
+        "title-lg": ["Outfit"],
+        "headline-lg": ["Outfit"],
+        "display-lg-mobile": ["Outfit"],
+        "title-md": ["Be Vietnam Pro"],
+        "label-sm": ["Be Vietnam Pro"],
+        "label-lg": ["Be Vietnam Pro"],
+        "headline-md": ["Outfit"],
+        "body-lg": ["Be Vietnam Pro"]
+      },
+      "fontSize": {
+        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+        "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "0em", "fontWeight": "600"}],
+        "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+        "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+        "title-lg": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+        "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+      }
+    }
+  }
+}</script></head><body class="bg-surface font-body-md text-on-surface select-none"><div class="fixed top-0 left-0 right-0 h-6 z-50 bg-surface/90 backdrop-blur-md px-gutter-mobile flex items-center justify-between text-on-surface-variant font-label-sm text-[11px]"><div class="flex items-center gap-space-xs font-semibold"><span class="text-on-surface">09:41 AM</span><span>•</span><span>WonderLab Studio</span></div><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[14px]">wifi</span><span class="material-symbols-outlined text-[14px]">battery_charging_full</span><span class="font-semibold text-on-surface">98%</span></div></div><aside class="fixed left-0 top-6 bottom-0 w-64 bg-surface-container-low/95 backdrop-blur-xl z-40 flex flex-col justify-between p-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col gap-space-md"><div class="flex items-center justify-between px-space-xs"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm"><span class="material-symbols-outlined text-[20px]">science</span></div><div><span class="font-title-lg text-title-lg tracking-tight text-on-surface block leading-none">WonderLab</span><span class="font-label-sm text-label-sm text-secondary block mt-0.5">Tablet Edition</span></div></div><button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">dock_to_left</span></button></div><div class="flex items-center justify-between bg-surface-container p-space-xs rounded-xl"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col"><span class="font-title-md text-title-md text-on-surface text-[14px] leading-tight">Aarav</span><span class="font-label-sm text-label-sm text-on-surface-variant text-[11px]">Class 5 • Explorer</span></div></div><span class="material-symbols-outlined text-on-surface-variant text-[18px] mr-1">verified_user</span></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-xl"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="home" href="#"><span class="material-symbols-outlined text-[20px]">home</span><span class="font-title-md text-title-md text-[14px]">Home</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all min-h-[44px] bg-primary-container text-on-primary-container font-semibold rounded-xl" data-path="curriculum" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span class="font-title-md text-title-md text-[14px]">Curriculum</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="what-next" href="#"><span class="material-symbols-outlined text-[20px]">explore</span><span class="font-title-md text-title-md text-[14px]">What Next</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="physics-lab" href="#"><span class="material-symbols-outlined text-[20px]">biotech</span><span class="font-title-md text-title-md text-[14px]">Physics Lab</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="art-studio" href="#"><span class="material-symbols-outlined text-[20px]">palette</span><span class="font-title-md text-title-md text-[14px]">Art Studio</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="games" href="#"><span class="material-symbols-outlined text-[20px]">sports_esports</span><span class="font-title-md text-title-md text-[14px]">Games</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="notes" href="#"><span class="material-symbols-outlined text-[20px]">edit_note</span><span class="font-title-md text-title-md text-[14px]">Notes</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="parent-zone" href="#"><span class="material-symbols-outlined text-[20px]">family_restroom</span><span class="font-title-md text-title-md text-[14px]">Parent Zone</span></a></nav></div><div class="pt-space-sm flex flex-col gap-space-sm"><div class="flex items-center justify-between bg-surface-container-lowest p-space-xs rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.03)]"><span class="font-label-sm text-label-sm text-on-surface-variant px-space-xs flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">translate</span>Lang</span><div class="flex items-center gap-0.5 bg-surface-container p-0.5 rounded-full"><button class="px-space-sm py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm transition-all" type="button">EN</button><button class="px-space-sm py-0.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all" type="button">తెలుగు</button></div></div><div class="flex items-center justify-between px-space-xs text-on-surface-variant"><span class="font-label-sm text-label-sm">Device: iPad Pro 11\"</span><span class="material-symbols-outlined text-[16px]">volume_up</span></div></div></aside><div class="pl-64"><header class="fixed top-6 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl z-30 flex items-center justify-between px-gutter shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">search</span></div><span class="font-body-sm text-body-sm text-outline">Search lessons, simulations, experiments...</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-secondary-container/40 text-on-secondary-container px-space-sm py-1 rounded-full font-label-md text-label-md"><span class="material-symbols-outlined text-[16px]">local_fire_department</span><span>7 Day Streak</span></div><button class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><button class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">help_center</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-22 bg-surface min-h-[calc(100vh-1.5rem)] px-gutter"><div class="flex flex-col w-full pb-10">
+<!-- Top Material You M3 Lesson Navigation & Tracker Bar -->
+<header class="w-full bg-surface-container-lowest rounded-3xl p-space-md mb-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-0">
+<a class="w-11 h-11 rounded-full bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors flex-shrink-0" data-path="curriculum" href="#">
+<span class="material-symbols-outlined text-[22px]">arrow_back</span>
+</a>
+<div class="min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="bg-secondary-container text-on-secondary-container px-2.5 py-0.5 rounded-full font-label-sm text-label-sm tracking-wide">
+              Unit 4 • SCERT Telangana &amp; CBSE
+            </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Class 5 Science</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface truncate mt-0.5">
+            Lesson: How Plants Make Food from Sunbeams
+          </h1>
+</div>
+</div>
+<div class="flex items-center gap-space-md flex-shrink-0">
+<!-- Step progress indicator -->
+<div class="flex flex-col items-end gap-1">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-primary font-semibold">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            Step 3 of 5 : The Leaf Kitchen
+          </div>
+<div class="w-36 h-2 rounded-full bg-surface-container-high overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-500" style="width: 60%;"></div>
+</div>
+</div>
+<!-- Quick actions -->
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" title="Bookmark" type="button">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" title="Text-to-Speech Settings" type="button">
+<span class="material-symbols-outlined text-[20px]">record_voice_over</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Two-Column Responsive Tablet Workspace (58% / 42%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN (58% approx 7 cols): Reading & Interactive Model -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Pedagogical Header & Audio Companion -->
+<section class="bg-surface-container-lowest rounded-[28px] p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex-1">
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">yard</span>
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider">Botanical Deep Dive</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface leading-tight">
+              Inside the Green Solar Kitchen
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
+              Leaves are not just flat green surfaces. Under the microscope, each leaf is a busy factory packed with millions of solar cooking cells called chloroplasts.
+            </p>
+</div>
+<div class="w-14 h-14 rounded-2xl bg-secondary-container/60 text-on-secondary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[32px]">sunny</span>
+</div>
+</div>
+<!-- Bilingual Audio Player Floater (Material M3) -->
+<div class="bg-surface-container rounded-2xl p-space-sm flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<button class="w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm hover:scale-105 active:scale-95 transition-all flex-shrink-0" id="audio-play-btn" type="button">
+<span class="material-symbols-outlined text-[24px]">play_arrow</span>
+</button>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-md text-title-md text-on-surface text-[14px]">Bilingual Audio Narration</span>
+<span class="bg-surface-bright text-on-surface-variant text-[10px] px-1.5 py-0.5 rounded font-label-sm">HD Voice</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate text-[12px]">Narrated by Dr. Lakshmi (Telugu &amp; English)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<div class="hidden sm:flex items-center gap-1 text-[11px] font-label-sm text-on-surface-variant bg-surface-container-lowest px-2.5 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px] text-secondary">speed</span>
+              1.0x Pace
+            </div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+</button>
+</div>
+</div>
+</section>
+<!-- The Leaf Kitchen: Interactive Leaf Diagram Model -->
+<section class="bg-surface-container-lowest rounded-[28px] p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary">touch_app</span>
+              The Leaf Kitchen: An Inside Look
+            </h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Tap the 4 interactive ingredients to watch food synthesis</p>
+</div>
+<span class="text-xs bg-primary-fixed text-on-primary-fixed font-label-sm px-2.5 py-1 rounded-full">
+            Microscope 200x
+          </span>
+</div>
+<!-- Visual Interactive Canvas Surface -->
+<div class="relative w-full h-80 bg-surface-container rounded-2xl overflow-hidden shadow-inner flex items-center justify-center">
+<!-- Background botanical chloroplast art placeholder -->
+<div class="absolute inset-0 bg-cover bg-center opacity-85" data-alt="Stylized cutaway biological 3D digital illustration of a leaf plant cell cross section showing green stacked thylakoids, chloroplast membrane, stomata opening at bottom, water xylem conduits, warm sunlight rays streaming in from upper left, soft clean scientific lighting, studio quality educational render in violet, teal, and leaf green hues" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBKZTlubng_NaX7QUZdGy-Jc8Jlpo1HZTheLp_7vBtOrHpS6EMoLqj06b5Blbp_7w0p0DHWMYy_xIKiyaQHDmJkzsLFGmFTaqMmoHyhGZYVSETeHA6H7zbatW6tMq6eSE9cf7JZYVqoZF3i-eNgRGYAUAckJkaG4EVjTM3AEcQGaKeOky9vc83zH6f9-R4bDj6iKrATiMnOzWzrR6eBmNlsf24b8Ug7vAuwu3sMMNs')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container/90 via-transparent to-surface-container/30 pointer-events-none"></div>
+<!-- Interactive Hotspot 1: Sunlight -->
+<button class="group absolute top-6 left-10 flex items-center gap-2 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md hover:bg-surface-container-lowest hover:scale-105 transition-all text-left" onclick="inspectPart('sun')" type="button">
+<span class="w-6 h-6 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold text-xs">1</span>
+<div>
+<span class="block font-title-md text-title-md text-[13px] text-on-surface leading-tight">Sunlight</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant text-[10px]">Photon Energy</span>
+</div>
+<span class="material-symbols-outlined text-tertiary-container text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</button>
+<!-- Interactive Hotspot 2: Carbon Dioxide -->
+<button class="group absolute bottom-8 left-8 flex items-center gap-2 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md hover:bg-surface-container-lowest hover:scale-105 transition-all text-left" onclick="inspectPart('co2')" type="button">
+<span class="w-6 h-6 rounded-full bg-secondary-fixed-dim text-on-secondary-fixed flex items-center justify-center font-bold text-xs">2</span>
+<div>
+<span class="block font-title-md text-title-md text-[13px] text-on-surface leading-tight">CO₂ via Stomata</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant text-[10px]">Micro Pores</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</button>
+<!-- Interactive Hotspot 3: Water from Xylem -->
+<button class="group absolute bottom-12 right-10 flex items-center gap-2 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md hover:bg-surface-container-lowest hover:scale-105 transition-all text-left" onclick="inspectPart('water')" type="button">
+<span class="w-6 h-6 rounded-full bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center font-bold text-xs">3</span>
+<div>
+<span class="block font-title-md text-title-md text-[13px] text-on-surface leading-tight">Water (H₂O)</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant text-[10px]">Via Root Xylem</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</button>
+<!-- Interactive Hotspot 4: Glucose & Oxygen -->
+<button class="group absolute top-12 right-8 flex items-center gap-2 bg-surface-container-lowest/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md hover:bg-surface-container-lowest hover:scale-105 transition-all text-left" onclick="inspectPart('sugar')" type="button">
+<span class="w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-xs">4</span>
+<div>
+<span class="block font-title-md text-title-md text-[13px] text-on-surface leading-tight">Glucose + O₂</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant text-[10px]">Food &amp; Fresh Air</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+</button>
+<!-- Dynamic Chemical equation pill in center -->
+<div class="absolute bottom-3 bg-surface-container-lowest/90 px-4 py-1.5 rounded-full backdrop-blur-md shadow-sm border border-outline-variant/30 text-on-surface text-[12px] font-label-md flex items-center gap-1.5">
+<span class="font-semibold text-secondary">6 CO₂</span> + 
+            <span class="font-semibold text-primary">6 H₂O</span> + 
+            <span class="text-on-tertiary-fixed-variant">Light ☀️</span>
+<span>→</span>
+<span class="font-bold text-on-surface">C₆H₁₂O₆ (Glucose)</span> + 
+            <span class="font-semibold text-secondary">6 O₂</span>
+</div>
+</div>
+<!-- Dynamic Inspector Explanation Area -->
+<div class="bg-surface-container-low p-space-md rounded-2xl flex items-start gap-space-sm transition-all" id="inspector-output">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">info</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-on-surface" id="inspector-title">Interactive Focus: Chloroplast Cell</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5" id="inspector-desc">
+              Tap any numbered badge above to inspect how raw energy is captured and transformed inside the thylakoid discs.
+            </p>
+</div>
+</div>
+</section>
+<!-- Big Insight to Remember Card (Material You Container) -->
+<section class="bg-tertiary-fixed/30 rounded-[28px] p-space-lg flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[28px]">lightbulb</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-tertiary-fixed-variant tracking-wider uppercase font-bold block mb-1">
+            Big Insight to Remember • గుర్తుంచుకోవాల్సిన ముఖ్య విషయం
+          </span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">
+            "Plants drink water from roots, but breathe in carbon gas through microscopic leaf mouths!"
+          </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5">
+            Unlike humans who inhale Oxygen and exhale Carbon Dioxide, green leaves do the exact opposite during daytime sunlight!
+          </p>
+</div>
+</section>
+<!-- Formative Quick Discovery Check Quiz -->
+<section class="bg-surface-container-lowest rounded-[28px] p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[24px]">quiz</span>
+<span class="font-title-lg text-title-lg text-on-surface">Quick Discovery Check</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container px-3 py-1 rounded-full">
+            Question 1 of 1
+          </span>
+</div>
+<p class="font-title-md text-title-md text-on-surface">
+          Where does a mango tree capture the carbon dioxide gas needed to make its sweet sugars?
+        </p>
+<!-- Options Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm" id="quiz-options">
+<button class="quiz-btn text-left p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" onclick="selectAnswer(false, this)" type="button">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-semibold text-on-surface-variant mt-0.5 flex-shrink-0">A</div>
+<div>
+<span class="font-title-md text-title-md text-[14px] text-on-surface block">Deep Taproots in Soil</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Absorbs dissolved nitrates &amp; soil moisture</span>
+</div>
+</button>
+<button class="quiz-btn text-left p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" onclick="selectAnswer(true, this)" type="button">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-semibold text-on-surface-variant mt-0.5 flex-shrink-0">B</div>
+<div>
+<span class="font-title-md text-title-md text-[14px] text-on-surface block">Stomata Pores on Leaves</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Microscopic breathing openings under the blade</span>
+</div>
+</button>
+<button class="quiz-btn text-left p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" onclick="selectAnswer(false, this)" type="button">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-semibold text-on-surface-variant mt-0.5 flex-shrink-0">C</div>
+<div>
+<span class="font-title-md text-title-md text-[14px] text-on-surface block">Bark &amp; Trunk Lenticels</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Hard outer protective layer of tree trunk</span>
+</div>
+</button>
+<button class="quiz-btn text-left p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" onclick="selectAnswer(false, this)" type="button">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-semibold text-on-surface-variant mt-0.5 flex-shrink-0">D</div>
+<div>
+<span class="font-title-md text-title-md text-[14px] text-on-surface block">Flower Petals &amp; Pollen</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Attracts honeybees and butterflies</span>
+</div>
+</button>
+</div>
+<!-- Quiz Feedback Banner (hidden by default) -->
+<div class="hidden p-space-md rounded-2xl bg-secondary-container text-on-secondary-container flex items-start gap-space-sm" id="quiz-feedback">
+<span class="material-symbols-outlined text-[24px] text-secondary flex-shrink-0">verified</span>
+<div>
+<span class="font-title-md text-title-md font-bold block">Spot on, Botanist Aarav! 🌿</span>
+<p class="font-body-sm text-body-sm mt-0.5">
+              Stomata open like microscopic nostrils on the underside of leaves to swallow carbon dioxide molecules while releasing pure oxygen for us to breathe!
+            </p>
+</div>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN (42% approx 5 cols): Stylus Scratchpad & Notes Drawer -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- S Pen / Stylus Sketchpad Card -->
+<section class="bg-surface-container-lowest rounded-[28px] p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">draw</span>
+<h3 class="font-title-lg text-title-lg text-on-surface">S Pen Scratchpad</h3>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container/40 px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">stylus</span> Stylus Active
+          </span>
+</div>
+<!-- Stylus Tool Bar -->
+<div class="flex items-center justify-between bg-surface-container-low p-space-xs rounded-2xl">
+<!-- Color Palette Swatches -->
+<div class="flex items-center gap-space-xs">
+<button class="pen-color-btn w-7 h-7 rounded-full bg-secondary ring-2 ring-offset-2 ring-primary transition-all" onclick="setPenColor('#006A61', this)" title="Leaf Green" type="button"></button>
+<button class="pen-color-btn w-7 h-7 rounded-full bg-tertiary ring-0 transition-all" onclick="setPenColor('#522900', this)" title="Soil Brown" type="button"></button>
+<button class="pen-color-btn w-7 h-7 rounded-full bg-tertiary-container ring-0 transition-all" onclick="setPenColor('#733C00', this)" title="Sun Yellow" type="button"></button>
+<button class="pen-color-btn w-7 h-7 rounded-full bg-primary ring-0 transition-all" onclick="setPenColor('#25149F', this)" title="Water Blue" type="button"></button>
+</div>
+<!-- Pen Thickness & Utility -->
+<div class="flex items-center gap-space-xs">
+<button class="px-2 py-1 rounded-lg text-xs font-label-sm bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors" onclick="setStrokeWidth(2)" type="button">Fine</button>
+<button class="px-2 py-1 rounded-lg text-xs font-label-sm bg-primary text-on-primary shadow-xs transition-colors" onclick="setStrokeWidth(5)" type="button">Medium</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-error transition-colors" onclick="clearCanvas()" title="Clear Canvas" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors" onclick="undoCanvas()" title="Undo" type="button">
+<span class="material-symbols-outlined text-[18px]">undo</span>
+</button>
+</div>
+</div>
+<!-- Interactive Canvas Area -->
+<div class="relative w-full h-64 bg-surface-container rounded-2xl overflow-hidden shadow-inner touch-none">
+<canvas class="w-full h-full cursor-crosshair" id="sketchpad-canvas"></canvas>
+<!-- Background botanical leaf diagram overlay guide -->
+<div class="absolute inset-0 pointer-events-none flex flex-col justify-between p-space-sm opacity-40" id="canvas-guide">
+<div class="text-[11px] font-label-sm text-outline flex items-center justify-between">
+<span>Upper Cuticle Layer ➔</span>
+<span>☀️ Light Penetration</span>
+</div>
+<div class="text-[11px] font-label-sm text-outline flex items-center justify-between">
+<span>⟵ Leaf Vein (Xylem / Phloem)</span>
+<span>Lower Stoma Pore ➔</span>
+</div>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant px-space-xs">
+          Tip: Trace the central xylem vein and label how water climbs upward from the stem.
+        </p>
+</section>
+<!-- Personal Discovery Reflection with Handwriting-to-Text -->
+<section class="bg-surface-container-lowest rounded-[28px] p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">edit_note</span>
+<h3 class="font-title-md text-title-md text-on-surface">Personal Discovery Reflection</h3>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface-variant px-2 py-0.5 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">auto_fix_high</span> OCR Converted
+          </span>
+</div>
+<div class="bg-surface-container-low rounded-2xl p-space-md">
+<div class="flex items-center justify-between text-[11px] font-label-sm text-on-surface-variant mb-1">
+<span>Aarav's Stylus Handwriting Transcript:</span>
+<span class="text-secondary font-semibold">Saved 2m ago</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface italic bg-surface-container-lowest p-space-sm rounded-xl">
+            "A leaf takes in carbon dioxide and makes food when sun shines. Roots send water up like straws. Without green chlorophyll, our world would have no breakfast!"
+          </p>
+</div>
+</section>
+<!-- Quick Botanical Bilingual Glossary -->
+<section class="bg-surface-container-lowest rounded-[28px] p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant text-[20px]">translate</span>
+<h3 class="font-title-md text-title-md text-on-surface">Botanical Terms • నిఘంటువు</h3>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Class 5 Exam Focus</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<!-- Item 1: Stomata -->
+<div class="p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between">
+<div>
+<span class="font-title-md text-title-md text-[14px] text-on-surface block">Stomata (పత్రరంధ్రాలు)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Microscopic pores on leaf underbelly for gas exchange</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" title="Pronounce Telugu" type="button">
+<span class="material-symbols-outlined text-[16px]">volume_up</span>
+</button>
+</div>
+<!-- Item 2: Chlorophyll -->
+<div class="p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between">
+<div>
+<span class="font-title-md text-title-md text-[14px] text-on-surface block">Chlorophyll (పత్రహరితం)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">The natural emerald pigment that catches sun energy</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" title="Pronounce Telugu" type="button">
+<span class="material-symbols-outlined text-[16px]">volume_up</span>
+</button>
+</div>
+<!-- Item 3: Photosynthesis -->
+<div class="p-space-sm rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between">
+<div>
+<span class="font-title-md text-title-md text-[14px] text-on-surface block">Photosynthesis (కిరణజన్య సంయోగక్రియ)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-[12px]">Photo = Light, Synthesis = Putting together with sun</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-on-surface" title="Pronounce Telugu" type="button">
+<span class="material-symbols-outlined text-[16px]">volume_up</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Persistent Action Bar Buttons -->
+<div class="flex flex-col sm:flex-row items-center gap-space-sm mt-space-xs">
+<button class="w-full sm:w-1/2 py-3 px-space-md rounded-2xl bg-surface-container hover:bg-surface-container-high text-primary font-title-md text-title-md text-[14px] flex items-center justify-center gap-2 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">note_add</span>
+          Add to Aarav's Notes
+        </button>
+<button class="w-full sm:w-1/2 py-3 px-space-md rounded-2xl bg-primary text-on-primary font-title-md text-title-md text-[14px] shadow-sm hover:opacity-95 active:scale-98 flex items-center justify-center gap-2 transition-all" type="button">
+<span>Continue to Lab</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Dynamic Model Inspector Interactions
+  const modelData = {
+    sun: {
+      title: "1. Sunlight Absorption (సౌర శక్తి)",
+      desc: "Chlorophyll pigments inside the green thylakoids catch light waves like miniature solar panels to split water molecules."
+    },
+    co2: {
+      title: "2. Carbon Dioxide Intake (కార్బన్ డయాక్సైడ్)",
+      desc: "Stomata open during daylight to pull carbon gas straight out of ambient room air through guard cell gates."
+    },
+    water: {
+      title: "3. Water Transport via Xylem (నీటి ప్రసరణ)",
+      desc: "H2O moves upwards against gravity from roots through hollow xylem pipes right into leaf sponge cells."
+    },
+    sugar: {
+      title: "4. Glucose Food & Oxygen Release (గ్లూకోజ్ & ఆక్సిజన్)",
+      desc: "Energy is locked inside simple sugar (C6H12O6) stored as starch, while vital oxygen gas is released back into the classroom."
+    }
+  };
+
+  function inspectPart(key) {
+    const data = modelData[key];
+    if (!data) return;
+    const box = document.getElementById('inspector-output');
+    const title = document.getElementById('inspector-title');
+    const desc = document.getElementById('inspector-desc');
+    
+    title.innerText = data.title;
+    desc.innerText = data.desc;
+    box.classList.add('bg-primary-fixed', 'text-on-primary-fixed');
+    setTimeout(() => {
+      box.classList.remove('bg-primary-fixed', 'text-on-primary-fixed');
+    }, 400);
+  }
+
+  // Quiz evaluation
+  function selectAnswer(isCorrect, btnElement) {
+    const feedback = document.getElementById('quiz-feedback');
+    const allBtns = document.querySelectorAll('.quiz-btn');
+    
+    allBtns.forEach(b => {
+      b.classList.remove('bg-primary-container', 'text-on-primary-container', 'bg-error-container', 'text-on-error-container');
+      b.classList.add('bg-surface-container-low');
+    });
+
+    if (isCorrect) {
+      btnElement.classList.remove('bg-surface-container-low');
+      btnElement.classList.add('bg-secondary-container', 'text-on-secondary-container');
+      feedback.classList.remove('hidden');
+    } else {
+      btnElement.classList.remove('bg-surface-container-low');
+      btnElement.classList.add('bg-error-container', 'text-on-error-container');
+    }
+  }
+
+  // S Pen Canvas Interactive Implementation
+  (function initCanvas() {
+    const canvas = document.getElementById('sketchpad-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    // Set internal resolution matching element
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      drawSampleLeaf();
+    }
+
+    let isDrawing = false;
+    let strokeColor = '#006A61';
+    let strokeWidth = 5;
+    let history = [];
+
+    window.setPenColor = function(color, btn) {
+      strokeColor = color;
+      document.querySelectorAll('.pen-color-btn').forEach(b => b.classList.remove('ring-2', 'ring-offset-2', 'ring-primary'));
+      btn.classList.add('ring-2', 'ring-offset-2', 'ring-primary');
+    };
+
+    window.setStrokeWidth = function(width) {
+      strokeWidth = width;
+    };
+
+    window.clearCanvas = function() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      history = [];
+    };
+
+    window.undoCanvas = function() {
+      if (history.length > 0) {
+        history.pop();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (history.length > 0) {
+          ctx.putImageData(history[history.length - 1], 0, 0);
+        }
+      }
+    };
+
+    function startDraw(e) {
+      isDrawing = true;
+      ctx.beginPath();
+      const pos = getPos(e);
+      ctx.moveTo(pos.x, pos.y);
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      const pos = getPos(e);
+      ctx.lineWidth = strokeWidth;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = strokeColor;
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    }
+
+    function stopDraw() {
+      if (isDrawing) {
+        isDrawing = false;
+        history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+      }
+    }
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    // Default pre-drawn student sketch
+    function drawSampleLeaf() {
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = '#006A61';
+      ctx.beginPath();
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      // Leaf outline
+      ctx.ellipse(cx, cy, canvas.width * 0.35, canvas.height * 0.22, -0.15, 0, 2 * Math.PI);
+      ctx.stroke();
+
+      // Main central vein
+      ctx.beginPath();
+      ctx.moveTo(cx - canvas.width * 0.35, cy + 10);
+      ctx.quadraticCurveTo(cx, cy - 10, cx + canvas.width * 0.35, cy - 15);
+      ctx.stroke();
+
+      // Secondary veins
+      ctx.lineWidth = 1.5;
+      for (let i = -100; i < 100; i += 40) {
+        ctx.beginPath();
+        ctx.moveTo(cx + i, cy - 5);
+        ctx.lineTo(cx + i + 25, cy - 35);
+        ctx.stroke();
+      }
+
+      history.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    }
+
+    // Touch & pointer events
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('mouseup', stopDraw);
+    canvas.addEventListener('mouseleave', stopDraw);
+
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); startDraw(e); }, { passive: false });
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e); }, { passive: false });
+    canvas.addEventListener('touchend', stopDraw);
+
+    setTimeout(resizeCanvas, 50);
+  })();
+
+  // Audio Play Toggle Micro-interaction
+  const audioBtn = document.getElementById('audio-play-btn');
+  let isPlaying = false;
+  if (audioBtn) {
+    audioBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      const icon = audioBtn.querySelector('.material-symbols-outlined');
+      if (icon) {
+        icon.innerText = isPlaying ? 'pause' : 'play_arrow';
+      }
+      audioBtn.classList.toggle('bg-secondary', isPlaying);
+      audioBtn.classList.toggle('bg-primary', !isPlaying);
+    });
+  }
+</script></main></div></body></html>

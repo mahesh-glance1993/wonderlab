@@ -260,7 +260,8 @@ const ch2: USpec = {
       ],
       practice: [
         tp('value', (r) => {
-          let t = r.int(1, 9), o = r.int(1, 9);
+          const t = r.int(1, 9);
+          let o = r.int(1, 9);
           if (t === o) o = o === 9 ? 1 : o + 1;
           const n = t * 10 + o, askT = r.int(0, 1) === 1, d = askT ? t : o, v = askT ? t * 10 : o;
           return mcqN(r, L(`What is the value of ${d} in ${n}?`, `${n} లో ${d} విలువ ఎంత?`), v, askT ? [t, o, o * 10] : [o * 10, t, t * 10],
@@ -294,7 +295,8 @@ const ch2: USpec = {
       ],
       practice: [
         tp('name', (r) => {
-          let t = r.int(2, 9), o = r.int(1, 9);
+          const t = r.int(2, 9);
+          let o = r.int(1, 9);
           if (t === o) o = o === 9 ? 1 : o + 1;
           const n = t * 10 + o;
           return mcq(r, L(`Which is the name of ${n}?`, `${n} పేరు ఏది?`), word(n), [word(o * 10 + t), word(n + 1), word(t * 10)],

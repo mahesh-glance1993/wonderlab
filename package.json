@@ -23,6 +23,8 @@
     "check": "npm run typecheck && npm run lint && npm test && vite build"
   },
   "dependencies": {
+    "@capacitor/core": "^8.6.0",
+    "@capacitor/ios": "^8.6.0",
     "hono": "^4.13.17",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

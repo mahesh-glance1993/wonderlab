@@ -22,7 +22,7 @@ export const en = {
   e_play: 'Play & Learn',
   englishCourse: 'English',
   // common
-  start: 'Start', next: 'Next', back: 'Back', done: 'Done', check: 'Check', tryAgain: 'Try again', hint: 'Hint', showHint: 'Show a hint',
+  start: 'Start', next: 'Next', back: 'Back', home: 'Home', done: 'Done', check: 'Check', tryAgain: 'Try again', hint: 'Hint', showHint: 'Show a hint',
   listen: 'Listen', replay: 'Play again', stop: 'Stop', mute: 'Mute', unmute: 'Sound on', close: 'Close', save: 'Save', cancel: 'Cancel', restart: 'Restart',
   correct: 'Correct!', notQuite: 'Not quite', wellDone: 'Well done!', greatJob: 'Great job!', tryThis: 'Try this one',
   learn: 'Learn', practice: 'Practice', test: 'Test', review: 'Review', submit: 'Submit',

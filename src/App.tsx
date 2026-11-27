@@ -9,6 +9,7 @@ import { OfflineBar } from './features/downloads/OfflineBar';
 import { clearRepeat } from './lib/audio';
 import { RouteErrorBoundary } from './ui/ErrorBoundary';
 import { installPictures, pictureStyleFor, setPictureStyle } from './lib/pictures';
+import { AppShell } from './ui/AppShell';
 
 const Auth = lazy(() => import('./features/auth'));
 const Home = lazy(() => import('./features/home/Home'));
@@ -48,7 +49,7 @@ function NeedLearner({ children }: { children: ReactNode }) {
   if (!account) return <Navigate to={`/signin?next=${encodeURIComponent(loc.pathname + loc.search)}`} replace />;
   if (!profiles.length) return <Navigate to="/setup" replace />;
   if (!profile) return <Navigate to={`/who?next=${encodeURIComponent(loc.pathname + loc.search)}`} replace />;
-  return <>{children}</>;
+  return <AppShell>{children}</AppShell>;
 }
 function NeedEducator({ children }: { children: ReactNode }) {
   const { ready, account } = useApp();

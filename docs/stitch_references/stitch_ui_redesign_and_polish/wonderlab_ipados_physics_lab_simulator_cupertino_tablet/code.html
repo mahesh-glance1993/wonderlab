@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;1,400&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "error-container": "#ffdad6",
+        "on-tertiary-fixed-variant": "#6e3900",
+        "on-error-container": "#93000a",
+        "primary-container": "#3e35b5",
+        "secondary": "#006a61",
+        "outline-variant": "#c8c4d6",
+        "surface-bright": "#f9f9ff",
+        "surface-container-low": "#f0f3ff",
+        "on-tertiary-container": "#ffa658",
+        "on-surface": "#141c2a",
+        "on-secondary-fixed": "#00201d",
+        "on-surface-variant": "#464554",
+        "on-primary-fixed-variant": "#3a30b1",
+        "tertiary-fixed": "#ffdcc3",
+        "tertiary-fixed-dim": "#ffb77d",
+        "on-secondary-container": "#006f66",
+        "secondary-fixed-dim": "#6bd8cb",
+        "surface-container-high": "#e0e8fd",
+        "secondary-fixed": "#89f5e7",
+        "inverse-primary": "#c3c0ff",
+        "on-secondary": "#ffffff",
+        "on-primary": "#ffffff",
+        "surface": "#f9f9ff",
+        "on-primary-container": "#b6b3ff",
+        "surface-container": "#e8eeff",
+        "secondary-container": "#86f2e4",
+        "primary-fixed-dim": "#c3c0ff",
+        "inverse-surface": "#293140",
+        "surface-variant": "#dbe2f7",
+        "on-error": "#ffffff",
+        "surface-dim": "#d2daee",
+        "surface-container-highest": "#dbe2f7",
+        "on-tertiary-fixed": "#2f1500",
+        "on-primary-fixed": "#100069",
+        "primary": "#25149f",
+        "on-background": "#141c2a",
+        "inverse-on-surface": "#ecf0ff",
+        "tertiary-container": "#733c00",
+        "outline": "#777585",
+        "primary-fixed": "#e3dfff",
+        "tertiary": "#522900",
+        "error": "#ba1a1a",
+        "surface-tint": "#534cca",
+        "surface-container-lowest": "#ffffff",
+        "on-tertiary": "#ffffff",
+        "background": "#f9f9ff",
+        "on-secondary-fixed-variant": "#005049"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "space-xl": "2.5rem",
+        "gutter-mobile": "1rem",
+        "space-md": "1rem",
+        "gutter": "1.5rem",
+        "space-sm": "0.5rem",
+        "space-lg": "1.5rem",
+        "margin": "1.5rem",
+        "space-xs": "0.25rem",
+        "margin-mobile": "1rem",
+        "margin-desktop": "3rem",
+        "gutter-desktop": "2rem"
+      },
+      "fontFamily": {
+        "display-lg": ["Outfit"],
+        "label-md": ["Be Vietnam Pro"],
+        "headline-lg-mobile": ["Outfit"],
+        "body-md": ["Be Vietnam Pro"],
+        "body-sm": ["Be Vietnam Pro"],
+        "headline-sm": ["Outfit"],
+        "title-lg": ["Outfit"],
+        "headline-lg": ["Outfit"],
+        "display-lg-mobile": ["Outfit"],
+        "title-md": ["Be Vietnam Pro"],
+        "label-sm": ["Be Vietnam Pro"],
+        "label-lg": ["Be Vietnam Pro"],
+        "headline-md": ["Outfit"],
+        "body-lg": ["Be Vietnam Pro"]
+      },
+      "fontSize": {
+        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+        "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "0em", "fontWeight": "600"}],
+        "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}],
+        "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}],
+        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+        "title-lg": ["18px", {"lineHeight": "26px", "fontWeight": "600"}],
+        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+        "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+        "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+      }
+    }
+  }
+}</script></head><body class="bg-surface font-body-md text-on-surface select-none"><div class="fixed top-0 left-0 right-0 h-6 z-50 bg-surface/90 backdrop-blur-md px-gutter-mobile flex items-center justify-between text-on-surface-variant font-label-sm text-[11px]"><div class="flex items-center gap-space-xs font-semibold"><span class="text-on-surface">09:41 AM</span><span>•</span><span>WonderLab Studio</span></div><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[14px]">wifi</span><span class="material-symbols-outlined text-[14px]">battery_charging_full</span><span class="font-semibold text-on-surface">98%</span></div></div><aside class="fixed left-0 top-6 bottom-0 w-64 bg-surface-container-low/95 backdrop-blur-xl z-40 flex flex-col justify-between p-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col gap-space-md"><div class="flex items-center justify-between px-space-xs"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm"><span class="material-symbols-outlined text-[20px]">science</span></div><div><span class="font-title-lg text-title-lg tracking-tight text-on-surface block leading-none">WonderLab</span><span class="font-label-sm text-label-sm text-secondary block mt-0.5">Tablet Edition</span></div></div><button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">dock_to_left</span></button></div><div class="flex items-center justify-between bg-surface-container p-space-xs rounded-xl"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col"><span class="font-title-md text-title-md text-on-surface text-[14px] leading-tight">Aarav</span><span class="font-label-sm text-label-sm text-on-surface-variant text-[11px]">Class 5 • Explorer</span></div></div><span class="material-symbols-outlined text-on-surface-variant text-[18px] mr-1">verified_user</span></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary-container font-semibold rounded-xl"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="home" href="#"><span class="material-symbols-outlined text-[20px]">home</span><span class="font-title-md text-title-md text-[14px]">Home</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="curriculum" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span class="font-title-md text-title-md text-[14px]">Curriculum</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="what-next" href="#"><span class="material-symbols-outlined text-[20px]">explore</span><span class="font-title-md text-title-md text-[14px]">What Next</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all min-h-[44px] bg-primary-container text-on-primary-container font-semibold rounded-xl" data-path="physics-lab" href="#"><span class="material-symbols-outlined text-[20px]">biotech</span><span class="font-title-md text-title-md text-[14px]">Physics Lab</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="art-studio" href="#"><span class="material-symbols-outlined text-[20px]">palette</span><span class="font-title-md text-title-md text-[14px]">Art Studio</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="games" href="#"><span class="material-symbols-outlined text-[20px]">sports_esports</span><span class="font-title-md text-title-md text-[14px]">Games</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="notes" href="#"><span class="material-symbols-outlined text-[20px]">edit_note</span><span class="font-title-md text-title-md text-[14px]">Notes</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all min-h-[44px]" data-path="parent-zone" href="#"><span class="material-symbols-outlined text-[20px]">family_restroom</span><span class="font-title-md text-title-md text-[14px]">Parent Zone</span></a></nav></div><div class="pt-space-sm flex flex-col gap-space-sm"><div class="flex items-center justify-between bg-surface-container-lowest p-space-xs rounded-full shadow-[0_1px_4px_rgba(0,0,0,0.03)]"><span class="font-label-sm text-label-sm text-on-surface-variant px-space-xs flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">translate</span>Lang</span><div class="flex items-center gap-0.5 bg-surface-container p-0.5 rounded-full"><button class="px-space-sm py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm transition-all" type="button">EN</button><button class="px-space-sm py-0.5 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm transition-all" type="button">తెలుగు</button></div></div><div class="flex items-center justify-between px-space-xs text-on-surface-variant"><span class="font-label-sm text-label-sm">Device: iPad Pro 11\"</span><span class="material-symbols-outlined text-[16px]">volume_up</span></div></div></aside><div class="pl-64"><header class="fixed top-6 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl z-30 flex items-center justify-between px-gutter shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">search</span></div><span class="font-body-sm text-body-sm text-outline">Search lessons, simulations, experiments...</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-secondary-container/40 text-on-secondary-container px-space-sm py-1 rounded-full font-label-md text-label-md"><span class="material-symbols-outlined text-[16px]">local_fire_department</span><span>7 Day Streak</span></div><button class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><button class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">help_center</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="w-full pt-22 bg-surface min-h-[calc(100vh-1.5rem)] px-gutter"><div class="flex flex-col w-full pb-space-lg">
+<!-- Top iPad Sub-header Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-lowest/80 backdrop-blur-xl p-space-sm rounded-xl shadow-sm mb-space-md">
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-1 px-space-sm py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_back_ios_new</span>
+<span>Physics Lab</span>
+</button>
+<div class="h-5 w-px bg-surface-variant"></div>
+<div>
+<div class="flex items-center gap-2">
+<h1 class="font-title-lg text-title-lg text-on-surface leading-tight">Prism Refraction &amp; Dispersion</h1>
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span>Live Interactive</span>
+</div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Class 5 Optics • Module 3</span>
+</div>
+</div>
+<!-- Toolbar controls -->
+<div class="flex items-center gap-space-sm">
+<!-- Telugu / English Audio Explanation Pill -->
+<div class="flex items-center gap-1 bg-surface-container p-1 rounded-full">
+<button class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm transition-all" id="audio-toggle-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">headphones</span>
+<span id="audio-lang-text">Listen (EN)</span>
+</button>
+<button class="px-2.5 py-1 rounded-full text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" id="lang-swap-btn" type="button">
+          తెలుగు
+        </button>
+</div>
+<!-- Apple Pencil Snapshot CTA -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md transition-colors shadow-sm" id="snapshot-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">draw</span>
+<span>Pencil Snapshot</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors" title="Lab Guide" type="button">
+<span class="material-symbols-outlined text-[18px]">info</span>
+</button>
+</div>
+</div>
+<!-- Main 2-Pane Tablet Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<!-- LEFT PANE: 62% Optical Bench Simulation Stage (Col 7 in 12-col desktop/tablet) -->
+<div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-space-sm">
+<div class="relative w-full rounded-xl overflow-hidden bg-[#0d121c] shadow-md select-none">
+<!-- Canvas Overlay Controls (Top Floating) -->
+<div class="absolute top-3 left-3 right-3 flex items-center justify-between z-20 pointer-events-none">
+<div class="pointer-events-auto flex items-center gap-2 bg-[#141c2a]/80 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-white/90">
+<span class="material-symbols-outlined text-[16px] text-secondary-fixed">light_mode</span>
+<span class="font-label-sm text-label-sm tracking-wide">Optical Bench • Dark Chamber</span>
+<span class="text-white/30">•</span>
+<span class="font-label-sm text-label-sm text-secondary-fixed" id="prism-glass-label">Flint Glass (n = 1.62)</span>
+</div>
+<div class="pointer-events-auto flex items-center gap-1.5">
+<button class="w-8 h-8 rounded-full bg-[#141c2a]/80 backdrop-blur-md text-white/80 hover:text-white flex items-center justify-center transition-colors border border-white/10" id="reset-stage-btn" title="Reset Beam" type="button">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-[#141c2a]/80 backdrop-blur-md text-white/80 hover:text-white flex items-center justify-center transition-colors border border-white/10" id="fullscreen-stage-btn" title="Full Stage Mode" type="button">
+<span class="material-symbols-outlined text-[16px]">fullscreen</span>
+</button>
+</div>
+</div>
+<!-- Touch Instruction Badge -->
+<div class="absolute bottom-3 left-3 z-20 pointer-events-none">
+<div class="flex items-center gap-2 bg-[#141c2a]/90 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-white/80 shadow-lg">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed animate-bounce">pan_tool_alt</span>
+<span class="font-label-sm text-label-sm">Drag glowing emitter or adjust angle slider</span>
+</div>
+</div>
+<!-- Readout HUD Badge -->
+<div class="absolute bottom-3 right-3 z-20 pointer-events-none flex flex-col items-end gap-1 font-mono">
+<div class="bg-[#141c2a]/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-white text-right">
+<div class="font-label-sm text-label-sm text-white/60">Emergence Angle (δ)</div>
+<div class="font-title-lg text-title-lg text-secondary-fixed leading-tight" id="hud-dev-angle">38.4°</div>
+</div>
+</div>
+<!-- Interactive SVG Optical Stage -->
+<svg class="w-full h-auto block touch-none cursor-crosshair" id="optical-stage" viewbox="0 0 800 520">
+<defs>
+<!-- Prism Material Gradient & Glows -->
+<lineargradient id="prism-body" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#4f759b" stop-opacity="0.32"></stop>
+<stop offset="50%" stop-color="#80a8cc" stop-opacity="0.18"></stop>
+<stop offset="100%" stop-color="#2d4a69" stop-opacity="0.4"></stop>
+</lineargradient>
+<filter height="140%" id="laser-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="3.5"></fegaussianblur>
+<femerge>
+<femergenode in="blur"></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+<filter height="160%" id="soft-glow" width="160%" x="-30%" y="-30%">
+<fegaussianblur result="blur2" stddeviation="6"></fegaussianblur>
+<femerge>
+<femergenode in="blur2"></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+<!-- Incident White Beam Radial Pulse -->
+<radialgradient id="torch-emitter">
+<stop offset="0%" stop-color="#ffffff"></stop>
+<stop offset="40%" stop-color="#c3c0ff"></stop>
+<stop offset="100%" stop-color="#3e35b5" stop-opacity="0"></stop>
+</radialgradient>
+</defs>
+<!-- Bench Grid Matrix (Subtle pedagogical coordinate system) -->
+<g opacity="0.08" stroke="#ffffff" stroke-width="0.75">
+<line x1="80" x2="80" y1="0" y2="520"></line>
+<line x1="160" x2="160" y1="0" y2="520"></line>
+<line x1="240" x2="240" y1="0" y2="520"></line>
+<line x1="320" x2="320" y1="0" y2="520"></line>
+<line x1="400" x2="400" y1="0" y2="520"></line>
+<line x1="480" x2="480" y1="0" y2="520"></line>
+<line x1="560" x2="560" y1="0" y2="520"></line>
+<line x1="640" x2="640" y1="0" y2="520"></line>
+<line x1="720" x2="720" y1="0" y2="520"></line>
+<line x1="0" x2="800" y1="65" y2="65"></line>
+<line x1="0" x2="800" y1="130" y2="130"></line>
+<line x1="0" x2="800" y1="195" y2="195"></line>
+<line x1="0" x2="800" y1="260" y2="260"></line>
+<line x1="0" x2="800" y1="325" y2="325"></line>
+<line x1="0" x2="800" y1="390" y2="390"></line>
+<line x1="0" x2="800" y1="455" y2="455"></line>
+</g>
+<!-- Equilateral Triangular Prism (Apex Angle = 60°, Center at x=410, y=270) -->
+<!-- Apex: (410, 110), Left Base: (265, 395), Right Base: (555, 395) -->
+<polygon fill="url(#prism-body)" id="prism-geometry" opacity="0.9" points="410,110 265,395 555,395" stroke="#89f5e7" stroke-linejoin="round" stroke-width="1.5"></polygon>
+<!-- Prism Optical Apex Indicator -->
+<circle cx="410" cy="110" fill="#89f5e7" r="3"></circle>
+<text fill="#89f5e7" font-family="'Be Vietnam Pro', sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="410" y="96">Apex A = 60°</text>
+<!-- Normals Layer (Toggled via Switch) -->
+<g id="normals-group" opacity="1">
+<!-- Normal 1 on Left Face -->
+<line id="norm1-line" opacity="0.7" stroke="#89f5e7" stroke-dasharray="4 3" stroke-width="1" x1="260" x2="390" y1="205" y2="280"></line>
+<text fill="#89f5e7" font-family="'Be Vietnam Pro', sans-serif" font-size="10" x="250" y="200">N₁</text>
+<!-- Normal 2 on Right Face -->
+<line id="norm2-line" opacity="0.7" stroke="#89f5e7" stroke-dasharray="4 3" stroke-width="1" x1="435" x2="560" y1="225" y2="295"></line>
+<text fill="#89f5e7" font-family="'Be Vietnam Pro', sans-serif" font-size="10" x="568" y="300">N₂</text>
+<!-- Angle of Incidence &Theta;i arc -->
+<path d="M 285 240 A 24 24 0 0 1 310 236" fill="none" id="angle-arc" stroke="#ffdcc3" stroke-width="1.5"></path>
+<text fill="#ffdcc3" font-family="'Outfit', sans-serif" font-size="11" font-weight="600" id="angle-text" x="290" y="222">θᵢ = 48°</text>
+</g>
+<!-- Dynamic Ray Paths -->
+<!-- Incident White Ray -->
+<line filter="url(#soft-glow)" id="incident-ray-ambient" opacity="0.15" stroke="#ffffff" stroke-width="6" x1="100" x2="320" y1="210" y2="250"></line>
+<line filter="url(#laser-glow)" id="incident-ray" stroke="#ffffff" stroke-width="2.5" x1="100" x2="320" y1="210" y2="250"></line>
+<!-- Internal Dispersed Rays (Inside Prism: 320,250 to face point ~480,265) -->
+<g id="internal-rays">
+<!-- Red Internal Ray -->
+<line id="int-red" opacity="0.85" stroke="#ff4d4d" stroke-width="1.5" x1="320" x2="480" y1="250" y2="258"></line>
+<!-- Orange/Yellow -->
+<line id="int-yellow" opacity="0.85" stroke="#ffb833" stroke-width="1.2" x1="320" x2="480" y1="250" y2="263"></line>
+<!-- Green -->
+<line id="int-green" opacity="0.85" stroke="#33ff88" stroke-width="1.2" x1="320" x2="480" y1="250" y2="268"></line>
+<!-- Cyan/Blue -->
+<line id="int-blue" opacity="0.85" stroke="#33aaff" stroke-width="1.2" x1="320" x2="480" y1="250" y2="273"></line>
+<!-- Violet Internal Ray -->
+<line id="int-violet" opacity="0.85" stroke="#b64dff" stroke-width="1.5" x1="320" x2="480" y1="250" y2="278"></line>
+</g>
+<!-- Emerging VIBGYOR Spectrum Fan Rays -->
+<g id="emergent-spectrum" opacity="1">
+<!-- Red (Least deviated: ~700nm) -->
+<path d="M 480 258 L 730 310" filter="url(#laser-glow)" id="ray-red" stroke="#ff4141" stroke-width="3"></path>
+<text fill="#ff7a7a" font-family="'Outfit', sans-serif" font-size="10" font-weight="600" id="lbl-red" x="738" y="314">R 700nm</text>
+<!-- Orange (~620nm) -->
+<path d="M 480 262 L 730 330" id="ray-orange" opacity="0.9" stroke="#ff8c26" stroke-width="2"></path>
+<!-- Yellow (~580nm) -->
+<path d="M 480 265 L 730 348" id="ray-yellow" opacity="0.9" stroke="#ffe338" stroke-width="2"></path>
+<!-- Green (~530nm) -->
+<path d="M 480 268 L 730 368" id="ray-green" opacity="0.9" stroke="#2ee68b" stroke-width="2"></path>
+<!-- Blue (~470nm) -->
+<path d="M 480 272 L 730 390" id="ray-blue" opacity="0.9" stroke="#2ebbff" stroke-width="2"></path>
+<!-- Indigo (~430nm) -->
+<path d="M 480 275 L 730 412" id="ray-indigo" opacity="0.9" stroke="#5b57ff" stroke-width="2"></path>
+<!-- Violet (Most deviated: ~400nm) -->
+<path d="M 480 278 L 730 435" filter="url(#laser-glow)" id="ray-violet" stroke="#be38ff" stroke-width="3"></path>
+<text fill="#d278ff" font-family="'Outfit', sans-serif" font-size="10" font-weight="600" id="lbl-violet" x="738" y="439">V 400nm</text>
+<!-- Semi-transparent spectral color wash connecting screen boundary -->
+<polygon fill="url(#prism-body)" id="spectrum-polygon" opacity="0.25" points="480,258 730,310 730,435 480,278"></polygon>
+</g>
+<!-- Projection Screen Phosphor Bar -->
+<rect fill="#1b2434" height="180" rx="3" stroke="#464554" stroke-width="1" width="8" x="728" y="280"></rect>
+<text fill="#c8c4d6" font-family="'Be Vietnam Pro', sans-serif" font-size="9" text-anchor="middle" x="732" y="272">SCREEN</text>
+<!-- Draggable Emitter Source & Touch Handle -->
+<g class="cursor-grab active:cursor-grabbing transition-transform" id="emitter-drag-handle">
+<!-- Pulsing Halo Circle -->
+<circle cx="100" cy="210" fill="url(#torch-emitter)" r="22"></circle>
+<circle cx="100" cy="210" fill="#141c2a" r="14" stroke="#ffffff" stroke-width="2"></circle>
+<circle cx="100" cy="210" fill="#89f5e7" r="6"></circle>
+<!-- Touch Indicator Ring -->
+<circle cx="100" cy="210" fill="none" opacity="0.7" r="28" stroke="#89f5e7" stroke-dasharray="3 3" stroke-width="1"></circle>
+<text fill="#ffffff" font-family="'Be Vietnam Pro', sans-serif" font-size="10" font-weight="600" text-anchor="middle" x="100" y="248">DRAG</text>
+</g>
+</svg>
+<!-- Wavelength Scale Bar on Stage Bottom -->
+<div class="px-space-md py-2 bg-[#080b12] flex items-center justify-between text-white/70 font-label-sm text-label-sm border-t border-white/5">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+<span>Lower Refraction / Longer λ (Red)</span>
+</div>
+<div class="h-1.5 w-48 rounded-full bg-gradient-to-r from-red-500 via-yellow-400 via-green-400 via-blue-500 to-purple-600 opacity-80"></div>
+<div class="flex items-center gap-2">
+<span>Higher Refraction / Shorter λ (Violet)</span>
+<span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
+</div>
+</div>
+</div>
+<!-- Quick Metrics Strip under Stage -->
+<div class="grid grid-cols-3 gap-space-sm">
+<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">speed</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Speed in Medium</div>
+<div class="font-title-md text-title-md text-on-surface" id="metric-speed">1.85 × 10⁸ m/s</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">change_history</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Dispersive Power (ω)</div>
+<div class="font-title-md text-title-md text-on-surface" id="metric-disp">0.033 (Flint)</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined text-[20px] text-tertiary">flare</span>
+</div>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Critical Angle (θc)</div>
+<div class="font-title-md text-title-md text-on-surface" id="metric-crit">38.1°</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT PANE: 38% iPadOS Stylus & Touch Control Dock (Col 5 in 12-col desktop/tablet) -->
+<div class="lg:col-span-5 xl:col-span-4 flex flex-col gap-space-md">
+<!-- Card 1: Optical Parameters & Segmented Control -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Substrate Material Selector (Native Cupertino Segmented Control) -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-2">PRISM MATERIAL (REFRACTIVE INDEX)</label>
+<div class="grid grid-cols-3 p-1 rounded-xl bg-surface-container text-on-surface-variant font-label-md text-label-md select-none">
+<button class="mat-tab py-2 px-1 text-center rounded-lg font-semibold transition-all" data-material="crown" data-n="1.52" type="button">
+              Crown<span class="block font-label-sm text-label-sm opacity-70">1.52</span>
+</button>
+<button class="mat-tab py-2 px-1 text-center rounded-lg font-semibold bg-surface-container-lowest text-primary shadow-sm transition-all" data-material="flint" data-n="1.62" type="button">
+              Flint<span class="block font-label-sm text-label-sm opacity-70">1.62</span>
+</button>
+<button class="mat-tab py-2 px-1 text-center rounded-lg font-semibold transition-all" data-material="diamond" data-n="2.42" type="button">
+              Diamond<span class="block font-label-sm text-label-sm opacity-70">2.42</span>
+</button>
+</div>
+</div>
+<!-- Angle of Incidence Stepper + Slider -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md text-on-surface-variant">INCIDENCE ANGLE (θᵢ)</label>
+<span class="font-headline-sm text-headline-sm text-primary font-mono font-bold" id="slider-val-readout">48°</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="w-10 h-10 rounded-xl bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface font-title-lg text-title-lg active:scale-95 transition-all" id="step-dec" type="button">
+              −
+            </button>
+<div class="relative flex-1 flex items-center">
+<input class="w-full h-2.5 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary focus:outline-none" id="angle-range-slider" max="75" min="20" step="1" type="range" value="48"/>
+</div>
+<button class="w-10 h-10 rounded-xl bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface font-title-lg text-title-lg active:scale-95 transition-all" id="step-inc" type="button">
+              +
+            </button>
+</div>
+<div class="flex justify-between text-on-surface-variant font-label-sm text-label-sm px-1">
+<span>20° (Grazing)</span>
+<span>45°</span>
+<span>75° (Steep)</span>
+</div>
+</div>
+<div class="h-px bg-surface-container"></div>
+<!-- iPadOS Toggle Switches -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Show Normals &amp; Angles</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Perpendicular reference rays N₁ &amp; N₂</span>
+</div>
+<!-- iOS Switch 1 -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-normals" type="checkbox"/>
+<div class="w-12 h-7 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Dispersion Spectrum Bands</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Separate 7 VIBGYOR colors</span>
+</div>
+<!-- iOS Switch 2 -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-dispersion" type="checkbox"/>
+<div class="w-12 h-7 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Monochromatic Laser Mode</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Single green ray (532nm) only</span>
+</div>
+<!-- iOS Switch 3 -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" id="toggle-mono" type="checkbox"/>
+<div class="w-12 h-7 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- Card 2: Interactive Theory Card & Bilingual Audio Accordion -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm">
+<details class="group" open="">
+<summary class="flex items-center justify-between cursor-pointer list-none select-none">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">The Science Behind It</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="pt-space-sm flex flex-col gap-space-xs text-on-surface-variant font-body-sm text-body-sm leading-relaxed">
+<p>
+              White light splits because each color has a different frequency and travels at a different speed through the glass prism.
+            </p>
+<!-- Snell's Law Micro Formula Box -->
+<div class="bg-surface-container p-2.5 rounded-lg flex items-center justify-between font-mono my-1">
+<span class="text-primary font-semibold">n₁ · sin(θ₁) = n₂ · sin(θ₂)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Snell's Law</span>
+</div>
+<p class="text-[12px] italic bg-surface p-2 rounded-lg text-on-surface" id="theory-voice-script">
+              “Violet light bends the most because it slows down the most in glass! Red light bends the least.”
+            </p>
+<!-- Bilingual Player Micro Bar -->
+<div class="mt-2 pt-2 flex items-center justify-between border-t border-surface-container">
+<div class="flex items-center gap-2">
+<button class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm" id="inline-play-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+</button>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">Teacher Shanti</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant">0:45 Explanation • Telugu / EN</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Verified Safe</span>
+</div>
+</div>
+</details>
+</div>
+<!-- Card 3: Stylus Note & Save Action Dock -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<button class="w-full flex items-center justify-center gap-2 py-3 px-space-md rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-title-md text-title-md transition-all active:scale-[0.98]" id="stylus-note-cta" type="button">
+<span class="material-symbols-outlined text-[20px]">stylus_note</span>
+<span>Apple Pencil Observation</span>
+</button>
+<button class="w-full flex items-center justify-center gap-2 py-3 px-space-md rounded-xl bg-primary hover:bg-primary-container text-on-primary font-title-md text-title-md shadow-sm transition-all active:scale-[0.98]" id="save-labbook-cta" type="button">
+<span class="material-symbols-outlined text-[20px]">assignment_turned_in</span>
+<span>Save to Aarav's Lab Book</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Interactive Pencil Drawing Canvas Modal Backdrop (Hidden by default) -->
+<div class="fixed inset-0 z-50 bg-[#1d2540]/60 backdrop-blur-sm hidden items-center justify-center p-space-md" id="pencil-modal">
+<div class="bg-surface-container-lowest rounded-2xl max-w-2xl w-full p-space-lg shadow-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-9 h-9 rounded-xl bg-primary text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Aarav's Observation Pad</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Scribble diagrams with touch or Apple Pencil</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant" id="close-pencil-modal" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Inset Recess Drawing Canvas -->
+<div class="w-full h-64 bg-[#eef0f8] rounded-xl relative shadow-inner overflow-hidden cursor-crosshair">
+<canvas class="w-full h-full block" height="256" id="sketch-canvas" width="600"></canvas>
+<div class="absolute bottom-2 left-2 text-on-surface-variant font-label-sm text-[11px] pointer-events-none select-none">
+          Tilt and pressure supported • Apple Pencil active
+        </div>
+</div>
+<div class="flex items-center justify-between">
+<button class="px-4 py-2 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-high transition-colors" id="clear-sketch-btn" type="button">
+          Clear Pad
+        </button>
+<div class="flex items-center gap-2">
+<button class="px-4 py-2 rounded-lg text-on-surface-variant font-label-md text-label-md" id="dismiss-pencil-btn" type="button">
+            Cancel
+          </button>
+<button class="px-5 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm" id="commit-sketch-btn" type="button">
+            Attach to Experiment Note
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Notification Toast (Hidden by default) -->
+<div class="fixed bottom-6 right-6 z-50 transform translate-y-16 opacity-0 transition-all duration-300 pointer-events-none bg-surface-container-highest/95 backdrop-blur-md px-4 py-3 rounded-xl shadow-lg flex items-center gap-3" id="toast-pill">
+<div class="w-7 h-7 rounded-full bg-secondary flex items-center justify-center text-on-secondary">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<div>
+<div class="font-title-md text-[13px] text-on-surface leading-tight" id="toast-title">Snapshot Saved</div>
+<div class="font-label-sm text-[11px] text-on-surface-variant" id="toast-subtitle">Recorded to Aarav's Class 5 Portfolio</div>
+</div>
+</div>
+</div>
+<!-- Client-side Interactive Simulation Logic -->
+<script>
+  (function initPhysicsLab() {
+    // Current Simulation State
+    const state = {
+      angle: 48, // Degrees
+      material: 'flint',
+      refractiveIndex: 1.62,
+      showNormals: true,
+      showDispersion: true,
+      monochromatic: false,
+      audioLang: 'EN',
+      isPlayingAudio: false
+    };
+
+    // Material Database
+    const materials = {
+      crown: { n: 1.52, label: 'Crown Glass (n = 1.52)', speed: '1.97 × 10⁸ m/s', disp: '0.017 (Crown)', crit: '41.1°' },
+      flint: { n: 1.62, label: 'Flint Glass (n = 1.62)', speed: '1.85 × 10⁸ m/s', disp: '0.033 (Flint)', crit: '38.1°' },
+      diamond: { n: 2.42, label: 'Diamond (n = 2.42)', speed: '1.24 × 10⁸ m/s', disp: '0.059 (Diamond)', crit: '24.4°' }
+    };
+
+    // DOM Elements
+    const slider = document.getElementById('angle-range-slider');
+    const readout = document.getElementById('slider-val-readout');
+    const hudAngle = document.getElementById('hud-dev-angle');
+    const angleTextSvg = document.getElementById('angle-text');
+    const prismLabel = document.getElementById('prism-glass-label');
+    const metricSpeed = document.getElementById('metric-speed');
+    const metricDisp = document.getElementById('metric-disp');
+    const metricCrit = document.getElementById('metric-crit');
+
+    // Rays
+    const incidentRay = document.getElementById('incident-ray');
+    const incidentRayAmbient = document.getElementById('incident-ray-ambient');
+    const emitterHandle = document.getElementById('emitter-drag-handle');
+    const rayRed = document.getElementById('ray-red');
+    const rayOrange = document.getElementById('ray-orange');
+    const rayYellow = document.getElementById('ray-yellow');
+    const rayGreen = document.getElementById('ray-green');
+    const rayBlue = document.getElementById('ray-blue');
+    const rayIndigo = document.getElementById('ray-indigo');
+    const rayViolet = document.getElementById('ray-violet');
+    const spectrumPoly = document.getElementById('spectrum-polygon');
+    const lblRed = document.getElementById('lbl-red');
+    const lblViolet = document.getElementById('lbl-violet');
+    const normalsGroup = document.getElementById('normals-group');
+    const internalRays = document.getElementById('internal-rays');
+
+    // Toggles
+    const toggleNormals = document.getElementById('toggle-normals');
+    const toggleDispersion = document.getElementById('toggle-dispersion');
+    const toggleMono = document.getElementById('toggle-mono');
+
+    // Steppers
+    const stepDec = document.getElementById('step-dec');
+    const stepInc = document.getElementById('step-inc');
+
+    // Toast Helper
+    function showToast(title, subtitle) {
+      const toast = document.getElementById('toast-pill');
+      document.getElementById('toast-title').textContent = title;
+      document.getElementById('toast-subtitle').textContent = subtitle;
+      toast.classList.remove('translate-y-16', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+      setTimeout(() => {
+        toast.classList.add('translate-y-16', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2600);
+    }
+
+    // Geometry & Ray Tracer calculations for Prism
+    function updateOptics() {
+      const theta = state.angle;
+      readout.textContent = theta + '°';
+      angleTextSvg.textContent = 'θᵢ = ' + theta + '°';
+
+      // Incident ray geometry: Face intersection is fixed around (320, 250)
+      const hitX = 320;
+      const hitY = 250;
+      const rad = (theta * Math.PI) / 180;
+      const rayLen = 220;
+      const startX = hitX - Math.cos(rad) * rayLen;
+      const startY = hitY - Math.sin(rad) * rayLen;
+
+      // Update incident ray & drag handle
+      incidentRay.setAttribute('x1', startX);
+      incidentRay.setAttribute('y1', startY);
+      incidentRayAmbient.setAttribute('x1', startX);
+      incidentRayAmbient.setAttribute('y1', startY);
+
+      emitterHandle.setAttribute('transform', `translate(${startX - 100}, ${startY - 210})`);
+
+      // Refractive deviation calculations based on angle & n
+      const n = state.refractiveIndex;
+      // Approximate total deviation angle (delta) in degrees
+      const devDeg = Math.max(15, Math.min(65, (theta * (n - 1) * 0.85).toFixed(1)));
+      hudAngle.innerHTML = devDeg + '&deg;';
+
+      // Emerging screen ray fan endpoints (x=730)
+      const exitBaseY = 320 + (theta - 45) * 1.8 + (n - 1.5) * 60;
+      const dispersionSpread = state.showDispersion && !state.monochromatic ? 16 * (n / 1.5) : 0;
+
+      const rY = exitBaseY - dispersionSpread * 3.2;
+      const oY = exitBaseY - dispersionSpread * 2.1;
+      const yY = exitBaseY - dispersionSpread * 1.1;
+      const gY = exitBaseY;
+      const bY = exitBaseY + dispersionSpread * 1.1;
+      const iY = exitBaseY + dispersionSpread * 2.1;
+      const vY = exitBaseY + dispersionSpread * 3.5;
+
+      // Right prism exit coordinate ~ (480, 265)
+      const exitX = 480;
+      const exitY = 265;
+
+      // Adjust rays
+      rayRed.setAttribute('d', `M ${exitX} ${exitY - 7} L 730 ${rY}`);
+      lblRed.setAttribute('y', rY + 4);
+
+      rayOrange.setAttribute('d', `M ${exitX} ${exitY - 4} L 730 ${oY}`);
+      rayYellow.setAttribute('d', `M ${exitX} ${exitY - 1} L 730 ${yY}`);
+      rayGreen.setAttribute('d', `M ${exitX} ${exitY + 2} L 730 ${gY}`);
+      rayBlue.setAttribute('d', `M ${exitX} ${exitY + 5} L 730 ${bY}`);
+      rayIndigo.setAttribute('d', `M ${exitX} ${exitY + 8} L 730 ${iY}`);
+
+      rayViolet.setAttribute('d', `M ${exitX} ${exitY + 11} L 730 ${vY}`);
+      lblViolet.setAttribute('y', vY + 4);
+
+      spectrumPoly.setAttribute('points', `${exitX},${exitY - 7} 730,${rY} 730,${vY} ${exitX},${exitY + 11}`);
+
+      // Handle Monochromatic Mode
+      if (state.monochromatic) {
+        rayRed.setAttribute('opacity', '0');
+        lblRed.setAttribute('opacity', '0');
+        rayOrange.setAttribute('opacity', '0');
+        rayYellow.setAttribute('opacity', '0');
+        rayGreen.setAttribute('opacity', '1');
+        rayGreen.setAttribute('stroke-width', '3');
+        rayGreen.setAttribute('stroke', '#00ff66');
+        rayBlue.setAttribute('opacity', '0');
+        rayIndigo.setAttribute('opacity', '0');
+        rayViolet.setAttribute('opacity', '0');
+        lblViolet.setAttribute('opacity', '0');
+        spectrumPoly.setAttribute('opacity', '0');
+        incidentRay.setAttribute('stroke', '#a3ffc2');
+      } else if (!state.showDispersion) {
+        // Pure refracted white ray without dispersion
+        rayRed.setAttribute('opacity', '0');
+        lblRed.setAttribute('opacity', '0');
+        rayOrange.setAttribute('opacity', '0');
+        rayYellow.setAttribute('opacity', '0');
+        rayGreen.setAttribute('opacity', '1');
+        rayGreen.setAttribute('stroke', '#ffffff');
+        rayGreen.setAttribute('stroke-width', '3');
+        rayBlue.setAttribute('opacity', '0');
+        rayIndigo.setAttribute('opacity', '0');
+        rayViolet.setAttribute('opacity', '0');
+        lblViolet.setAttribute('opacity', '0');
+        spectrumPoly.setAttribute('opacity', '0');
+        incidentRay.setAttribute('stroke', '#ffffff');
+      } else {
+        // Standard Spectrum
+        rayRed.setAttribute('opacity', '1');
+        lblRed.setAttribute('opacity', '1');
+        rayOrange.setAttribute('opacity', '0.9');
+        rayYellow.setAttribute('opacity', '0.9');
+        rayGreen.setAttribute('opacity', '0.9');
+        rayGreen.setAttribute('stroke', '#2ee68b');
+        rayGreen.setAttribute('stroke-width', '2');
+        rayBlue.setAttribute('opacity', '0.9');
+        rayIndigo.setAttribute('opacity', '0.9');
+        rayViolet.setAttribute('opacity', '1');
+        lblViolet.setAttribute('opacity', '1');
+        spectrumPoly.setAttribute('opacity', '0.22');
+        incidentRay.setAttribute('stroke', '#ffffff');
+      }
+
+      // Toggle Normals Visibility
+      normalsGroup.setAttribute('opacity', state.showNormals ? '1' : '0');
+    }
+
+    // Material Switcher
+    const matTabs = document.querySelectorAll('.mat-tab');
+    matTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        matTabs.forEach(t => {
+          t.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+        });
+        tab.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+
+        const mat = tab.dataset.material;
+        state.material = mat;
+        state.refractiveIndex = parseFloat(tab.dataset.n);
+
+        // Update displays
+        const data = materials[mat];
+        prismLabel.textContent = data.label;
+        metricSpeed.innerHTML = data.speed;
+        metricDisp.textContent = data.disp;
+        metricCrit.innerHTML = data.crit;
+
+        updateOptics();
+      });
+    });
+
+    // Slider & Stepper Listeners
+    slider.addEventListener('input', (e) => {
+      state.angle = parseInt(e.target.value, 10);
+      updateOptics();
+    });
+
+    stepDec.addEventListener('click', () => {
+      if (state.angle > 20) {
+        state.angle -= 1;
+        slider.value = state.angle;
+        updateOptics();
+      }
+    });
+
+    stepInc.addEventListener('click', () => {
+      if (state.angle < 75) {
+        state.angle += 1;
+        slider.value = state.angle;
+        updateOptics();
+      }
+    });
+
+    // iOS Toggles
+    toggleNormals.addEventListener('change', (e) => {
+      state.showNormals = e.target.checked;
+      updateOptics();
+    });
+
+    toggleDispersion.addEventListener('change', (e) => {
+      state.showDispersion = e.target.checked;
+      updateOptics();
+    });
+
+    toggleMono.addEventListener('change', (e) => {
+      state.monochromatic = e.target.checked;
+      updateOptics();
+    });
+
+    // Drag Interaction on Stage (Touch / Mouse)
+    const stage = document.getElementById('optical-stage');
+    let isDragging = false;
+
+    function handleStagePointer(evt) {
+      if (!isDragging) return;
+      const rect = stage.getBoundingClientRect();
+      const clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+      const clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+
+      const scaleX = 800 / rect.width;
+      const scaleY = 520 / rect.height;
+      const svgX = (clientX - rect.left) * scaleX;
+      const svgY = (clientY - rect.top) * scaleY;
+
+      // Calculate angle relative to refraction point (320, 250)
+      const dx = 320 - svgX;
+      const dy = 250 - svgY;
+      let angleDeg = Math.round((Math.atan2(dy, dx) * 180) / Math.PI);
+      angleDeg = Math.max(20, Math.min(75, angleDeg));
+
+      state.angle = angleDeg;
+      slider.value = angleDeg;
+      updateOptics();
+    }
+
+    stage.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      handleStagePointer(e);
+    });
+    window.addEventListener('mousemove', handleStagePointer);
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    stage.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      handleStagePointer(e);
+    }, { passive: true });
+    window.addEventListener('touchmove', handleStagePointer, { passive: true });
+    window.addEventListener('touchend', () => { isDragging = false; });
+
+    // Stage Quick Buttons
+    document.getElementById('reset-stage-btn').addEventListener('click', () => {
+      state.angle = 48;
+      slider.value = 48;
+      updateOptics();
+      showToast('Stage Reset', 'Incidence angle restored to 48°');
+    });
+
+    document.getElementById('fullscreen-stage-btn').addEventListener('click', () => {
+      showToast('Expanded View', 'Optimized for 11" & 12.9" iPad Retina display');
+    });
+
+    // Audio Bilingual Switcher
+    const audioToggle = document.getElementById('audio-toggle-btn');
+    const audioLangText = document.getElementById('audio-lang-text');
+    const langSwap = document.getElementById('lang-swap-btn');
+    const theoryScript = document.getElementById('theory-voice-script');
+    const inlinePlay = document.getElementById('inline-play-btn');
+
+    function toggleAudioPlayback() {
+      state.isPlayingAudio = !state.isPlayingAudio;
+      const icon = audioToggle.querySelector('.material-symbols-outlined');
+      const inlineIcon = inlinePlay.querySelector('.material-symbols-outlined');
+
+      if (state.isPlayingAudio) {
+        icon.textContent = 'pause';
+        inlineIcon.textContent = 'pause';
+        showToast('Narrator Playing', state.audioLang === 'EN' ? 'Teacher Shanti (English)' : 'టీచర్ శాంతి (Telugu)');
+      } else {
+        icon.textContent = 'headphones';
+        inlineIcon.textContent = 'play_arrow';
+      }
+    }
+
+    audioToggle.addEventListener('click', toggleAudioPlayback);
+    inlinePlay.addEventListener('click', toggleAudioPlayback);
+
+    langSwap.addEventListener('click', () => {
+      if (state.audioLang === 'EN') {
+        state.audioLang = 'TE';
+        audioLangText.textContent = 'వినండి (తెలుగు)';
+        langSwap.textContent = 'EN';
+        theoryScript.innerHTML = '&ldquo;గాజు పట్టకం ద్వారా తెల్లని కాంతి ప్రయాణించినప్పుడు ఏడు రంగులుగా విడిపోతుంది. వైలెట్ రంగు అత్యధికంగా వంగుతుంది!&rdquo;';
+      } else {
+        state.audioLang = 'EN';
+        audioLangText.textContent = 'Listen (EN)';
+        langSwap.textContent = 'తెలుగు';
+        theoryScript.innerHTML = '&ldquo;Violet light bends the most because it slows down the most in glass! Red light bends the least.&rdquo;';
+      }
+    });
+
+    // Apple Pencil Sketch Pad Modal
+    const pencilModal = document.getElementById('pencil-modal');
+    const sketchCanvas = document.getElementById('sketch-canvas');
+    const ctx = sketchCanvas.getContext('2d');
+    let isDrawing = false;
+
+    function openPencilModal() {
+      pencilModal.classList.remove('hidden');
+      pencilModal.classList.add('flex');
+      // Set initial high DPI canvas scale
+      const dpr = window.devicePixelRatio || 1;
+      sketchCanvas.width = sketchCanvas.offsetWidth * dpr;
+      sketchCanvas.height = sketchCanvas.offsetHeight * dpr;
+      ctx.scale(dpr, dpr);
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#25149f';
+    }
+
+    function closePencilModal() {
+      pencilModal.classList.add('hidden');
+      pencilModal.classList.remove('flex');
+    }
+
+    document.getElementById('snapshot-btn').addEventListener('click', openPencilModal);
+    document.getElementById('stylus-note-cta').addEventListener('click', openPencilModal);
+    document.getElementById('close-pencil-modal').addEventListener('click', closePencilModal);
+    document.getElementById('dismiss-pencil-btn').addEventListener('click', closePencilModal);
+
+    document.getElementById('clear-sketch-btn').addEventListener('click', () => {
+      ctx.clearRect(0, 0, sketchCanvas.width, sketchCanvas.height);
+    });
+
+    document.getElementById('commit-sketch-btn').addEventListener('click', () => {
+      closePencilModal();
+      showToast('Stylus Note Attached', 'Diagram appended to Aarav\'s journal');
+    });
+
+    document.getElementById('save-labbook-cta').addEventListener('click', () => {
+      showToast('Lab Book Updated', 'Dispersion angle 38.4° saved to Grade 5 Science portfolio');
+    });
+
+    // Drawing Canvas Touch Events
+    function getCanvasPos(e) {
+      const rect = sketchCanvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    sketchCanvas.addEventListener('mousedown', (e) => {
+      isDrawing = true;
+      const pos = getCanvasPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    });
+
+    sketchCanvas.addEventListener('mousemove', (e) => {
+      if (!isDrawing) return;
+      const pos = getCanvasPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    });
+
+    window.addEventListener('mouseup', () => { isDrawing = false; });
+
+    sketchCanvas.addEventListener('touchstart', (e) => {
+      isDrawing = true;
+      const pos = getCanvasPos(e);
+      ctx.beginPath();
+      ctx.moveTo(pos.x, pos.y);
+    }, { passive: true });
+
+    sketchCanvas.addEventListener('touchmove', (e) => {
+      if (!isDrawing) return;
+      const pos = getCanvasPos(e);
+      ctx.lineTo(pos.x, pos.y);
+      ctx.stroke();
+    }, { passive: true });
+
+    sketchCanvas.addEventListener('touchend', () => { isDrawing = false; });
+
+    // Initial render
+    updateOptics();
+  })();
+</script></main></div></body></html>

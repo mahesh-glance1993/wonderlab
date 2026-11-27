@@ -32,8 +32,10 @@ app.use('/api/*', async (c, next) => {
   if (!['GET', 'HEAD', 'OPTIONS'].includes(c.req.method)) {
     if (c.req.header('X-WonderLab') !== '1') return err(c, 403, 'csrf', 'Request blocked.');
     const origin = c.req.header('Origin');
-    // URL.parse returns null for "null"/garbage origins (previously threw → 500); treat those as foreign
-    if (origin && URL.parse(origin)?.host !== new URL(c.req.url).host) return err(c, 403, 'csrf', 'Request blocked.');
+    const originHost = origin ? URL.parse(origin)?.host : null;
+    const reqHost = new URL(c.req.url).host;
+    const isDev = c.env.APP_ENV === 'development' && (originHost === 'localhost:5173' || originHost === '127.0.0.1:5173');
+    if (origin && originHost !== reqHost && !isDev) return err(c, 403, 'csrf', 'Request blocked.');
   }
   await loadSession(c);
   await next();

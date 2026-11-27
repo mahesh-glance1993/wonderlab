@@ -1908,7 +1908,7 @@ const ch14: USpec = {
           const total = r.pick([100, 200, 500, 1000, 2000]);
           const ask = r.pick(['salty', 'fresh'] as const);
           const pct = ask === 'salty' ? 97 : 3;
-          return numQ(`Imagine all Earth\'s water as ${total} litres in a tank. About 97% is salty and 3% is fresh. How many litres would be ${ask}?`, total * pct / 100, 'L',
+          return numQ(`Imagine all Earth's water as ${total} litres in a tank. About 97% is salty and 3% is fresh. How many litres would be ${ask}?`, total * pct / 100, 'L',
             [`Find ${pct}% of ${total}.`, `${pct}% means ${pct} out of every 100.`],
             [`${pct}% of ${total} = ${pct} × ${total} ÷ 100 = ${total * pct / 100} L`]);
         }),

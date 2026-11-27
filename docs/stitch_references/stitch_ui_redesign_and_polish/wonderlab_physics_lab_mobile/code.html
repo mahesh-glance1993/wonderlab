@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;min-height:100vh;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-error": "#ffffff", "surface-container-lowest": "#ffffff", "on-surface": "#141c2a", "on-error-container": "#93000a", "surface": "#f9f9ff", "surface-container-highest": "#dbe2f7", "on-secondary-fixed": "#00201d", "on-primary-container": "#b6b3ff", "inverse-primary": "#c3c0ff", "tertiary-fixed": "#ffdcc3", "surface-tint": "#534cca", "secondary-container": "#86f2e4", "on-tertiary": "#ffffff", "secondary-fixed-dim": "#6bd8cb", "surface-container-low": "#f0f3ff", "error-container": "#ffdad6", "on-background": "#141c2a", "inverse-on-surface": "#ecf0ff", "surface-bright": "#f9f9ff", "primary-fixed-dim": "#c3c0ff", "on-primary-fixed-variant": "#3a30b1", "tertiary-fixed-dim": "#ffb77d", "on-surface-variant": "#464554", "surface-container-high": "#e0e8fd", "primary": "#25149f", "error": "#ba1a1a", "secondary": "#006a61", "primary-container": "#3e35b5", "secondary-fixed": "#89f5e7", "on-primary-fixed": "#100069", "on-primary": "#ffffff", "surface-container": "#e8eeff", "on-secondary": "#ffffff", "on-secondary-fixed-variant": "#005049", "on-tertiary-container": "#ffa658", "surface-variant": "#dbe2f7", "outline-variant": "#c8c4d6", "on-tertiary-fixed-variant": "#6e3900", "surface-dim": "#d2daee", "background": "#f9f9ff", "primary-fixed": "#e3dfff", "outline": "#777585", "on-tertiary-fixed": "#2f1500", "tertiary-container": "#733c00", "inverse-surface": "#293140", "tertiary": "#522900", "on-secondary-container": "#006f66" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xs": "0.25rem", "margin": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem", "gutter": "1.5rem", "space-sm": "0.5rem", "gutter-desktop": "2rem", "margin-desktop": "3rem", "space-lg": "1.5rem", "space-xl": "2.5rem", "gutter-mobile": "1rem" }, fontFamily: { "title-lg": ["Outfit"], "headline-sm": ["Outfit"], "body-lg": ["Be Vietnam Pro"], "body-sm": ["Be Vietnam Pro"], "body-md": ["Be Vietnam Pro"], "display-lg-mobile": ["Outfit"], "label-lg": ["Be Vietnam Pro"], "headline-md": ["Outfit"], "headline-lg-mobile": ["Outfit"], "headline-lg": ["Outfit"], "title-md": ["Be Vietnam Pro"], "label-md": ["Be Vietnam Pro"], "display-lg": ["Outfit"], "label-sm": ["Be Vietnam Pro"] }, fontSize: { "title-lg": ["18px", {"lineHeight": "26px", "fontWeight": "600"}], "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}], "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}], "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}], "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}], "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700"}], "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}], "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}], "headline-lg-mobile": ["26px", {"lineHeight": "34px", "letterSpacing": "0em", "fontWeight": "600"}], "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}], "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}], "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}], "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}], "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600"}] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(62,53,181,0.05)]"><div class="h-16 px-margin-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="w-11 h-11 rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-title-lg text-title-lg text-on-surface line-clamp-1">Physics Lab Simulator</h1></div><div class="flex items-center gap-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface px-margin-mobile"><div class="flex flex-col w-full pb-6 space-y-4">
+<!-- Experiment Context Bar -->
+<div class="flex items-center justify-between px-1 py-1">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center justify-center px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">
+        Class 5 • Physics
+      </span>
+<span class="inline-flex items-center gap-1 text-secondary font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+        Active Simulation
+      </span>
+</div>
+<button aria-label="Reset experiment parameters" class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors py-1 px-2 rounded-lg active:scale-95" id="reset-sim-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+<span class="font-label-md text-label-md">Reset</span>
+</button>
+</div>
+<!-- 1. Interactive Simulation Viewport (4:3) -->
+<div class="relative w-full aspect-[4/3] rounded-xl bg-[#0e1322] overflow-hidden shadow-xl select-none touch-none" id="viewport-canvas">
+<!-- Grid overlay for optical lab look -->
+<svg class="absolute inset-0 w-full h-full opacity-15 pointer-events-none" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="24" id="lab-grid" patternunits="userSpaceOnUse" width="24">
+<path d="M 24 0 L 0 0 0 24" fill="none" stroke="#86f2e4" stroke-width="0.75"></path>
+</pattern>
+</defs>
+<rect fill="url(#lab-grid)" height="100%" width="100%"></rect>
+</svg>
+<!-- Optics Workbench SVG layer -->
+<svg class="absolute inset-0 w-full h-full z-10" id="optics-svg" preserveaspectratio="xMidYMid meet" viewbox="0 0 400 300">
+<!-- Glow filters -->
+<defs>
+<filter height="140%" id="beam-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+<lineargradient id="prism-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"></stop>
+<stop offset="60%" stop-color="#86f2e4" stop-opacity="0.12"></stop>
+<stop offset="100%" stop-color="#3e35b5" stop-opacity="0.25"></stop>
+</lineargradient>
+</defs>
+<!-- Optical Prism Triangle: Vertices (200, 55), (120, 215), (280, 215) -->
+<polygon fill="url(#prism-grad)" id="prism-base" points="200,55 120,215 280,215" stroke="rgba(255,255,255,0.65)" stroke-width="1.75"></polygon>
+<!-- Optical Apex Indicator & Label -->
+<circle cx="200" cy="55" fill="#86f2e4" r="2.5"></circle>
+<text fill="#dbe2f7" font-family="Outfit" font-size="10" opacity="0.8" text-anchor="middle" x="200" y="47">Apex A = 60°</text>
+<!-- Normals & Guidelines Group -->
+<g class="transition-opacity duration-300" id="normals-group">
+<!-- Normal at Face AB (incidence point ~ 152, 151) -->
+<line id="normal-in" opacity="0.8" stroke="#89f5e7" stroke-dasharray="3,3" stroke-width="1" x1="90" x2="200" y1="120" y2="175"></line>
+<!-- Normal at Face AC (exit point ~ 248, 151) -->
+<line id="normal-out" opacity="0.8" stroke="#89f5e7" stroke-dasharray="3,3" stroke-width="1" x1="195" x2="305" y1="124" y2="179"></line>
+<!-- Incidence Angle Arc and Label -->
+<text fill="#86f2e4" font-family="Be Vietnam Pro" font-size="10" id="theta-label" x="98" y="148">θi: 48°</text>
+</g>
+<!-- Dynamic Rays Container -->
+<g id="rays-container">
+<!-- Incident Ray (White Beam) -->
+<line filter="url(#beam-glow)" id="incident-ray" stroke="#ffffff" stroke-width="3" x1="30" x2="152" y1="180" y2="151"></line>
+<!-- Internal Refracted Rays (Inside Prism) -->
+<g id="internal-rays" opacity="0.85"></g>
+<!-- Emergent Spectrum Rays (VIBGYOR fan) -->
+<g filter="url(#beam-glow)" id="spectrum-rays"></g>
+</g>
+<!-- Interactive Light Source Emitter Indicator -->
+<g class="cursor-pointer" id="emitter-handle">
+<circle cx="30" cy="180" fill="#25149f" id="emitter-dot" r="10" stroke="#ffffff" stroke-width="2.5"></circle>
+<circle cx="30" cy="180" fill="#ffffff" r="3"></circle>
+<text fill="#f0f3ff" font-family="Outfit" font-size="9" id="emitter-text" text-anchor="middle" x="30" y="202">Drag Source</text>
+</g>
+</svg>
+<!-- Floating Top Badges -->
+<div class="absolute top-2.5 left-2.5 z-20 flex items-center gap-1.5 bg-[#141c2a]/80 backdrop-blur-md px-2.5 py-1 rounded-full shadow-md">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed"></span>
+<span class="font-label-sm text-label-sm text-[#e8eeff]" id="badge-material">Flint Glass (n = 1.62)</span>
+</div>
+<div class="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-[#141c2a]/80 backdrop-blur-md px-2.5 py-1 rounded-full shadow-md">
+<span class="material-symbols-outlined text-secondary-fixed text-[14px]">wb_sunny</span>
+<span class="font-label-sm text-label-sm text-[#e8eeff]" id="badge-angle">θi = 48°</span>
+</div>
+<!-- Subdued Touch Gestures Hint Banner -->
+<div class="absolute bottom-2 inset-x-2 z-20 flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-[#141c2a]/85 backdrop-blur-md shadow-sm pointer-events-none">
+<span class="material-symbols-outlined text-secondary-fixed text-[15px]">touch_app</span>
+<span class="font-body-sm text-body-sm text-inverse-on-surface truncate">Drag source handle or slide controls below</span>
+</div>
+</div>
+<!-- 2. Control Cards -->
+<div class="w-full space-y-3">
+<!-- Slider 1 Card: Angle of Incidence -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">rotate_right</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Angle of Incidence (θi)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Optimal refraction range 30° – 65°</p>
+</div>
+</div>
+<div class="px-3 py-1 bg-surface-container-high rounded-full">
+<span class="font-title-md text-title-md text-primary" id="display-angle">48°</span>
+</div>
+</div>
+<div class="flex items-center gap-3 pt-1">
+<button aria-label="Decrease incidence angle" class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface active:scale-95 active:bg-surface-container-highest transition-transform" id="btn-angle-minus" type="button">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+<div class="flex-1 relative flex items-center">
+<input class="w-full h-2 rounded-full appearance-none cursor-pointer bg-surface-container accent-primary" id="slider-angle" max="65" min="30" step="1" type="range" value="48"/>
+</div>
+<button aria-label="Increase incidence angle" class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-on-surface active:scale-95 active:bg-surface-container-highest transition-transform" id="btn-angle-plus" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+<!-- Slider 2 Card: Prism Material Index -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-4 shadow-sm space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">layers</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Prism Material Index (n)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Density determines light speed &amp; bend</p>
+</div>
+</div>
+</div>
+<!-- Material Picker Segmented Chips -->
+<div class="grid grid-cols-3 gap-2 pt-1" id="material-presets">
+<button class="mat-chip py-2 px-1.5 rounded-lg text-center transition-all bg-surface-container-low text-on-surface hover:bg-surface-container" data-n="1.52" data-name="Crown Glass" type="button">
+<span class="block font-label-md text-label-md truncate">Crown Glass</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">n = 1.52</span>
+</button>
+<button class="mat-chip py-2 px-1.5 rounded-lg text-center transition-all bg-primary text-on-primary shadow-sm" data-n="1.62" data-name="Flint Glass" type="button">
+<span class="block font-label-md text-label-md truncate">Flint Glass</span>
+<span class="block font-label-sm text-label-sm text-primary-fixed">n = 1.62</span>
+</button>
+<button class="mat-chip py-2 px-1.5 rounded-lg text-center transition-all bg-surface-container-low text-on-surface hover:bg-surface-container" data-n="2.42" data-name="Diamond" type="button">
+<span class="block font-label-md text-label-md truncate">Diamond</span>
+<span class="block font-label-sm text-label-sm text-on-surface-variant">n = 2.42</span>
+</button>
+</div>
+</div>
+<!-- Toggle Card: Show Normal & Ray Angles -->
+<div class="w-full bg-surface-container-lowest rounded-xl px-4 py-3 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[19px]">straighten</span>
+</div>
+<div>
+<span class="font-title-md text-title-md text-on-surface block">Show Normal &amp; Ray Angles</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block">Display perpendicular reference lines</span>
+</div>
+</div>
+<button aria-checked="true" class="w-12 h-7 bg-primary rounded-full relative transition-colors duration-200 flex items-center px-1" id="toggle-normals" role="switch" type="button">
+<span class="w-5 h-5 bg-on-primary rounded-full shadow-sm transform translate-x-5 transition-transform duration-200" id="toggle-knob"></span>
+</button>
+</div>
+</div>
+<!-- 3. Expandable Drawer: The Science Behind It -->
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden transition-all">
+<button aria-expanded="false" class="w-full px-4 py-3.5 flex items-center justify-between text-left active:bg-surface-container-low transition-colors" id="science-accordion-btn" type="button">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">auto_stories</span>
+</div>
+<div>
+<h2 class="font-title-md text-title-md text-on-surface">The Science Behind It</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Snell's law, wave velocities &amp; rainbows</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform duration-200" id="accordion-icon">expand_more</span>
+</button>
+<!-- Collapsible content -->
+<div class="hidden px-4 pb-4 space-y-3.5" id="science-content">
+<!-- Kid-friendly Snell's Law Explainer -->
+<div class="p-3.5 rounded-lg bg-surface-container-low space-y-1.5">
+<div class="flex items-center gap-1.5 text-primary">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+<h4 class="font-label-lg text-label-lg">Snell's Law in Plain Words</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+          Light speeds along at nearly 300,000 km/s in air, but when entering dense glass, it slows down!
+        </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Because high-energy <span class="font-label-sm text-[#534cca]">Violet</span> waves slow down more than long <span class="font-label-sm text-[#ba1a1a]">Red</span> waves, violet bends more sharply. This separation of white light into its component colors is called <span class="font-label-sm text-primary">dispersion</span> (VIBGYOR).
+        </p>
+</div>
+<!-- Real-world Telangana Monsoons Rainbow connection -->
+<div class="p-3.5 rounded-lg bg-surface-container-low flex gap-3">
+<div class="w-16 h-16 shrink-0 rounded-lg overflow-hidden relative shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Vibrant double rainbow arching over Hyderabad Deccan historical landscape after warm monsoon rain showers with soft golden hour clouds and green lush foliage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFBOv1t_B16ETeAMUVil6_xQsDtUYPEFF3zVOUuB9IRym6cRHe3uC3ZYKpKUOlsaGbFSiCP8mOhK1ckFdnujZZMqH93jpc4Bb6DeTsDP8mT4NP_RHngC_W9RPE3rMrM0ws3htujZIQ66WFis-Tn3ywX1_IhJUELM19N2Bqit5578zUnUWsKAwRuggIHuWabpWQIOfOFuWIxTBL0ADmP4EWbrWRmNGowTrXihNoNoQ"/>
+</div>
+<div class="space-y-1">
+<span class="font-label-sm text-label-sm text-secondary">Real-World Optics</span>
+<h5 class="font-title-md text-title-md text-on-surface">Monsoon Skies over Telangana</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Millions of floating raindrops act like tiny spherical prisms! Sunlight enters the droplets, refracts, bounces off the back, and splits into the vibrant arcs visible above Hyderabad and Warangal.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Snapshot Modal Overlay / Success Dialog -->
+<div class="fixed inset-0 z-50 bg-[#141c2a]/60 backdrop-blur-sm hidden flex items-center justify-center p-4" id="snapshot-modal">
+<div class="w-full max-w-sm bg-surface-container-lowest rounded-xl p-5 shadow-xl space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-[22px]">verified</span>
+<h4 class="font-title-lg text-title-lg text-on-surface">Snapshot Saved!</h4>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container" id="close-modal-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Experiment snapshot with <span class="font-label-md text-primary" id="modal-angle-stat">θi = 48°</span> and <span class="font-label-md text-secondary" id="modal-mat-stat">Flint Glass</span> successfully added to your Class 5 Physics Lab Journal.
+      </p>
+<div class="pt-2">
+<button class="w-full h-12 bg-primary text-on-primary rounded-lg font-label-lg text-label-lg active:scale-[0.98] transition-transform" id="modal-confirm-btn" type="button">
+          Done
+        </button>
+</div>
+</div>
+</div>
+<!-- 4. Bottom Action Dock -->
+<div class="w-full pt-1 pb-2 grid grid-cols-2 gap-2.5">
+<button class="h-12 px-3 rounded-lg bg-surface-container text-primary font-label-lg text-label-lg flex items-center justify-center gap-1.5 active:scale-95 transition-transform" id="hint-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">lightbulb</span>
+<span>Step-by-Step Hint</span>
+</button>
+<button class="h-12 px-3 rounded-lg bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-transform" id="snapshot-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+<span class="truncate">Save Snapshot</span>
+</button>
+</div>
+<!-- Step-by-Step Interactive Guided Toast -->
+<div class="w-full p-3.5 bg-surface-container-high rounded-xl hidden items-start gap-2.5 transition-all" id="hint-toast">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">tips_and_updates</span>
+<div class="flex-1 space-y-1">
+<h6 class="font-label-md text-label-md text-on-surface">Curiosity Challenge</h6>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+        Notice how increasing the angle past 55° makes the spectrum spread wider? Try switching to <span class="font-label-sm text-primary">Diamond (n=2.42)</span> to watch light bend dramatically!
+      </p>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" id="hint-close-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+</div>
+<script>
+  (function initPhysicsLab() {
+    // State
+    const state = {
+      angle: 48,
+      materialName: 'Flint Glass',
+      n: 1.62,
+      showNormals: true
+    };
+
+    // Prism Geometry Constants
+    // Triangle: (200, 55), (120, 215), (280, 215)
+    // Left edge AB: from (120, 215) to (200, 55). dx = 80, dy = -160. Slope ~ -2. Normal angle ~ +26.56°
+    const hitX = 152;
+    const hitY = 151;
+    const exitX = 248;
+    const exitY = 151;
+
+    // DOM Elements
+    const incidentRay = document.getElementById('incident-ray');
+    const internalGroup = document.getElementById('internal-rays');
+    const spectrumGroup = document.getElementById('spectrum-rays');
+    const normalsGroup = document.getElementById('normals-group');
+    const emitterDot = document.getElementById('emitter-dot');
+    const emitterHandle = document.getElementById('emitter-handle');
+    const sliderAngle = document.getElementById('slider-angle');
+    const displayAngle = document.getElementById('display-angle');
+    const badgeAngle = document.getElementById('badge-angle');
+    const badgeMaterial = document.getElementById('badge-material');
+    const thetaLabel = document.getElementById('theta-label');
+    const toggleNormals = document.getElementById('toggle-normals');
+    const toggleKnob = document.getElementById('toggle-knob');
+    const btnAngleMinus = document.getElementById('btn-angle-minus');
+    const btnAnglePlus = document.getElementById('btn-angle-plus');
+    const resetBtn = document.getElementById('reset-sim-btn');
+    const materialChips = document.querySelectorAll('.mat-chip');
+    const accordionBtn = document.getElementById('science-accordion-btn');
+    const scienceContent = document.getElementById('science-content');
+    const accordionIcon = document.getElementById('accordion-icon');
+    const snapshotBtn = document.getElementById('snapshot-btn');
+    const snapshotModal = document.getElementById('snapshot-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+    const modalAngleStat = document.getElementById('modal-angle-stat');
+    const modalMatStat = document.getElementById('modal-mat-stat');
+    const hintBtn = document.getElementById('hint-btn');
+    const hintToast = document.getElementById('hint-toast');
+    const hintCloseBtn = document.getElementById('hint-close-btn');
+
+    // Spectral Wavelengths & Colors (VIBGYOR)
+    const spectrumColors = [
+      { name: 'Violet', hex: '#8a2be2', dn: 0.045 },
+      { name: 'Indigo', hex: '#4b0082', dn: 0.035 },
+      { name: 'Blue',   hex: '#2563eb', dn: 0.025 },
+      { name: 'Green',  hex: '#16a34a', dn: 0.015 },
+      { name: 'Yellow', hex: '#eab308', dn: 0.005 },
+      { name: 'Orange', hex: '#f97316', dn: -0.005 },
+      { name: 'Red',    hex: '#ef4444', dn: -0.015 }
+    ];
+
+    function updateSimulation() {
+      // 1. Calculate incoming ray position based on angle
+      // Angle 30° -> high up (y=110), 65° -> down (y=225)
+      const t = (state.angle - 30) / (65 - 30);
+      const emitterX = 35 + (1 - t) * 15;
+      const emitterY = 220 - t * 95;
+
+      incidentRay.setAttribute('x1', emitterX);
+      incidentRay.setAttribute('y1', emitterY);
+      incidentRay.setAttribute('x2', hitX);
+      incidentRay.setAttribute('y2', hitY);
+
+      emitterDot.setAttribute('cx', emitterX);
+      emitterDot.setAttribute('cy', emitterY);
+      const emitterText = document.getElementById('emitter-text');
+      if (emitterText) {
+        emitterText.setAttribute('x', emitterX);
+        emitterText.setAttribute('y', emitterY + 16);
+      }
+
+      // Update incidence angle label position & text
+      thetaLabel.textContent = `θi: ${state.angle}°`;
+      thetaLabel.setAttribute('x', hitX - 52);
+      thetaLabel.setAttribute('y', hitY + 2);
+
+      // 2. Build Internal & Emergent VIBGYOR Spectrum
+      internalGroup.innerHTML = '';
+      spectrumGroup.innerHTML = '';
+
+      // Dispersion scale factor
+      const dispersionMultiplier = ((state.n - 1.2) * 1.6);
+
+      spectrumColors.forEach((color, idx) => {
+        // Individual color refraction deviation
+        const colorOffset = color.dn * dispersionMultiplier * 28;
+        const colorAngleDeg = (state.angle - 45) * 0.45 + colorOffset;
+
+        // Exit point slight vertical fan
+        const currExitY = exitY - 6 + idx * 2.2;
+
+        // Internal ray line
+        const internalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        internalLine.setAttribute('x1', hitX);
+        internalLine.setAttribute('y1', hitY);
+        internalLine.setAttribute('x2', exitX);
+        internalLine.setAttribute('y2', currExitY);
+        internalLine.setAttribute('stroke', color.hex);
+        internalLine.setAttribute('stroke-width', '1.5');
+        internalLine.setAttribute('stroke-opacity', '0.6');
+        internalGroup.appendChild(internalLine);
+
+        // Emergent ray endpoint (beyond prism to right screen)
+        const fanSpread = (idx - 3) * (5.5 * dispersionMultiplier);
+        const endX = 385;
+        const endY = currExitY + fanSpread + (state.angle - 45) * 0.8;
+
+        const specLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        specLine.setAttribute('x1', exitX);
+        specLine.setAttribute('y1', currExitY);
+        specLine.setAttribute('x2', endX);
+        specLine.setAttribute('y2', endY);
+        specLine.setAttribute('stroke', color.hex);
+        specLine.setAttribute('stroke-width', '2.5');
+        specLine.setAttribute('stroke-linecap', 'round');
+        spectrumGroup.appendChild(specLine);
+
+        // Color label at ray end
+        const specText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        specText.setAttribute('x', endX + 3);
+        specText.setAttribute('y', endY + 3);
+        specText.setAttribute('fill', color.hex);
+        specText.setAttribute('font-size', '8');
+        specText.setAttribute('font-family', 'Outfit');
+        specText.setAttribute('font-weight', '600');
+        specText.textContent = color.name[0];
+        spectrumGroup.appendChild(specText);
+      });
+
+      // Update text displays
+      displayAngle.textContent = `${state.angle}°`;
+      sliderAngle.value = state.angle;
+      badgeAngle.textContent = `θi = ${state.angle}°`;
+      badgeMaterial.textContent = `${state.materialName} (n = ${state.n})`;
+    }
+
+    // Slider listener
+    sliderAngle.addEventListener('input', (e) => {
+      state.angle = parseInt(e.target.value, 10);
+      updateSimulation();
+    });
+
+    // Fine stepper buttons
+    btnAngleMinus.addEventListener('click', () => {
+      if (state.angle > 30) {
+        state.angle -= 1;
+        updateSimulation();
+      }
+    });
+
+    btnAnglePlus.addEventListener('click', () => {
+      if (state.angle < 65) {
+        state.angle += 1;
+        updateSimulation();
+      }
+    });
+
+    // Material selector chips
+    materialChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        materialChips.forEach((c) => {
+          c.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+          c.classList.add('bg-surface-container-low', 'text-on-surface');
+          const sub = c.querySelector('span:last-child');
+          if (sub) {
+            sub.classList.remove('text-primary-fixed');
+            sub.classList.add('text-on-surface-variant');
+          }
+        });
+        chip.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+        chip.classList.remove('bg-surface-container-low', 'text-on-surface');
+        const activeSub = chip.querySelector('span:last-child');
+        if (activeSub) {
+          activeSub.classList.add('text-primary-fixed');
+          activeSub.classList.remove('text-on-surface-variant');
+        }
+
+        state.materialName = chip.dataset.name;
+        state.n = parseFloat(chip.dataset.n);
+        updateSimulation();
+      });
+    });
+
+    // Toggle Normals
+    toggleNormals.addEventListener('click', () => {
+      state.showNormals = !state.showNormals;
+      toggleNormals.setAttribute('aria-checked', state.showNormals.toString());
+      if (state.showNormals) {
+        normalsGroup.style.opacity = '1';
+        toggleNormals.classList.remove('bg-surface-container-highest');
+        toggleNormals.classList.add('bg-primary');
+        toggleKnob.classList.add('translate-x-5');
+        toggleKnob.classList.remove('translate-x-0');
+      } else {
+        normalsGroup.style.opacity = '0';
+        toggleNormals.classList.remove('bg-primary');
+        toggleNormals.classList.add('bg-surface-container-highest');
+        toggleKnob.classList.remove('translate-x-5');
+        toggleKnob.classList.add('translate-x-0');
+      }
+    });
+
+    // Reset button
+    resetBtn.addEventListener('click', () => {
+      state.angle = 48;
+      state.materialName = 'Flint Glass';
+      state.n = 1.62;
+      state.showNormals = true;
+
+      // Reset material chip selection
+      materialChips.forEach((c) => {
+        if (c.dataset.name === 'Flint Glass') {
+          c.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+          c.classList.remove('bg-surface-container-low', 'text-on-surface');
+          const sub = c.querySelector('span:last-child');
+          if (sub) sub.classList.add('text-primary-fixed');
+        } else {
+          c.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+          c.classList.add('bg-surface-container-low', 'text-on-surface');
+          const sub = c.querySelector('span:last-child');
+          if (sub) sub.classList.remove('text-primary-fixed');
+        }
+      });
+
+      normalsGroup.style.opacity = '1';
+      toggleNormals.classList.add('bg-primary');
+      toggleNormals.classList.remove('bg-surface-container-highest');
+      toggleKnob.classList.add('translate-x-5');
+
+      updateSimulation();
+    });
+
+    // Touch & Drag on Viewport Light Source
+    let isDragging = false;
+    const viewport = document.getElementById('viewport-canvas');
+
+    function handlePointerCoord(e) {
+      const rect = viewport.getBoundingClientRect();
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const relativeY = clientY - rect.top;
+      const normY = Math.max(0, Math.min(1, relativeY / rect.height));
+      // Map normY to angle (top -> 65°, bottom -> 30°)
+      const calculatedAngle = Math.round(65 - normY * 35);
+      state.angle = Math.max(30, Math.min(65, calculatedAngle));
+      updateSimulation();
+    }
+
+    emitterHandle.addEventListener('pointerdown', (e) => {
+      isDragging = true;
+      emitterHandle.setPointerCapture(e.pointerId);
+      handlePointerCoord(e);
+    });
+
+    viewport.addEventListener('pointermove', (e) => {
+      if (!isDragging) return;
+      handlePointerCoord(e);
+    });
+
+    const stopDragging = (e) => {
+      if (isDragging) {
+        isDragging = false;
+        try { emitterHandle.releasePointerCapture(e.pointerId); } catch (_) {}
+      }
+    };
+
+    emitterHandle.addEventListener('pointerup', stopDragging);
+    emitterHandle.addEventListener('pointercancel', stopDragging);
+
+    // Science Accordion Expand/Collapse
+    accordionBtn.addEventListener('click', () => {
+      const isExpanded = accordionBtn.getAttribute('aria-expanded') === 'true';
+      accordionBtn.setAttribute('aria-expanded', (!isExpanded).toString());
+      if (isExpanded) {
+        scienceContent.classList.add('hidden');
+        accordionIcon.style.transform = 'rotate(0deg)';
+      } else {
+        scienceContent.classList.remove('hidden');
+        accordionIcon.style.transform = 'rotate(180deg)';
+      }
+    });
+
+    // Modal Interactions
+    snapshotBtn.addEventListener('click', () => {
+      modalAngleStat.textContent = `θi = ${state.angle}°`;
+      modalMatStat.textContent = state.materialName;
+      snapshotModal.classList.remove('hidden');
+    });
+
+    const hideModal = () => snapshotModal.classList.add('hidden');
+    closeModalBtn.addEventListener('click', hideModal);
+    modalConfirmBtn.addEventListener('click', hideModal);
+    snapshotModal.addEventListener('click', (e) => {
+      if (e.target === snapshotModal) hideModal();
+    });
+
+    // Hint Toast Interactions
+    hintBtn.addEventListener('click', () => {
+      hintToast.classList.toggle('hidden');
+      hintToast.classList.toggle('flex');
+    });
+
+    hintCloseBtn.addEventListener('click', () => {
+      hintToast.classList.add('hidden');
+      hintToast.classList.remove('flex');
+    });
+
+    // Initial render
+    updateSimulation();
+  })();
+</script></main></body></html>

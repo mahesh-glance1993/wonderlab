@@ -18,13 +18,14 @@ export const isOffline = () => typeof navigator !== 'undefined' && navigator.onL
 export async function api<T = unknown>(path: string, opts: { method?: string; body?: unknown; signal?: AbortSignal } = {}): Promise<T> {
   const method = opts.method || (opts.body !== undefined ? 'POST' : 'GET');
   let res: Response;
+  const signal = opts.signal ?? (typeof AbortSignal.timeout === 'function' ? AbortSignal.timeout(8000) : undefined);
   try {
     res = await fetch(`/api${path}`, {
       method,
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json', 'X-WonderLab': '1' },
       body: opts.body !== undefined ? JSON.stringify(opts.body) : undefined,
-      signal: opts.signal,
+      signal,
     });
   } catch {
     throw new ApiError(0, 'offline', 'You seem to be offline.');

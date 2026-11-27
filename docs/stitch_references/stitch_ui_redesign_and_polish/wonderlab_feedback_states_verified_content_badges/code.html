@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-tint": "#534cca", "on-primary-fixed-variant": "#3a30b1", "secondary": "#006a61", "error": "#ba1a1a", "on-error": "#ffffff", "primary": "#25149f", "on-secondary-fixed": "#00201d", "on-primary-fixed": "#100069", "error-container": "#ffdad6", "inverse-primary": "#c3c0ff", "inverse-surface": "#293140", "secondary-fixed": "#89f5e7", "tertiary-fixed": "#ffdcc3", "primary-fixed-dim": "#c3c0ff", "on-primary": "#ffffff", "surface-variant": "#dbe2f7", "primary-fixed": "#e3dfff", "on-tertiary": "#ffffff", "surface-container-low": "#f0f3ff", "outline-variant": "#c8c4d6", "on-background": "#141c2a", "outline": "#777585", "on-tertiary-container": "#ffa658", "tertiary": "#522900", "on-tertiary-fixed-variant": "#6e3900", "surface": "#f9f9ff", "on-secondary-container": "#006f66", "surface-container-highest": "#dbe2f7", "primary-container": "#3e35b5", "on-surface": "#141c2a", "background": "#f9f9ff", "on-tertiary-fixed": "#2f1500", "surface-dim": "#d2daee", "surface-bright": "#f9f9ff", "on-error-container": "#93000a", "inverse-on-surface": "#ecf0ff", "on-secondary": "#ffffff", "on-secondary-fixed-variant": "#005049", "surface-container-high": "#e0e8fd", "secondary-fixed-dim": "#6bd8cb", "surface-container-lowest": "#ffffff", "tertiary-fixed-dim": "#ffb77d", "on-surface-variant": "#464554", "on-primary-container": "#b6b3ff", "secondary-container": "#86f2e4", "surface-container": "#e8eeff", "tertiary-container": "#733c00" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter-desktop": "2rem", "space-sm": "0.5rem", "space-md": "1rem", "margin-mobile": "1rem", "margin-desktop": "3rem", "space-xl": "2.5rem", "margin": "1.5rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "gutter-mobile": "1rem" }, fontFamily: { "label-sm": ["Be Vietnam Pro"], "body-sm": ["Be Vietnam Pro"], "headline-lg": ["Outfit"], "display-lg": ["Outfit"], "label-lg": ["Be Vietnam Pro"], "headline-sm": ["Outfit"], "title-lg": ["Outfit"], "label-md": ["Be Vietnam Pro"], "body-lg": ["Be Vietnam Pro"], "display-lg-mobile": ["Outfit"], "title-md": ["Be Vietnam Pro"], "headline-md": ["Outfit"], "headline-lg-mobile": ["Outfit"], "body-md": ["Be Vietnam Pro"] }, fontSize: { "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "title-lg": ["18px", { "lineHeight": "26px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "0em", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(62,53,181,0.04)]"><div class="h-20 w-full px-space-lg flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg shrink-0"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm"><span class="material-symbols-outlined text-[20px]">science</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-none tracking-tight">WonderLab</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline leading-none mt-1">Studio Learning</span></div></div><div class="hidden xl:flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-low text-secondary"><span class="material-symbols-outlined text-[15px]">verified_user</span><span class="font-label-sm text-label-sm font-semibold tracking-wide">COPPA &amp; Indian DPDP Safe · Ad-Free · Encrypted</span></div></div><nav class="hidden lg:flex items-center gap-space-xs px-space-xs py-1 rounded-xl bg-surface-container-low" data-active-classes="bg-primary-container text-on-primary font-semibold rounded-lg shadow-sm"><a class="px-space-md py-2 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="learning-studio" href="#">Studio</a><a aria-current="page" class="px-space-md py-2 transition-all bg-primary-container text-on-primary font-semibold rounded-lg shadow-sm" data-path="curriculum-explorer" href="#">Curriculum</a><a class="px-space-md py-2 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="science-laboratory" href="#">Labs</a><a class="px-space-md py-2 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="parent-teacher-portal" href="#">Insights</a></nav><div class="flex items-center gap-space-sm shrink-0"><div class="hidden sm:flex items-center p-1 rounded-lg bg-surface-container-low gap-0.5"><button class="px-space-sm py-1 rounded-md font-label-md text-label-md bg-surface-container-lowest text-primary shadow-sm font-semibold" type="button">Learner</button><button class="px-space-sm py-1 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" type="button">Parent</button><button class="px-space-sm py-1 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" type="button">Teacher</button></div><div class="flex items-center bg-surface-container-low rounded-lg p-1 text-on-surface-variant font-label-md text-label-md"><button class="px-2 py-1 rounded-md bg-surface-container-lowest text-on-surface font-semibold shadow-sm" type="button">EN</button><span class="text-outline-variant px-0.5 text-[11px]">|</span><button class="px-2 py-1 rounded-md hover:text-on-surface hover:bg-surface-container transition-all" type="button">తెలుగు</button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-surface flex-1"><div class="flex flex-col w-full">
+<!-- Top Section: Pedagogical Philosophy & Warm Tone Standards -->
+<section class="w-full bg-surface-container-low py-space-xl px-space-lg">
+<div class="max-w-[1280px] mx-auto flex flex-col gap-space-lg">
+<!-- Top Title & Subtitle Group -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="max-w-3xl flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary font-label-md text-label-md uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Pedagogical Standard Specification · Safe Architecture</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">
+            Pedagogical Feedback States &amp; Verified Badges
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+            Safe, non-punitive feedback patterns, warm error scaffolding, and official NCERT / Telangana SCERT verification standards.
+          </p>
+</div>
+<!-- Age-band selector toggle -->
+<div class="shrink-0 flex items-center p-1.5 rounded-xl bg-surface-container-high shadow-sm">
+<button class="px-space-md py-2 rounded-lg font-label-lg text-label-lg transition-all text-on-surface-variant hover:text-on-surface" id="toggle-early" onclick="setAgeBand('early')" type="button">
+            Nursery – UKG (Ages 3–5)
+          </button>
+<button class="px-space-md py-2 rounded-lg font-label-lg text-label-lg bg-surface-container-lowest text-primary shadow-sm font-semibold transition-all" id="toggle-middle" onclick="setAgeBand('middle')" type="button">
+            Class 1 – 10 (Ages 6–16)
+          </button>
+</div>
+</div>
+<!-- Warm Tone Standard Banner -->
+<div class="w-full rounded-2xl bg-surface-container-lowest p-space-lg shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+<div class="flex items-start gap-space-md max-w-3xl">
+<div class="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[28px]">psychology</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-title-md text-title-md text-on-surface">Psychological Safety Principle</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Warm, growth-oriented copy. Never punitive or buzzer-style errors. Zero score pressure, no competitive leaderboards or rank shame. Learning is personal mastery, celebrated through exploratory resilience.
+            </p>
+</div>
+</div>
+<!-- Metric Badges Row -->
+<div class="flex flex-wrap items-center gap-space-md shrink-0">
+<div class="flex items-center gap-space-xs px-3 py-2 rounded-xl bg-surface-container text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-secondary text-[18px]">volume_off</span>
+<span>0 Buzzers</span>
+</div>
+<div class="flex items-center gap-space-xs px-3 py-2 rounded-xl bg-surface-container text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-secondary text-[18px]">timer_off</span>
+<span>0 Timers</span>
+</div>
+<div class="flex items-center gap-space-xs px-3 py-2 rounded-xl bg-surface-container text-on-surface-variant font-label-md text-label-md">
+<span class="material-symbols-outlined text-primary text-[18px]">lock_reset</span>
+<span>Encrypted Privacy</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Showcase Section: 4 Core Pedagogical Feedback States -->
+<section class="w-full max-w-[1280px] mx-auto px-space-lg py-space-xl flex flex-col gap-space-xl">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Adaptive UI Matrix</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Four Pedagogical Feedback States</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+        Every visual response adapts its emotional tone, linguistic cadence, and sensory cues to maintain curiosity and eliminate fear of failure.
+      </p>
+</div>
+<!-- 2x2 Grid of States -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- State A: Well done! / Spot on! (Positive Mastery) -->
+<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-lg hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-md">
+<!-- State Label Header -->
+<div class="flex items-center justify-between pb-space-sm border-b-0">
+<span class="px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+              State A · Positive Mastery
+            </span>
+<span class="font-label-sm text-label-sm text-outline">Target: Grade 6–10 Optics</span>
+</div>
+<!-- Mastered Content Banner -->
+<div class="rounded-xl p-space-md bg-secondary-container text-on-secondary-container flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[26px]">verified_user</span>
+<h3 class="font-headline-sm text-headline-sm font-bold tracking-tight">Spot on, Aarav! / అద్భుతం!</h3>
+</div>
+<p class="font-body-md text-body-md font-medium text-on-secondary-container/90">
+              You identified the convex lens refraction angle correctly on the first attempt.
+            </p>
+</div>
+<!-- Context Visualizer Artifact -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-[22px]">blur_linear</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Incident Angle θ₁ = 32°</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Focal Convergence validated via Snell's Law</span>
+</div>
+</div>
+<!-- Mini SVG Mastery Sparkle -->
+<svg class="w-12 h-12 text-secondary shrink-0" fill="none" viewbox="0 0 48 48">
+<circle class="stroke-current opacity-20" cx="24" cy="24" r="20" stroke-width="2"></circle>
+<path d="M24 10L27 20L37 23L27 26L24 36L21 26L11 23L21 20L24 10Z" fill="currentColor"></path>
+</svg>
+</div>
+<!-- Bilingual Audio Cue -->
+<button class="w-full flex items-center justify-between px-space-md py-2.5 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors" onclick="playMockAudio('spot-on')" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">volume_up</span>
+<span class="font-label-lg text-label-lg">Hear encouragement (English &amp; Telugu)</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">0:04 · 48kHz Warm Tone</span>
+</button>
+</div>
+<!-- Action Row -->
+<div class="flex flex-col sm:flex-row items-center gap-space-sm pt-space-sm">
+<button class="w-full sm:flex-1 py-3 px-space-md rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg text-center font-semibold hover:opacity-95 shadow-sm transition-transform active:translate-y-0.5" type="button">
+            Continue to Practice →
+          </button>
+<button class="w-full sm:w-auto py-3 px-space-md rounded-lg bg-surface-container text-on-surface-variant font-label-lg text-label-lg hover:text-on-surface transition-colors" type="button">
+            Review Explanation
+          </button>
+</div>
+</div>
+<!-- State B: Not quite — let's see where it went wrong (Warm Scaffolded Error) -->
+<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-lg hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-md">
+<!-- State Label Header -->
+<div class="flex items-center justify-between pb-space-sm">
+<span class="px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">
+              State B · Scaffolded Error
+            </span>
+<span class="font-label-sm text-label-sm text-outline">Target: Class 5 Physics Lab</span>
+</div>
+<!-- Scaffolded Warning Header -->
+<div class="rounded-xl p-space-md bg-tertiary-fixed text-on-tertiary-fixed flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[26px]">lightbulb</span>
+<h3 class="font-headline-sm text-headline-sm font-bold tracking-tight">
+                Not quite — let's see where it went wrong!
+              </h3>
+</div>
+<span class="font-body-md text-body-md font-medium text-on-tertiary-fixed-variant">
+              పర్వాలేదు, ఎక్కడ సరిచూసుకోవాలో చూద్దాం
+            </span>
+</div>
+<!-- Visual Breakdown Card -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-body-sm font-body-sm pb-1">
+<span class="flex items-center gap-1.5 text-secondary font-semibold">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                Step 1: Angle of incidence (Accurate)
+              </span>
+<span class="text-outline font-label-sm text-label-sm">45° measured</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm pt-1 bg-surface-container rounded-lg p-2 text-on-surface">
+<span class="flex items-center gap-1.5 font-semibold text-tertiary">
+<span class="material-symbols-outlined text-[18px]">sync_problem</span>
+                Step 2: Density of glass medium
+              </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Re-check optical density</span>
+</div>
+<!-- Gentle Hint Strip -->
+<div class="mt-1 p-2.5 rounded-lg bg-surface-container-lowest flex items-start gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">tips_and_updates</span>
+<span><strong>Hint:</strong> Light bends towards the normal when traveling from air into denser glass.</span>
+</div>
+</div>
+</div>
+<!-- Safe Non-punitive Action -->
+<div class="flex flex-col sm:flex-row items-center gap-space-sm pt-space-sm">
+<button class="w-full sm:flex-1 py-3 px-space-md rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg text-center font-semibold hover:opacity-95 shadow-sm transition-transform active:translate-y-0.5" type="button">
+            Try Again Together (0 Penalty)
+          </button>
+<button class="w-full sm:w-auto py-3 px-space-md rounded-lg bg-surface-container text-on-surface-variant font-label-lg text-label-lg hover:text-on-surface transition-colors" type="button">
+            See Step-by-Step Walkthrough
+          </button>
+</div>
+</div>
+<!-- State C: Oops! Let's try again together! (Early Years Nursery/LKG/UKG) -->
+<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-lg hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-md">
+<!-- State Label Header -->
+<div class="flex items-center justify-between pb-space-sm">
+<span class="px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold">
+              State C · Early Years (Ages 3–5)
+            </span>
+<span class="font-label-sm text-label-sm text-outline">Playful Sensory Scaffold</span>
+</div>
+<!-- Early Years Pastel Banner with Mascot Silhouette -->
+<div class="rounded-2xl p-space-md bg-surface-container flex items-center gap-space-md">
+<div class="w-16 h-16 rounded-2xl bg-primary-fixed flex items-center justify-center text-primary shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-[36px]">toys</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold">
+                Oops! Let's try again together! 🎈
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                పర్వాలేదు! మన మిత్రుల బొమ్మలను మళ్లీ ఎంచుకుందాం!
+              </p>
+</div>
+</div>
+<!-- Visual Mascot & Playful Prompt Box -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-secondary font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">music_note</span>
+<span>🎵 Soft chime played · Zero buzzer sounds</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Safe Haptics</span>
+</div>
+<!-- Read Aloud friendly audio button -->
+<button class="w-full flex items-center justify-center gap-space-sm py-2.5 px-space-md rounded-xl bg-surface-container-lowest text-primary font-label-lg text-label-lg hover:bg-surface-container transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">record_voice_over</span>
+<span>🔊 Read aloud in friendly voice (Telugu / English)</span>
+</button>
+</div>
+</div>
+<!-- Oversized Tactile Action for Little Fingers (Min 48px height) -->
+<div class="pt-space-sm">
+<button class="w-full h-14 rounded-2xl bg-primary-container text-on-primary font-headline-sm text-headline-sm font-semibold flex items-center justify-center gap-space-sm shadow-md hover:opacity-95 transition-transform active:scale-[0.99]" type="button">
+<span class="material-symbols-outlined text-[24px]">refresh</span>
+<span>🔄 Try Again with Helper</span>
+</button>
+</div>
+</div>
+<!-- State D: Mastered & Retained! (Long-term Competency, Self-Referential) -->
+<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-lg hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-md">
+<!-- State Label Header -->
+<div class="flex items-center justify-between pb-space-sm">
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+              State D · Long-Term Competency
+            </span>
+<span class="font-label-sm text-label-sm text-outline">Self-Referential Progress</span>
+</div>
+<!-- Deep Calm Indigo/Teal Banner -->
+<div class="rounded-xl p-space-md bg-secondary text-on-secondary flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[26px]">military_tech</span>
+<h3 class="font-headline-sm text-headline-sm font-bold tracking-tight">Mastered &amp; Retained!</h3>
+</div>
+<p class="font-body-md text-body-md text-on-secondary/90">
+              Your Personal Growth: You have practiced this concept across 3 independent labs. 100% self-paced, no comparison with other learners.
+            </p>
+</div>
+<!-- Personal Growth History Visualizer (Non-competitive) -->
+<div class="rounded-xl bg-surface-container-low p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant">Concept Exploration Track</span>
+<span class="font-label-sm text-label-sm font-semibold text-secondary">3 of 3 Milestones</span>
+</div>
+<div class="grid grid-cols-3 gap-2">
+<div class="flex flex-col items-center p-2 rounded-lg bg-surface-container text-center">
+<span class="material-symbols-outlined text-secondary text-[20px]">explore</span>
+<span class="font-label-sm text-label-sm mt-1 text-on-surface">Explored</span>
+</div>
+<div class="flex flex-col items-center p-2 rounded-lg bg-surface-container text-center">
+<span class="material-symbols-outlined text-secondary text-[20px]">tune</span>
+<span class="font-label-sm text-label-sm mt-1 text-on-surface">Experimented</span>
+</div>
+<div class="flex flex-col items-center p-2 rounded-lg bg-surface-container text-center">
+<span class="material-symbols-outlined text-secondary text-[20px]">auto_stories</span>
+<span class="font-label-sm text-label-sm mt-1 text-on-surface">Internalized</span>
+</div>
+</div>
+<!-- Self-referential sparkline SVG -->
+<div class="mt-2 flex items-center justify-between text-body-sm font-body-sm text-outline">
+<span>Day 1 (Initiated)</span>
+<svg class="h-4 w-32 text-secondary" fill="none" viewbox="0 0 100 16">
+<path d="M0 12 L35 10 L70 5 L100 2" stroke="currentColor" stroke-linecap="round" stroke-width="2.5"></path>
+</svg>
+<span>Today (Retained)</span>
+</div>
+</div>
+</div>
+<!-- Action Row -->
+<div class="flex flex-col sm:flex-row items-center gap-space-sm pt-space-sm">
+<button class="w-full sm:flex-1 py-3 px-space-md rounded-lg bg-primary-container text-on-primary font-label-lg text-label-lg text-center font-semibold hover:opacity-95 shadow-sm transition-transform active:translate-y-0.5" type="button">
+            Record in Personal Journal
+          </button>
+<button class="w-full sm:w-auto py-3 px-space-md rounded-lg bg-surface-container text-on-surface-variant font-label-lg text-label-lg hover:text-on-surface transition-colors" type="button">
+            Share with Teacher
+          </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Official Verified Curriculum & Content Trust Badges Showcase -->
+<section class="w-full bg-surface-container-low py-space-xl px-space-lg">
+<div class="max-w-[1280px] mx-auto flex flex-col gap-space-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs max-w-2xl">
+<div class="flex items-center gap-space-xs text-secondary font-label-md text-label-md uppercase tracking-wider font-semibold">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>Institutional Rigor &amp; Child Privacy Certification</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Verified Curriculum &amp; Content Trust Badges</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Each lesson in WonderLab bears cryptographically auditable, peer-verified badges confirming educational compliance, privacy sovereignty, and screen-time well-being.
+          </p>
+</div>
+<div class="flex items-center gap-space-sm text-outline font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Updated for Academic Year 2024–25</span>
+</div>
+</div>
+<!-- 6 Badges Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Badge 1: CBSE & NCERT 2024-25 -->
+<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">menu_book</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
+                NCERT-Aligned
+              </span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">CBSE &amp; NCERT 2024–25 Verified</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Official syllabus-aligned, QR-code linked textbook reference Chapter 9 Light, vetted by certified educators.
+            </p>
+</div>
+<div class="pt-space-sm border-t-0 flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>Ref: NCERT-SCI-G8-C09</span>
+<span class="text-primary font-semibold">Verified 100%</span>
+</div>
+</div>
+<!-- Badge 2: Telangana State SCERT Aligned -->
+<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-xl bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">translate</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
+                Bilingual
+              </span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">Telangana State SCERT Aligned</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Bilingual English-Telugu certified curriculum standards, SCERT-TS Grade 5 pedagogical vocabulary benchmark.
+            </p>
+</div>
+<div class="pt-space-sm border-t-0 flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>TS-SCERT #HYD-24/09</span>
+<span class="text-secondary font-semibold">తెలుగు &amp; English</span>
+</div>
+</div>
+<!-- Badge 3: COPPA & DPDP Act 2023 -->
+<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">shield</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">
+                Privacy Sealed
+              </span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">COPPA &amp; Indian DPDP Act 2023</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Zero ads, zero data tracking, child biometric data never uploaded, encrypted offline storage with zero ad-identifiers.
+            </p>
+</div>
+<div class="pt-space-sm border-t-0 flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>Audit ID: DPDP-IN-982</span>
+<span class="text-secondary font-semibold">No Cloud Tracking</span>
+</div>
+</div>
+<!-- Badge 4: Pedagogically Vetted · Zero Frustration Score -->
+<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-xl bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">sentiment_satisfied</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
+                Developmental Safe
+              </span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">Pedagogically Vetted · 0 Frustration</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Peer reviewed by early child development psychologists; verified non-comparative with restorative hints.
+            </p>
+</div>
+<div class="pt-space-sm border-t-0 flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>Cognitive Index: 0.02 Strain</span>
+<span class="text-primary font-semibold">Child Psych Approved</span>
+</div>
+</div>
+<!-- Badge 5: Offline Verified Pack · Hash Checked -->
+<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest text-on-surface flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">offline_bolt</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
+                Rural Ready
+              </span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">Offline Pack · Hash Checked</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              SHA-256 verified download, tamper-proof packages safe for low-connectivity rural schools and portable tablets.
+            </p>
+</div>
+<div class="pt-space-sm border-t-0 flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>SHA256: 8f4c...3e1a</span>
+<span class="text-secondary font-semibold">Offline 100%</span>
+</div>
+</div>
+<!-- Badge 6: Parent & Educator Audited -->
+<div class="rounded-2xl p-space-lg bg-surface-container-lowest shadow-sm flex flex-col justify-between gap-space-md hover:shadow-md transition-shadow">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">family_restroom</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">
+                Transparent
+              </span>
+</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">Parent &amp; Educator Audited</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Full transparency on learning objectives, zero dark patterns, no hidden in-app purchases, open syllabus roadmap.
+            </p>
+</div>
+<div class="pt-space-sm border-t-0 flex items-center justify-between text-outline font-label-sm text-label-sm">
+<span>Audit Log 2025.02</span>
+<span class="text-primary font-semibold">Open Spec</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 4: Live In-Context Example -->
+<section class="w-full max-w-[1280px] mx-auto px-space-lg py-space-xl flex flex-col gap-space-xl">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Live Simulation</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Live In-Context Pedagogical Interaction</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+        Experience how the quiet verified trust badges sit gracefully above an interactive question, paired with immediate, warm bilingual feedback.
+      </p>
+</div>
+<!-- The Interactive Lesson Card Mockup -->
+<div class="w-full max-w-4xl mx-auto rounded-3xl bg-surface-container-lowest p-space-lg sm:p-space-xl shadow-lg flex flex-col gap-space-lg">
+<!-- Top Quiet Header with Trust Badges -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-md">
+<div class="flex flex-wrap items-center gap-space-xs">
+<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-low text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+<span>NCERT Class 8 · Chapter 9 Light</span>
+</div>
+<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[15px]">translate</span>
+<span>Bilingual (EN / TE)</span>
+</div>
+<div class="flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-low text-outline font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[15px]">security</span>
+<span>DPDP Safe</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-outline font-label-sm text-label-sm">
+<span>Question 3 of 5</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+<span>Self-Paced</span>
+</div>
+</div>
+<!-- Question Prompt -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary font-semibold">CONCEPT CHECK · OPTICAL REFRACTION</span>
+<!-- Audio Prompt Trigger -->
+<button class="flex items-center gap-1 text-primary hover:text-on-primary-fixed-variant font-label-sm text-label-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+<span>ప్రశ్న వినండి (Listen)</span>
+</button>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">
+          What happens when a light ray passes from air into a glass prism?
+        </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+          కాంతి కిరణం గాలి నుండి గాజు పట్టకము గుండా వెళ్ళినప్పుడు ఏమి జరుగుతుంది?
+        </p>
+</div>
+<!-- Diagram Illustration Visual Anchor -->
+<div class="w-full h-44 rounded-2xl bg-surface-container-low relative overflow-hidden flex items-center justify-center p-space-md">
+<!-- Technical Prism Diagram SVG -->
+<svg class="h-full w-auto text-primary" fill="none" viewbox="0 0 320 160">
+<!-- Glass Prism -->
+<polygon class="fill-surface-variant/40 stroke-primary/30" points="160,20 80,140 240,140" stroke-width="2"></polygon>
+<text class="fill-outline font-label-sm text-[10px]" text-anchor="middle" x="160" y="90">Glass Medium (Denser)</text>
+<text class="fill-outline font-label-sm text-[10px]" x="50" y="40">Air (Rarer)</text>
+<!-- Light Ray Entering -->
+<path d="M40 70 L120 80" stroke="#E39D32" stroke-linecap="round" stroke-width="3"></path>
+<circle cx="120" cy="80" fill="#E39D32" r="3"></circle>
+<!-- Refracted Ray Inside -->
+<path d="M120 80 L180 110" stroke="#E39D32" stroke-dasharray="4 2" stroke-width="3"></path>
+<!-- Exiting Ray bent away -->
+<path d="M180 110 L260 145" stroke="#E39D32" stroke-linecap="round" stroke-width="3"></path>
+<!-- Normal Line -->
+<line stroke="#777585" stroke-dasharray="3 3" stroke-width="1.5" x1="110" x2="135" y1="50" y2="110"></line>
+</svg>
+<span class="absolute bottom-3 right-4 font-label-sm text-label-sm text-outline">Fig 9.4: Refraction Angle Simulation</span>
+</div>
+<!-- Multiple Choice Options -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm" id="mcq-options">
+<button class="demo-option text-left p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" onclick="selectDemoOption(this, false)" type="button">
+<span class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface font-label-sm text-label-sm shrink-0">A</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">It continues in a straight line without bending</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">ఎలాంటి వంపు లేకుండా సరళ రేఖలో ప్రయాణిస్తుంది</span>
+</div>
+</button>
+<button class="demo-option text-left p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" onclick="selectDemoOption(this, true)" type="button">
+<span class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface font-label-sm text-label-sm shrink-0">B</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">It bends towards the normal line</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">లంబం వైపుకు వంగుతుంది (Correct)</span>
+</div>
+</button>
+<button class="demo-option text-left p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" onclick="selectDemoOption(this, false)" type="button">
+<span class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface font-label-sm text-label-sm shrink-0">C</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">It completely reflects backward</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">పూర్తిగా వెనుకకు పరావర్తనం చెందుతుంది</span>
+</div>
+</button>
+<button class="demo-option text-left p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container transition-all flex items-start gap-space-sm" onclick="selectDemoOption(this, false)" type="button">
+<span class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface font-label-sm text-label-sm shrink-0">D</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">It accelerates and turns blue</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">వేగం పెరిగి నీలం రంగులోకి మారుతుంది</span>
+</div>
+</button>
+</div>
+<!-- Dynamic Pedagogical Feedback Container (Appears on click) -->
+<div class="hidden transition-all duration-300" id="dynamic-feedback-slot">
+<!-- Rendered dynamically via JS below -->
+</div>
+<!-- Footer Help & Reassurance -->
+<div class="pt-space-md flex flex-wrap items-center justify-between gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[16px]">eco</span>
+<span>Adaptive Scaffolding: You can explore without penalty anytime.</span>
+</div>
+<button class="text-primary hover:underline font-semibold" onclick="resetDemo()" type="button">
+          Reset Interaction
+        </button>
+</div>
+</div>
+</section>
+<!-- Photo-rich Pedagogy in Practice Strip -->
+<section class="w-full bg-surface-container-low py-space-xl px-space-lg">
+<div class="max-w-[1280px] mx-auto flex flex-col gap-space-lg">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Visual Documentation</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Pedagogical Design in Indian Classrooms</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<!-- Image Card 1 -->
+<div class="rounded-2xl overflow-hidden bg-surface-container-lowest shadow-sm flex flex-col">
+<img class="w-full h-48 object-cover" data-alt="A focused Indian school student in Hyderabad using a digital tablet inside a modern science laboratory. The screen shows a clean optics experiment interface with violet and emerald UI elements. Warm morning sunlight filters through large classroom windows, highlighting focused engagement without stress or anxiety." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVH9EmbURM_bqte6S9CkQLK0zUarcFNAkeqlO-S0QgG-ktqItk-aVYjvQK0A4r2V2NuHByRJ7vxyTQkRiegVa9k3i7ouWgIEOk1BeN4fp7N5GejY2Pawi_bKBxTCJimUu0cUPeLVCJIxg82f1klHFfNkw6LXcxqYWPTvmLhnMRpKabelTg2bBNBX4LUkGm9nixtrRr8Xlthm9l3SoyfFRxg5Z4bib1NRg7X0otXmk"/>
+<div class="p-space-md flex flex-col gap-1">
+<span class="font-title-md text-title-md text-on-surface">Self-Paced Exploration</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Children experiment at their own speed with zero competitive pressure or countdown timers.</p>
+</div>
+</div>
+<!-- Image Card 2 -->
+<div class="rounded-2xl overflow-hidden bg-surface-container-lowest shadow-sm flex flex-col">
+<img class="w-full h-48 object-cover" data-alt="An educator in an Indian government school reviewing bilingual Telugu and English science modules on an interactive display with curious middle school students. The classroom walls display NCERT charts, and the mood is encouraging, collaborative, and joyful." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4qyhmo5ZpbanZrJfvT241G0MupTW9pcyv1rPMvR04TO46gl462ld2ukdQ9odofpCs-cu4N-W2wx-AHunbZnSZ0UNZVrqmMrGbd8j9jJHjdXDrkeOlTM4wqI5Vxq9LEja32RG1VySigkkC4s-k7hb-W6RDl_96HUlkTrg172WVrH5mMYYYL0Sgql6mWqubcHxEORBEKD3-Ip9eEqDzSm3qu4tKKWyxJc3lJLyKdUg"/>
+<div class="p-space-md flex flex-col gap-1">
+<span class="font-title-md text-title-md text-on-surface">Bilingual Scaffolding</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Seamless dual-language toggling for SCERT Telangana and NCERT regional curriculum support.</p>
+</div>
+</div>
+<!-- Image Card 3 -->
+<div class="rounded-2xl overflow-hidden bg-surface-container-lowest shadow-sm flex flex-col">
+<img class="w-full h-48 object-cover" data-alt="A parent and a young child aged five sitting together on a comfortable sofa exploring an early learning sensory app on an offline tablet. The child points happily at a friendly animal shape on screen while soft sunlight illuminates a calm, distraction-free home study area." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH9_Eb9R9Vr0dzS1phyj5CQkMiEl8-K6R-yJZ4Ptxxdrzms5WskHrVWHVMuExP7mSxEJDlb5r1zmIQsJnY_efDMJypwh5rydnUUcdms6-Cmy32yVJWfYTBvAjCgUrB6N1l2tYm0Wch9GldgwaUO-n_IHitEAfwnQP3GoFTGZp3yJDsnsvcWpBo8XJULyVPqJkShY1xvke9Xf0udd67PmwCLaXnFUQjqFiAnbL3jNY"/>
+<div class="p-space-md flex flex-col gap-1">
+<span class="font-title-md text-title-md text-on-surface">Parental Peace of Mind</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">COPPA and DPDP certified zero-tracking environment ensures complete child safety offline.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Inline Interactive Script for Live Pedagogical Feedback Demonstration -->
+<script>
+  function selectDemoOption(element, isCorrect) {
+    // Reset other option states
+    document.querySelectorAll('.demo-option').forEach(btn => {
+      btn.classList.remove('bg-secondary-container', 'bg-tertiary-fixed', 'opacity-60');
+      btn.classList.add('bg-surface-container-low');
+    });
+
+    const feedbackSlot = document.getElementById('dynamic-feedback-slot');
+    feedbackSlot.classList.remove('hidden');
+
+    if (isCorrect) {
+      element.classList.remove('bg-surface-container-low');
+      element.classList.add('bg-secondary-container');
+      
+      feedbackSlot.innerHTML = `
+        <div class="rounded-2xl p-space-md bg-secondary-container text-on-secondary-container flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md shadow-sm">
+          <div class="flex items-start gap-space-sm">
+            <span class="material-symbols-outlined text-[28px] shrink-0">check_circle</span>
+            <div class="flex flex-col">
+              <span class="font-headline-sm text-headline-sm font-bold">Spot on, Aarav! / అద్భుతం!</span>
+              <p class="font-body-md text-body-md text-on-secondary-container/90">
+                You correctly understood that light slows down in denser glass, causing it to bend towards the normal.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-space-sm shrink-0 w-full sm:w-auto">
+            <button type="button" onclick="playMockAudio('spot-on')" class="p-2.5 rounded-lg bg-surface-container-lowest text-secondary shadow-sm hover:bg-surface-container transition-colors" title="Hear Audio Feedback">
+              <span class="material-symbols-outlined text-[20px]">volume_up</span>
+            </button>
+            <button type="button" class="py-2.5 px-space-md rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:opacity-95 shadow-sm transition-transform active:translate-y-0.5">
+              Next Concept →
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      element.classList.remove('bg-surface-container-low');
+      element.classList.add('bg-tertiary-fixed');
+
+      feedbackSlot.innerHTML = `
+        <div class="rounded-2xl p-space-md bg-tertiary-fixed text-on-tertiary-fixed flex flex-col gap-space-sm shadow-sm">
+          <div class="flex items-start justify-between gap-space-md">
+            <div class="flex items-start gap-space-sm">
+              <span class="material-symbols-outlined text-[28px] shrink-0 text-tertiary">lightbulb</span>
+              <div class="flex flex-col">
+                <span class="font-headline-sm text-headline-sm font-bold">Not quite — let's see where it went wrong!</span>
+                <span class="font-body-md text-body-md text-on-tertiary-fixed-variant">పర్వాలేదు, ఎక్కడ సరిచూసుకోవాలో చూద్దాం</span>
+              </div>
+            </div>
+            <button type="button" onclick="playMockAudio('gentle-hint')" class="p-2 rounded-lg bg-surface-container-lowest text-tertiary shadow-sm hover:bg-surface-container transition-colors shrink-0" title="Listen to Hint">
+              <span class="material-symbols-outlined text-[20px]">volume_up</span>
+            </button>
+          </div>
+          <div class="p-3 rounded-xl bg-surface-container-lowest text-on-surface-variant font-body-sm text-body-sm flex items-start gap-2">
+            <span class="material-symbols-outlined text-primary text-[18px] shrink-0 mt-0.5">tips_and_updates</span>
+            <div>
+              <strong>Warm Scaffold:</strong> Light travels slower in glass than in air because glass has higher optical density. 
+              <br><span class="text-outline">Hint: When a wave slows down, it pivots toward the perpendicular normal line.</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-space-sm justify-end pt-1">
+            <button type="button" onclick="resetDemo()" class="py-2 px-space-md rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:opacity-95">
+              Try Again Together (0 Penalty)
+            </button>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function resetDemo() {
+    document.querySelectorAll('.demo-option').forEach(btn => {
+      btn.classList.remove('bg-secondary-container', 'bg-tertiary-fixed', 'opacity-60');
+      btn.classList.add('bg-surface-container-low');
+    });
+    const feedbackSlot = document.getElementById('dynamic-feedback-slot');
+    feedbackSlot.classList.add('hidden');
+    feedbackSlot.innerHTML = '';
+  }
+
+  function setAgeBand(band) {
+    const earlyBtn = document.getElementById('toggle-early');
+    const middleBtn = document.getElementById('toggle-middle');
+
+    if (band === 'early') {
+      earlyBtn.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+      earlyBtn.classList.remove('text-on-surface-variant');
+      middleBtn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+      middleBtn.classList.add('text-on-surface-variant');
+    } else {
+      middleBtn.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+      middleBtn.classList.remove('text-on-surface-variant');
+      earlyBtn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm', 'font-semibold');
+      earlyBtn.classList.add('text-on-surface-variant');
+    }
+  }
+
+  function playMockAudio(type) {
+    // Soft synthetic non-punitive audio cue using Web Audio API
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'sine';
+      if (type === 'spot-on') {
+        // Warm celebratory major chord arpeggio tone
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+        osc.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.15); // E5
+        osc.frequency.exponentialRampToValueAtTime(783.99, audioCtx.currentTime + 0.3); // G5
+      } else {
+        // Gentle restorative double chime
+        osc.frequency.setValueAtTime(440, audioCtx.currentTime); // A4
+        osc.frequency.exponentialRampToValueAtTime(493.88, audioCtx.currentTime + 0.2); // B4
+      }
+
+      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.5);
+    } catch (e) {
+      // Audio fallback gracefully handled
+    }
+  }
+</script></main><footer class="w-full bg-surface-container-low mt-auto"><div class="w-full max-w-[1280px] mx-auto px-space-lg py-space-xl"><div class="flex flex-col md:flex-row items-center justify-between gap-space-md pb-space-lg"><div class="flex items-center gap-space-sm"><div class="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-on-primary"><span class="material-symbols-outlined text-[16px]">school</span></div><span class="font-title-md text-title-md text-primary font-semibold">WonderLab Studio</span></div><div class="flex flex-wrap items-center justify-center gap-space-lg"><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Pedagogical Charter</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Privacy Architecture</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">DPDP &amp; COPPA Registry</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Parental Consent Verification</a></div></div><div class="pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm text-outline"><p class="font-body-sm text-body-sm">© 2025 WonderLab Studio Learning. Certified Safe &amp; Private Pedagogical Space.</p><p class="font-body-sm text-body-sm">Multilingual Adaptive Framework · India Edition</p></div></div></footer></body></html>

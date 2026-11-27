@@ -124,14 +124,34 @@ export function SyncBadge() {
 
 /** Replay / stop narration. Always pair with visible text. */
 export function NarrationControls({ text, te, clipId }: { text: string; te?: string; clipId?: string }) {
-  const { speak, t, prefs, updatePrefs } = useApp();
+  const { speak, t } = useApp();
   const [speaking, setSpeaking] = useState(false);
   useEffect(() => onSpeaking(setSpeaking), []);
   return (
-    <span className="row" style={{ gap: 6 }}>
-      <IconButton icon="speaker" label={t('listen')} onClick={() => speak(text, { te, clipId })} />
-      {speaking && <IconButton icon="stop" label={t('stop')} onClick={stopSpeaking} />}
-      <IconButton icon={prefs.mute ? 'mute' : 'speaker'} label={prefs.mute ? t('unmute') : t('mute')} aria-pressed={prefs.mute} onClick={() => void updatePrefs({ mute: !prefs.mute })} className="ghost" />
+    <span className="narration-ctrls">
+      {speaking ? (
+        <button
+          type="button"
+          className="btn small audio-pill speaking"
+          onClick={stopSpeaking}
+          title={t('stop')}
+          aria-label={t('stop')}
+        >
+          <Icon name="stop" />
+          <span>{t('stop')}</span>
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="btn small audio-pill"
+          onClick={() => speak(text, { te, clipId })}
+          title={t('listen')}
+          aria-label={t('listen')}
+        >
+          <Icon name="speaker" />
+          <span>{t('listen')}</span>
+        </button>
+      )}
     </span>
   );
 }
@@ -174,21 +194,23 @@ export function ReportProblem({ lessonId, questionId, contentVersion }: { lesson
 }
 
 /** Page frame used by learner screens: back, title, fullscreen, sync badge. */
-export function Page({ title, back = '/', actions, wide, fullscreen, children }: { title: string; back?: string | false; actions?: ReactNode; wide?: boolean; fullscreen?: boolean; children: ReactNode }) {
+export function Page({ title, back = '/', actions, wide, fullscreen, hideTopBar, children }: { title: string; back?: string | false; actions?: ReactNode; wide?: boolean; fullscreen?: boolean; hideTopBar?: boolean; children: ReactNode }) {
   const nav = useNavigate();
   useEffect(() => { document.title = `${title} · WonderLab`; }, [title]);
   return (
     <>
-      <header className="topbar">
-        {back !== false && <IconButton icon="back" label="Back" onClick={() => nav(back)} />}
-        {/* one tap straight to the learner's home screen from anywhere */}
-        {back !== false && back !== '/' && <IconButton icon="home" label="Home" onClick={() => nav('/')} />}
-        <span className="title">{title}</span>
-        <span className="spacer" />
-        <SyncBadge />
-        {actions}
-        {fullscreen && <FullscreenButton />}
-      </header>
+      {!hideTopBar && (
+        <header className="topbar">
+          {back !== false && <IconButton icon="back" label="Back" onClick={() => nav(back)} />}
+          {/* one tap straight to the learner's home screen from anywhere */}
+          {back !== false && back !== '/' && <IconButton icon="home" label="Home" onClick={() => nav('/')} />}
+          <span className="title">{title}</span>
+          <span className="spacer" />
+          <SyncBadge />
+          {actions}
+          {fullscreen && <FullscreenButton />}
+        </header>
+      )}
       <main id="main" className={`main ${wide ? 'wide' : ''}`} tabIndex={-1}>{children}</main>
     </>
   );

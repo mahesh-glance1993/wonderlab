@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-high":"#e0e8fd","secondary":"#006a61","on-primary-fixed-variant":"#3a30b1","surface-tint":"#534cca","on-secondary-fixed":"#00201d","on-secondary-container":"#006f66","tertiary-fixed-dim":"#ffb77d","surface":"#f9f9ff","primary-fixed-dim":"#c3c0ff","surface-bright":"#f9f9ff","error-container":"#ffdad6","outline-variant":"#c8c4d6","surface-container-highest":"#dbe2f7","on-error-container":"#93000a","error":"#ba1a1a","surface-variant":"#dbe2f7","on-tertiary-container":"#ffa658","on-surface":"#141c2a","on-error":"#ffffff","background":"#f9f9ff","on-primary-fixed":"#100069","on-tertiary-fixed-variant":"#6e3900","on-tertiary-fixed":"#2f1500","tertiary-fixed":"#ffdcc3","primary-fixed":"#e3dfff","surface-dim":"#d2daee","on-background":"#141c2a","surface-container-low":"#f0f3ff","inverse-on-surface":"#ecf0ff","surface-container":"#e8eeff","on-tertiary":"#ffffff","inverse-surface":"#293140","primary-container":"#3e35b5","secondary-fixed-dim":"#6bd8cb","on-surface-variant":"#464554","secondary-fixed":"#89f5e7","tertiary":"#522900","on-secondary":"#ffffff","inverse-primary":"#c3c0ff","on-primary-container":"#b6b3ff","secondary-container":"#86f2e4","on-secondary-fixed-variant":"#005049","tertiary-container":"#733c00","on-primary":"#ffffff","primary":"#25149f","outline":"#777585","surface-container-lowest":"#ffffff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","gutter-mobile":"1rem","space-sm":"0.5rem","space-xl":"2.5rem","space-md":"1rem","margin":"1.5rem","gutter-desktop":"2rem","margin-desktop":"3rem","space-xs":"0.25rem","margin-mobile":"1rem","space-lg":"1.5rem"},fontFamily:{"headline-sm":["Outfit"],"display-lg":["Outfit"],"title-lg":["Outfit"],"label-sm":["Be Vietnam Pro"],"label-lg":["Be Vietnam Pro"],"display-lg-mobile":["Outfit"],"title-md":["Be Vietnam Pro"],"headline-lg":["Outfit"],"headline-lg-mobile":["Outfit"],"headline-md":["Outfit"],"body-md":["Be Vietnam Pro"],"body-lg":["Be Vietnam Pro"],"body-sm":["Be Vietnam Pro"],"label-md":["Be Vietnam Pro"]},fontSize:{"headline-sm":["20px",{lineHeight:"28px",fontWeight:"600"}],"display-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"700"}],"title-lg":["18px",{lineHeight:"26px",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"600"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"600"}],"display-lg-mobile":["36px",{lineHeight:"44px",letterSpacing:"-0.01em",fontWeight:"700"}],"title-md":["16px",{lineHeight:"24px",fontWeight:"600"}],"headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-lg-mobile":["26px",{lineHeight:"34px",letterSpacing:"0em",fontWeight:"600"}],"headline-md":["24px",{lineHeight:"32px",fontWeight:"600"}],"body-md":["15px",{lineHeight:"24px",fontWeight:"400"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"body-sm":["13px",{lineHeight:"20px",fontWeight:"400"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between select-none"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-md flex items-center gap-space-sm"><img alt="WonderLab Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrA4yTm3qtGbshyr11WiRU9ymU2SMH4lx_9gfdWna7Xo1s5xW3jIsoJFyjFqbZJSVj-Bx6EbCe-aQalBKKtapvXwWP-cnhBkIJUBp-dmaIekvPzL5lfw1v1t-NpSsqVh1tQlT5L4jdx1ZYQIWev33MQVr9z6FRAZ-HL-3ks9IYdGvQd8xqyr0F9inX6mv5fxOShFFFMSenMkcmGiGiddNtAs6nwYsXuh4GYN5onvy9h0"/><div class="flex flex-col"><span class="font-title-lg text-title-lg text-primary tracking-tight leading-none">WonderLab</span><span class="font-label-sm text-label-sm text-secondary tracking-wider mt-0.5">STUDIO LEARNING</span></div></div><div class="flex-1 overflow-y-auto px-space-sm py-space-xs"><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg shadow-sm"><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="learner-hub" href="#"><span class="material-symbols-outlined text-xl">cottage</span><span>Home</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="curriculum" href="#"><span class="material-symbols-outlined text-xl">menu_book</span><span>Curriculum</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="what-next" href="#"><span class="material-symbols-outlined text-xl">auto_awesome</span><span>What Next</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="physics-lab" href="#"><span class="material-symbols-outlined text-xl">science</span><span>Physics Lab</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="art-studio" href="#"><span class="material-symbols-outlined text-xl">palette</span><span>Art Studio</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="games-play" href="#"><span class="material-symbols-outlined text-xl">sports_esports</span><span>Games &amp; Play</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="progress-badges" href="#"><span class="material-symbols-outlined text-xl">military_tech</span><span>Progress &amp; Badges</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="notes" href="#"><span class="material-symbols-outlined text-xl">edit_note</span><span>Notes</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="offline-downloads" href="#"><span class="material-symbols-outlined text-xl">download_for_offline</span><span>Offline Downloads</span></a></nav></div></div><div class="p-space-sm bg-surface-container-low/60"><div class="flex flex-col gap-1.5"><a class="flex items-center justify-between px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.02)] transition-colors group" data-path="parent-zone" href="#"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-outline group-hover:text-primary transition-colors">lock</span><span class="font-label-md text-label-md">Parent Area</span></div><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">PIN</span></a><div class="flex items-center justify-between px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.02)]"><div class="flex items-center gap-2 min-w-0"><div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-sm text-label-sm font-bold flex-shrink-0">A</div><div class="truncate"><p class="font-label-md text-label-md text-on-surface font-semibold leading-tight truncate">Aarav</p><p class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Learner</p></div></div><button aria-label="Switch learner" class="text-outline hover:text-primary transition-colors flex items-center justify-center p-1 rounded-md hover:bg-surface-container-high" type="button"><span class="material-symbols-outlined text-base">sync_alt</span></button></div></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)] z-40 px-space-gutter flex items-center justify-between select-none"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/30 text-on-surface"><span class="material-symbols-outlined text-secondary text-base">school</span><div class="flex items-center gap-1.5 font-label-md text-label-md font-semibold text-on-surface"><span>Class 5 (Ages 10–11)</span><span class="text-outline-variant">•</span><span class="text-on-surface-variant font-normal">NCERT &amp; Telangana Syllabus</span></div><button aria-label="Change Class" class="material-symbols-outlined text-sm text-outline hover:text-on-surface ml-0.5" type="button">expand_more</button></div><div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-lowest text-secondary shadow-[0_1px_4px_rgba(0,0,0,0.02)] border border-outline-variant/20"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-label-sm text-label-sm font-semibold">Offline Sync Active</span></div></div><div class="flex items-center gap-space-sm"><div class="flex items-center rounded-full bg-surface-container-low p-0.5 text-on-surface-variant"><button class="px-2.5 py-0.5 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-sm" type="button">EN</button><span class="text-outline-variant font-label-sm text-label-sm">|</span><button class="px-2.5 py-0.5 rounded-full hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">తెలుగు</button></div><div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-full border border-outline-variant/20"><button class="flex items-center gap-1 px-2 py-1 rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors font-label-sm text-label-sm" title="Ambient Focus Sound: Forest Stream" type="button"><span class="material-symbols-outlined text-base text-secondary">headphones</span><span class="hidden xl:inline">Focus Audio</span></button><div class="w-px h-3.5 bg-outline-variant/40"></div><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Reading &amp; Dyslexia Comfort Text Size" type="button"><span class="material-symbols-outlined text-lg">format_size</span></button><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Voice Explanation Mode" type="button"><span class="material-symbols-outlined text-lg">graphic_eq</span></button><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Theme Mood" type="button"><span class="material-symbols-outlined text-lg">light_mode</span></button></div><div class="flex items-center gap-2 pl-1 cursor-pointer group"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-surface-container-high group-hover:ring-primary transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK3kLrI1v8tK7Sr4INV-F5YCytflZmToeBEOZSdLPjCHpkDQ-DA0Cclydfk35jYmUTuzfE_UXHPm-ocvIoQuJzdzy8W6RCIZQg58PniYoxIZYuCgm7EEM3OnhjEousYF3ikhSEPFqJu6wfAsyd95sDsVvv8J8GiYSGisHYZOtiOKK_O7ipQrNzmgcQTg4A4XHhTpnvXC8B_Ornj6FlQNzp5TwogNFUyHJQD-z0Bfc"/><div class="hidden sm:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight group-hover:text-primary transition-colors">Aarav Reddy</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Class 5 · Explorer</span></div><span class="material-symbols-outlined text-outline text-base group-hover:text-on-surface transition-colors">keyboard_arrow_down</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full pb-10">
+<!-- Dynamic Status & Safety Alert Pill Bar -->
+<div class="px-space-gutter py-2.5 bg-surface-container-low flex flex-wrap items-center justify-between gap-3 text-on-surface-variant font-label-sm text-label-sm">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+        Symmetry Engine Active (8-Fold Radial)
+      </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-xs text-primary">auto_awesome</span>
+        Telangana Folk Motifs &amp; Botanical Study
+      </span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-secondary">verified_user</span>
+<span>100% Private Studio · No Social Feed · Zero Tracking</span>
+</div>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md transition-colors" onclick="openPortfolioDrawer()">
+<span class="material-symbols-outlined text-base">collections_bookmark</span>
+<span>My Artworks (12 Saved)</span>
+</button>
+</div>
+</div>
+<!-- Studio Master Controls Ribbon -->
+<div class="px-space-gutter py-3.5 bg-surface-container-lowest shadow-sm flex flex-wrap items-center justify-between gap-4">
+<!-- Left: Artwork Metadata & Quick Title -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">brush</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<input class="font-title-lg text-title-lg text-on-surface bg-transparent font-bold tracking-tight focus:outline-none focus:bg-surface-container-low px-1.5 py-0.5 -ml-1.5 rounded-md hover:bg-surface-container-low/60 transition-colors w-72 md:w-96" title="Click to rename artwork" type="text" value="My Geometric Rangoli &amp; Nature Sketch"/>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold">Class 5</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Aarav Reddy · Auto-saved just now to offline cache</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-secondary font-label-sm text-label-sm font-semibold">300 DPI Fine Art Canvas</span>
+</div>
+</div>
+</div>
+<!-- Center: Primary Canvas History Actions -->
+<div class="flex items-center gap-1.5 bg-surface-container-low p-1 rounded-xl shadow-inner">
+<button class="w-9 h-9 rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-lowest hover:text-primary transition-all active:scale-95" id="btn-undo" title="Undo (Ctrl+Z)">
+<span class="material-symbols-outlined text-lg">undo</span>
+</button>
+<button class="w-9 h-9 rounded-lg flex items-center justify-center text-outline hover:bg-surface-container-lowest hover:text-primary transition-all active:scale-95" id="btn-redo" title="Redo (Ctrl+Y)">
+<span class="material-symbols-outlined text-lg">redo</span>
+</button>
+<div class="w-px h-5 bg-outline-variant/30 mx-0.5"></div>
+<button class="w-9 h-9 rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-lowest hover:text-error transition-all" id="btn-clear" title="Clear Canvas Layer">
+<span class="material-symbols-outlined text-lg">layers_clear</span>
+</button>
+<button class="w-9 h-9 rounded-lg flex items-center justify-center bg-surface-container-lowest text-primary shadow-xs transition-all" id="btn-grid-toggle" title="Toggle Texture Grid">
+<span class="material-symbols-outlined text-lg">grid_goldenratio</span>
+</button>
+<button class="w-9 h-9 rounded-lg flex items-center justify-center text-on-surface hover:bg-surface-container-lowest transition-all" id="btn-zoom-reset" title="Fit to Workspace">
+<span class="material-symbols-outlined text-lg">aspect_ratio</span>
+</button>
+</div>
+<!-- Right: Audio Guide, Export & Safe Save -->
+<div class="flex items-center gap-2.5">
+<!-- Art Narration Voice Guide with Bilingual Support -->
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors" id="narration-btn" onclick="toggleAudioGuide()">
+<span class="material-symbols-outlined text-secondary text-lg" id="narration-icon">volume_up</span>
+<span class="hidden sm:inline" id="narration-text">Art Guide: <i>The Sacred Lotus &amp; Symmetry</i></span>
+</button>
+<!-- Safe Download Menu -->
+<div class="relative group">
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+<span class="hidden md:inline">Export</span>
+<span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<div class="absolute right-0 top-full mt-1.5 w-48 bg-surface-container-lowest rounded-xl shadow-xl p-1.5 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all z-30">
+<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-surface-container-low font-label-md text-label-md text-on-surface flex items-center justify-between">
+<span>High-Res PNG</span>
+<span class="text-outline text-xs">Printable</span>
+</button>
+<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-surface-container-low font-label-md text-label-md text-on-surface flex items-center justify-between">
+<span>Vector SVG</span>
+<span class="text-outline text-xs">Laser/Stencils</span>
+</button>
+<button class="w-full text-left px-3 py-2 rounded-lg hover:bg-surface-container-low font-label-md text-label-md text-on-surface flex items-center justify-between">
+<span>Print Coloring Page</span>
+<span class="text-secondary text-xs">Outlines</span>
+</button>
+</div>
+</div>
+<!-- Save to Private Portfolio Button -->
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-primary-container active:scale-[0.98] transition-all" onclick="showSaveFeedback()">
+<span class="material-symbols-outlined text-lg">bookmark_added</span>
+<span class="font-bold">Save Work</span>
+</button>
+</div>
+</div>
+<!-- Primary Interactive Studio Workspace: 3-Column Studio Layout -->
+<div class="px-space-gutter py-4 grid grid-cols-12 gap-space-gutter items-start">
+<!-- LEFT COLUMN: Physical Medium Brush Dock & Stroke Dynamics -->
+<div class="col-span-12 lg:col-span-3 xl:col-span-2 flex flex-col gap-4">
+<!-- Medium Selection Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline font-bold">Brush Medium</span>
+<span class="material-symbols-outlined text-outline-variant text-base">palette</span>
+</div>
+<div class="grid grid-cols-2 gap-2" id="brush-selector">
+<!-- Pencil -->
+<button class="brush-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-container transition-all group" data-brush="pencil">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 text-on-surface-variant transition-transform">edit</span>
+<span class="font-label-sm text-label-sm mt-1.5 font-semibold">Graphite HB</span>
+</button>
+<!-- Watercolour (Active by default) -->
+<button class="brush-btn active flex flex-col items-center justify-center p-3 rounded-xl bg-primary text-on-primary shadow-sm transition-all group" data-brush="watercolour">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">water_drop</span>
+<span class="font-label-sm text-label-sm mt-1.5 font-semibold">Watercolour</span>
+</button>
+<!-- Soft Crayon / Chalk -->
+<button class="brush-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-container transition-all group" data-brush="crayon">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 text-on-surface-variant transition-transform">draw</span>
+<span class="font-label-sm text-label-sm mt-1.5 font-semibold">Wax Crayon</span>
+</button>
+<!-- Indian Calligraphy Ink -->
+<button class="brush-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-container transition-all group" data-brush="ink">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 text-on-surface-variant transition-transform">file_png</span>
+<span class="font-label-sm text-label-sm mt-1.5 font-semibold">Kalam Ink</span>
+</button>
+<!-- Precision Eraser -->
+<button class="brush-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-container transition-all group" data-brush="eraser">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 text-on-surface-variant transition-transform">ink_eraser</span>
+<span class="font-label-sm text-label-sm mt-1.5 font-semibold">Eraser</span>
+</button>
+<!-- Symmetry Compass & Ruler -->
+<button class="brush-btn flex flex-col items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-container transition-all group" data-brush="symmetry">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 text-secondary transition-transform">straighten</span>
+<span class="font-label-sm text-label-sm mt-1.5 font-semibold text-secondary">Geom Guide</span>
+</button>
+</div>
+</div>
+<!-- Stroke Properties & Dynamics -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-col gap-4">
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline font-bold">Stroke Dynamics</span>
+<!-- Size Slider -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant font-medium">Tip Diameter</span>
+<span class="font-bold text-primary" id="size-val">18 px</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-on-surface-variant"></span>
+<input class="w-full h-1.5 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" id="stroke-size" max="64" min="2" oninput="document.getElementById('size-val').innerText = this.value + ' px'; updateBrushPreview()" type="range" value="18"/>
+<span class="w-4 h-4 rounded-full bg-on-surface-variant"></span>
+</div>
+</div>
+<!-- Opacity / Water Wash Slider -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant font-medium">Pigment Wash (Flow)</span>
+<span class="font-bold text-primary" id="opacity-val">85%</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary" id="stroke-opacity" max="100" min="10" oninput="document.getElementById('opacity-val').innerText = this.value + '%'; updateBrushPreview()" type="range" value="85"/>
+</div>
+<!-- Interactive Nib Preview Inset -->
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col items-center justify-center gap-1 shadow-inner">
+<span class="font-label-sm text-label-sm text-outline">Brush Nib Preview</span>
+<div class="h-14 w-full flex items-center justify-center">
+<div class="rounded-full bg-primary-container transition-all" id="nib-dot" style="width: 18px; height: 18px; opacity: 0.85;"></div>
+</div>
+</div>
+</div>
+<!-- Geometric Motif / Folk Stencils Quick Tool -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline font-bold">Telangana &amp; Nature Motifs</span>
+<div class="flex flex-col gap-2">
+<button class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md text-left transition-colors" onclick="stampMotif('lotus')">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-secondary text-xl">spa</span>
+<span class="font-medium">Sacred Lotus Petal</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-base">add_circle</span>
+</button>
+<button class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md text-left transition-colors" onclick="stampMotif('peacock')">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-xl">cruelty_free</span>
+<span class="font-medium">Peacock Feather Eye</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-base">add_circle</span>
+</button>
+<button class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md text-left transition-colors" onclick="stampMotif('mango')">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-tertiary-container text-xl">psychology_alt</span>
+<span class="font-medium">Paisley (Kalka) Curve</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-base">add_circle</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CENTER COLUMN: Canvas & Inset Drawing Field -->
+<div class="col-span-12 lg:col-span-9 xl:col-span-7 flex flex-col gap-4">
+<!-- Studio Paper Canvas Container -->
+<div class="relative bg-surface-container-lowest rounded-3xl p-5 shadow-md flex flex-col items-center justify-center overflow-hidden">
+<!-- Canvas Context Bar -->
+<div class="w-full flex items-center justify-between pb-3 text-on-surface-variant font-label-sm text-label-sm border-b border-surface-container">
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1 font-semibold text-primary">
+<span class="material-symbols-outlined text-sm">nature_people</span>
+              Nature-Inspired Rangoli
+            </span>
+<span class="text-outline-variant">|</span>
+<span class="hidden sm:inline">Handmade Cotton Rag Paper Simulation</span>
+</div>
+<!-- Mode toggles on canvas -->
+<div class="flex items-center gap-2">
+<button class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface hover:bg-primary-fixed hover:text-primary transition-all font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">sync</span>
+<span>8-Symmetry</span>
+</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high transition-all flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">lens_blur</span>
+<span>Smooth Blend</span>
+</button>
+</div>
+</div>
+<!-- The Interactive Digital Canvas Area -->
+<div class="relative w-full aspect-[4/3] max-h-[640px] bg-[#FAF8F5] rounded-2xl shadow-inner overflow-hidden cursor-crosshair select-none my-3 group" id="canvas-paper">
+<!-- Background Fine Paper Texture Grid (SVG Overlay) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="rangoli-grid" patternunits="userSpaceOnUse" width="40">
+<circle cx="20" cy="20" fill="#25149f" r="1"></circle>
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#25149f" stroke-dasharray="2,2" stroke-width="0.5"></path>
+</pattern>
+<radialgradient cx="50%" cy="50%" id="paper-vignette" r="50%">
+<stop offset="70%" stop-color="#FAF8F5" stop-opacity="0"></stop>
+<stop offset="100%" stop-color="#EBE6DC" stop-opacity="0.6"></stop>
+</radialgradient>
+</defs>
+<rect fill="url(#rangoli-grid)" height="100%" width="100%"></rect>
+<rect fill="url(#paper-vignette)" height="100%" width="100%"></rect>
+</svg>
+<!-- Rangoli Radial Symmetry Guide Lines (Dotted) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none opacity-25" viewbox="0 0 600 450">
+<!-- Center point is at 300, 225 -->
+<circle cx="300" cy="225" fill="none" r="70" stroke="#3e35b5" stroke-dasharray="3,4" stroke-width="1"></circle>
+<circle cx="300" cy="225" fill="none" r="140" stroke="#006a61" stroke-dasharray="4,6" stroke-width="1"></circle>
+<circle cx="300" cy="225" fill="none" r="210" stroke="#3e35b5" stroke-dasharray="4,8" stroke-width="1"></circle>
+<line stroke="#3e35b5" stroke-dasharray="4,4" stroke-width="1" x1="90" x2="510" y1="225" y2="225"></line>
+<line stroke="#3e35b5" stroke-dasharray="4,4" stroke-width="1" x1="300" x2="300" y1="15" y2="435"></line>
+<line stroke="#006a61" stroke-dasharray="4,4" stroke-width="1" x1="150" x2="450" y1="75" y2="375"></line>
+<line stroke="#006a61" stroke-dasharray="4,4" stroke-width="1" x1="150" x2="450" y1="375" y2="75"></line>
+</svg>
+<!-- Vector Illustration Layer: Geometric Rangoli + Lotus & Peacock Feather Sketch -->
+<svg class="absolute inset-0 w-full h-full" id="drawing-svg-layer" viewbox="0 0 600 450" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="120%" id="watercolor-wash" width="120%" x="-10%" y="-10%">
+<feturbulence basefrequency="0.04" numoctaves="3" result="noise" type="fractalNoise"></feturbulence>
+<fedisplacementmap in="SourceGraphic" in2="noise" scale="3" xchannelselector="R" ychannelselector="G"></fedisplacementmap>
+</filter>
+<!-- Peacock Feather Gradient -->
+<lineargradient id="peacock-grad" x1="0%" x2="100%" y1="100%" y2="0%">
+<stop offset="0%" stop-color="#006a61"></stop>
+<stop offset="40%" stop-color="#3e35b5"></stop>
+<stop offset="70%" stop-color="#86f2e4"></stop>
+<stop offset="100%" stop-color="#ffa658"></stop>
+</lineargradient>
+<radialgradient cx="50%" cy="50%" id="peacock-eye-grad" r="50%">
+<stop offset="0%" stop-color="#25149f"></stop>
+<stop offset="35%" stop-color="#006a61"></stop>
+<stop offset="70%" stop-color="#86f2e4"></stop>
+<stop offset="90%" stop-color="#733c00"></stop>
+<stop offset="100%" stop-color="#ffdcc3"></stop>
+</radialgradient>
+<lineargradient id="lotus-petal-grad" x1="0%" x2="0%" y1="100%" y2="0%">
+<stop offset="0%" stop-color="#ffb77d" stop-opacity="0.3"></stop>
+<stop offset="40%" stop-color="#ffdcc3" stop-opacity="0.7"></stop>
+<stop offset="100%" stop-color="#733c00" stop-opacity="0.8"></stop>
+</lineargradient>
+</defs>
+<!-- 8-Fold Geometric Rangoli Star Base Layer -->
+<g fill="none" id="rangoli-symmetry-group" opacity="0.88" stroke="#3e35b5" stroke-width="2.5">
+<!-- Repeated symmetrical petal curves (centered at 300, 225) -->
+<!-- Quadrant Petals -->
+<path d="M 300 225 C 290 170, 260 145, 300 100 C 340 145, 310 170, 300 225" fill="#e3dfff" fill-opacity="0.3" stroke="#25149f" stroke-width="2"></path>
+<path d="M 300 225 C 290 280, 260 305, 300 350 C 340 305, 310 280, 300 225" fill="#e3dfff" fill-opacity="0.3" stroke="#25149f" stroke-width="2"></path>
+<path d="M 300 225 C 245 215, 220 185, 175 225 C 220 265, 245 235, 300 225" fill="#e3dfff" fill-opacity="0.3" stroke="#25149f" stroke-width="2"></path>
+<path d="M 300 225 C 355 215, 380 185, 425 225 C 380 265, 355 235, 300 225" fill="#e3dfff" fill-opacity="0.3" stroke="#25149f" stroke-width="2"></path>
+<!-- Diagonal Petals -->
+<path d="M 300 225 C 275 190, 240 180, 212 137 C 255 165, 265 200, 300 225" fill="#86f2e4" fill-opacity="0.25" stroke="#006a61" stroke-width="2"></path>
+<path d="M 300 225 C 325 190, 360 180, 388 137 C 345 165, 335 200, 300 225" fill="#86f2e4" fill-opacity="0.25" stroke="#006a61" stroke-width="2"></path>
+<path d="M 300 225 C 275 260, 240 270, 212 313 C 255 285, 265 250, 300 225" fill="#86f2e4" fill-opacity="0.25" stroke="#006a61" stroke-width="2"></path>
+<path d="M 300 225 C 325 260, 360 270, 388 313 C 345 285, 335 250, 300 225" fill="#86f2e4" fill-opacity="0.25" stroke="#006a61" stroke-width="2"></path>
+<!-- Geometric Connecting Dots and Loops -->
+<circle cx="300" cy="100" fill="#733c00" r="4.5" stroke="none"></circle>
+<circle cx="300" cy="350" fill="#733c00" r="4.5" stroke="none"></circle>
+<circle cx="175" cy="225" fill="#733c00" r="4.5" stroke="none"></circle>
+<circle cx="425" cy="225" fill="#733c00" r="4.5" stroke="none"></circle>
+<circle cx="212" cy="137" fill="#006a61" r="4" stroke="none"></circle>
+<circle cx="388" cy="137" fill="#006a61" r="4" stroke="none"></circle>
+<circle cx="212" cy="313" fill="#006a61" r="4" stroke="none"></circle>
+<circle cx="388" cy="313" fill="#006a61" r="4" stroke="none"></circle>
+</g>
+<!-- Central Hand-painted Sacred Lotus Illustration -->
+<g filter="url(#watercolor-wash)" id="lotus-sketch" transform="translate(300, 225)">
+<!-- Lotus Leaves Pad Background -->
+<ellipse cx="0" cy="18" fill="#6bd8cb" fill-opacity="0.5" rx="55" ry="14" stroke="#006a61" stroke-width="1.8"></ellipse>
+<!-- Outermost Lotus Petals -->
+<path d="M -35 15 C -55 -5, -45 -30, -32 -38 C -22 -15, -15 5, 0 16" fill="#ffdcc3" fill-opacity="0.75" stroke="#733c00" stroke-width="2"></path>
+<path d="M 35 15 C 55 -5, 45 -30, 32 -38 C 22 -15, 15 5, 0 16" fill="#ffdcc3" fill-opacity="0.75" stroke="#733c00" stroke-width="2"></path>
+<!-- Mid-tier Petals (Terracotta Pinkish-Orange) -->
+<path d="M -24 16 C -38 -10, -30 -42, -18 -52 C -8 -25, -2 0, 0 18" fill="#ffb77d" fill-opacity="0.8" stroke="#733c00" stroke-width="2.2"></path>
+<path d="M 24 16 C 38 -10, 30 -42, 18 -52 C 8 -25, 2 0, 0 18" fill="#ffb77d" fill-opacity="0.8" stroke="#733c00" stroke-width="2.2"></path>
+<!-- Crown Central Lotus Petal -->
+<path d="M 0 18 C -18 -15, -12 -62, 0 -72 C 12 -62, 18 -15, 0 18 Z" fill="#ffdcc3" fill-opacity="0.9" stroke="#733c00" stroke-width="2.5"></path>
+<!-- Golden Stamen Radiance -->
+<circle cx="0" cy="5" fill="#ffa658" r="7" stroke="#733c00" stroke-width="1.5"></circle>
+<circle cx="-5" cy="2" fill="#522900" r="1.5"></circle>
+<circle cx="0" cy="0" fill="#522900" r="1.5"></circle>
+<circle cx="5" cy="2" fill="#522900" r="1.5"></circle>
+</g>
+<!-- Graceful Flowing Peacock Feather Sketch (Right Upper Swirl) -->
+<g filter="url(#watercolor-wash)" id="peacock-feather" transform="translate(430, 110) rotate(-28)">
+<!-- Feather Shaft / Rachis -->
+<path d="M -80 140 Q -10 60, 35 -40" fill="none" stroke="#005049" stroke-linecap="round" stroke-width="3"></path>
+<!-- Fine Hair Barbs (Calligraphy Strokes) -->
+<g opacity="0.7" stroke="#006a61" stroke-linecap="round" stroke-width="1.2">
+<line x1="20" x2="45" y1="-20" y2="-32"></line>
+<line x1="15" x2="48" y1="-10" y2="-18"></line>
+<line x1="10" x2="52" y1="0" y2="-4"></line>
+<line x1="5" x2="53" y1="12" y2="12"></line>
+<line x1="-2" x2="48" y1="26" y2="30"></line>
+<line x1="-12" x2="42" y1="42" y2="52"></line>
+<line x1="-24" x2="32" y1="60" y2="74"></line>
+<line x1="-38" x2="20" y1="80" y2="98"></line>
+<!-- Left side barbs -->
+<line x1="25" x2="5" y1="-25" y2="-38"></line>
+<line x1="20" x2="-8" y1="-15" y2="-24"></line>
+<line x1="15" x2="-18" y1="-5" y2="-10"></line>
+<line x1="10" x2="-26" y1="7" y2="5"></line>
+<line x1="2" x2="-32" y1="21" y2="24"></line>
+<line x1="-8" x2="-40" y1="38" y2="44"></line>
+<line x1="-20" x2="-50" y1="56" y2="68"></line>
+</g>
+<!-- Iridescent Ocellus (Peacock Eye) -->
+<ellipse cx="38" cy="-45" fill="url(#peacock-eye-grad)" rx="22" ry="28" stroke="#733c00" stroke-width="2"></ellipse>
+<!-- Deep Indigo Core -->
+<path d="M 38 -55 C 28 -55, 26 -40, 38 -36 C 50 -40, 48 -55, 38 -55 Z" fill="#25149f"></path>
+<!-- Teal Reflection Accent -->
+<circle cx="35" cy="-48" fill="#89f5e7" opacity="0.9" r="3"></circle>
+</g>
+<!-- Organic Vine & Leaf Flourish (Bottom Left Grounding) -->
+<g id="telangana-vine" transform="translate(140, 340)">
+<path d="M -40 40 Q 20 10, 80 -15" fill="none" stroke="#006a61" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Neem Leaves with Natural Green Fill -->
+<path d="M 10 15 Q 25 -5, 45 5 Q 30 25, 10 15 Z" fill="#86f2e4" fill-opacity="0.6" stroke="#005049" stroke-width="1.6"></path>
+<path d="M 45 2 Q 62 -18, 80 -8 Q 66 12, 45 2 Z" fill="#86f2e4" fill-opacity="0.6" stroke="#005049" stroke-width="1.6"></path>
+<path d="M -15 28 Q 0 8, 20 18 Q 6 38, -15 28 Z" fill="#86f2e4" fill-opacity="0.6" stroke="#005049" stroke-width="1.6"></path>
+</g>
+<!-- Interactive Stroke Placement Anchor (Emulated Live Drawing Path) -->
+<path class="animate-pulse" d="M 280 290 Q 300 320, 320 290" fill="none" id="active-stroke" stroke="#3e35b5" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+<!-- Floating In-Canvas Touch Compass Guide -->
+<div class="absolute bottom-4 left-4 bg-surface/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm flex items-center gap-2 pointer-events-none text-on-surface font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Mirror Symmetry: <b class="text-primary font-bold">ON</b></span>
+<span class="text-outline-variant">·</span>
+<span>Stylus Pressure: <b class="text-on-surface">62%</b></span>
+</div>
+<!-- Bottom Right Canvas Zoom Indicator -->
+<div class="absolute bottom-4 right-4 bg-surface/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-base">zoom_out</span></button>
+<span class="font-bold text-on-surface px-1">100%</span>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined text-base">zoom_in</span></button>
+</div>
+</div>
+<!-- Canvas Bottom Status Ticker -->
+<div class="w-full flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm pt-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-sm">lock</span>
+<span class="font-medium text-on-surface">Private Learner Sandbox</span>
+<span class="text-outline-variant">•</span>
+<span>All drawing files stay on this device until parent export.</span>
+</div>
+<span class="text-outline">Canvas 2400 × 1800 px</span>
+</div>
+</div>
+<!-- Natural Pigment Dock: Indian Traditional Pigments Palette -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline font-bold">Natural Pigments Palette</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm font-semibold">Ayurvedic &amp; Mineral</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span>Active:</span>
+<span class="font-bold text-primary" id="active-pigment-name">Indigo Neel (#3e35b5)</span>
+</div>
+</div>
+<!-- Pigment Swatch Chips Row -->
+<div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2.5" id="pigment-row">
+<!-- 1. Indigo Blue (Active) -->
+<button class="swatch-btn ring-2 ring-primary ring-offset-2 p-2 rounded-xl bg-surface-container-low flex flex-col items-center gap-1.5 transition-all active:scale-95 text-left" data-color="#3e35b5" data-name="Indigo Neel (#3e35b5)" onclick="selectPigment(this)">
+<span class="w-8 h-8 rounded-full shadow-sm flex items-center justify-center text-white" style="background-color: #3e35b5;">
+<span class="material-symbols-outlined text-base">check</span>
+</span>
+<div class="text-center">
+<p class="font-label-sm text-label-sm font-bold text-on-surface leading-tight">Indigo</p>
+<p class="text-[10px] text-outline leading-none">Neel Plant</p>
+</div>
+</button>
+<!-- 2. Marigold Yellow -->
+<button class="swatch-btn p-2 rounded-xl bg-surface-container-low flex flex-col items-center gap-1.5 transition-all hover:bg-surface-container active:scale-95 text-left" data-color="#ffa658" data-name="Marigold Genda (#ffa658)" onclick="selectPigment(this)">
+<span class="w-8 h-8 rounded-full shadow-sm" style="background-color: #ffa658;"></span>
+<div class="text-center">
+<p class="font-label-sm text-label-sm font-bold text-on-surface leading-tight">Marigold</p>
+<p class="text-[10px] text-outline leading-none">Genda Floral</p>
+</div>
+</button>
+<!-- 3. Terracotta Orange -->
+<button class="swatch-btn p-2 rounded-xl bg-surface-container-low flex flex-col items-center gap-1.5 transition-all hover:bg-surface-container active:scale-95 text-left" data-color="#733c00" data-name="Terracotta Mitti (#733c00)" onclick="selectPigment(this)">
+<span class="w-8 h-8 rounded-full shadow-sm" style="background-color: #733c00;"></span>
+<div class="text-center">
+<p class="font-label-sm text-label-sm font-bold text-on-surface leading-tight">Terracotta</p>
+<p class="text-[10px] text-outline leading-none">Baked Clay</p>
+</div>
+</button>
+<!-- 4. Forest Neem Green -->
+<button class="swatch-btn p-2 rounded-xl bg-surface-container-low flex flex-col items-center gap-1.5 transition-all hover:bg-surface-container active:scale-95 text-left" data-color="#006a61" data-name="Forest Neem Green (#006a61)" onclick="selectPigment(this)">
+<span class="w-8 h-8 rounded-full shadow-sm" style="background-color: #006a61;"></span>
+<div class="text-center">
+<p class="font-label-sm text-label-sm font-bold text-on-surface leading-tight">Neem Green</p>
+<p class="text-[10px] text-outline leading-none">Forest Leaf</p>
+</div>
+</button>
+<!-- 5. Gulabi Rose Pink -->
+<button class="swatch-btn p-2 rounded-xl bg-surface-container-low flex flex-col items-center gap-1.5 transition-all hover:bg-surface-container active:scale-95 text-left" data-color="#ffdcc3" data-name="Rose Pink Gulabi (#ffdcc3)" onclick="selectPigment(this)">
+<span class="w-8 h-8 rounded-full shadow-sm border border-outline-variant/30" style="background-color: #ffdcc3;"></span>
+<div class="text-center">
+<p class="font-label-sm text-label-sm font-bold text-on-surface leading-tight">Gulabi</p>
+<p class="text-[10px] text-outline leading-none">Desi Rose</p>
+</div>
+</button>
+<!-- 6. Slate River Grey -->
+<button class="swatch-btn p-2 rounded-xl bg-surface-container-low flex flex-col items-center gap-1.5 transition-all hover:bg-surface-container active:scale-95 text-left" data-color="#464554" data-name="Slate River Grey (#464554)" onclick="selectPigment(this)">
+<span class="w-8 h-8 rounded-full shadow-sm" style="background-color: #464554;"></span>
+<div class="text-center">
+<p class="font-label-sm text-label-sm font-bold text-on-surface leading-tight">Slate Grey</p>
+<p class="text-[10px] text-outline leading-none">Godavari Silt</p>
+</div>
+</button>
+<!-- 7. Custom Pigment Mixer / Hex Picker -->
+<label class="cursor-pointer p-2 rounded-xl bg-surface-container-low hover:bg-surface-container flex flex-col items-center gap-1.5 transition-all active:scale-95 relative group">
+<span class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-primary group-hover:scale-105 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-base">colorize</span>
+</span>
+<div class="text-center">
+<p class="font-label-sm text-label-sm font-bold text-on-surface leading-tight">Custom</p>
+<p class="text-[10px] text-outline leading-none">Hex / Eyedrop</p>
+</div>
+<input class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" onchange="setCustomHex(this.value)" type="color" value="#3e35b5"/>
+</label>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Pedagogical Inspiration, Heritage Audio Guide & Portfolio Preview -->
+<div class="col-span-12 xl:col-span-3 flex flex-col gap-4">
+<!-- Studio Guided Prompt Card -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline font-bold">Studio Exploration</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Art &amp; Geometry</span>
+</div>
+<p class="font-title-md text-title-md text-on-surface font-semibold leading-snug">
+          "Can you spot how the 8-pointed star mirrors nature's blooming lotus petals?"
+        </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Traditional Telengana <i>Muggulu</i> patterns use rotational symmetry to balance lines. Try adding 4 more dots along the outer diagonal axes using the Indigo pigment.
+        </p>
+<!-- Audio Narration Pill Box -->
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-base">record_voice_over</span>
+              Audio Explanation (2:10)
+            </span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Bilingual</span>
+</div>
+<!-- Mini Audio Scrub Bar -->
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden cursor-pointer">
+<div class="bg-secondary h-full rounded-full" style="width: 45%;"></div>
+</div>
+<div class="flex items-center justify-between text-xs text-on-surface-variant">
+<span>0:58</span>
+<div class="flex items-center gap-2">
+<button class="text-primary hover:underline font-semibold font-label-sm text-label-sm" onclick="switchAudioLang('te')">తెలుగు</button>
+<span>/</span>
+<button class="text-primary font-bold underline font-label-sm text-label-sm" onclick="switchAudioLang('en')">English</button>
+</div>
+<span>2:10</span>
+</div>
+</div>
+</div>
+<!-- Symmetry Mode Switcher -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline font-bold">Geometric Modes</span>
+<div class="grid grid-cols-1 gap-2">
+<button class="flex items-center justify-between p-3 rounded-xl bg-primary-fixed text-primary font-label-md text-label-md font-semibold text-left transition-colors">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-xl">all_inclusive</span>
+<div>
+<p class="leading-tight">Rangoli Mirror Mode</p>
+<p class="font-label-sm text-label-sm text-on-primary-fixed-variant font-normal">8-fold rotational reflection</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-base">check_circle</span>
+</button>
+<button class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md text-left transition-colors">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">grain</span>
+<div>
+<p class="font-semibold leading-tight">Dot Mandala Matrix</p>
+<p class="font-label-sm text-label-sm text-outline font-normal">Concentric concentric rings</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-base">radio_button_unchecked</span>
+</button>
+<button class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md text-left transition-colors">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-on-surface-variant text-xl">pan_tool</span>
+<div>
+<p class="font-semibold leading-tight">Freehand Fine Art</p>
+<p class="font-label-sm text-label-sm text-outline font-normal">No symmetry guides</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-base">radio_button_unchecked</span>
+</button>
+</div>
+</div>
+<!-- Quick Recent Portfolio Thumbnail Reel -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline font-bold">Recent Inventions</span>
+<button class="font-label-sm text-label-sm text-primary hover:underline font-semibold" onclick="openPortfolioDrawer()">View All (12)</button>
+</div>
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Artwork 1 -->
+<div class="flex flex-col gap-1.5 p-2 rounded-xl bg-surface-container-low group cursor-pointer hover:bg-surface-container transition-all">
+<div class="w-full h-20 rounded-lg bg-surface-container-highest overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Traditional Telangana Cheriyal scroll painting study showing a small deer in bold flat natural earth pigments on handmade off-white paper, calm pedagogical classroom aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaf3I2q0C4LpP3g3TP3zg9VTJQsbDyhwbuFaAePu3baQFt7rAoZTiXHbkcygc9Smg0AG-8fpqjDeK6c5mQW4xA8lr6pI9wXUfnVpgnj7VXGKlvB1IMPhsHIKBuONRlUI6nuG6nUvDCM7tjJh4PJhWBimqUhpw3R17arQSDnOgoXk_tnejWg7doGiisXpezh8uuWVk0M4tbEWCV9zp4gqt845Y9NUeAoqqSuAylR90"/>
+<span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-surface/90 font-label-sm text-[10px] text-on-surface font-semibold">Class 5</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface truncate">Cheriyal Fawn</span>
+</div>
+<!-- Artwork 2 -->
+<div class="flex flex-col gap-1.5 p-2 rounded-xl bg-surface-container-low group cursor-pointer hover:bg-surface-container transition-all">
+<div class="w-full h-20 rounded-lg bg-surface-container-highest overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Intricate geometric Rangoli mandala made with marigold flower petals and neem leaves photographed flat on neutral slate stone background in warm natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWfyabByHQhRal1q4BF-UEkYPwV3NyAusvl_Bt9naoKPID26QaaM3f9NKblm2Igr0KNc0pj4td-NxKSEbVnRYB0voz0Y9Wn_UUAJq28a1amZHEYx-jW2fXZjX8yZUj7OnrMX3Ob9ihINDzRnob3VqYagwUqUo8peTEezBody61wpThbWxWD8ewN3NaK_HiYHCLPKwKgnkJ4M8KfAY8ctGjMYaObpYs9a9UR6awbbQ"/>
+<span class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-surface/90 font-label-sm text-[10px] text-on-surface font-semibold">Rangoli</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface truncate">Diwali Ray 12</span>
+</div>
+</div>
+<!-- Safe Privacy Notice -->
+<div class="mt-1 flex items-start gap-2 p-2.5 rounded-xl bg-surface-container-low/70 text-on-surface-variant font-label-sm text-[11px] leading-tight">
+<span class="material-symbols-outlined text-sm text-secondary flex-shrink-0 mt-0.5">shield_with_heart</span>
+<span>Child Privacy Shield: Artwork is stored in Aarav's encrypted portfolio. Never shared publicly.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Safe Save Toast Notification (Hidden by default, triggered by JS) -->
+<div class="fixed bottom-6 right-6 bg-surface-container-lowest text-on-surface shadow-2xl rounded-2xl p-4 flex items-center gap-3 border border-outline-variant/30 transform translate-y-32 opacity-0 transition-all duration-300 z-50 pointer-events-none" id="save-toast">
+<div class="w-10 h-10 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">check_circle</span>
+</div>
+<div class="flex flex-col">
+<p class="font-label-md text-label-md font-bold text-on-surface">Artwork Saved to Private Portfolio</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Added to Class 5 Visual Arts Collection · Aarav</p>
+</div>
+</div>
+<!-- Interactive Portfolio Drawer Modal (Hidden by default) -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-xs z-50 hidden items-center justify-center p-4" id="portfolio-drawer">
+<div class="bg-surface-container-lowest rounded-3xl max-w-2xl w-full p-6 shadow-2xl flex flex-col gap-4">
+<div class="flex items-center justify-between pb-3 border-b border-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl">photo_library</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg font-bold text-on-surface">Aarav's Private Studio Portfolio</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Class 5 · 12 Completed Artworks · Safe Local Vault</p>
+</div>
+</div>
+<button class="w-9 h-9 rounded-full hover:bg-surface-container text-on-surface-variant flex items-center justify-center" onclick="closePortfolioDrawer()">
+<span class="material-symbols-outlined text-xl">close</span>
+</button>
+</div>
+<div class="grid grid-cols-3 gap-3 max-h-80 overflow-y-auto p-1">
+<!-- Item 1 -->
+<div class="flex flex-col gap-1 p-2 rounded-xl bg-surface-container-low">
+<div class="w-full h-24 rounded-lg bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of hand painted lotus flower in watercolour on handmade paper with delicate gold linework and indigo outlines in educational style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmO-gA0yRXPmJ0Gizf9W864xECCNn4pYdvhgIa6G2ew6RKr-RAW_VK15zBfDvv0koKASOsFrpqTxtuBumFDEvY5AVJYjz1Sgi3UimgIFdvVu94CtpAAZUtk24EugBW_-MnKXfC6Gc52UGeB4gojjnSzuDKfKhqGUC6PsdxhtMDDRyqBc94wCnxDwrRHqVnr_30X_IXOKyY9noce0ksg_GRaWAvgaDlssyMBTwggWY"/>
+</div>
+<span class="font-label-sm text-label-sm font-semibold truncate text-on-surface">Lotus Symmetry</span>
+<span class="text-[10px] text-outline">Today, 11:20 AM</span>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col gap-1 p-2 rounded-xl bg-surface-container-low">
+<div class="w-full h-24 rounded-lg bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Traditional Indian botanical study of neem tree leaf patterns painted with green natural pigment on warm textured paper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlWC9cbrbP91LHpIHhRfHOLtaaZkhK2SByrWRzPGZX8CkJNHLC49hYvsRWHU6pjRQJVA8dz5FMUXF8Gv-VLNYqP2LFHQ4iUWhoI01g3IRzFP3tYf6xDvhdnP6YHtN6rYPDXlLvXx5C5odpqQqoFzB3-1gS-hjSUlQmbfKNdPYi8OCfocsHrJdvu2KWW05en-AZrWmTb7NdarbhGcQuAUgGddPP-3o36lp7UUMVVaA"/>
+</div>
+<span class="font-label-sm text-label-sm font-semibold truncate text-on-surface">Neem Leaf Study</span>
+<span class="text-[10px] text-outline">Yesterday</span>
+</div>
+<!-- Item 3 -->
+<div class="flex flex-col gap-1 p-2 rounded-xl bg-surface-container-low">
+<div class="w-full h-24 rounded-lg bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Peacock feather geometric vector pattern study painted with natural mineral blue and green pigments on textured canvas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnUdqUes83dixaqQDgeafcsTg3q5VXc1NUbwEXAZAiePdAgNQFQmmEH5eReJxOm_ZIAxWiqeb_kRBUuB-GrGXj0lbsUiNvI2qq3xRivB4JdOQbu3Zc_rFJMVIZSBPelgbmPz79KztnFCRZhoiEGKyRc-IGoQYVpHvR3U4zzmi_-V_MMq3fXUkCTwHSYtumigKNmPnpGdEqZMdH6zuLhd7zJgMEP9dyEGZixhqAKdQ"/>
+</div>
+<span class="font-label-sm text-label-sm font-semibold truncate text-on-surface">Peacock Feather</span>
+<span class="text-[10px] text-outline">3 days ago</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm text-secondary">verified</span>
+<span>Parent PIN Required for external prints</span>
+</div>
+<button class="px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md" onclick="closePortfolioDrawer()">Close</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Studio Interactive Scripts
+  let activeColor = '#3e35b5';
+  let isAudioPlaying = false;
+  let currentLang = 'en';
+
+  // Brush Selector Toggle
+  const brushButtons = document.querySelectorAll('.brush-btn');
+  brushButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      brushButtons.forEach(b => {
+        b.classList.remove('active', 'bg-primary', 'text-on-primary', 'shadow-sm');
+        b.classList.add('bg-surface-container-low', 'text-on-surface');
+      });
+      btn.classList.add('active', 'bg-primary', 'text-on-primary', 'shadow-sm');
+      btn.classList.remove('bg-surface-container-low', 'text-on-surface');
+    });
+  });
+
+  // Pigment Selector
+  function selectPigment(element) {
+    const swatches = document.querySelectorAll('.swatch-btn');
+    swatches.forEach(s => {
+      s.classList.remove('ring-2', 'ring-primary', 'ring-offset-2');
+      const checkIcon = s.querySelector('.material-symbols-outlined');
+      if (checkIcon) checkIcon.remove();
+    });
+
+    element.classList.add('ring-2', 'ring-primary', 'ring-offset-2');
+    activeColor = element.getAttribute('data-color');
+    const colorName = element.getAttribute('data-name');
+    
+    document.getElementById('active-pigment-name').innerText = colorName;
+    
+    // Add check icon
+    const circle = element.querySelector('span');
+    if (circle && !circle.querySelector('.material-symbols-outlined')) {
+      const check = document.createElement('span');
+      check.className = 'material-symbols-outlined text-base text-white';
+      check.innerText = 'check';
+      circle.appendChild(check);
+    }
+
+    updateBrushPreview();
+  }
+
+  function setCustomHex(hex) {
+    activeColor = hex;
+    document.getElementById('active-pigment-name').innerText = 'Custom Color (' + hex + ')';
+    updateBrushPreview();
+  }
+
+  function updateBrushPreview() {
+    const dot = document.getElementById('nib-dot');
+    const size = document.getElementById('stroke-size').value;
+    const opacity = document.getElementById('stroke-opacity').value / 100;
+    
+    dot.style.width = Math.min(Math.max(size, 8), 44) + 'px';
+    dot.style.height = Math.min(Math.max(size, 8), 44) + 'px';
+    dot.style.opacity = opacity;
+    dot.style.backgroundColor = activeColor;
+  }
+
+  // Audio Guide Toggle
+  function toggleAudioGuide() {
+    const icon = document.getElementById('narration-icon');
+    const text = document.getElementById('narration-text');
+    isAudioPlaying = !isAudioPlaying;
+
+    if (isAudioPlaying) {
+      icon.innerText = 'pause_circle';
+      icon.classList.add('animate-pulse');
+      text.innerHTML = 'Playing: <i>The Sacred Lotus &amp; Symmetry</i>';
+    } else {
+      icon.innerText = 'volume_up';
+      icon.classList.remove('animate-pulse');
+      text.innerHTML = 'Art Guide: <i>The Sacred Lotus &amp; Symmetry</i>';
+    }
+  }
+
+  function switchAudioLang(lang) {
+    currentLang = lang;
+    const text = document.getElementById('narration-text');
+    if (lang === 'te') {
+      text.innerHTML = 'కళా వివరణ: <i>పద్మం మరియు సమరూపత</i>';
+    } else {
+      text.innerHTML = 'Art Guide: <i>The Sacred Lotus &amp; Symmetry</i>';
+    }
+  }
+
+  // Stamp Motif Micro-interaction
+  function stampMotif(type) {
+    const svgLayer = document.getElementById('drawing-svg-layer');
+    const newPath = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    newPath.setAttribute('cx', 240 + Math.random() * 120);
+    newPath.setAttribute('cy', 180 + Math.random() * 90);
+    newPath.setAttribute('r', '8');
+    newPath.setAttribute('fill', activeColor);
+    newPath.setAttribute('opacity', '0.75');
+    svgLayer.appendChild(newPath);
+  }
+
+  // Save Feedback Toast
+  function showSaveFeedback() {
+    const toast = document.getElementById('save-toast');
+    toast.classList.remove('translate-y-32', 'opacity-0', 'pointer-events-none');
+    toast.classList.add('translate-y-0', 'opacity-100');
+    
+    setTimeout(() => {
+      toast.classList.add('translate-y-32', 'opacity-0', 'pointer-events-none');
+      toast.classList.remove('translate-y-0', 'opacity-100');
+    }, 2800);
+  }
+
+  // Portfolio Drawer Modal Controls
+  function openPortfolioDrawer() {
+    const drawer = document.getElementById('portfolio-drawer');
+    drawer.classList.remove('hidden');
+    drawer.classList.add('flex');
+  }
+
+  function closePortfolioDrawer() {
+    const drawer = document.getElementById('portfolio-drawer');
+    drawer.classList.add('hidden');
+    drawer.classList.remove('flex');
+  }
+
+  // Undo / Redo Micro-effects
+  document.getElementById('btn-undo').addEventListener('click', () => {
+    const lastElem = document.getElementById('active-stroke');
+    if (lastElem) {
+      lastElem.style.opacity = lastElem.style.opacity === '0' ? '1' : '0';
+    }
+  });
+</script></main></div>
+</body></html>

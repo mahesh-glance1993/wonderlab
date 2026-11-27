@@ -171,7 +171,76 @@ table.data th, table.data td { padding: 6px 10px; border-bottom: 1px solid var(-
 .small { font-size: .88rem; }
 
 /* "Tap to return to full screen" note */
-.fs-hint { position: fixed; left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 90; display: flex; gap: 8px; align-items: center; background: var(--surface); color: var(--muted); font-weight: 800; padding: 8px 18px; border-radius: 999px; box-shadow: var(--shadow); pointer-events: none; }
+.fs-hint {
+  position: fixed;
+  left: 50%;
+  bottom: max(14px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 90;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 6px 12px 6px 18px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-elevated, 0 8px 24px rgba(0, 0, 0, 0.12));
+  border: 1px solid var(--border);
+  pointer-events: auto;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.fs-hint-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fs-hint-close {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, background 0.15s;
+}
+.fs-hint-close:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+/* Narration audio controls */
+.narration-ctrls {
+  display: inline-flex;
+  align-items: center;
+}
+.audio-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--dur-press) var(--ease-standard);
+}
+.audio-pill:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.audio-pill.speaking {
+  background: var(--primary);
+  color: var(--primary-ink);
+  border-color: var(--primary);
+}
 
 /* new lesson blocks: headings, key points, photos, "what if?" explorer */
 .lq-heading { margin: 8px 0 0; font-size: 1.15rem; }

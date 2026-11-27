@@ -57,24 +57,51 @@ export default function Curriculum() {
       {!content && !error && <p role="status">Loading lessons…</p>}
       {content && fallback && <p className="muted small" role="note">{boardName(board)} lessons for {CLASSES[level].label} are being written. Until then you can learn with the NCERT lessons below.</p>}
       {content && !units.length && <p className="muted">No lessons for this subject in {CLASSES[level].label} yet.</p>}
-      {units.map((u) => (
+      {units.map((u, idx) => (
         <section className="card unit" key={u.id} aria-labelledby={`u-${u.id}`}>
-          <h2 id={`u-${u.id}`}>{L(u.title)}{u.source && <small className="muted" style={{ fontSize: '.8rem' }}>{u.source.book}{u.source.chapterNo ? ` · Ch ${u.source.chapterNo}` : ''}</small>}{!u.source && <span className="pill">Enrichment</span>}</h2>
-          {u.objectives.map((o) => {
-            const st = statusOf(learner.mastery[o.id]);
-            const base = `/lesson/${encodeURIComponent(u.id)}/${encodeURIComponent(o.id)}`;
-            return (
-              <div className="obj" key={o.id}>
-                <span className="name">{L(o.title)}</span>
-                <span className={`status ${st.key}`}><Icon name={st.icon} />{st.label}</span>
-                <span className="row" style={{ gap: 6 }}>
-                  <Link className="btn small" to={`${base}?mode=learn`}>{t('learn')}</Link>
-                  <Link className="btn small" to={`${base}?mode=practice`}>{t('practice')}</Link>
-                  {presentation?.tier !== 'early' && <Link className="btn small" to={`${base}?mode=test`}>{t('test')}</Link>}
-                </span>
+          <div className="unit-header">
+            <div className="unit-meta">
+              <div className="unit-num">{String(idx + 1).padStart(2, '0')}</div>
+              <div>
+                <h2 id={`u-${u.id}`}>{L(u.title)}</h2>
+                <div className="unit-sub">
+                  {u.source?.book && <span>{u.source.book}{u.source.chapterNo ? ` · Ch ${u.source.chapterNo}` : ''}</span>}
+                  <span>· {u.objectives.length} topics</span>
+                  {!u.source && <span className="pill">Enrichment</span>}
+                </div>
               </div>
-            );
-          })}
+            </div>
+            <div className="unit-actions">
+              {u.objectives[0] && (
+                <Link className="btn primary small" to={`/lesson/${encodeURIComponent(u.id)}/${encodeURIComponent(u.objectives[0].id)}?mode=learn`}>
+                  <Icon name="play" /> {t('learn')}
+                </Link>
+              )}
+            </div>
+          </div>
+
+          <div className="unit-objectives">
+            {u.objectives.map((o) => {
+              const st = statusOf(learner.mastery[o.id]);
+              const base = `/lesson/${encodeURIComponent(u.id)}/${encodeURIComponent(o.id)}`;
+              return (
+                <div className="obj-row" key={o.id}>
+                  <div className="obj-info">
+                    <span className="obj-icon"><Icon name={st.icon} /></span>
+                    <span className="obj-name">{L(o.title)}</span>
+                  </div>
+                  <div className="obj-right">
+                    <span className={`status ${st.key}`}><Icon name={st.icon} />{st.label}</span>
+                    <div className="obj-actions">
+                      <Link className={`btn small ${st.key === 'new' ? 'primary' : ''}`} to={`${base}?mode=learn`}>{t('learn')}</Link>
+                      <Link className={`btn small ${st.key === 'progress' || st.key === 'practice' ? 'primary' : ''}`} to={`${base}?mode=practice`}>{t('practice')}</Link>
+                      {presentation?.tier !== 'early' && <Link className={`btn small ${st.key === 'mastered' ? 'primary' : ''}`} to={`${base}?mode=test`}>{t('test')}</Link>}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </section>
       ))}
     </Page>

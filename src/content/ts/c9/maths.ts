@@ -2324,7 +2324,8 @@ const ch9: USpec = {
         tp('diff', (r) => {
           const labels = ['2021', '2022', '2023', '2024', '2025'];
           const values = labels.map(() => r.int(20, 90));
-          let i = r.int(0, 4), j = r.int(0, 4);
+          const i = r.int(0, 4);
+          let j = r.int(0, 4);
           while (j === i) j = r.int(0, 4);
           return typed(`The bar graph shows the number of trees planted by an eco-club in five years. How many more trees were planted in ${labels[values[i] >= values[j] ? i : j]} than in ${labels[values[i] >= values[j] ? j : i]}?`, num(Math.abs(values[i] - values[j])),
             ['Read both bar heights.', 'Subtract the smaller from the larger.'], [`${Math.max(values[i], values[j])} − ${Math.min(values[i], values[j])} = ${Math.abs(values[i] - values[j])}`],

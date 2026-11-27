@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-high":"#e0e8fd","secondary":"#006a61","on-primary-fixed-variant":"#3a30b1","surface-tint":"#534cca","on-secondary-fixed":"#00201d","on-secondary-container":"#006f66","tertiary-fixed-dim":"#ffb77d","surface":"#f9f9ff","primary-fixed-dim":"#c3c0ff","surface-bright":"#f9f9ff","error-container":"#ffdad6","outline-variant":"#c8c4d6","surface-container-highest":"#dbe2f7","on-error-container":"#93000a","error":"#ba1a1a","surface-variant":"#dbe2f7","on-tertiary-container":"#ffa658","on-surface":"#141c2a","on-error":"#ffffff","background":"#f9f9ff","on-primary-fixed":"#100069","on-tertiary-fixed-variant":"#6e3900","on-tertiary-fixed":"#2f1500","tertiary-fixed":"#ffdcc3","primary-fixed":"#e3dfff","surface-dim":"#d2daee","on-background":"#141c2a","surface-container-low":"#f0f3ff","inverse-on-surface":"#ecf0ff","surface-container":"#e8eeff","on-tertiary":"#ffffff","inverse-surface":"#293140","primary-container":"#3e35b5","secondary-fixed-dim":"#6bd8cb","on-surface-variant":"#464554","secondary-fixed":"#89f5e7","tertiary":"#522900","on-secondary":"#ffffff","inverse-primary":"#c3c0ff","on-primary-container":"#b6b3ff","secondary-container":"#86f2e4","on-secondary-fixed-variant":"#005049","tertiary-container":"#733c00","on-primary":"#ffffff","primary":"#25149f","outline":"#777585","surface-container-lowest":"#ffffff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","gutter-mobile":"1rem","space-sm":"0.5rem","space-xl":"2.5rem","space-md":"1rem","margin":"1.5rem","gutter-desktop":"2rem","margin-desktop":"3rem","space-xs":"0.25rem","margin-mobile":"1rem","space-lg":"1.5rem"},fontFamily:{"headline-sm":["Outfit"],"display-lg":["Outfit"],"title-lg":["Outfit"],"label-sm":["Be Vietnam Pro"],"label-lg":["Be Vietnam Pro"],"display-lg-mobile":["Outfit"],"title-md":["Be Vietnam Pro"],"headline-lg":["Outfit"],"headline-lg-mobile":["Outfit"],"headline-md":["Outfit"],"body-md":["Be Vietnam Pro"],"body-lg":["Be Vietnam Pro"],"body-sm":["Be Vietnam Pro"],"label-md":["Be Vietnam Pro"]},fontSize:{"headline-sm":["20px",{lineHeight:"28px",fontWeight:"600"}],"display-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"700"}],"title-lg":["18px",{lineHeight:"26px",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"600"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"600"}],"display-lg-mobile":["36px",{lineHeight:"44px",letterSpacing:"-0.01em",fontWeight:"700"}],"title-md":["16px",{lineHeight:"24px",fontWeight:"600"}],"headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-lg-mobile":["26px",{lineHeight:"34px",letterSpacing:"0em",fontWeight:"600"}],"headline-md":["24px",{lineHeight:"32px",fontWeight:"600"}],"body-md":["15px",{lineHeight:"24px",fontWeight:"400"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"body-sm":["13px",{lineHeight:"20px",fontWeight:"400"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between select-none"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-md flex items-center gap-space-sm"><img alt="WonderLab Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrA4yTm3qtGbshyr11WiRU9ymU2SMH4lx_9gfdWna7Xo1s5xW3jIsoJFyjFqbZJSVj-Bx6EbCe-aQalBKKtapvXwWP-cnhBkIJUBp-dmaIekvPzL5lfw1v1t-NpSsqVh1tQlT5L4jdx1ZYQIWev33MQVr9z6FRAZ-HL-3ks9IYdGvQd8xqyr0F9inX6mv5fxOShFFFMSenMkcmGiGiddNtAs6nwYsXuh4GYN5onvy9h0"/><div class="flex flex-col"><span class="font-title-lg text-title-lg text-primary tracking-tight leading-none">WonderLab</span><span class="font-label-sm text-label-sm text-secondary tracking-wider mt-0.5">STUDIO LEARNING</span></div></div><div class="flex-1 overflow-y-auto px-space-sm py-space-xs"><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg shadow-sm"><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="learner-hub" href="#"><span class="material-symbols-outlined text-xl">cottage</span><span>Home</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="curriculum" href="#"><span class="material-symbols-outlined text-xl">menu_book</span><span>Curriculum</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="what-next" href="#"><span class="material-symbols-outlined text-xl">auto_awesome</span><span>What Next</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="physics-lab" href="#"><span class="material-symbols-outlined text-xl">science</span><span>Physics Lab</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="art-studio" href="#"><span class="material-symbols-outlined text-xl">palette</span><span>Art Studio</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="games-play" href="#"><span class="material-symbols-outlined text-xl">sports_esports</span><span>Games &amp; Play</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="progress-badges" href="#"><span class="material-symbols-outlined text-xl">military_tech</span><span>Progress &amp; Badges</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="notes" href="#"><span class="material-symbols-outlined text-xl">edit_note</span><span>Notes</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="offline-downloads" href="#"><span class="material-symbols-outlined text-xl">download_for_offline</span><span>Offline Downloads</span></a></nav></div></div><div class="p-space-sm bg-surface-container-low/60"><div class="flex flex-col gap-1.5"><a class="flex items-center justify-between px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.02)] transition-colors group" data-path="parent-zone" href="#"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-outline group-hover:text-primary transition-colors">lock</span><span class="font-label-md text-label-md">Parent Area</span></div><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">PIN</span></a><div class="flex items-center justify-between px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.02)]"><div class="flex items-center gap-2 min-w-0"><div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-sm text-label-sm font-bold flex-shrink-0">A</div><div class="truncate"><p class="font-label-md text-label-md text-on-surface font-semibold leading-tight truncate">Aarav</p><p class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Learner</p></div></div><button aria-label="Switch learner" class="text-outline hover:text-primary transition-colors flex items-center justify-center p-1 rounded-md hover:bg-surface-container-high" type="button"><span class="material-symbols-outlined text-base">sync_alt</span></button></div></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)] z-40 px-space-gutter flex items-center justify-between select-none"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-surface-container-low border border-outline-variant/30 text-on-surface"><span class="material-symbols-outlined text-secondary text-base">school</span><div class="flex items-center gap-1.5 font-label-md text-label-md font-semibold text-on-surface"><span>Class 5 (Ages 10–11)</span><span class="text-outline-variant">•</span><span class="text-on-surface-variant font-normal">NCERT &amp; Telangana Syllabus</span></div><button aria-label="Change Class" class="material-symbols-outlined text-sm text-outline hover:text-on-surface ml-0.5" type="button">expand_more</button></div><div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-lowest text-secondary shadow-[0_1px_4px_rgba(0,0,0,0.02)] border border-outline-variant/20"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-label-sm text-label-sm font-semibold">Offline Sync Active</span></div></div><div class="flex items-center gap-space-sm"><div class="flex items-center rounded-full bg-surface-container-low p-0.5 text-on-surface-variant"><button class="px-2.5 py-0.5 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-sm" type="button">EN</button><span class="text-outline-variant font-label-sm text-label-sm">|</span><button class="px-2.5 py-0.5 rounded-full hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">తెలుగు</button></div><div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-full border border-outline-variant/20"><button class="flex items-center gap-1 px-2 py-1 rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors font-label-sm text-label-sm" title="Ambient Focus Sound: Forest Stream" type="button"><span class="material-symbols-outlined text-base text-secondary">headphones</span><span class="hidden xl:inline">Focus Audio</span></button><div class="w-px h-3.5 bg-outline-variant/40"></div><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Reading &amp; Dyslexia Comfort Text Size" type="button"><span class="material-symbols-outlined text-lg">format_size</span></button><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Voice Explanation Mode" type="button"><span class="material-symbols-outlined text-lg">graphic_eq</span></button><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Theme Mood" type="button"><span class="material-symbols-outlined text-lg">light_mode</span></button></div><div class="flex items-center gap-2 pl-1 cursor-pointer group"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-surface-container-high group-hover:ring-primary transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK3kLrI1v8tK7Sr4INV-F5YCytflZmToeBEOZSdLPjCHpkDQ-DA0Cclydfk35jYmUTuzfE_UXHPm-ocvIoQuJzdzy8W6RCIZQg58PniYoxIZYuCgm7EEM3OnhjEousYF3ikhSEPFqJu6wfAsyd95sDsVvv8J8GiYSGisHYZOtiOKK_O7ipQrNzmgcQTg4A4XHhTpnvXC8B_Ornj6FlQNzp5TwogNFUyHJQD-z0Bfc"/><div class="hidden sm:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight group-hover:text-primary transition-colors">Aarav Reddy</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Class 5 · Explorer</span></div><span class="material-symbols-outlined text-outline text-base group-hover:text-on-surface transition-colors">keyboard_arrow_down</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Interactive Style Helpers -->
+<style>
+    .milestone-glow {
+      box-shadow: 0 10px 30px -5px rgba(62, 53, 181, 0.08);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+<!-- Ambient Backdrop Graphic -->
+<div class="relative w-full overflow-hidden px-6 lg:px-12 py-8 bg-surface">
+<div class="absolute -top-32 right-12 w-96 h-96 rounded-full bg-primary-fixed/30 blur-3xl pointer-events-none"></div>
+<div class="absolute top-48 left-1/4 w-80 h-80 rounded-full bg-secondary-fixed/30 blur-3xl pointer-events-none"></div>
+<div class="relative max-w-7xl mx-auto flex flex-col gap-10">
+<!-- Learner Journey Header -->
+<section class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 p-8 rounded-xl bg-surface-container-lowest milestone-glow">
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+<div class="relative">
+<img class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover shadow-sm ring-4 ring-surface-container" data-alt="Warm natural portrait of Aarav, a 10-year-old curious South Asian student wearing a soft indigo studio pullover, smiling gently with creative notebooks and small crystal prism on the study desk behind him in soft sunlit pedagogical studio lighting, warm tones, high dynamic range." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXk-5bpJSRouB8RjqovPTUxHyPFgL_yFOmqRQO4pLUJMB_GDKH3A4rwKUeJ_XiGBUxlMFewYi1fgrect7xVhl5RxrF2GrQy1r-imwwQcv1UNTZd1YcO5yxunNO1iKUQG5NCG3eGUh42gghLBy6bMGdRwmbZNbbpdgRt8aRSF6qr-BgPkfElXJInNTHU-5qwCEcpT0O0WRCbmJ4zQfzsII1kZ_O7WFm-NGV3vyj70E"/>
+<div class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-md" title="Active Journey Streak: 19 Mindful Days">
+<span class="material-symbols-outlined text-sm font-bold">spa</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-2 mb-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Self-Paced Discovery</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">Class 5 · Studio Track</span>
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">lock</span> Strictly Private
+              </span>
+</div>
+<h1 class="font-display-lg text-headline-lg md:text-display-lg text-on-surface tracking-tight leading-tight">
+              Aarav’s Personal Learning Journey
+            </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-1">
+              Celebrating steady curiosity, reflective inquiry, and hands-on laboratory trails. Here, every misstep is simply experimental data.
+            </p>
+</div>
+</div>
+<div class="flex md:flex-col items-center md:items-end justify-between w-full md:w-auto gap-3 pt-4 md:pt-0 border-t md:border-t-0 border-outline-variant/20">
+<div class="flex items-center gap-3">
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Mindful Focus Time</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">42h 15m</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">hourglass_empty</span>
+</div>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold transition-all shadow-sm" onclick="document.getElementById('revisit-tray').scrollIntoView({ behavior: 'smooth' })" type="button">
+<span class="material-symbols-outlined text-base">psychology_alt</span>
+<span>2 Concepts to Revisit</span>
+</button>
+</div>
+</section>
+<!-- Subject Mastery Bento Mosaic -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">auto_stories</span>
+<h2 class="font-title-lg text-title-lg text-on-surface">Subject Explorations &amp; Competencies</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 Active Tracks · 0 Comparative Percentiles</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+<!-- Card 1: Mathematics -->
+<div class="flex flex-col justify-between p-6 rounded-xl bg-surface-container-lowest milestone-glow group hover:-translate-y-0.5 transition-all">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="p-2.5 rounded-lg bg-primary-fixed text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">calculate</span>
+</span>
+<span class="font-label-md text-label-md font-bold text-primary">85% Mastery</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Mathematics</h3>
+<p class="font-label-md text-label-md text-secondary font-medium mt-0.5">Mastering Fractions &amp; Decimals</p>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                18 of 24 units thoroughly charted through geometry puzzles and visual balance problems.
+              </p>
+</div>
+<div class="mt-6 flex flex-col gap-2">
+<div class="w-full h-2 rounded-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 75%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>18 / 24 Units</span>
+<span>Active unit: Decimals</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Science & Physics Lab -->
+<div class="flex flex-col justify-between p-6 rounded-xl bg-surface-container-lowest milestone-glow group hover:-translate-y-0.5 transition-all">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="p-2.5 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">science</span>
+</span>
+<span class="font-label-md text-label-md font-bold text-secondary">Optics Guru</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Science &amp; Physics</h3>
+<p class="font-label-md text-label-md text-secondary font-medium mt-0.5">Light &amp; Optics Guru</p>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                14 of 18 interactive experiments completed with zero trial penalties or simulation locks.
+              </p>
+</div>
+<div class="mt-6 flex flex-col gap-2">
+<div class="w-full h-2 rounded-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 78%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>14 / 18 Labs Ran</span>
+<span>4 Apparatus Left</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Telugu Language & Literature -->
+<div class="flex flex-col justify-between p-6 rounded-xl bg-surface-container-lowest milestone-glow group hover:-translate-y-0.5 transition-all">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="p-2.5 rounded-lg bg-surface-container text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">translate</span>
+</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">45 New Words</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Telugu Sahityam</h3>
+<p class="font-label-md text-label-md text-on-surface-variant font-medium mt-0.5">తెలుగు కథలు &amp; పద్యాలు</p>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                12 regional folktales and poems read aloud, unlocking contextual vocabulary across Telangana lore.
+              </p>
+</div>
+<div class="mt-6 flex flex-col gap-2">
+<div class="w-full h-2 rounded-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-outline rounded-full" style="width: 60%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>12 Folk Stories</span>
+<span>45 Gloss Words</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Art & Creativity -->
+<div class="flex flex-col justify-between p-6 rounded-xl bg-surface-container-lowest milestone-glow group hover:-translate-y-0.5 transition-all">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="p-2.5 rounded-lg bg-surface-container-high text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">palette</span>
+</span>
+<span class="font-label-md text-label-md font-bold text-primary">Private Vault</span>
+</div>
+<div>
+<h3 class="font-title-lg text-title-lg text-on-surface">Art Studio</h3>
+<p class="font-label-md text-label-md text-secondary font-medium mt-0.5">Geometric Tessellations</p>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                9 original digital canvases drawn using mathematical symmetry tools and botanical brush sets.
+              </p>
+</div>
+<div class="mt-6 flex flex-col gap-2">
+<div class="w-full h-2 rounded-full bg-surface-container-low overflow-hidden">
+<div class="h-full bg-surface-tint rounded-full" style="width: 90%;"></div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>9 Creative Artworks</span>
+<span>Protected</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Visual Mastery Path & Growth Timeline (Centerpiece) -->
+<section class="flex flex-col gap-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Mastery Trail: Concept Maturation</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Track concepts transforming from initial discovery to durable, tested understanding.</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-surface-container-high"></span> Explored
+            </span>
+<span class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span> Experimented
+            </span>
+<span class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span> Mastered &amp; Retained
+            </span>
+</div>
+</div>
+<div class="p-8 rounded-xl bg-surface-container-lowest milestone-glow flex flex-col gap-8">
+<!-- Interactive Stage Graph Visual -->
+<div class="w-full overflow-x-auto custom-scroll pb-2">
+<div class="min-w-[760px] relative">
+<!-- Connecting Curving Trace (SVG) -->
+<svg class="w-full h-28" fill="none" preserveaspectratio="none" viewbox="0 0 800 110">
+<path d="M 40 55 C 160 55, 180 30, 290 30 C 400 30, 440 85, 540 85 C 640 85, 680 45, 760 45" stroke="#E0E8FD" stroke-linecap="round" stroke-width="6"></path>
+<path d="M 40 55 C 160 55, 180 30, 290 30 C 400 30, 440 85, 540 85 C 580 85, 600 70, 630 60" stroke="#3E35B5" stroke-linecap="round" stroke-width="6"></path>
+<!-- Node Points -->
+<circle class="fill-primary" cx="40" cy="55" r="9"></circle>
+<circle class="fill-primary" cx="290" cy="30" r="9"></circle>
+<circle class="fill-secondary" cx="540" cy="85" r="9"></circle>
+<circle class="fill-surface-container-high stroke-primary stroke-2" cx="630" cy="60" r="7"></circle>
+<circle class="fill-surface-container-high" cx="760" cy="45" r="7"></circle>
+</svg>
+<!-- Milestone Nodes Layered over SVG Coordinates -->
+<div class="grid grid-cols-5 gap-4 -mt-24 pt-2">
+<!-- Milestone 1 -->
+<div class="flex flex-col items-start gap-2">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Mastered</span>
+<h4 class="font-title-md text-title-md text-on-surface">Angles &amp; Shapes</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Classified 48 polygon varieties</p>
+<span class="font-label-sm text-label-sm text-outline mt-1">Retained · 3 weeks ago</span>
+</div>
+</div>
+<!-- Milestone 2 -->
+<div class="flex flex-col items-start gap-2">
+<div class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Mastered</span>
+<h4 class="font-title-md text-title-md text-on-surface">Solar Shadows</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Dial sundial calibrations</p>
+<span class="font-label-sm text-label-sm text-outline mt-1">Retained · 10 days ago</span>
+</div>
+</div>
+<!-- Milestone 3 -->
+<div class="flex flex-col items-start gap-2">
+<div class="w-10 h-10 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-sm ring-4 ring-secondary-container/40">
+<span class="material-symbols-outlined text-base">science</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold tracking-wider">Experimented</span>
+<h4 class="font-title-md text-title-md text-on-surface">Prisms &amp; Refraction</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">4 angle tests completed</p>
+<span class="font-label-sm text-label-sm text-secondary font-semibold mt-1">Ready for consolidation</span>
+</div>
+</div>
+<!-- Milestone 4 -->
+<div class="flex flex-col items-start gap-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">near_me</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-bold tracking-wider">In Progress</span>
+<h4 class="font-title-md text-title-md text-on-surface">Equivalent Fractions</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Visual fraction strip balance</p>
+<span class="font-label-sm text-label-sm text-outline mt-1">Explored 2 days ago</span>
+</div>
+</div>
+<!-- Milestone 5 -->
+<div class="flex flex-col items-start gap-2 opacity-60">
+<div class="w-10 h-10 rounded-full bg-surface-container text-outline flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-base">flag</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase font-bold tracking-wider">Upcoming Discovery</span>
+<h4 class="font-title-md text-title-md text-on-surface">Magnetic Flux &amp; Earth</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Compass navigation lab</p>
+<span class="font-label-sm text-label-sm text-outline mt-1">Unlocks after Optics</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Metrics Snapshot -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-surface-container-low">
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low/60">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Retention Rate</span>
+<span class="font-title-lg text-title-lg text-on-surface font-bold">92% Long-Term</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low/60">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">restart_alt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Self-Correction Rate</span>
+<span class="font-title-lg text-title-lg text-on-surface font-bold">88% on 2nd Try</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low/60">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Personal Confidence</span>
+<span class="font-title-lg text-title-lg text-on-surface font-bold">Steadily High</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Split Row: Gentle Practice List & Mindful Milestones -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Gentle Practice List (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-4" id="revisit-tray">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-xl">self_improvement</span>
+<h3 class="font-title-lg text-title-lg text-on-surface">Concepts to Revisit Gently</h3>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">No timers · No pressure</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            These are topics you paused during last week’s explorations. Revisiting them builds durable intuitive muscle.
+          </p>
+<div class="flex flex-col gap-3.5 mt-1">
+<!-- Item 1: Refraction through Prisms -->
+<div class="p-5 rounded-xl bg-surface-container-lowest milestone-glow flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-lg bg-primary-fixed/60 flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">lens_blur</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant">Physics Lab</span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Needs a quick revisit</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface mt-1">Refraction through Prisms</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                    Remember how red light bends slightly less than violet? A 3-minute interactive mirror beam will clarify it.
+                  </p>
+</div>
+</div>
+<button class="w-full sm:w-auto flex-shrink-0 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md font-semibold transition-all shadow-sm active:translate-y-0.5" onclick="this.innerText = 'Launching Hint Refresher...'; setTimeout(() =&gt; this.innerText = 'Refresher Active', 900)" type="button">
+<span class="material-symbols-outlined text-base">play_circle</span>
+<span>Play 3-min hint refresher</span>
+</button>
+</div>
+<!-- Item 2: Equivalent Fractions -->
+<div class="p-5 rounded-xl bg-surface-container-lowest milestone-glow flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-lg bg-secondary-container/60 flex items-center justify-center text-secondary flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">pie_chart</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-md bg-surface-container text-on-surface-variant">Mathematics</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Almost there! (80% achieved)</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface mt-1">Equivalent Fractions (4/6 = 2/3)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                    Try the visual wooden block balance puzzle once more to solidify reducing numerators with common factors.
+                  </p>
+</div>
+</div>
+<button class="w-full sm:w-auto flex-shrink-0 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-surface-container text-primary hover:bg-surface-container-high font-label-md text-label-md font-semibold transition-all shadow-sm active:translate-y-0.5" onclick="this.innerText = 'Launching Puzzle...'; setTimeout(() =&gt; this.innerText = 'Puzzle Ready', 900)" type="button">
+<span class="material-symbols-outlined text-base">extension</span>
+<span>Open tactile blocks</span>
+</button>
+</div>
+</div>
+<!-- Positive Reinforcement Callout -->
+<div class="p-4 rounded-xl bg-surface-container-low flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-xl">favorite</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="text-on-surface font-semibold">Pedagogical Note:</strong> Aarav took 3 attempts on Prisms without showing frustration. Curiosity and stamina are at their peak.
+            </p>
+</div>
+</div>
+<!-- Mindful Milestone Badges (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">workspace_premium</span>
+<h3 class="font-title-lg text-title-lg text-on-surface">Craft Milestones</h3>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Quiet Honors</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Deliberately crafted non-gamified badges that celebrate character, bilingual curiosity, and honest exploration.
+          </p>
+<div class="flex flex-col gap-3">
+<!-- Badge 1 -->
+<div class="p-4 rounded-xl bg-surface-container-lowest milestone-glow flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">science</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-title-md text-on-surface">Fearless Experimenter</h4>
+<span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm font-semibold">Studio Honor</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Completed 10 physics apparatus simulations with zero panic and zero penalty point deductions.
+                </p>
+<span class="font-label-sm text-label-sm text-outline mt-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> Unlocked during Optical Bench Session
+                </span>
+</div>
+</div>
+<!-- Badge 2 -->
+<div class="p-4 rounded-xl bg-surface-container-lowest milestone-glow flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">record_voice_over</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-title-md text-on-surface">Bilingual Explorer</h4>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-semibold">Language</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Switched concepts between English &amp; Telugu freely to explore synonyms, poetry, and scientific terms.
+                </p>
+<span class="font-label-sm text-label-sm text-outline mt-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> Unlocked during Panchatantra Reading
+                </span>
+</div>
+</div>
+<!-- Badge 3 -->
+<div class="p-4 rounded-xl bg-surface-container-lowest milestone-glow flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-2xl">menu_book</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="font-title-md text-title-md text-on-surface">Reflective Thinker</h4>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">Self-Awareness</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Authored 15 personalized margin notes inside lesson notebooks for future self-reference.
+                </p>
+<span class="font-label-sm text-label-sm text-outline mt-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">verified</span> Unlocked in Telugu Vocabulary Deck
+                </span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Learner Studio Gallery / Work in Progress Visuals -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">draw</span>
+<h2 class="font-title-lg text-title-lg text-on-surface">Recent Evidence of Exploration</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Selected by Aarav</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+<!-- Evidence 1 -->
+<div class="rounded-xl overflow-hidden bg-surface-container-lowest milestone-glow flex flex-col">
+<div class="relative h-44 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="Digital art illustration of a glass triangular prism dispersing a pure white sunbeam into a rich soft rainbow spectrum across a deep indigo surface, geometric physics notebook sketch style with handwritten labels for incident angle and refraction." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQTcMbC3g_EaBaDNOyOszOHVDnLiuclXAp0OcFjssdgvQf5fSrGEgzyHz1VsWxjqGz64Ijh2Ll-mEG6OQH83ltx5zOP04WYZ4C-4QJImJvKsBocPYUIKnhon0Aex5jqOp0tnO3wDbqEGXrKa72YlGyp4ego1aris5U6oWiShOf-iPE28OCQppkqc5H2mX7aoQ-ZIV5AFk0BSr3qMF8zHYM4ZHeLxpiObfVX6vpKQI"/>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-surface/90 backdrop-blur-md font-label-sm text-label-sm text-on-surface font-semibold">Physics Simulation Diagram</span>
+</div>
+<div class="p-4 flex flex-col justify-between flex-1">
+<div>
+<h4 class="font-title-md text-title-md text-on-surface">Light Dispersal Angle Log</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Saved after the 45-degree angle test in the Virtual Optics Chamber.</p>
+</div>
+<div class="flex items-center justify-between mt-4 pt-3 border-t border-surface-container-low font-label-sm text-label-sm text-outline">
+<span>Recorded Tuesday</span>
+<span class="text-primary font-semibold cursor-pointer hover:underline">Inspect Notes</span>
+</div>
+</div>
+</div>
+<!-- Evidence 2 -->
+<div class="rounded-xl overflow-hidden bg-surface-container-lowest milestone-glow flex flex-col">
+<div class="relative h-44 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="Delicate mathematical geometric rangoli artwork created with algorithmic symmetry, displaying repeating concentric petals and harmonic fractions in teal, soft cyan, and deep indigo pedagogical color scheme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAXXcGojh9Us-ZV7vgMfIJ9XSm1XlMcS5q_Ll5AoKAR_VxHysVy-W2BFPSupj2NV4WYCg_dKKCVdCcDnJ6G4nC9ABw2iJmyLjE0vj7H5oGKb2ftmEBvUpn16X-rdb3DUA7EkSr7MflIuV7KeFZdHbV3I2Lo5wqNL82HoIqgoNP6LuwlitOW9OiN5yrH0VCLCULf4FGQJCMClyd2IWDzZZ_FXLNY81u9oIfxyq8MAg"/>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-surface/90 backdrop-blur-md font-label-sm text-label-sm text-on-surface font-semibold">Creative Canvas 09</span>
+</div>
+<div class="p-4 flex flex-col justify-between flex-1">
+<div>
+<h4 class="font-title-md text-title-md text-on-surface">Geometric Rangoli of 8ths</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Fraction symmetry exploration merging Telangana kolam art with division geometry.</p>
+</div>
+<div class="flex items-center justify-between mt-4 pt-3 border-t border-surface-container-low font-label-sm text-label-sm text-outline">
+<span>Created 4 days ago</span>
+<span class="text-secondary font-semibold cursor-pointer hover:underline">View in Art Studio</span>
+</div>
+</div>
+</div>
+<!-- Evidence 3 -->
+<div class="rounded-xl overflow-hidden bg-surface-container-lowest milestone-glow flex flex-col">
+<div class="relative h-44 w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="Digital notebook page showing Telugu calligraphy practice with the word Chandamama and hand-drawn stars, gentle pencil texture, warm pedagogical learning studio aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-Zcgso329lKeghx3Gdv9YbE8Ga2eCl3zmMqlf20bF60chzJkw5qqXCNhme8kJRYrQAKkzJLXtBX4J2VMhT-z8K10ww2rAlRz7hEdk6zVfgq80n4gePkPSEt87K2WtmY5jzf2zxqjKCPSWEmKevJzLj4mln_rF_JGcFIESNqouPPzVQIsE3JsFItKH-BM9iBZAJEwx0tpADyZyQbS9_LsVXgqYc4rNEYx8sEvtPFg"/>
+<span class="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-surface/90 backdrop-blur-md font-label-sm text-label-sm text-on-surface font-semibold">Literary Journal Entry</span>
+</div>
+<div class="p-4 flex flex-col justify-between flex-1">
+<div>
+<h4 class="font-title-md text-title-md text-on-surface">‘జాబిల్లి’ Telugu Glossary Card</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Personal reflection on rhyme structures in modern children's Telugu poetry.</p>
+</div>
+<div class="flex items-center justify-between mt-4 pt-3 border-t border-surface-container-low font-label-sm text-label-sm text-outline">
+<span>Created Last Week</span>
+<span class="text-on-surface font-semibold cursor-pointer hover:underline">Read Entry</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Safe Learning Audit & Privacy Banner -->
+<footer class="mt-4 mb-8 p-6 rounded-xl bg-surface-container-low flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined text-xl">privacy_tip</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface font-bold">COPPA &amp; DPDP 2023 Verified</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">Zero Advertising</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Progress data is self-referential and strictly private to Aarav and registered guardians/teachers. Never shared or ranked.
+            </p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-all shadow-sm flex items-center gap-1.5" onclick="alert('Summary report exported as private pedagogical PDF for Parents and Teachers.')" type="button">
+<span class="material-symbols-outlined text-base">download</span>
+<span>Export Parent PDF</span>
+</button>
+<button class="w-10 h-10 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high text-outline hover:text-on-surface flex items-center justify-center transition-all shadow-sm" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Back to top" type="button">
+<span class="material-symbols-outlined text-base">arrow_upward</span>
+</button>
+</div>
+</footer>
+</div>
+</div>
+</div></main></div>
+</body></html>

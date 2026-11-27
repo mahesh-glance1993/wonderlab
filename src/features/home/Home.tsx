@@ -51,16 +51,22 @@ export default function Home() {
         <span className="hello-av" aria-hidden="true">{AVATAR_EMOJI[profile.avatar]}</span>
         <div>
           <h1>{greeting}</h1>
-          <p className="muted">{lang === 'te' ? cls.labelTe : cls.label} · <Icon name="star" /> {stars} {t('stars')}</p>
+          <p className="muted">
+            <span className="hello-badge">{lang === 'te' ? cls.labelTe : cls.label}</span>
+            <span className="hello-badge"><Icon name="star" /> {stars} {t('stars')}</span>
+          </p>
         </div>
         {early && <NarrationControls text={`Hi ${profile.nickname}! What would you like to do?`} te={`నమస్తే ${profile.nickname}! ఏం చేద్దాం?`} />}
       </section>
 
       {last && (
-        <Link to={last.path} className="tile continue" style={{ background: 'var(--c-next)' }}>
-          <span className="tile-icon" style={{ color: 'var(--c-next-ink)' }}><Icon name="play" size="lg" /></span>
-          <b>{early ? t('e_continue') : t('continueLearning')}</b>
-          <small>{last.label}</small>
+        <Link to={last.path} className="tile continue">
+          <span className="tile-icon"><Icon name="play" size="lg" /></span>
+          <div className="continue-content">
+            <span className="continue-label">{early ? t('e_continue') : t('continueLearning')}</span>
+            <span className="continue-title">{last.label}</span>
+          </div>
+          <Icon name="next" />
         </Link>
       )}
 

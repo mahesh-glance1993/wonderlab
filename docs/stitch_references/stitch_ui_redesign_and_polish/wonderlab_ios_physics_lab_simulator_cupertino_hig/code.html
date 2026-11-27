@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><title>WonderLab</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#f9f9ff;color:#141c2a;-webkit-tap-highlight-color:transparent;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary-fixed-dim": "#c3c0ff", "on-error-container": "#93000a", "surface-container-high": "#e0e8fd", "primary-container": "#3e35b5", "on-tertiary-fixed": "#2f1500", "on-error": "#ffffff", "on-tertiary": "#ffffff", "on-secondary": "#ffffff", "surface-container-lowest": "#ffffff", "tertiary": "#522900", "error-container": "#ffdad6", "on-primary-fixed": "#100069", "inverse-surface": "#293140", "on-tertiary-container": "#ffa658", "on-tertiary-fixed-variant": "#6e3900", "surface-dim": "#d2daee", "on-background": "#141c2a", "inverse-on-surface": "#ecf0ff", "surface": "#f9f9ff", "on-secondary-container": "#006f66", "surface-tint": "#534cca", "on-primary-container": "#b6b3ff", "surface-container": "#e8eeff", "primary-fixed": "#e3dfff", "tertiary-fixed-dim": "#ffb77d", "secondary-fixed": "#89f5e7", "tertiary-fixed": "#ffdcc3", "tertiary-container": "#733c00", "background": "#f9f9ff", "error": "#ba1a1a", "inverse-primary": "#c3c0ff", "outline-variant": "#c8c4d6", "surface-container-low": "#f0f3ff", "on-primary": "#ffffff", "on-surface-variant": "#464554", "outline": "#777585", "on-surface": "#141c2a", "secondary-container": "#86f2e4", "surface-bright": "#f9f9ff", "on-secondary-fixed": "#00201d", "secondary-fixed-dim": "#6bd8cb", "surface-container-highest": "#dbe2f7", "primary": "#25149f", "on-primary-fixed-variant": "#3a30b1", "surface-variant": "#dbe2f7", "secondary": "#006a61", "on-secondary-fixed-variant": "#005049" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter-mobile": "1rem", "gutter": "1.5rem", "space-xs": "0.25rem", "margin": "1.5rem", "margin-desktop": "3rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xl": "2.5rem", "gutter-desktop": "2rem", "margin-mobile": "1rem", "space-sm": "0.5rem" }, fontFamily: { "headline-lg-mobile": ["Outfit"], "headline-md": ["Outfit"], "label-lg": ["Be Vietnam Pro"], "title-lg": ["Outfit"], "label-md": ["Be Vietnam Pro"], "headline-lg": ["Outfit"], "title-md": ["Be Vietnam Pro"], "display-lg": ["Outfit"], "headline-sm": ["Outfit"], "body-lg": ["Be Vietnam Pro"], "body-sm": ["Be Vietnam Pro"], "display-lg-mobile": ["Outfit"], "body-md": ["Be Vietnam Pro"], "label-sm": ["Be Vietnam Pro"] }, fontSize: { "headline-lg-mobile": ["26px", { lineHeight: "34px", letterSpacing: "0em", fontWeight: "600" }], "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", fontWeight: "600" }], "title-lg": ["18px", { lineHeight: "26px", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }], "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }], "title-md": ["16px", { lineHeight: "24px", fontWeight: "600" }], "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }], "body-sm": ["13px", { lineHeight: "20px", fontWeight: "400" }], "display-lg-mobile": ["36px", { lineHeight: "44px", letterSpacing: "-0.01em", fontWeight: "700" }], "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen selection:bg-primary-fixed"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)] pt-safe"><div class="h-6 px-margin-mobile flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm"><span class="font-semibold tracking-tight">9:30</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">wifi</span><span class="material-symbols-outlined text-[16px]">signal_cellular_4_bar</span><span class="material-symbols-outlined text-[16px]">battery_full</span></div></div><div class="h-16 px-space-xs flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Go back" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-high transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-title-lg text-title-lg text-on-surface tracking-tight ml-space-xs">Lab Experiment Active Session</h1></div><div class="flex items-center gap-space-xs pr-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-[88px] pb-safe px-margin-mobile bg-surface"><div class="flex flex-col w-full pb-8 select-none">
+<!-- Subheader Capsule Track -->
+<div class="flex items-center justify-between mb-4 px-0.5">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-[15px] text-primary" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+<span class="font-label-md text-label-md tracking-tight">Class 5 • Optics</span>
+</div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-high text-on-surface">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-md text-label-md tracking-tight">Active Simulation</span>
+</div>
+</div>
+<!-- Interactive Optical Simulation Canvas Stage -->
+<div class="relative w-full rounded-2xl overflow-hidden shadow-lg bg-inverse-surface mb-5 text-inverse-on-surface">
+<!-- Subtle Grid Matrix Background -->
+<div class="absolute inset-0 opacity-[0.07] pointer-events-none" style="background-image: radial-gradient(circle, #ecf0ff 1px, transparent 1px); background-size: 16px 16px;"></div>
+<!-- Live Laboratory Telemetry Overlays -->
+<div class="absolute top-3.5 left-3.5 z-20 flex flex-col gap-1.5 pointer-events-none">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-inverse-surface/85 backdrop-blur-md shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed"></span>
+<span class="font-label-md text-label-md text-inverse-on-surface" id="label-material">Flint Glass (n = 1.62)</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-inverse-surface/85 backdrop-blur-md shadow-sm">
+<span class="material-symbols-outlined text-[13px] text-secondary-fixed">change_history</span>
+<span class="font-label-md text-label-md text-inverse-on-surface" id="label-angle-badge">θi = 48.0°</span>
+</div>
+</div>
+<!-- Quick Reset Control Pill (Canvas Level) -->
+<button aria-label="Reset Angle" class="absolute top-3.5 right-3.5 z-20 w-8 h-8 rounded-full bg-inverse-surface/85 backdrop-blur-md flex items-center justify-center text-inverse-on-surface shadow-sm active:scale-90 transition-transform" id="btn-reset-stage">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+</button>
+<!-- Ray Tracing SVG Stage -->
+<div class="relative w-full h-[270px] flex items-center justify-center">
+<svg class="w-full h-full touch-none select-none" id="prism-svg" viewbox="0 0 360 270">
+<defs>
+<!-- Prism Glass Tonal Gradient -->
+<lineargradient id="prismGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#ffffff" stop-opacity="0.22"></stop>
+<stop offset="60%" stop-color="#89f5e7" stop-opacity="0.10"></stop>
+<stop offset="100%" stop-color="#3e35b5" stop-opacity="0.18"></stop>
+</lineargradient>
+<!-- White Light Incident Glow -->
+<filter height="140%" id="whiteGlow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="2.5"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+<!-- Spectral Rainbow Rays Filter -->
+<filter height="160%" id="rayGlow" width="160%" x="-30%" y="-30%">
+<fegaussianblur result="blur" stddeviation="2"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+</defs>
+<!-- Dynamic Group for Normal Reference Lines -->
+<g class="transition-opacity duration-300 opacity-90" id="normals-group">
+<line id="normal-in" stroke="#777585" stroke-dasharray="3 3" stroke-width="1.2" x1="90" x2="175" y1="120" y2="185"></line>
+<line id="normal-out" stroke="#777585" stroke-dasharray="3 3" stroke-width="1.2" x1="175" x2="265" y1="140" y2="195"></line>
+<!-- Normal Angle labels -->
+<text fill="#c8c4d6" font-family="Be Vietnam Pro" font-size="10" id="normal-in-lbl" x="96" y="118">N1</text>
+<text fill="#c8c4d6" font-family="Be Vietnam Pro" font-size="10" id="normal-out-lbl" x="250" y="142">N2</text>
+</g>
+<!-- Glass Equilateral Prism (Apex A = 60°) -->
+<!-- Center ~ (180, 150), Base width 160, Height 138.6 -->
+<polygon fill="url(#prismGradient)" points="180,60 100,200 260,200" stroke="#ffffff" stroke-linejoin="round" stroke-opacity="0.55" stroke-width="1.5"></polygon>
+<polygon fill="none" points="180,63 104,197 256,197" stroke="#89f5e7" stroke-opacity="0.25" stroke-width="1"></polygon>
+<!-- Apex Marker Badge -->
+<circle cx="180" cy="60" fill="#89f5e7" r="3.5"></circle>
+<text fill="#c8c4d6" font-family="Outfit" font-size="10" font-weight="600" text-anchor="middle" x="180" y="52">A = 60°</text>
+<!-- Dispersion Spectrums Inside and Exiting Prism -->
+<g filter="url(#rayGlow)" id="spectrum-rays">
+<!-- Red Ray -->
+<line id="ray-in-red" stroke="#ff5964" stroke-linecap="round" stroke-width="1.6" x1="135" x2="218" y1="148" y2="152"></line>
+<line id="ray-out-red" stroke="#ff5964" stroke-linecap="round" stroke-width="1.8" x1="218" x2="340" y1="152" y2="170"></line>
+<!-- Orange Ray -->
+<line id="ray-in-orange" stroke="#ff9f43" stroke-linecap="round" stroke-width="1.5" x1="135" x2="219" y1="148" y2="155"></line>
+<line id="ray-out-orange" stroke="#ff9f43" stroke-linecap="round" stroke-width="1.7" x1="219" x2="340" y1="155" y2="183"></line>
+<!-- Yellow Ray -->
+<line id="ray-in-yellow" stroke="#feca57" stroke-linecap="round" stroke-width="1.5" x1="135" x2="220" y1="148" y2="158"></line>
+<line id="ray-out-yellow" stroke="#feca57" stroke-linecap="round" stroke-width="1.7" x1="220" x2="340" y1="158" y2="196"></line>
+<!-- Green Ray -->
+<line id="ray-in-green" stroke="#1dd1a1" stroke-linecap="round" stroke-width="1.5" x1="135" x2="221" y1="148" y2="161"></line>
+<line id="ray-out-green" stroke="#1dd1a1" stroke-linecap="round" stroke-width="1.7" x1="221" x2="340" y1="161" y2="209"></line>
+<!-- Blue Ray -->
+<line id="ray-in-blue" stroke="#48dbfb" stroke-linecap="round" stroke-width="1.5" x1="135" x2="222" y1="148" y2="164"></line>
+<line id="ray-out-blue" stroke="#48dbfb" stroke-linecap="round" stroke-width="1.7" x1="222" x2="340" y1="164" y2="222"></line>
+<!-- Violet Ray -->
+<line id="ray-in-violet" stroke="#9b59b6" stroke-linecap="round" stroke-width="1.6" x1="135" x2="223" y1="148" y2="168"></line>
+<line id="ray-out-violet" stroke="#9b59b6" stroke-linecap="round" stroke-width="1.9" x1="223" x2="340" y1="168" y2="238"></line>
+</g>
+<!-- Incident White Light Beam -->
+<line filter="url(#whiteGlow)" id="incident-ray" stroke="#ffffff" stroke-linecap="round" stroke-width="2.8" x1="25" x2="135" y1="88" y2="148"></line>
+<!-- Source Light Emitter Affordance -->
+<circle cx="25" cy="88" fill="#ffffff" id="source-emitter" r="6"></circle>
+<circle cx="25" cy="88" fill="none" r="11" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1"></circle>
+<!-- Interactive Drag Handle on Incident Ray -->
+<g class="cursor-pointer" id="drag-handle-group">
+<circle cx="60" cy="107" fill="transparent" id="touch-target" r="22"></circle>
+<circle cx="60" cy="107" fill="#3e35b5" fill-opacity="0.3" id="handle-glow" r="13"></circle>
+<circle cx="60" cy="107" fill="#ffffff" filter="url(#whiteGlow)" id="handle-circle" r="8"></circle>
+<circle cx="60" cy="107" fill="#3e35b5" r="3.5"></circle>
+</g>
+</svg>
+</div>
+<!-- Tactical Dispersion Bar Legend -->
+<div class="px-4 py-3 bg-inverse-surface/90 flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-label-sm text-label-sm text-surface-variant uppercase tracking-wider">Dispersion:</span>
+<div class="flex items-center h-2.5 rounded-full overflow-hidden w-28">
+<span class="w-1/6 h-full bg-[#ff5964]"></span>
+<span class="w-1/6 h-full bg-[#ff9f43]"></span>
+<span class="w-1/6 h-full bg-[#feca57]"></span>
+<span class="w-1/6 h-full bg-[#1dd1a1]"></span>
+<span class="w-1/6 h-full bg-[#48dbfb]"></span>
+<span class="w-1/6 h-full bg-[#9b59b6]"></span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px] text-tertiary-fixed-dim">pan_tool</span>
+<span>Drag beam to rotate</span>
+</div>
+</div>
+</div>
+<!-- iOS Inset Grouped Control Section -->
+<div class="flex flex-col gap-4">
+<!-- Group 1: Material & Optical Angle Controls -->
+<div class="bg-surface-container-lowest rounded-2xl p-4 shadow-sm flex flex-col gap-4">
+<!-- Segmented Control (UISegmentedControl) -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-title-md text-title-md text-on-surface">Prism Substrate</span>
+<span class="font-label-md text-label-md text-primary font-semibold" id="selected-index-desc">Flint Glass (n = 1.62)</span>
+</div>
+<div class="w-full bg-surface-container p-1 rounded-xl flex relative items-center">
+<button class="seg-btn flex-1 py-1.5 rounded-lg text-center font-label-md text-label-md text-on-surface-variant transition-all z-10" data-index="1.52" data-material="crown">
+            Crown
+          </button>
+<button class="seg-btn active-seg flex-1 py-1.5 rounded-lg text-center font-label-md text-label-md text-on-primary bg-primary shadow-sm transition-all z-10 font-semibold" data-index="1.62" data-material="flint">
+            Flint
+          </button>
+<button class="seg-btn flex-1 py-1.5 rounded-lg text-center font-label-md text-label-md text-on-surface-variant transition-all z-10" data-index="2.42" data-material="diamond">
+            Diamond
+          </button>
+</div>
+</div>
+<!-- Slider & Stepper: Angle of Incidence (θi) -->
+<div class="pt-2">
+<div class="flex items-center justify-between mb-2">
+<label class="font-title-md text-title-md text-on-surface" for="incidence-slider">Angle of Incidence (θi)</label>
+<div class="flex items-center gap-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-headline-sm text-headline-sm font-semibold tracking-tight" id="angle-readout">48°</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<!-- Circular iOS Decrement Stepper -->
+<button aria-label="Decrease angle" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary active:bg-surface-container-high transition-transform active:scale-95" id="btn-dec">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+<!-- Native-feeling Range Track -->
+<div class="relative flex-1 flex items-center">
+<input class="w-full h-2 rounded-lg appearance-none cursor-pointer accent-primary bg-surface-container outline-none" id="incidence-slider" max="65" min="30" step="0.5" type="range" value="48"/>
+</div>
+<!-- Circular iOS Increment Stepper -->
+<button aria-label="Increase angle" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary active:bg-surface-container-high transition-transform active:scale-95" id="btn-inc">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+<!-- UISwitch: Ray Normals & Refraction Vectors -->
+<div class="pt-2 flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Show Normals &amp; Ray Angles</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Visualizes N1 and N2 boundary normals</span>
+</div>
+<!-- iOS Toggle Switch -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-normals" type="checkbox"/>
+<div class="w-12 h-7 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-secondary"></div>
+</label>
+</div>
+</div>
+<!-- Group 2: Pedagogical Disclosure / Snell's Law -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden">
+<button aria-expanded="false" class="w-full p-4 flex items-center justify-between text-left active:bg-surface-container-low transition-colors" id="accordion-toggle">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">The Science Behind It</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Snell's Law &amp; Rainbow Dispersion</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline transition-transform duration-200" id="accordion-icon">expand_more</span>
+</button>
+<div class="hidden px-4 pb-4 pt-1 flex flex-col gap-3" id="accordion-content">
+<p class="font-body-md text-body-md text-on-surface-variant">
+          When sunlight strikes glass, each constituent wavelength slows down at a slightly different velocity. Shorter violet wavelengths refract more sharply than longer red wavelengths:
+        </p>
+<div class="p-3 rounded-xl bg-surface-container-low flex flex-col gap-1.5">
+<span class="font-label-md text-label-md text-primary">Snell-Descartes Law of Refraction:</span>
+<code class="font-title-md text-title-md text-on-surface">n₁ × sin(θ₁) = n₂ × sin(θ₂)</code>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            Because <em>n<sub>violet</sub> (1.64) &gt; n<sub>red</sub> (1.61)</em> in flint glass, violet bends through a larger angle of deviation δ.
+          </span>
+</div>
+</div>
+</div>
+<!-- iOS Dual Action Buttons -->
+<div class="flex items-center gap-3 pt-2">
+<!-- Secondary Action: Hint -->
+<button class="flex-1 min-h-[48px] px-3 rounded-xl bg-surface-container-high text-primary font-label-lg text-label-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-transform" id="btn-hint">
+<span class="material-symbols-outlined text-[19px]">lightbulb</span>
+<span>Observation Hint</span>
+</button>
+<!-- Primary Action: Save Snapshot -->
+<button class="flex-1 min-h-[48px] px-3 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] transition-transform" id="btn-snapshot">
+<span class="material-symbols-outlined text-[19px]" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+<span>Save Snapshot</span>
+</button>
+</div>
+<!-- Feedback Banner Toast (Transient) -->
+<div class="opacity-0 transition-opacity duration-300 pointer-events-none p-3 rounded-xl bg-inverse-surface text-inverse-on-surface flex items-center gap-2 justify-center shadow-lg" id="toast">
+<span class="material-symbols-outlined text-[18px] text-secondary-fixed">check_circle</span>
+<span class="font-label-md text-label-md tracking-tight" id="toast-text">Experiment state saved to Physics Journal</span>
+</div>
+</div>
+</div>
+<script>
+(function() {
+  // DOM References
+  const slider = document.getElementById('incidence-slider');
+  const angleReadout = document.getElementById('angle-readout');
+  const labelAngleBadge = document.getElementById('label-angle-badge');
+  const labelMaterial = document.getElementById('label-material');
+  const selectedIndexDesc = document.getElementById('selected-index-desc');
+  const btnInc = document.getElementById('btn-inc');
+  const btnDec = document.getElementById('btn-dec');
+  const btnReset = document.getElementById('btn-reset-stage');
+  const toggleNormals = document.getElementById('toggle-normals');
+  const normalsGroup = document.getElementById('normals-group');
+  const accordionToggle = document.getElementById('accordion-toggle');
+  const accordionContent = document.getElementById('accordion-content');
+  const accordionIcon = document.getElementById('accordion-icon');
+  const segButtons = document.querySelectorAll('.seg-btn');
+  const btnHint = document.getElementById('btn-hint');
+  const btnSnapshot = document.getElementById('btn-snapshot');
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toast-text');
+
+  // SVG Ray Components
+  const incidentRay = document.getElementById('incident-ray');
+  const touchTarget = document.getElementById('touch-target');
+  const handleGlow = document.getElementById('handle-glow');
+  const handleCircle = document.getElementById('handle-circle');
+  const sourceEmitter = document.getElementById('source-emitter');
+  const normalIn = document.getElementById('normal-in');
+  const normalOut = document.getElementById('normal-out');
+
+  // Ray Spectrum Elements
+  const rayInRed = document.getElementById('ray-in-red');
+  const rayOutRed = document.getElementById('ray-out-red');
+  const rayInOrange = document.getElementById('ray-in-orange');
+  const rayOutOrange = document.getElementById('ray-out-orange');
+  const rayInYellow = document.getElementById('ray-in-yellow');
+  const rayOutYellow = document.getElementById('ray-out-yellow');
+  const rayInGreen = document.getElementById('ray-in-green');
+  const rayOutGreen = document.getElementById('ray-out-green');
+  const rayInBlue = document.getElementById('ray-in-blue');
+  const rayOutBlue = document.getElementById('ray-out-blue');
+  const rayInViolet = document.getElementById('ray-in-violet');
+  const rayOutViolet = document.getElementById('ray-out-violet');
+
+  // Optical State Parameters
+  let currentAngle = 48.0;
+  let currentRefractiveIndex = 1.62;
+  let currentMaterialName = 'Flint Glass';
+
+  // Prism Left face entry point
+  const entryX = 135;
+  const entryY = 148;
+  const beamLength = 125;
+
+  function updateOpticalSimulation() {
+    // 1. Compute Incident Beam Origin from Angle
+    const angleRad = (currentAngle * Math.PI) / 180;
+    const startX = entryX - Math.cos(angleRad) * beamLength;
+    const startY = entryY - Math.sin(angleRad) * beamLength;
+
+    incidentRay.setAttribute('x1', startX.toFixed(1));
+    incidentRay.setAttribute('y1', startY.toFixed(1));
+    incidentRay.setAttribute('x2', entryX);
+    incidentRay.setAttribute('y2', entryY);
+
+    sourceEmitter.setAttribute('cx', startX.toFixed(1));
+    sourceEmitter.setAttribute('cy', startY.toFixed(1));
+
+    // Handle position at 40% along the incident beam
+    const handleX = startX + (entryX - startX) * 0.45;
+    const handleY = startY + (entryY - startY) * 0.45;
+    touchTarget.setAttribute('cx', handleX.toFixed(1));
+    touchTarget.setAttribute('cy', handleY.toFixed(1));
+    handleGlow.setAttribute('cx', handleX.toFixed(1));
+    handleGlow.setAttribute('cy', handleY.toFixed(1));
+    handleCircle.setAttribute('cx', handleX.toFixed(1));
+    handleCircle.setAttribute('cy', handleY.toFixed(1));
+
+    // 2. Compute Dispersion Separation Factor (Scaling with refractive index and angle)
+    const dispersionScale = (currentRefractiveIndex - 1.0) * 1.55;
+    const deviationBase = ((currentAngle - 30) * 0.75);
+
+    // Spectrum exit coordinate offsets along right face (approx x=215-225)
+    const baseExitX = 217;
+    const baseExitY = 150 + deviationBase * 0.35;
+
+    // Rainbow colors dispersion mapping
+    const wavelengths = [
+      { inRay: rayInRed, outRay: rayOutRed, factor: 0.82, spread: 0 },
+      { inRay: rayInOrange, outRay: rayOutOrange, factor: 0.94, spread: 3 },
+      { inRay: rayInYellow, outRay: rayOutYellow, factor: 1.05, spread: 6 },
+      { inRay: rayInGreen, outRay: rayOutGreen, factor: 1.18, spread: 9 },
+      { inRay: rayInBlue, outRay: rayOutBlue, factor: 1.34, spread: 13 },
+      { inRay: rayInViolet, outRay: rayOutViolet, factor: 1.55, spread: 18 }
+    ];
+
+    wavelengths.forEach((wl) => {
+      const internalY = baseExitY + (wl.spread * dispersionScale * 0.22);
+      const internalX = baseExitX + (wl.spread * 0.2);
+
+      wl.inRay.setAttribute('x1', entryX);
+      wl.inRay.setAttribute('y1', entryY);
+      wl.inRay.setAttribute('x2', internalX.toFixed(1));
+      wl.inRay.setAttribute('y2', internalY.toFixed(1));
+
+      // Beam exiting prism to projection plane (x=340)
+      const targetX = 345;
+      const targetY = internalY + (deviationBase * 0.9 + wl.spread * dispersionScale * 1.55) + 12;
+
+      wl.outRay.setAttribute('x1', internalX.toFixed(1));
+      wl.outRay.setAttribute('y1', internalY.toFixed(1));
+      wl.outRay.setAttribute('x2', targetX.toFixed(1));
+      wl.outRay.setAttribute('y2', targetY.toFixed(1));
+    });
+
+    // 3. Update Text Readouts
+    angleReadout.textContent = `${Math.round(currentAngle)}°`;
+    labelAngleBadge.textContent = `θi = ${currentAngle.toFixed(1)}°`;
+    slider.value = currentAngle;
+  }
+
+  // Interactive slider input
+  slider.addEventListener('input', (e) => {
+    currentAngle = parseFloat(e.target.value);
+    updateOpticalSimulation();
+  });
+
+  // Stepper Buttons
+  btnInc.addEventListener('click', () => {
+    if (currentAngle < 65) {
+      currentAngle = Math.min(65, currentAngle + 1.0);
+      updateOpticalSimulation();
+    }
+  });
+
+  btnDec.addEventListener('click', () => {
+    if (currentAngle > 30) {
+      currentAngle = Math.max(30, currentAngle - 1.0);
+      updateOpticalSimulation();
+    }
+  });
+
+  // Stage Quick Reset
+  btnReset.addEventListener('click', () => {
+    currentAngle = 48.0;
+    updateOpticalSimulation();
+    showToast('Simulation reset to 48.0°');
+  });
+
+  // Material Segmented Switcher
+  segButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      segButtons.forEach(b => {
+        b.classList.remove('bg-primary', 'text-on-primary', 'font-semibold', 'shadow-sm');
+        b.classList.add('text-on-surface-variant');
+      });
+      btn.classList.add('bg-primary', 'text-on-primary', 'font-semibold', 'shadow-sm');
+      btn.classList.remove('text-on-surface-variant');
+
+      currentRefractiveIndex = parseFloat(btn.dataset.index);
+      currentMaterialName = btn.textContent.trim() + ' Glass';
+      if (btn.dataset.material === 'diamond') currentMaterialName = 'Diamond Substrate';
+
+      labelMaterial.textContent = `${currentMaterialName} (n = ${currentRefractiveIndex.toFixed(2)})`;
+      selectedIndexDesc.textContent = `${currentMaterialName} (n = ${currentRefractiveIndex.toFixed(2)})`;
+      updateOpticalSimulation();
+    });
+  });
+
+  // Normals Display UISwitch
+  toggleNormals.addEventListener('change', (e) => {
+    if (e.target.checked) {
+      normalsGroup.classList.remove('opacity-0');
+      normalsGroup.classList.add('opacity-90');
+    } else {
+      normalsGroup.classList.add('opacity-0');
+      normalsGroup.classList.remove('opacity-90');
+    }
+  });
+
+  // Drag Interaction on Incident Beam Handle
+  let isDragging = false;
+  const svgElem = document.getElementById('prism-svg');
+
+  function handlePointerMove(e) {
+    if (!isDragging) return;
+    const rect = svgElem.getBoundingClientRect();
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    if (!clientX || !clientY) return;
+
+    // Convert screen coordinates to SVG viewBox coords
+    const svgX = ((clientX - rect.left) / rect.width) * 360;
+    const svgY = ((clientY - rect.top) / rect.height) * 270;
+
+    // Calculate angle relative to entry point
+    const dx = entryX - svgX;
+    const dy = entryY - svgY;
+    let rad = Math.atan2(dy, dx);
+    let deg = (rad * 180) / Math.PI;
+
+    // Clamp within realistic physical range [30° to 65°]
+    if (deg < 30) deg = 30;
+    if (deg > 65) deg = 65;
+
+    currentAngle = deg;
+    updateOpticalSimulation();
+  }
+
+  touchTarget.addEventListener('pointerdown', (e) => {
+    isDragging = true;
+    touchTarget.setPointerCapture(e.pointerId);
+  });
+
+  touchTarget.addEventListener('pointermove', handlePointerMove);
+  touchTarget.addEventListener('pointerup', () => { isDragging = false; });
+  touchTarget.addEventListener('pointercancel', () => { isDragging = false; });
+
+  // Accordion Expand/Collapse
+  accordionToggle.addEventListener('click', () => {
+    const isExpanded = accordionToggle.getAttribute('aria-expanded') === 'true';
+    accordionToggle.setAttribute('aria-expanded', !isExpanded);
+    accordionContent.classList.toggle('hidden');
+    accordionIcon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+  });
+
+  // Toast Feedback Helper
+  function showToast(message) {
+    toastText.textContent = message;
+    toast.classList.remove('opacity-0');
+    setTimeout(() => {
+      toast.classList.add('opacity-0');
+    }, 2400);
+  }
+
+  // Button Action Handlers
+  btnHint.addEventListener('click', () => {
+    showToast('Notice: Diamond creates significantly wider spectral divergence!');
+  });
+
+  btnSnapshot.addEventListener('click', () => {
+    showToast(`Snapshot captured: ${currentMaterialName} at θi = ${currentAngle.toFixed(1)}°`);
+  });
+
+  // Initial Calculation
+  updateOpticalSimulation();
+})();
+</script></main></body></html>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&amp;family=Outfit:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-tint": "#534cca", "on-primary-fixed-variant": "#3a30b1", "secondary": "#006a61", "error": "#ba1a1a", "on-error": "#ffffff", "primary": "#25149f", "on-secondary-fixed": "#00201d", "on-primary-fixed": "#100069", "error-container": "#ffdad6", "inverse-primary": "#c3c0ff", "inverse-surface": "#293140", "secondary-fixed": "#89f5e7", "tertiary-fixed": "#ffdcc3", "primary-fixed-dim": "#c3c0ff", "on-primary": "#ffffff", "surface-variant": "#dbe2f7", "primary-fixed": "#e3dfff", "on-tertiary": "#ffffff", "surface-container-low": "#f0f3ff", "outline-variant": "#c8c4d6", "on-background": "#141c2a", "outline": "#777585", "on-tertiary-container": "#ffa658", "tertiary": "#522900", "on-tertiary-fixed-variant": "#6e3900", "surface": "#f9f9ff", "on-secondary-container": "#006f66", "surface-container-highest": "#dbe2f7", "primary-container": "#3e35b5", "on-surface": "#141c2a", "background": "#f9f9ff", "on-tertiary-fixed": "#2f1500", "surface-dim": "#d2daee", "surface-bright": "#f9f9ff", "on-error-container": "#93000a", "inverse-on-surface": "#ecf0ff", "on-secondary": "#ffffff", "on-secondary-fixed-variant": "#005049", "surface-container-high": "#e0e8fd", "secondary-fixed-dim": "#6bd8cb", "surface-container-lowest": "#ffffff", "tertiary-fixed-dim": "#ffb77d", "on-surface-variant": "#464554", "on-primary-container": "#b6b3ff", "secondary-container": "#86f2e4", "surface-container": "#e8eeff", "tertiary-container": "#733c00" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter-desktop": "2rem", "space-sm": "0.5rem", "space-md": "1rem", "margin-mobile": "1rem", "margin-desktop": "3rem", "space-xl": "2.5rem", "margin": "1.5rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "gutter-mobile": "1rem" }, fontFamily: { "label-sm": ["Be Vietnam Pro"], "body-sm": ["Be Vietnam Pro"], "headline-lg": ["Outfit"], "display-lg": ["Outfit"], "label-lg": ["Be Vietnam Pro"], "headline-sm": ["Outfit"], "title-lg": ["Outfit"], "label-md": ["Be Vietnam Pro"], "body-lg": ["Be Vietnam Pro"], "display-lg-mobile": ["Outfit"], "title-md": ["Be Vietnam Pro"], "headline-md": ["Outfit"], "headline-lg-mobile": ["Outfit"], "body-md": ["Be Vietnam Pro"] }, fontSize: { "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "title-lg": ["18px", { "lineHeight": "26px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "display-lg-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "0em", "fontWeight": "600" }], "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(62,53,181,0.04)]"><div class="h-20 w-full px-space-lg flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg shrink-0"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-on-primary shadow-sm"><span class="material-symbols-outlined text-[20px]">science</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary leading-none tracking-tight">WonderLab</span><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline leading-none mt-1">Studio Learning</span></div></div><div class="hidden xl:flex items-center gap-space-xs px-space-md py-1.5 rounded-full bg-surface-container-low text-secondary"><span class="material-symbols-outlined text-[15px]">verified_user</span><span class="font-label-sm text-label-sm font-semibold tracking-wide">COPPA &amp; Indian DPDP Safe · Ad-Free · Encrypted</span></div></div><nav class="hidden lg:flex items-center gap-space-xs px-space-xs py-1 rounded-xl bg-surface-container-low" data-active-classes="bg-primary-container text-on-primary font-semibold rounded-lg shadow-sm"><a class="px-space-md py-2 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="learning-studio" href="#">Studio</a><a class="px-space-md py-2 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="curriculum-explorer" href="#">Curriculum</a><a class="px-space-md py-2 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="science-laboratory" href="#">Labs</a><a class="px-space-md py-2 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" data-path="parent-teacher-portal" href="#">Insights</a></nav><div class="flex items-center gap-space-sm shrink-0"><div class="hidden sm:flex items-center p-1 rounded-lg bg-surface-container-low gap-0.5"><button class="px-space-sm py-1 rounded-md font-label-md text-label-md bg-surface-container-lowest text-primary shadow-sm font-semibold" type="button">Learner</button><button class="px-space-sm py-1 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" type="button">Parent</button><button class="px-space-sm py-1 rounded-md font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" type="button">Teacher</button></div><div class="flex items-center bg-surface-container-low rounded-lg p-1 text-on-surface-variant font-label-md text-label-md"><button class="px-2 py-1 rounded-md bg-surface-container-lowest text-on-surface font-semibold shadow-sm" type="button">EN</button><span class="text-outline-variant px-0.5 text-[11px]">|</span><button class="px-2 py-1 rounded-md hover:text-on-surface hover:bg-surface-container transition-all" type="button">తెలుగు</button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-surface flex-1"><div class="flex flex-col w-full relative min-h-[calc(100vh-5rem)] overflow-hidden">
+<!-- Subtle decorative canvas background elements -->
+<div class="absolute top-12 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-20 left-10 w-80 h-80 rounded-full bg-secondary/5 blur-3xl pointer-events-none"></div>
+<!-- Workspace Shell & Experiment Canvas Grid -->
+<div class="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 relative">
+<!-- Top Workspace Breadcrumb & Subject Tracker Bar -->
+<div class="w-full flex flex-wrap items-center justify-between gap-4 mb-6">
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md flex items-center gap-1.5 shadow-sm">
+<span class="material-symbols-outlined text-[15px]">school</span>
+          Class 8 Physics · Optics Lab
+        </span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+          CBSE &amp; TS-SCERT Aligned
+        </span>
+<span class="hidden sm:inline-flex px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+          Exp #09 · Refraction in Prisms
+        </span>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-sm text-label-sm px-3 py-1.5 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-[16px] text-secondary">psychology</span>
+<span>Adaptive Scaffolding Mode</span>
+</div>
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-primary-container transition-all" id="open-drawer-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+<span>View Walkthrough (3 Clues)</span>
+</button>
+</div>
+</div>
+<!-- Main Workspace: Split View with Question & Interactive Prism Stage -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Primary Lesson / Question Column (8 Cols when drawer is resting or backdrop) -->
+<div class="lg:col-span-7 xl:col-span-8 space-y-6">
+<!-- Question Formulation Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/20 relative overflow-hidden">
+<div class="absolute -right-8 -top-8 w-28 h-28 bg-surface-container rounded-full opacity-40 pointer-events-none"></div>
+<!-- Problem Header Bar -->
+<div class="flex items-start justify-between gap-4 mb-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-primary-fixed flex items-center justify-center font-label-sm text-label-sm text-on-primary-fixed font-bold">Q4</span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase text-outline">Concept Verification</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mt-1">
+                What happens when a light ray passes from air into a glass prism?
+              </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+                గాలి నుండి గాజు పట్టకంలోకి కాంతి కిరణం ప్రవేశించినప్పుడు ఏమి జరుగుతుంది?
+              </p>
+</div>
+<span class="shrink-0 px-2.5 py-1 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              Weight: 1 Master Mark
+            </span>
+</div>
+<!-- Interactive Physics Ray Optics Stage Mockup -->
+<div class="w-full bg-surface-container rounded-lg p-5 relative overflow-hidden flex flex-col items-center justify-center min-h-[340px]">
+<!-- Prism SVG Canvas Representation -->
+<svg class="w-full max-w-[420px] h-64 overflow-visible" fill="none" viewbox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+<!-- Grid Backdrop lines for optics workbench feel -->
+<defs>
+<pattern height="20" id="optics-grid" patternunits="userSpaceOnUse" width="20">
+<path class="text-surface-variant" d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.75"></path>
+</pattern>
+<lineargradient gradientunits="userSpaceOnUse" id="prism-glass" x1="200" x2="200" y1="30" y2="210">
+<stop offset="0%" stop-color="#89f5e7" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#3e35b5" stop-opacity="0.18"></stop>
+</lineargradient>
+<lineargradient gradientunits="userSpaceOnUse" id="laser-beam" x1="40" x2="160" y1="170" y2="120">
+<stop offset="0%" stop-color="#ba1a1a"></stop>
+<stop offset="100%" stop-color="#ffb77d"></stop>
+</lineargradient>
+</defs>
+<rect fill="url(#optics-grid)" height="100%" width="100%"></rect>
+<!-- Equilateral Triangular Glass Prism -->
+<polygon fill="url(#prism-glass)" points="200,35 120,205 280,205" stroke="#3e35b5" stroke-linejoin="round" stroke-width="2.5"></polygon>
+<text class="font-label-sm text-label-sm fill-primary/70 font-semibold tracking-wider" x="180" y="145">GLASS (n = 1.52)</text>
+<text class="font-label-sm text-label-sm fill-outline" x="60" y="55">AIR (n = 1.0003)</text>
+<!-- Incident Light Ray from Left Air Medium -->
+<line stroke="url(#laser-beam)" stroke-linecap="round" stroke-width="3" x1="45" x2="154" y1="175" y2="132"></line>
+<!-- Incident Arrow marker -->
+<polygon fill="#ba1a1a" points="98,154 105,148 107,156"></polygon>
+<text class="font-label-sm text-label-sm fill-on-surface-variant font-bold" x="50" y="160">Incident Ray (పతన కిరణం)</text>
+<!-- Normal Line (Perpendicular to left face) -->
+<line stroke="#777585" stroke-dasharray="4 4" stroke-width="1.5" x1="120" x2="195" y1="70" y2="190"></line>
+<text class="font-label-sm text-label-sm fill-outline font-semibold" x="100" y="70">Normal (లంబం)</text>
+<!-- Refracted Ray inside Glass (Bending towards Normal) -->
+<line id="refracted-ray-line" stroke="#ffa658" stroke-linecap="round" stroke-width="3" x1="154" x2="236" y1="132" y2="148"></line>
+<!-- Point of Incidence indicator dot -->
+<circle cx="154" cy="132" fill="#ba1a1a" r="4.5" stroke="#ffffff" stroke-width="1.5"></circle>
+<!-- Angle of Incidence indicator curve -->
+<path d="M 143,115 A 20 20 0 0 1 146,135" fill="none" stroke="#ba1a1a" stroke-width="1.5"></path>
+<text class="font-label-sm text-label-sm fill-error font-bold" x="126" y="123">i</text>
+<!-- Angle of Refraction indicator -->
+<path d="M 166,135 A 14 14 0 0 1 169,146" fill="none" stroke="#522900" stroke-width="1.5"></path>
+<text class="font-label-sm text-label-sm fill-tertiary-container font-bold" x="172" y="142">r</text>
+<!-- Emergent Ray heading out into Air again -->
+<line opacity="0.6" stroke="#ffa658" stroke-dasharray="2 2" stroke-width="3" x1="236" x2="350" y1="148" y2="195"></line>
+<text class="font-label-sm text-label-sm fill-outline" x="260" y="195">Emergent path (?)</text>
+</svg>
+<!-- Workbench controls floating pill -->
+<div class="absolute bottom-3 left-4 right-4 flex items-center justify-between px-4 py-2 rounded-full bg-surface-container-lowest/90 backdrop-blur shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">tune</span>
+                Live Beam Simulator: Incident Angle 32° · Refraction Angle 20.6°
+              </span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">Snell's Law: n₁ sin(i) = n₂ sin(r)</span>
+</div>
+</div>
+<!-- Student Previous Answer Attempt (State B: Scaffolded Error feedback) -->
+<div class="mt-4 p-4 rounded-xl bg-tertiary-fixed/40 flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary mt-0.5 text-[20px]">info</span>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-tertiary font-bold">Your Initial Answer: "Bends away from the normal"</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-lowest/80 text-tertiary font-semibold">Zero Penalty Trial</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface mt-1">
+                Almost! You remembered that light changes direction at an optical boundary, but let's review which medium slows the photon down. No points were lost!
+              </p>
+</div>
+</div>
+</div>
+<!-- Multiple Choice Options Deck (Interactive Question State) -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/20">
+<div class="font-label-md text-label-md uppercase tracking-wider text-outline mb-3">Select the correct scientific statement:</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<!-- Option A -->
+<div class="p-3.5 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-7 h-7 rounded-md bg-surface-container-lowest flex items-center justify-center font-label-md text-label-md font-bold text-on-surface">A</span>
+<div class="text-left">
+<p class="font-title-md text-title-md text-on-surface">Bends away from the normal</p>
+<p class="font-body-sm text-body-sm text-outline">లంబానికి దూరంగా వంగుతుంది</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">radio_button_unchecked</span>
+</div>
+<!-- Option B (Correct Target) -->
+<div class="p-3.5 rounded-lg bg-primary-fixed/30 hover:bg-primary-fixed/50 transition-all cursor-pointer flex items-center justify-between ring-2 ring-primary/40">
+<div class="flex items-center gap-3">
+<span class="w-7 h-7 rounded-md bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md font-bold">B</span>
+<div class="text-left">
+<p class="font-title-md text-title-md text-primary font-bold">Bends towards the normal</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">లంబం వైపుకు వంగుతుంది</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+</div>
+<!-- Option C -->
+<div class="p-3.5 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-7 h-7 rounded-md bg-surface-container-lowest flex items-center justify-center font-label-md text-label-md font-bold text-on-surface">C</span>
+<div class="text-left">
+<p class="font-title-md text-title-md text-on-surface">Passes straight with no deflection</p>
+<p class="font-body-sm text-body-sm text-outline">ఎటువంటి విచలనం లేకుండా ప్రయాణిస్తుంది</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">radio_button_unchecked</span>
+</div>
+<!-- Option D -->
+<div class="p-3.5 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-7 h-7 rounded-md bg-surface-container-lowest flex items-center justify-center font-label-md text-label-md font-bold text-on-surface">D</span>
+<div class="text-left">
+<p class="font-title-md text-title-md text-on-surface">Total internal reflection back to air</p>
+<p class="font-body-sm text-body-sm text-outline">పూర్ణ అంతర్గత పరావర్తనం చెందుతుంది</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">radio_button_unchecked</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Static Reference Panel Placeholder for Desktop 12-col alignment (Drawer overlays or stacks here) -->
+<div class="hidden lg:block lg:col-span-5 xl:col-span-4 space-y-4">
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-outline-variant/20">
+<div class="flex items-center justify-between mb-3">
+<span class="font-headline-sm text-headline-sm text-on-surface">Optics Notebook</span>
+<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Active Session</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
+            The walkthrough drawer on the right gives you 3 guided conceptual clues without penalizing your mastery score or streak.
+          </p>
+<div class="space-y-2">
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+              Clue 1: Speed in Rarer vs Denser
+            </div>
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-primary-fixed/40 text-primary font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-primary text-[18px]">arrow_right_alt</span>
+              Clue 2: The Toy Car Analogy &amp; Normal
+            </div>
+<div class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low text-outline font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-outline text-[18px]">lock</span>
+              Clue 3: Emergent Ray &amp; Dispersion
+            </div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-5 shadow-sm border border-outline-variant/20 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">verified</span>
+</div>
+<div>
+<div class="font-label-md text-label-md font-bold text-on-surface">Child-First Safe Pedagogy</div>
+<p class="font-body-sm text-body-sm text-outline">Zero penalty learning · COPPA &amp; DPDP Compliant</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ========================================================================= -->
+<!-- STEP-BY-STEP CONCEPT WALKTHROUGH DRAWER (SLIDE-OVER / ANCHORED PANEL)       -->
+<!-- ========================================================================= -->
+<!-- Backdrop scrim -->
+<div class="fixed inset-0 z-40 bg-inverse-surface/30 backdrop-blur-sm transition-opacity duration-300 opacity-100" id="drawer-scrim"></div>
+<!-- Slide-Over Drawer Container (Width 480px on desktop) -->
+<aside class="fixed top-0 right-0 h-full w-full max-w-[500px] z-50 bg-surface-container-lowest shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out translate-x-0 overflow-hidden" id="hint-drawer">
+<!-- Drawer Header Bar -->
+<div class="px-6 pt-5 pb-4 bg-surface-container-lowest border-b border-surface-container-high/60 shrink-0">
+<!-- Category & Dismiss button -->
+<div class="flex items-center justify-between gap-3 mb-2">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-md bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold tracking-wider uppercase">
+            Physics Lab · Ch 9
+          </span>
+<span class="text-outline text-label-sm">•</span>
+<span class="font-label-sm text-label-sm text-outline font-semibold">Light &amp; Optics</span>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant flex items-center justify-center transition-colors" id="close-drawer-btn" title="Return to Question" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Title & Bilingual Subtitle -->
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">
+        Step-by-Step Walkthrough
+      </h3>
+<p class="font-title-md text-title-md text-primary font-semibold mt-0.5">
+        అంచెలంచెలుగా కాన్సెప్ట్ వివరణ
+      </p>
+<!-- Pedagogical Safety & Zero Penalty Badge -->
+<div class="mt-3 flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="material-symbols-outlined text-[17px]">auto_awesome</span>
+<span class="font-label-sm text-label-sm font-bold">Zero Penalty · 3 Progressive Clues</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline">Take your time</span>
+</div>
+<!-- Bilingual Audio Read-Aloud Float Controls -->
+<div class="mt-3 flex items-center justify-between gap-3 pt-2">
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm shadow-sm hover:bg-primary-container transition-all" id="audio-toggle-btn" type="button">
+<span class="material-symbols-outlined text-[17px]" id="audio-icon">volume_up</span>
+<span id="audio-text">Read Aloud (EN / తె)</span>
+</button>
+<!-- Animated Audio Waveform (Simulated Active State) -->
+<div class="flex items-end gap-0.5 h-4 px-1" id="audio-wave">
+<span class="w-0.5 h-2 bg-secondary rounded-full animate-pulse"></span>
+<span class="w-0.5 h-4 bg-secondary rounded-full animate-bounce"></span>
+<span class="w-0.5 h-2.5 bg-secondary rounded-full animate-pulse"></span>
+<span class="w-0.5 h-3.5 bg-secondary rounded-full animate-bounce"></span>
+</div>
+</div>
+<!-- Voice switch pill -->
+<div class="flex items-center bg-surface-container rounded-md p-0.5 text-on-surface-variant font-label-sm text-label-sm">
+<button class="px-2 py-0.5 rounded bg-surface-container-lowest text-primary font-semibold shadow-xs" type="button">English</button>
+<button class="px-2 py-0.5 rounded hover:text-on-surface transition-colors" type="button">తెలుగు</button>
+</div>
+</div>
+</div>
+<!-- Scrollable Progressive Scaffolding Body (3 Steps) -->
+<div class="flex-1 overflow-y-auto px-6 py-5 space-y-5">
+<!-- ========================================== -->
+<!-- STEP 1: COMPLETED / MASTERED               -->
+<!-- ========================================== -->
+<div class="rounded-xl bg-surface-container-low p-4 transition-all border border-surface-container-high">
+<!-- Step 1 Status Bar -->
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-sm text-label-sm font-bold">1</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Medium Density &amp; Speed</span>
+</div>
+<span class="px-2.5 py-0.5 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check</span>
+            Understood / అర్థమైంది
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">
+          మాధ్యమం సాంద్రత మరియు కాంతి వేగం
+        </p>
+<!-- Step 1 Narrative Explanation -->
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+          Air is an <strong class="text-primary font-semibold">optically rarer medium</strong>, while glass is <strong class="text-primary font-semibold">optically denser</strong>. When light enters glass, its electromagnetic speed slows down from <span class="font-semibold">300,000 km/s</span> to approximately <span class="font-semibold">200,000 km/s</span>.
+        </p>
+<!-- Step 1 Micro SVG Visual: Wavefront Compression -->
+<div class="mt-3 p-3 rounded-lg bg-surface-container-lowest flex items-center justify-between gap-4">
+<div class="flex-1">
+<span class="font-label-sm text-label-sm text-outline uppercase font-semibold">Wavefront Compression</span>
+<div class="flex items-center justify-between text-[11px] font-mono text-outline mt-1">
+<span>Fast in Air</span>
+<span>Slow in Glass</span>
+</div>
+<!-- Micro Wave representation -->
+<svg class="w-full h-8 mt-1" fill="none" viewbox="0 0 240 32">
+<!-- Boundary vertical dashed line -->
+<line stroke="#777585" stroke-dasharray="2 2" stroke-width="1.5" x1="120" x2="120" y1="0" y2="32"></line>
+<!-- Air wider waves -->
+<path d="M 10 16 Q 25 4 40 16 T 70 16 T 100 16 T 120 16" fill="none" stroke="#25149f" stroke-width="2"></path>
+<!-- Glass denser waves -->
+<path d="M 120 16 Q 130 6 140 16 T 160 16 T 180 16 T 200 16 T 220 16 T 235 16" fill="none" stroke="#006a61" stroke-width="2"></path>
+</svg>
+</div>
+<div class="w-14 text-center shrink-0">
+<span class="font-label-sm text-label-sm text-secondary font-bold">-33%</span>
+<p class="font-label-sm text-label-sm text-outline leading-tight">Speed drop</p>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- STEP 2: ACTIVE FOCUS / INTERACTIVE CLUE   -->
+<!-- ========================================== -->
+<div class="rounded-xl bg-surface-container-lowest p-5 shadow-md border-2 border-primary/20 relative">
+<!-- Subtle Active Glow Accent -->
+<div class="absolute -top-3 left-4 px-3 py-0.5 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-bold shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">psychology</span>
+          Focus Clue 2 of 3 · క్రియాశీల సూచన
+        </div>
+<div class="flex items-center justify-between mt-2 mb-2">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-sm text-label-sm font-bold">2</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">The Normal Line &amp; Bending</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">లంబం &amp; వంగే దిశ</span>
+</div>
+<!-- Toy Car Analogy (Cognitive Bridge) -->
+<div class="p-3.5 rounded-lg bg-surface-container-low mb-4">
+<div class="flex items-start gap-2.5">
+<span class="text-xl">🚗</span>
+<div class="text-on-surface font-body-sm text-body-sm leading-relaxed">
+<strong class="font-semibold text-primary">The Toy Car Analogy:</strong> Imagine a toy car driving at an angle from a polished marble floor (Air) onto a thick, fluffy rug (Glass).
+              <p class="mt-1 text-on-surface-variant">
+                The front tire that hits the rug first slows down immediately, causing the car to swerve <strong class="text-on-surface font-semibold">TOWARDS</strong> the imaginary straight perpendicular line!
+              </p>
+</div>
+</div>
+</div>
+<!-- Interactive Angle of Incidence Simulator & Slider -->
+<div class="p-4 rounded-lg bg-surface-container space-y-3">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">explore</span>
+              Interactive Angle Simulator
+            </span>
+<span class="font-label-md text-label-md font-bold px-2 py-0.5 rounded bg-surface-container-lowest text-primary shadow-xs" id="slider-val">
+              i = 32°
+            </span>
+</div>
+<!-- Dynamic SVG Angle Visualizer -->
+<div class="w-full bg-surface-container-lowest rounded-md p-2 flex items-center justify-center">
+<svg class="w-full h-32" id="interactive-angle-svg" viewbox="0 0 320 120">
+<!-- Surface boundary line -->
+<line stroke="#777585" stroke-width="2" x1="20" x2="300" y1="60" y2="60"></line>
+<text class="font-label-sm text-label-sm fill-outline font-semibold" x="240" y="52">Glass Surface</text>
+<!-- Perpendicular Normal Line -->
+<line stroke="#3e35b5" stroke-dasharray="3 3" stroke-width="1.5" x1="160" x2="160" y1="10" y2="110"></line>
+<text class="font-label-sm text-label-sm fill-primary font-bold" x="165" y="24">Normal (90°)</text>
+<!-- Dynamic Incident Ray -->
+<line id="dyn-incident" stroke="#ba1a1a" stroke-linecap="round" stroke-width="2.5" x1="90" x2="160" y1="18" y2="60"></line>
+<!-- Dynamic Refracted Ray (Bent towards normal) -->
+<line id="dyn-refracted" stroke="#006a61" stroke-linecap="round" stroke-width="2.5" x1="160" x2="202" y1="60" y2="108"></line>
+<!-- Vertex intersection point -->
+<circle cx="160" cy="60" fill="#ba1a1a" r="3.5"></circle>
+</svg>
+</div>
+<!-- Interactive Range Slider -->
+<div class="space-y-1">
+<div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+<span>Incident Angle (i)</span>
+<span class="text-secondary font-semibold" id="refracted-angle-text">Refraction Angle (r) ≈ 20.6°</span>
+</div>
+<input class="w-full accent-primary cursor-pointer h-2 bg-surface-container-highest rounded-lg" id="incidence-slider" max="70" min="10" type="range" value="32"/>
+<div class="flex justify-between font-label-sm text-label-sm text-outline">
+<span>10° (Steep)</span>
+<span>45°</span>
+<span>70° (Shallow)</span>
+</div>
+</div>
+</div>
+<!-- Bilingual Gold Formula Highlight Box -->
+<div class="mt-4 p-3.5 rounded-lg bg-tertiary-fixed/30 border-l-4 border-tertiary">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px] mt-0.5">star</span>
+<div>
+<p class="font-label-md text-label-md font-bold text-tertiary leading-snug">
+                Key Rule: Rarer → Denser = Bends TOWARDS the Normal
+              </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                గాలి (విరళ మాధ్యమం) నుండి గాజు (సాంద్రతర మాధ్యమం) లోకి ప్రవేశించినప్పుడు కాంతి కిరణం <strong>లంబం వైపుకు</strong> వంగుతుంది.
+              </p>
+</div>
+</div>
+</div>
+<!-- Telugu Teacher Audio Note -->
+<div class="mt-4 pt-3 border-t border-surface-container flex items-center justify-between gap-3">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed">
+<span class="material-symbols-outlined text-[18px]">record_voice_over</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm font-bold text-on-surface">Lakshmi Madam's Micro-Tip</p>
+<p class="font-label-sm text-label-sm text-outline">Telugu Voice Memo · 0:22</p>
+</div>
+</div>
+<button class="px-2.5 py-1 rounded-md bg-surface-container hover:bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">play_circle</span>
+            Listen
+          </button>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- STEP 3: PROGRESSIVE DISCLOSURE (LOCKED)   -->
+<!-- ========================================== -->
+<div class="rounded-xl bg-surface-container-low p-4 border border-dashed border-outline-variant/60 transition-all" id="step-3-container">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-surface-container-highest text-outline flex items-center justify-center font-label-sm text-label-sm font-bold" id="step-3-badge">3</span>
+<span class="font-label-md text-label-md font-bold text-on-surface">Emergent Ray &amp; Dispersion</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline flex items-center gap-1" id="step-3-status">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+            Clue 3: Tucked away
+          </span>
+</div>
+<!-- Locked Prompt Callout -->
+<div class="space-y-3" id="step-3-locked-view">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            What happens when the light leaves the glass and re-enters the air? (Denser to Rarer).
+          </p>
+<button class="w-full py-2.5 px-4 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-primary font-label-md text-label-md font-bold shadow-xs flex items-center justify-center gap-2 transition-all" id="reveal-step-3-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+<span>Need an extra nudge? Reveal Step 3 / 3వ సూచన చూడండి</span>
+</button>
+<p class="font-label-sm text-label-sm text-center text-outline">
+            Revealing hints never reduces your mastery points or practice score.
+          </p>
+</div>
+<!-- Hidden Step 3 Content (revealed via script on button tap) -->
+<div class="hidden space-y-3 pt-2" id="step-3-unlocked-view">
+<div class="p-3 rounded-lg bg-surface-container-lowest">
+<span class="font-label-md text-label-md font-bold text-secondary">The Exit Journey: Denser → Rarer</span>
+<p class="font-body-sm text-body-sm text-on-surface mt-1 leading-relaxed">
+              When light exits back from glass into air, it speeds back up! Because it moves into a rarer medium, it bends <strong>AWAY from the normal</strong>. At both surfaces, the deviations add up, creating the overall bending angle of the prism.
+            </p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              బయటకు వచ్చేటప్పుడు (గాజు నుండి గాలికి) లంబానికి దూరంగా వంగుతుంది!
+            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Drawer Action Footer Sticky Bar -->
+<div class="px-6 py-4 bg-surface-container-lowest border-t border-surface-container-high/80 shrink-0 space-y-3">
+<!-- Primary Retrial Button -->
+<button class="w-full py-3 px-4 rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold shadow-md hover:shadow-lg flex items-center justify-center gap-2 transition-all group" id="try-again-btn" type="button">
+<span>Got It! Try Question Again (0 Penalty) →</span>
+<span class="font-normal opacity-90 text-[13px] hidden sm:inline">/ అర్థమైంది!</span>
+<span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<!-- Secondary Aux Action & Privacy Anchor -->
+<div class="flex items-center justify-between gap-3 pt-1">
+<button class="flex items-center gap-1.5 text-on-surface-variant hover:text-primary font-label-sm text-label-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">bookmark_add</span>
+<span>Save to My Physics Notes 📝</span>
+</button>
+<div class="flex items-center gap-1 text-outline font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-secondary">shield_person</span>
+<span>DPDP Safe · Private Growth</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Vanilla Interactive Behavior -->
+<script>
+  (function () {
+    const drawer = document.getElementById('hint-drawer');
+    const scrim = document.getElementById('drawer-scrim');
+    const openBtn = document.getElementById('open-drawer-btn');
+    const closeBtn = document.getElementById('close-drawer-btn');
+    const tryAgainBtn = document.getElementById('try-again-btn');
+
+    // Drawer Open/Close logic
+    function closeDrawer() {
+      if (drawer && scrim) {
+        drawer.classList.add('translate-x-full');
+        scrim.classList.add('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    function openDrawer() {
+      if (drawer && scrim) {
+        drawer.classList.remove('translate-x-full');
+        scrim.classList.remove('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if (scrim) scrim.addEventListener('click', closeDrawer);
+    if (tryAgainBtn) tryAgainBtn.addEventListener('click', closeDrawer);
+    if (openBtn) openBtn.addEventListener('click', openDrawer);
+
+    // Interactive Angle Slider Logic
+    const slider = document.getElementById('incidence-slider');
+    const sliderVal = document.getElementById('slider-val');
+    const refractedText = document.getElementById('refracted-angle-text');
+    const incidentLine = document.getElementById('dyn-incident');
+    const refractedLine = document.getElementById('dyn-refracted');
+    const rayLineInPrism = document.getElementById('refracted-ray-line');
+
+    if (slider) {
+      slider.addEventListener('input', function (e) {
+        const iDeg = parseFloat(e.target.value);
+        if (sliderVal) sliderVal.textContent = `i = ${iDeg}°`;
+
+        // Snell's Law calculation: n1*sin(i) = n2*sin(r)
+        // n1 = 1.0 (air), n2 = 1.52 (glass)
+        const iRad = (iDeg * Math.PI) / 180;
+        const sinR = Math.sin(iRad) / 1.52;
+        const rRad = Math.asin(sinR);
+        const rDeg = ((rRad * 180) / Math.PI).toFixed(1);
+
+        if (refractedText) {
+          refractedText.textContent = `Refraction Angle (r) ≈ ${rDeg}°`;
+        }
+
+        // Adjust dynamic lines inside the mini simulator SVG
+        if (incidentLine && refractedLine) {
+          // Incident ray originates at top left, connects to vertex (160, 60)
+          const startX = 160 - Math.tan(iRad) * 50;
+          incidentLine.setAttribute('x1', Math.max(30, startX).toString());
+          incidentLine.setAttribute('y1', '10');
+
+          // Refracted ray heads downward right into glass
+          const endX = 160 + Math.tan(rRad) * 48;
+          refractedLine.setAttribute('x2', Math.min(280, endX).toString());
+          refractedLine.setAttribute('y2', '108');
+        }
+
+        // Subtly tweak prism ray in background for playful synchrony
+        if (rayLineInPrism) {
+          const deltaY = (iDeg - 32) * 0.35;
+          rayLineInPrism.setAttribute('y2', (148 + deltaY).toString());
+        }
+      });
+    }
+
+    // Step 3 Progressive Disclosure Reveal
+    const revealBtn = document.getElementById('reveal-step-3-btn');
+    const lockedView = document.getElementById('step-3-locked-view');
+    const unlockedView = document.getElementById('step-3-unlocked-view');
+    const step3Badge = document.getElementById('step-3-badge');
+    const step3Status = document.getElementById('step-3-status');
+    const step3Container = document.getElementById('step-3-container');
+
+    if (revealBtn && lockedView && unlockedView) {
+      revealBtn.addEventListener('click', function () {
+        lockedView.classList.add('hidden');
+        unlockedView.classList.remove('hidden');
+        if (step3Container) {
+          step3Container.classList.remove('border-dashed');
+          step3Container.classList.add('border-solid', 'bg-surface-container');
+        }
+        if (step3Badge) {
+          step3Badge.classList.remove('bg-surface-container-highest', 'text-outline');
+          step3Badge.classList.add('bg-secondary', 'text-on-secondary');
+        }
+        if (step3Status) {
+          step3Status.innerHTML = '<span class="material-symbols-outlined text-[14px] text-secondary">visibility</span><span class="text-secondary font-semibold">Revealed</span>';
+        }
+      });
+    }
+
+    // Read aloud toggle audio wave
+    const audioBtn = document.getElementById('audio-toggle-btn');
+    const audioWave = document.getElementById('audio-wave');
+    const audioIcon = document.getElementById('audio-icon');
+    let isPlaying = true;
+
+    if (audioBtn && audioWave && audioIcon) {
+      audioBtn.addEventListener('click', function () {
+        isPlaying = !isPlaying;
+        if (isPlaying) {
+          audioWave.style.opacity = '1';
+          audioIcon.textContent = 'volume_up';
+        } else {
+          audioWave.style.opacity = '0.2';
+          audioIcon.textContent = 'volume_off';
+        }
+      });
+    }
+  })();
+</script></main><footer class="w-full bg-surface-container-low mt-auto"><div class="w-full max-w-[1280px] mx-auto px-space-lg py-space-xl"><div class="flex flex-col md:flex-row items-center justify-between gap-space-md pb-space-lg"><div class="flex items-center gap-space-sm"><div class="w-7 h-7 rounded-lg bg-primary flex items-center justify-center text-on-primary"><span class="material-symbols-outlined text-[16px]">school</span></div><span class="font-title-md text-title-md text-primary font-semibold">WonderLab Studio</span></div><div class="flex flex-wrap items-center justify-center gap-space-lg"><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Pedagogical Charter</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Privacy Architecture</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">DPDP &amp; COPPA Registry</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Parental Consent Verification</a></div></div><div class="pt-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm text-outline"><p class="font-body-sm text-body-sm">© 2025 WonderLab Studio Learning. Certified Safe &amp; Private Pedagogical Space.</p><p class="font-body-sm text-body-sm">Multilingual Adaptive Framework · India Edition</p></div></div></footer></body></html>

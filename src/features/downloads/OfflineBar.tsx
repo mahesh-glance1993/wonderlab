@@ -19,6 +19,7 @@ export function OfflineBar() {
   const nav = useNavigate();
   const [chunkMissing, setChunkMissing] = useState<string | null>(null);
   const [shownDone, setShownDone] = useState(false);
+  const [dismissedError, setDismissedError] = useState(false);
   const savedData = useRef<string | null>(null);
 
   useEffect(() => { void initDownloads().then(() => resumeDownloads()); }, []);
@@ -128,13 +129,14 @@ export function OfflineBar() {
       </div>
     );
   }
-  if (pr.phase === 'error' || pr.phase === 'paused') {
+  if ((pr.phase === 'error' || pr.phase === 'paused') && !dismissedError) {
     return (
       <div className="offline-bar warn" role="alert">
         <Icon name="alert" />
         <span>{pr.message || 'Download problem.'}</span>
         <button className="btn small" onClick={() => void resumeDownloads().then(() => profile && ensurePacks(packsForClass(profile.classLevel), { confirmed: true, profileId: profile.id }))}>Retry</button>
         <button className="btn small ghost" onClick={() => nav('/downloads')}>Details</button>
+        <button className="btn small ghost" onClick={() => setDismissedError(true)} aria-label="Dismiss notice">✕</button>
       </div>
     );
   }

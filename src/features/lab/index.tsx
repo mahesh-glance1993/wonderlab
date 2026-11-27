@@ -11,12 +11,14 @@ const MotionLab = lazy(() => import('./MotionLab'));
 const ForcesLab = lazy(() => import('./ForcesLab'));
 const CircuitLab = lazy(() => import('./CircuitLab'));
 const LightLab = lazy(() => import('./LightLab'));
+const PrismLab = lazy(() => import('./PrismLab'));
 
-const LABS: { id: 'motion' | 'forces' | 'circuit' | 'light'; title: string; icon: IconName; desc: string; descSimple: string; classes: string }[] = [
+const LABS: { id: 'prism' | 'motion' | 'forces' | 'circuit' | 'light'; title: string; icon: IconName; desc: string; descSimple: string; classes: string }[] = [
+  { id: 'prism', title: 'Ray of Light & Glass Prism', icon: 'sparkle', desc: 'Cauchy dispersion, VIBGYOR refraction, and Total Internal Reflection through glass, flint and diamond prisms.', descSimple: 'Watch white light split into rainbow colors through a glass prism!', classes: 'Classes 5–10 (Optics & Wave Lab)' },
   { id: 'motion', title: 'Motion Lab', icon: 'clock', desc: 'Speed, acceleration and braking, with live position–time and velocity–time graphs.', descSimple: 'Make a car speed up, slow down and stop at a flag.', classes: 'Classes 5–10 (graphs and equations for 7–10)' },
   { id: 'forces', title: 'Forces Lab', icon: 'scale', desc: 'Push a box against friction and discover F = ma.', descSimple: 'Push a box on ice, wood and carpet — will it move?', classes: 'Classes 4–10 (F = ma for 8–10)' },
   { id: 'circuit', title: 'Circuit Lab', icon: 'bulb', desc: 'Build series circuits from cells, a switch and bulbs; measure V, I and R.', descSimple: 'Light up bulbs and find out why a circuit stops working.', classes: 'Classes 3–10 (Ohm’s law for 7–10)' },
-  { id: 'light', title: 'Light Lab', icon: 'sun', desc: 'Reflect a ray off a plane mirror and measure the angles from the normal.', descSimple: 'Bounce torchlight off a mirror to hit a star.', classes: 'Classes 3–10 (angle measurement for 6–10)' },
+  { id: 'light', title: 'Light Lab (Plane Mirror)', icon: 'sun', desc: 'Reflect a ray off a plane mirror and measure the angles from the normal.', descSimple: 'Bounce torchlight off a mirror to hit a star.', classes: 'Classes 3–10 (angle measurement for 6–10)' },
 ];
 
 function LabIndex() {
@@ -53,6 +55,7 @@ export default function Lab() {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route index element={<LabIndex />} />
+        <Route path="prism" element={<PrismLab />} />
         <Route path="motion" element={<MotionLab />} />
         <Route path="forces" element={<ForcesLab />} />
         <Route path="circuit" element={<CircuitLab />} />

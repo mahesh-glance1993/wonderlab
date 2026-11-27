@@ -14,7 +14,8 @@ const isFS = () => !!(document.fullscreenElement || (document as Document & { we
 export function FullscreenKeeper() {
   const { profile, prefs } = useApp();
   const [fs, setFs] = useState(isFS);
-  const wanted = !!profile && prefs.keepFullscreen !== false && fullscreenSupported();
+  const [dismissed, setDismissed] = useState(() => !!sessionStorage.getItem(FS_OFF_KEY));
+  const wanted = !dismissed && !!profile && prefs.keepFullscreen !== false && fullscreenSupported();
   useEffect(() => {
     const on = () => setFs(isFS());
     document.addEventListener('fullscreenchange', on);
@@ -25,7 +26,7 @@ export function FullscreenKeeper() {
     if (!wanted) return;
     const go = (e: Event) => {
       if (e instanceof KeyboardEvent && (e.key === 'Escape' || e.key === 'Tab')) return;
-      if (isFS() || sessionStorage.getItem(FS_OFF_KEY)) return;
+      if (isFS() || sessionStorage.getItem(FS_OFF_KEY) || dismissed) return;
       const el = document.documentElement as HTMLElement & { webkitRequestFullscreen?: () => Promise<void> };
       try {
         if (el.requestFullscreen) el.requestFullscreen({ navigationUI: 'hide' }).catch(() => undefined);
@@ -35,11 +36,26 @@ export function FullscreenKeeper() {
     window.addEventListener('pointerup', go, true);
     window.addEventListener('keydown', go, true);
     return () => { window.removeEventListener('pointerup', go, true); window.removeEventListener('keydown', go, true); };
-  }, [wanted]);
-  if (!wanted || fs || sessionStorage.getItem(FS_OFF_KEY)) return null;
+  }, [wanted, dismissed]);
+  if (!wanted || fs || sessionStorage.getItem(FS_OFF_KEY) || dismissed) return null;
   return (
     <div className="fs-hint no-print" role="status">
-      <Icon name="max" />Tap anywhere to return to full screen
+      <span className="fs-hint-text">
+        <Icon name="max" />
+        <span>Tap anywhere to return to full screen</span>
+      </span>
+      <button
+        type="button"
+        className="fs-hint-close"
+        aria-label="Dismiss full screen prompt"
+        onClick={(e) => {
+          e.stopPropagation();
+          sessionStorage.setItem(FS_OFF_KEY, '1');
+          setDismissed(true);
+        }}
+      >
+        <Icon name="x" />
+      </button>
     </div>
   );
 }

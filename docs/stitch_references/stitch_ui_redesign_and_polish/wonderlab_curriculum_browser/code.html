@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Outfit:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-container-high":"#e0e8fd","secondary":"#006a61","on-primary-fixed-variant":"#3a30b1","surface-tint":"#534cca","on-secondary-fixed":"#00201d","on-secondary-container":"#006f66","tertiary-fixed-dim":"#ffb77d","surface":"#f9f9ff","primary-fixed-dim":"#c3c0ff","surface-bright":"#f9f9ff","error-container":"#ffdad6","outline-variant":"#c8c4d6","surface-container-highest":"#dbe2f7","on-error-container":"#93000a","error":"#ba1a1a","surface-variant":"#dbe2f7","on-tertiary-container":"#ffa658","on-surface":"#141c2a","on-error":"#ffffff","background":"#f9f9ff","on-primary-fixed":"#100069","on-tertiary-fixed-variant":"#6e3900","on-tertiary-fixed":"#2f1500","tertiary-fixed":"#ffdcc3","primary-fixed":"#e3dfff","surface-dim":"#d2daee","on-background":"#141c2a","surface-container-low":"#f0f3ff","inverse-on-surface":"#ecf0ff","surface-container":"#e8eeff","on-tertiary":"#ffffff","inverse-surface":"#293140","primary-container":"#3e35b5","secondary-fixed-dim":"#6bd8cb","on-surface-variant":"#464554","secondary-fixed":"#89f5e7","tertiary":"#522900","on-secondary":"#ffffff","inverse-primary":"#c3c0ff","on-primary-container":"#b6b3ff","secondary-container":"#86f2e4","on-secondary-fixed-variant":"#005049","tertiary-container":"#733c00","on-primary":"#ffffff","primary":"#25149f","outline":"#777585","surface-container-lowest":"#ffffff"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"gutter":"1.5rem","gutter-mobile":"1rem","space-sm":"0.5rem","space-xl":"2.5rem","space-md":"1rem","margin":"1.5rem","gutter-desktop":"2rem","margin-desktop":"3rem","space-xs":"0.25rem","margin-mobile":"1rem","space-lg":"1.5rem"},fontFamily:{"headline-sm":["Outfit"],"display-lg":["Outfit"],"title-lg":["Outfit"],"label-sm":["Be Vietnam Pro"],"label-lg":["Be Vietnam Pro"],"display-lg-mobile":["Outfit"],"title-md":["Be Vietnam Pro"],"headline-lg":["Outfit"],"headline-lg-mobile":["Outfit"],"headline-md":["Outfit"],"body-md":["Be Vietnam Pro"],"body-lg":["Be Vietnam Pro"],"body-sm":["Be Vietnam Pro"],"label-md":["Be Vietnam Pro"]},fontSize:{"headline-sm":["20px",{lineHeight:"28px",fontWeight:"600"}],"display-lg":["48px",{lineHeight:"56px",letterSpacing:"-0.02em",fontWeight:"700"}],"title-lg":["18px",{lineHeight:"26px",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"600"}],"label-lg":["14px",{lineHeight:"20px",fontWeight:"600"}],"display-lg-mobile":["36px",{lineHeight:"44px",letterSpacing:"-0.01em",fontWeight:"700"}],"title-md":["16px",{lineHeight:"24px",fontWeight:"600"}],"headline-lg":["32px",{lineHeight:"40px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-lg-mobile":["26px",{lineHeight:"34px",letterSpacing:"0em",fontWeight:"600"}],"headline-md":["24px",{lineHeight:"32px",fontWeight:"600"}],"body-md":["15px",{lineHeight:"24px",fontWeight:"400"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}],"body-sm":["13px",{lineHeight:"20px",fontWeight:"400"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-60 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between select-none"><div class="flex flex-col flex-1 min-h-0"><div class="h-16 px-space-md flex items-center gap-space-sm"><img alt="WonderLab Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrA4yTm3qtGbshyr11WiRU9ymU2SMH4lx_9gfdWna7Xo1s5xW3jIsoJFyjFqbZJSVj-Bx6EbCe-aQalBKKtapvXwWP-cnhBkIJUBp-dmaIekvPzL5lfw1v1t-NpSsqVh1tQlT5L4jdx1ZYQIWev33MQVr9z6FRAZ-HL-3ks9IYdGvQd8xqyr0F9inX6mv5fxOShFFFMSenMkcmGiGiddNtAs6nwYsXuh4GYN5onvy9h0"/><div class="flex flex-col"><span class="font-title-lg text-title-lg text-primary tracking-tight leading-none">WonderLab</span><span class="font-label-sm text-label-sm text-secondary tracking-wider mt-0.5">STUDIO LEARNING</span></div></div><div class="flex-1 overflow-y-auto px-space-sm py-space-xs"><nav class="flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-bold rounded-lg shadow-sm"><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="learner-hub" href="#"><span class="material-symbols-outlined text-xl">cottage</span><span>Home</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-2.5 transition-colors bg-primary-container text-on-primary font-bold rounded-lg shadow-sm" data-path="curriculum" href="#"><span class="material-symbols-outlined text-xl">menu_book</span><span>Curriculum</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="what-next" href="#"><span class="material-symbols-outlined text-xl">auto_awesome</span><span>What Next</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="physics-lab" href="#"><span class="material-symbols-outlined text-xl">science</span><span>Physics Lab</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="art-studio" href="#"><span class="material-symbols-outlined text-xl">palette</span><span>Art Studio</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="games-play" href="#"><span class="material-symbols-outlined text-xl">sports_esports</span><span>Games &amp; Play</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="progress-badges" href="#"><span class="material-symbols-outlined text-xl">military_tech</span><span>Progress &amp; Badges</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="notes" href="#"><span class="material-symbols-outlined text-xl">edit_note</span><span>Notes</span></a><a class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="offline-downloads" href="#"><span class="material-symbols-outlined text-xl">download_for_offline</span><span>Offline Downloads</span></a></nav></div></div><div class="p-space-sm bg-surface-container-low/60"><div class="flex flex-col gap-1.5"><a class="flex items-center justify-between px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.02)] transition-colors group" data-path="parent-zone" href="#"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm text-outline group-hover:text-primary transition-colors">lock</span><span class="font-label-md text-label-md">Parent Area</span></div><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">PIN</span></a><div class="flex items-center justify-between px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface shadow-[0_1px_4px_rgba(0,0,0,0.02)]"><div class="flex items-center gap-2 min-w-0"><div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-label-sm text-label-sm font-bold flex-shrink-0">A</div><div class="truncate"><p class="font-label-md text-label-md text-on-surface font-semibold leading-tight truncate">Aarav</p><p class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Learner</p></div></div><button aria-label="Switch learner" class="text-outline hover:text-primary transition-colors flex items-center justify-center p-1 rounded-md hover:bg-surface-container-high" type="button"><span class="material-symbols-outlined text-base">sync_alt</span></button></div></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.03)] z-40 px-space-gutter flex items-center justify-between select-none"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-low text-on-surface"><span class="material-symbols-outlined text-secondary text-base">school</span><span class="font-label-md text-label-md font-semibold text-on-surface">Class 5 · NCERT / Telangana</span><button aria-label="Change Class" class="material-symbols-outlined text-sm text-outline hover:text-on-surface ml-0.5" type="button">expand_more</button></div><div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-lowest text-secondary"><span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span><span class="font-label-sm text-label-sm font-semibold">All saved offline</span></div></div><div class="flex items-center gap-space-sm"><div class="flex items-center rounded-full bg-surface-container-low p-0.5 text-on-surface-variant"><button class="px-2 py-0.5 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-sm" type="button">EN</button><span class="text-outline-variant font-label-sm text-label-sm">|</span><button class="px-2 py-0.5 rounded-full hover:text-on-surface font-label-sm text-label-sm transition-colors" type="button">తెలుగు</button></div><div class="flex items-center gap-1 bg-surface-container-low px-1.5 py-1 rounded-full"><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Reading Comfort" type="button"><span class="material-symbols-outlined text-lg">format_size</span></button><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Sound Volume" type="button"><span class="material-symbols-outlined text-lg">volume_up</span></button><button class="w-7 h-7 flex items-center justify-center rounded-full hover:bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" title="Theme Mood" type="button"><span class="material-symbols-outlined text-lg">light_mode</span></button></div><div class="flex items-center gap-2 pl-1 cursor-pointer group"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-surface-container-high group-hover:ring-primary transition-all" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK3kLrI1v8tK7Sr4INV-F5YCytflZmToeBEOZSdLPjCHpkDQ-DA0Cclydfk35jYmUTuzfE_UXHPm-ocvIoQuJzdzy8W6RCIZQg58PniYoxIZYuCgm7EEM3OnhjEousYF3ikhSEPFqJu6wfAsyd95sDsVvv8J8GiYSGisHYZOtiOKK_O7ipQrNzmgcQTg4A4XHhTpnvXC8B_Ornj6FlQNzp5TwogNFUyHJQD-z0Bfc"/><div class="hidden sm:flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight group-hover:text-primary transition-colors">Aarav</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Class 5</span></div><span class="material-symbols-outlined text-outline text-base group-hover:text-on-surface transition-colors">keyboard_arrow_down</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto px-space-gutter-mobile md:px-space-gutter lg:px-space-gutter-desktop py-space-lg flex flex-col gap-y-space-lg">
+<!-- Section 1: Navigation, Breadcrumb & Filter Bar -->
+<div class="flex flex-col gap-4">
+<div class="flex flex-wrap items-center justify-between gap-3 text-on-surface-variant font-label-md text-label-md">
+<div class="flex items-center gap-2">
+<span class="hover:text-primary transition-colors cursor-pointer">Curriculum</span>
+<span class="text-outline-variant">/</span>
+<span class="hover:text-primary transition-colors cursor-pointer">Class 5</span>
+<span class="text-outline-variant">/</span>
+<span class="px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">Telangana &amp; NCERT Aligned</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-base text-secondary">verified</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Academic Year 2024–2025</span>
+</div>
+</div>
+<!-- Class Selectors -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline mr-2 shrink-0">Grade Level</span>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-label-md text-label-md shrink-0" type="button">Class 3</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-label-md text-label-md shrink-0" type="button">Class 4</button>
+<button class="px-4 py-1.5 rounded-full bg-primary-container text-on-primary font-label-md text-label-md font-semibold shadow-sm shrink-0 flex items-center gap-1.5" type="button">
+<span>Class 5</span>
+<span class="material-symbols-outlined text-sm">check</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-label-md text-label-md shrink-0" type="button">Class 6</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all font-label-md text-label-md shrink-0" type="button">Class 7</button>
+</div>
+<!-- Subject Tabs -->
+<div class="flex items-center gap-1.5 overflow-x-auto border-b-0 p-1 bg-surface-container-low rounded-xl">
+<button class="px-3.5 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all shrink-0" type="button">All Subjects</button>
+<button class="px-3.5 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all shrink-0" type="button">Mathematics</button>
+<button class="px-4 py-2 rounded-lg font-label-md text-label-md bg-surface-container-lowest text-primary font-bold shadow-sm shrink-0 flex items-center gap-2" type="button">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span>Science / EVS</span>
+</button>
+<button class="px-3.5 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all shrink-0" type="button">English</button>
+<button class="px-3.5 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all shrink-0" type="button">Telugu (తెలుగు)</button>
+<button class="px-3.5 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all shrink-0" type="button">Social Studies</button>
+</div>
+</div>
+<!-- Section 2: Pedagogical Subject Overview Banner -->
+<div class="relative overflow-hidden rounded-2xl bg-surface-container-lowest shadow-[0_4px_24px_-4px_rgba(62,53,181,0.06)] p-space-md sm:p-space-lg lg:p-space-xl">
+<div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-secondary-fixed/30 blur-3xl pointer-events-none"></div>
+<div class="absolute right-32 bottom-0 w-56 h-56 rounded-full bg-primary-fixed-dim/20 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+<div class="lg:col-span-8 flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm font-bold uppercase tracking-wider">Environmental Studies &amp; Natural Science</span>
+<span class="text-outline-variant font-label-sm text-label-sm">•</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Telangana SCERT &amp; NCERT 2024-25</span>
+</div>
+<div class="flex flex-col">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Class 5 Science: Discovering Living Ecosystems</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-1">
+              Explore plant biomes, seed mechanics, aquatic wonders, and climate cycles. Move at your own curious pace without timers or stress.
+            </p>
+</div>
+<!-- Progress Ribbon -->
+<div class="flex flex-wrap items-center gap-4 mt-2 pt-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-xl">self_improvement</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">14 of 22 topics explored</span>
+</div>
+<span class="text-outline-variant">•</span>
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">8 concepts fully mastered</span>
+</div>
+<span class="text-outline-variant">•</span>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-md bg-surface-container-high text-primary font-medium">Self-directed pathway</span>
+</div>
+</div>
+<div class="lg:col-span-4 flex items-center justify-start lg:justify-end">
+<!-- Visual Micro Progress Ring -->
+<div class="flex items-center gap-4 bg-surface-container-low px-5 py-4 rounded-xl shadow-sm">
+<div class="relative w-16 h-16 flex items-center justify-center">
+<svg class="w-16 h-16 -rotate-90" viewbox="0 0 64 64">
+<circle cx="32" cy="32" fill="none" r="26" stroke="#dbe2f7" stroke-width="6"></circle>
+<circle cx="32" cy="32" fill="none" r="26" stroke="#006a61" stroke-dasharray="163" stroke-dashoffset="58" stroke-linecap="round" stroke-width="6"></circle>
+</svg>
+<span class="absolute font-headline-sm text-headline-sm text-on-surface font-bold">64%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Curriculum Flow</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Term 1 Milestone</span>
+<span class="font-label-sm text-label-sm text-secondary font-bold mt-0.5">Steady cadence</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: Dual Column Layout (Curriculum Accordion + Side Drawer Info) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Left 8 Columns: Units & Chapters Accordion -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- UNIT 1 -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-primary font-bold tracking-widest uppercase">Unit 01</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Living World</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">(3 Chapters)</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary font-semibold">2 of 3 Completed</span>
+</div>
+<!-- Chapter 1 Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_12px_-2px_rgba(62,53,181,0.04)] overflow-hidden transition-all duration-200">
+<!-- Chapter Header -->
+<div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface-container-lowest">
+<div class="flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary font-title-lg text-title-lg font-bold shrink-0">
+                  01
+                </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">The Magic of Seeds</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">· 45 Mins suggested</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Explore dispersal mechanisms, internal embryo structure, and conditions for vigorous sprouting.</p>
+</div>
+</div>
+<!-- Quick Action Cluster -->
+<div class="flex items-center gap-1.5 shrink-0 self-end sm:self-center">
+<button class="px-3.5 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-primary transition-all flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-sm">play_arrow</span>
+<span>Learn</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low text-primary font-label-md text-label-md font-medium hover:bg-surface-container-high transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">tune</span>
+<span>Practice</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low text-on-surface-variant font-label-md text-label-md font-medium hover:bg-surface-container-high transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">quiz</span>
+<span>Test</span>
+</button>
+</div>
+</div>
+<!-- Objectives List within Chapter 1 -->
+<div class="p-4 sm:p-5 pt-0 flex flex-col gap-2.5">
+<div class="p-3 bg-surface-container-low/70 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Seed dispersal by wind, water, and creatures</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dandelion flight aerodynamics &amp; coconut water voyage</span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-xs">done_all</span>
+<span>Mastered</span>
+</span>
+<button class="p-1 rounded hover:bg-surface-container-highest text-outline hover:text-on-surface transition-colors" onclick="openDrawer('seeds')" title="View details" type="button">
+<span class="material-symbols-outlined text-base">info</span>
+</button>
+</div>
+</div>
+<div class="p-3 bg-surface-container-low/70 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-lg animate-spin" style="animation-duration: 6s;">timelapse</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Germination process &amp; moisture thresholds</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Radicle eruption and cotyledon unfolding experiment</span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-xs">schedule</span>
+<span>In Progress</span>
+</span>
+<button class="p-1 rounded hover:bg-surface-container-highest text-outline hover:text-on-surface transition-colors" onclick="openDrawer('seeds')" title="View details" type="button">
+<span class="material-symbols-outlined text-base">info</span>
+</button>
+</div>
+</div>
+<div class="p-3 bg-surface-container-low/70 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-lg">auto_awesome</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Internal plant anatomy: Embryo &amp; Food store</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Microscope view simulation and dissection lab</span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-xs">spark</span>
+<span>New Topic</span>
+</span>
+<button class="p-1 rounded hover:bg-surface-container-highest text-outline hover:text-on-surface transition-colors" onclick="openDrawer('seeds')" title="View details" type="button">
+<span class="material-symbols-outlined text-base">info</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Chapter 2 Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_12px_-2px_rgba(62,53,181,0.04)] overflow-hidden transition-all duration-200">
+<div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface-container-lowest">
+<div class="flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary font-title-lg text-title-lg font-bold shrink-0">
+                  02
+                </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">Plant Life &amp; Photosynthesis</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">· 60 Mins suggested</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">The green engine of earth: converting sunlight into nourishment and releasing life-giving air.</p>
+</div>
+</div>
+<!-- Quick Action Cluster -->
+<div class="flex items-center gap-1.5 shrink-0 self-end sm:self-center">
+<button class="px-3.5 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-primary transition-all flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-sm">play_arrow</span>
+<span>Learn</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low text-primary font-label-md text-label-md font-medium hover:bg-surface-container-high transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">tune</span>
+<span>Practice</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low text-on-surface-variant font-label-md text-label-md font-medium hover:bg-surface-container-high transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">quiz</span>
+<span>Test</span>
+</button>
+</div>
+</div>
+<!-- Objectives List within Chapter 2 -->
+<div class="p-4 sm:p-5 pt-0 flex flex-col gap-2.5">
+<div class="p-3 bg-surface-container-low/70 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Sun, Chlorophyll &amp; Stomata interaction</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">How leaf pores breathe in carbon dioxide and capture photons</span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-xs">done_all</span>
+<span>Mastered</span>
+</span>
+<button class="p-1 rounded hover:bg-surface-container-highest text-outline hover:text-on-surface transition-colors" onclick="openDrawer('photosynthesis')" title="View details" type="button">
+<span class="material-symbols-outlined text-base">info</span>
+</button>
+</div>
+</div>
+<div class="p-3 bg-surface-container-low/70 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container text-lg">sync_problem</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">The Oxygen-Carbon Dioxide Exchange Cycle</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Night vs. daytime cellular respiration in forest habitats</span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-xs">refresh</span>
+<span>Needs Practice</span>
+</span>
+<button class="p-1 rounded hover:bg-surface-container-highest text-outline hover:text-on-surface transition-colors" onclick="openDrawer('photosynthesis')" title="View details" type="button">
+<span class="material-symbols-outlined text-base">info</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- UNIT 2 -->
+<div class="flex flex-col gap-3 mt-2">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-secondary/10 text-secondary font-bold tracking-widest uppercase">Unit 02</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Water &amp; Earth</h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant">(2 Chapters)</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">1 in Progress</span>
+</div>
+<!-- Chapter 3 Card -->
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_2px_12px_-2px_rgba(62,53,181,0.04)] overflow-hidden transition-all duration-200">
+<div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-surface-container-lowest">
+<div class="flex items-start gap-3.5">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary font-title-lg text-title-lg font-bold shrink-0">
+                  03
+                </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2 flex-wrap">
+<h3 class="font-title-lg text-title-lg text-on-surface font-semibold">Clean Water &amp; Aquatic Life</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">· 50 Mins suggested</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Filtration stages, Telangana water reservoirs (Mission Bhagiratha), and river organisms.</p>
+</div>
+</div>
+<!-- Quick Action Cluster -->
+<div class="flex items-center gap-1.5 shrink-0 self-end sm:self-center">
+<button class="px-3.5 py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-primary transition-all flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-sm">play_arrow</span>
+<span>Learn</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low text-primary font-label-md text-label-md font-medium hover:bg-surface-container-high transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">tune</span>
+<span>Practice</span>
+</button>
+<button class="px-3 py-2 rounded-lg bg-surface-container-low text-on-surface-variant font-label-md text-label-md font-medium hover:bg-surface-container-high transition-all flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-sm">quiz</span>
+<span>Test</span>
+</button>
+</div>
+</div>
+<!-- Objectives List within Chapter 3 -->
+<div class="p-4 sm:p-5 pt-0 flex flex-col gap-2.5">
+<div class="p-3 bg-surface-container-low/70 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Methods of Water Purification</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sedimentation, filtration, decantation &amp; boiling tests</span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary-container/50 text-on-secondary-container font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-xs">done_all</span>
+<span>Mastered</span>
+</span>
+<button class="p-1 rounded hover:bg-surface-container-highest text-outline hover:text-on-surface transition-colors" onclick="openDrawer('water')" title="View details" type="button">
+<span class="material-symbols-outlined text-base">info</span>
+</button>
+</div>
+</div>
+<div class="p-3 bg-surface-container-low/70 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-lg">timelapse</span>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Freshwater vs Lake Ecosystems</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Food webs in local Telangana tanks (Cheruvulu)</span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold">
+<span class="material-symbols-outlined text-xs">schedule</span>
+<span>In Progress</span>
+</span>
+<button class="p-1 rounded hover:bg-surface-container-highest text-outline hover:text-on-surface transition-colors" onclick="openDrawer('water')" title="View details" type="button">
+<span class="material-symbols-outlined text-base">info</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right 4 Columns: Side Quick Info Panel / Lesson Context -->
+<div class="lg:col-span-4 flex flex-col gap-6 sticky top-20">
+<!-- Active Focus Card -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-[0_4px_24px_-4px_rgba(62,53,181,0.06)] p-5 sm:p-6 flex flex-col gap-5 transition-all" id="quickInfoPanel">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+              Selected Chapter Detail
+            </span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container-high text-primary font-semibold">NCERT Ch 5</span>
+</div>
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface" id="panelChapterTitle">The Magic of Seeds</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant" id="panelChapterSub">
+              An in-depth botanical study of reproductive structures, protective seed coats, and environmental stimuli triggering life.
+            </p>
+</div>
+<!-- Bilingual Vocabulary Ledger -->
+<div class="flex flex-col gap-2.5 bg-surface-container-low p-4 rounded-xl">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold text-on-surface uppercase tracking-wider">Key Vocabulary</span>
+<span class="font-label-sm text-label-sm text-outline">EN · తెలుగు</span>
+</div>
+<div class="flex flex-col divide-y-0 gap-2 font-body-sm text-body-sm" id="vocabList">
+<div class="flex items-center justify-between py-1">
+<span class="font-semibold text-on-surface">Germination</span>
+<span class="text-primary font-semibold">మొలకెత్తడం (Molakettadam)</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<span class="font-semibold text-on-surface">Seed Coat</span>
+<span class="text-primary font-semibold">విత్తన కవచం (Vittana Kavacham)</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<span class="font-semibold text-on-surface">Dispersal</span>
+<span class="text-primary font-semibold">వ్యాప్తి (Vyaapthi)</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<span class="font-semibold text-on-surface">Cotyledon</span>
+<span class="text-primary font-semibold">బీజదళం (Beejadalam)</span>
+</div>
+</div>
+</div>
+<!-- Offline Printable Asset -->
+<div class="p-4 rounded-xl bg-surface-container-high/60 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container-lowest text-primary flex items-center justify-center shadow-sm shrink-0">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-semibold text-on-surface truncate">Worksheet_Seeds_Class5.pdf</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Includes Telugu diagrams · 2.4 MB</span>
+</div>
+</div>
+<button class="p-2 rounded-lg bg-surface-container-lowest text-primary hover:bg-primary hover:text-on-primary transition-all shadow-sm shrink-0" title="Download Offline Sheet" type="button">
+<span class="material-symbols-outlined text-base">download</span>
+</button>
+</div>
+<!-- Studio Classroom Interactive Hint -->
+<div class="flex items-start gap-3 p-3.5 rounded-xl bg-secondary/5">
+<span class="material-symbols-outlined text-secondary text-lg mt-0.5 shrink-0">lightbulb</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="text-secondary font-semibold">Studio Tip:</strong> Place soaked Bengal gram (Chana) on a moist cotton pad overnight to observe the radicle break through before testing yourself!
+            </p>
+</div>
+</div>
+<!-- Supportive State Guide Tile -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-[0_2px_12px_-2px_rgba(62,53,181,0.04)] p-5 flex flex-col gap-3">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-bold">Progress Legend</span>
+<div class="grid grid-cols-2 gap-2 font-label-sm text-label-sm">
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary text-base">check_circle</span>
+<span class="font-semibold text-on-surface">Mastered</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-primary text-base">schedule</span>
+<span class="font-semibold text-on-surface">In Progress</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-tertiary-container text-base">refresh</span>
+<span class="font-semibold text-on-surface">Needs Practice</span>
+</div>
+<div class="flex items-center gap-2 p-2 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-outline text-base">spark</span>
+<span class="font-semibold text-on-surface">New Topic</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  const chapterData = {
+    seeds: {
+      title: "The Magic of Seeds",
+      sub: "An in-depth botanical study of reproductive structures, protective seed coats, and environmental stimuli triggering life.",
+      badge: "NCERT Ch 5",
+      vocab: [
+        { en: "Germination", te: "మొలకెత్తడం (Molakettadam)" },
+        { en: "Seed Coat", te: "విత్తన కవచం (Vittana Kavacham)" },
+        { en: "Dispersal", te: "వ్యాప్తి (Vyaapthi)" },
+        { en: "Cotyledon", te: "బీజదళం (Beejadalam)" }
+      ]
+    },
+    photosynthesis: {
+      title: "Plant Life & Photosynthesis",
+      sub: "Discover chloroplast factories, solar energy capture, water transport through xylem, and oxygen balance.",
+      badge: "Telangana SCERT Ch 4",
+      vocab: [
+        { en: "Chlorophyll", te: "పత్రహరితం (Patraharitam)" },
+        { en: "Stomata", te: "పత్రరంధ్రాలు (Patrarandhraalu)" },
+        { en: "Respiration", te: "శ్వాసక్రియ (Shwaasakriya)" },
+        { en: "Sunlight", te: "సూర్యరశ్మి (Sooryarashmi)" }
+      ]
+    },
+    water: {
+      title: "Clean Water & Aquatic Life",
+      sub: "Water cycle balance, lake conservation, freshwater biology, and regional Telangana tank systems.",
+      badge: "NCERT & SCERT Ch 7",
+      vocab: [
+        { en: "Purification", te: "శుద్ధీకరణ (Shuddheekarana)" },
+        { en: "Filtration", te: "వడపోత (Vadapotha)" },
+        { en: "Reservoir / Tank", te: "చెరువు (Cheruvu)" },
+        { en: "Aquatic Organism", te: "జలచరం (Jalacharam)" }
+      ]
+    }
+  };
+
+  function openDrawer(key) {
+    const data = chapterData[key];
+    if (!data) return;
+
+    const titleEl = document.getElementById("panelChapterTitle");
+    const subEl = document.getElementById("panelChapterSub");
+    const vocabContainer = document.getElementById("vocabList");
+
+    if (titleEl) titleEl.textContent = data.title;
+    if (subEl) subEl.textContent = data.sub;
+
+    if (vocabContainer) {
+      vocabContainer.innerHTML = data.vocab.map(item => `
+        <div class="flex items-center justify-between py-1">
+          <span class="font-semibold text-on-surface">${item.en}</span>
+          <span class="text-primary font-semibold">${item.te}</span>
+        </div>
+      `).join('');
+    }
+
+    const panel = document.getElementById("quickInfoPanel");
+    if (panel) {
+      panel.classList.add("ring-2", "ring-primary/20");
+      setTimeout(() => panel.classList.remove("ring-2", "ring-primary/20"), 1000);
+    }
+  }
+</script></main></div></body></html>

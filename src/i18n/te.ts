@@ -22,7 +22,7 @@ export const te: Partial<Record<StringKey, string>> = {
   e_progress: 'నా నక్షత్రాలు',
   e_play: 'ఆడుతూ నేర్చుకో',
   englishCourse: 'ఇంగ్లీష్',
-  start: 'మొదలుపెట్టు', next: 'తర్వాత', back: 'వెనక్కి', done: 'అయిపోయింది', check: 'చూడు', tryAgain: 'మళ్ళీ ప్రయత్నించు', hint: 'సూచన', showHint: 'సూచన చూపించు',
+  start: 'మొదలుపెట్టు', next: 'తర్వాత', back: 'వెనక్కి', home: 'హోమ్', done: 'అయిపోయింది', check: 'చూడు', tryAgain: 'మళ్ళీ ప్రయత్నించు', hint: 'సూచన', showHint: 'సూచన చూపించు',
   listen: 'విను', replay: 'మళ్ళీ విను', stop: 'ఆపు', mute: 'శబ్దం ఆపు', unmute: 'శబ్దం ఆన్', close: 'మూసివేయి', save: 'సేవ్ చేయి', cancel: 'రద్దు', restart: 'మళ్ళీ మొదలుపెట్టు',
   correct: 'సరైనది!', notQuite: 'ఇంకొంచెం ప్రయత్నించు', wellDone: 'చాలా బాగుంది!', greatJob: 'అద్భుతం!', tryThis: 'ఇది ప్రయత్నించు',
   learn: 'నేర్చుకో', practice: 'సాధన', test: 'పరీక్ష', review: 'సమీక్ష', submit: 'సమర్పించు',
