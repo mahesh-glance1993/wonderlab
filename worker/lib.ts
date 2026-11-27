@@ -17,7 +17,7 @@ export interface Env {
   LEADS_NOTIFY_EMAIL?: string; // operator address for new /schools enquiries (unset = no notification)
   CF_VERSION_METADATA?: { id: string; tag: string; timestamp: string }; // deployment version (wrangler version_metadata binding)
 }
-export interface Account { id: string; username: string; email: string | null; email_verified: number; role: 'parent' | 'educator' | 'admin'; sec_question: number; pass_hash: string; sec_answer_hash: string }
+export interface Account { id: string; username: string; email: string | null; email_verified: number; role: 'parent' | 'educator' | 'admin'; sec_question: number; pass_hash: string; sec_answer_hash: string; consent_at?: number | null; consent_version?: string | null }
 export interface SessionRow { id: string; account_id: string; persistent: number; created_at: number; last_seen: number; expires_at: number; idle_limit_sec: number; verified_until: number; rotated_to: string | null; rotated_at: number | null; revoked_at: number | null; device_label: string | null }
 export type Vars = { account: Account | null; session: SessionRow | null; profileId?: string };
 export type C = Context<{ Bindings: Env; Variables: Vars }>;
@@ -156,8 +156,8 @@ export async function sendEmail(env: Env, to: string, subject: string, body: str
     });
     return;
   }
-  // No provider configured: keep it in the outbox so an operator can see that delivery is not set up.
-  await env.DB.prepare('INSERT INTO outbox (id, to_addr, subject, body, created_at) VALUES (?,?,?,?,?)').bind(uid(), to, subject, body, now()).run();
+  // No provider configured in production: never store the message (it may hold a reset link) — log a redacted error.
+  console.error(JSON.stringify({ type: 'email-not-sent', reason: 'RESEND_API_KEY is not set', subject }));
 }
 
 export function requireAuth(c: C) {

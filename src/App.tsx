@@ -31,6 +31,7 @@ const Notes = lazy(() => import('./features/notes'));
 const Credits = lazy(() => import('./features/parent/Credits'));
 const Schools = lazy(() => import('./features/outreach/Schools'));
 const Support = lazy(() => import('./features/outreach/Support'));
+const Legal = lazy(() => import('./features/legal'));
 
 function Loading() {
   return <div className="center muted" style={{ padding: 40 }} role="status">Loading…</div>;
@@ -112,6 +113,8 @@ export default function App() {
               <Route path="/credits" element={<Credits />} />
               <Route path="/schools" element={<Schools />} />
               <Route path="/support" element={<Support />} />
+              <Route path="/privacy" element={<Legal />} />
+              <Route path="/terms" element={<Legal />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>

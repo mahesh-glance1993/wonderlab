@@ -336,6 +336,11 @@ fun DataSection() {
         SettingsCard("Report a problem", subtitle = "Something wrong in a lesson, game or translation? Tell us privately — no personal details needed.") {
             WLButton("Report a problem", { report = true }, icon = Icons.Rounded.Flag, small = true, enabled = s.profiles.isNotEmpty())
         }
+        SettingsCard("Privacy Policy and Terms", subtitle = "What WonderLab stores, your rights (see, correct, delete, withdraw consent) and the rules of use — in English and Telugu.") {
+            s.account?.consentAt?.let { Text("You agreed on ${formatDate(it * 1000)}.", style = MaterialTheme.typography.bodySmall, color = WL.colors.muted) }
+            LegalLinks()
+            LegalLinks(telugu = true)
+        }
         SettingsCard("Picture credits", subtitle = "Real photographs from Wikimedia Commons (CC0, public domain, CC BY, CC BY-SA) and Microsoft Fluent Emoji (MIT) — authors and licences.") {
             WLButton("Picture credits", { app.go("credits") }, small = true)
         }
@@ -344,9 +349,11 @@ fun DataSection() {
             WLButton("Remove this device's data", { removeAsk = true }, kind = BtnKind.Danger, icon = Icons.Rounded.Delete, small = true)
         }
     }, right = {
-        SettingsCard("Delete account", subtitle = "Permanently deletes your account, all learner profiles, progress and artwork. This cannot be undone.") {
+        SettingsCard("Delete account and all data", subtitle = "Permanently deletes your account, all learner profiles, progress, notes and artwork. This cannot be undone.") {
+            Text("Withdrawing consent: WonderLab can't run without the data described in the Privacy Policy, so withdrawing your consent means deleting the account and all its data with this button. It takes effect straight away.",
+                style = MaterialTheme.typography.bodySmall, color = WL.colors.muted)
             if (s.pending > 0) AlertBox("${s.pending} change(s) on this device haven't synced yet.", AlertKind.Warn)
-            WLButton("Delete account…", { deleteOpen = true }, kind = BtnKind.Danger, icon = Icons.Rounded.Delete, small = true)
+            WLButton("Delete account and all data…", { deleteOpen = true }, kind = BtnKind.Danger, icon = Icons.Rounded.Delete, small = true)
         }
         Row(Modifier.padding(4.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             EmojiImage("🔒", 36.dp)
@@ -372,7 +379,7 @@ fun DataSection() {
 }
 
 @Composable
-private fun DeleteAccountDialog(onClose: () -> Unit) {
+fun DeleteAccountDialog(onClose: () -> Unit) {
     val app = LocalApp.current
     val s by appState()
     val scope = rememberCoroutineScope()
@@ -381,9 +388,11 @@ private fun DeleteAccountDialog(onClose: () -> Unit) {
     val username = s.account?.username.orEmpty()
     AlertDialog(
         onDismissRequest = onClose,
-        title = { Text("Delete account permanently?", style = MaterialTheme.typography.titleLarge) },
+        title = { Text("Delete account and all data?", style = MaterialTheme.typography.titleLarge) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text("This permanently deletes your parent account, every learner profile, all progress, notes, artwork, settings and problem reports, on all devices. It also withdraws your consent. It cannot be undone — consider exporting your data first.",
+                    style = MaterialTheme.typography.bodyMedium)
                 FormError(form)
                 Field("Type your username ($username) to confirm", confirm, { confirm = it }, error = form.field("confirmUsername"),
                     keyboard = KeyboardOptions(autoCorrectEnabled = false))

@@ -14,6 +14,7 @@ import { useClassContent } from '../home/useClassContent';
 import { statusOf } from '../home/Curriculum';
 import { BOARDS, DEFAULT_BOARD } from '../home/subjects';
 import { BulkAddLearners, ClassOverviewTab, ClassReport } from './ClassOverview';
+import { DeleteAccountModal } from '../legal/Consent';
 
 type Tab = 'learners' | 'class' | 'progress' | 'account' | 'security' | 'data';
 const TABS: Tab[] = ['learners', 'class', 'progress', 'account', 'security', 'data'];
@@ -51,7 +52,7 @@ export default function ParentArea() {
         </div>
         {account?.role !== 'parent' && <p style={{ marginTop: 24 }}><Button icon="edit" onClick={() => nav('/editor')}>Open content editor</Button></p>}
         <p className="muted small" style={{ marginTop: 24 }}>
-          <Icon name="image" /> Photos and pictures in WonderLab come from Wikimedia Commons and Microsoft Fluent Emoji. <Link to="/credits">Picture credits</Link> · <Link to="/schools">For schools</Link> · <Link to="/support">Support WonderLab</Link>
+          <Icon name="image" /> Photos and pictures in WonderLab come from Wikimedia Commons and Microsoft Fluent Emoji. <Link to="/credits">Picture credits</Link> · <Link to="/schools">For schools</Link> · <Link to="/support">Support WonderLab</Link> · <Link to="/privacy">Privacy Policy</Link> · <Link to="/terms">Terms of Use</Link>
         </p>
         {confirmOut && (
           <Modal title="Unsaved work on this device" onClose={() => setConfirmOut(false)}>
@@ -243,9 +244,7 @@ function SecurityTab() {
 }
 
 function DataTab() {
-  const { account, signOut } = useApp();
-  const nav = useNavigate();
-  const [confirm, setConfirm] = useState('');
+  const { account } = useApp();
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(0);
   useEffect(() => { if (account) void countPending(account.id).then(setPending); }, [account]);
@@ -255,20 +254,15 @@ function DataTab() {
         <p className="muted" style={{ margin: 0 }}>Download all learner progress, settings and artwork as a JSON file.</p>
         <Button icon="download" onClick={async () => { const r = await api('/account/export'); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(r, null, 2)], { type: 'application/json' })); a.download = 'wonderlab-export.json'; a.click(); }}>Export my family's data</Button>
       </section>
-      <section className="card flat stack"><h2>Delete account</h2>
-        <p className="muted" style={{ margin: 0 }}>Permanently deletes your account, all learner profiles, progress and artwork. This cannot be undone.</p>
+      <section className="card flat stack"><h2>Delete account and all data</h2>
+        <p className="muted" style={{ margin: 0 }}>Permanently deletes your account, all learner profiles, progress, notes and artwork. This cannot be undone.</p>
+        <p className="muted" style={{ margin: 0 }}><b>Withdrawing consent:</b> WonderLab can't run without the data described in the <Link to="/privacy">Privacy Policy</Link>, so withdrawing your consent means deleting the account and all its data with this button. It takes effect straight away.</p>
+        {account?.consentAt && <p className="muted small" style={{ margin: 0 }}>You agreed to the Privacy Policy and Terms on {new Date(account.consentAt * 1000).toLocaleDateString()}.</p>}
         {pending > 0 && <div className="alert warn">{pending} change(s) on this device haven't synced yet.</div>}
-        <Button variant="danger" icon="trash" onClick={() => setOpen(true)}>Delete account…</Button>
+        <Button variant="danger" icon="trash" onClick={() => setOpen(true)}>Delete account and all data…</Button>
       </section>
-      <p className="muted small">WonderLab collects only what it needs: a username, password and security answer (stored as secure hashes), an optional email, and each learner's nickname, avatar, class and age band. No ads, tracking, public profiles, public galleries, leaderboards or chat.</p>
-      {open && (
-        <Modal title="Delete account permanently?" onClose={() => setOpen(false)}>
-          <form className="stack" onSubmit={async (e) => { e.preventDefault(); try { await api('/account', { method: 'DELETE', body: { confirmUsername: confirm } }); await signOut({ force: true }); nav('/signup'); } catch (x) { toast((x as Error).message); } }}>
-            <Field label={`Type your username (${account?.username}) to confirm`}>{(f) => <TextInput {...f} value={confirm} onChange={(e) => setConfirm(e.target.value)} />}</Field>
-            <div className="row"><Button type="button" onClick={() => setOpen(false)}>Cancel</Button><Button type="submit" variant="danger">Delete everything</Button></div>
-          </form>
-        </Modal>
-      )}
+      <p className="muted small">WonderLab collects only what it needs: a username, password and security answer (stored as secure hashes), an optional email, and each learner's nickname, avatar, class and age band. No ads, tracking, public profiles, public galleries, leaderboards or chat. <Link to="/privacy">Privacy Policy</Link> · <Link to="/terms">Terms of Use</Link></p>
+      {open && <DeleteAccountModal onClose={() => setOpen(false)} />}
     </div>
   );
 }

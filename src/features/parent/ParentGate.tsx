@@ -3,14 +3,18 @@ import { useApp } from '../../lib/app';
 import { ApiError } from '../../lib/api';
 import { Button, Field, PasswordInput } from '../../ui/kit';
 import { Icon } from '../../ui/Icon';
+import { ConsentPrompt } from '../legal/Consent';
 
-/** Sensitive parent areas require re-entering the parent password (valid for 10 minutes). */
+/**
+ * Sensitive parent areas require re-entering the parent password (valid for 10 minutes). Accounts that have not
+ * agreed to the current Privacy Policy and Terms are then asked once (parental consent, DPDP Act).
+ */
 export function ParentGate({ children, reason = 'This area is for parents.' }: { children: ReactNode; reason?: string }) {
   const { parentVerified, verifyParent, account, online } = useApp();
   const [pw, setPw] = useState('');
   const [err, setErr] = useState('');
   const [busy, setBusy] = useState(false);
-  if (parentVerified) return <>{children}</>;
+  if (parentVerified) return account?.consentNeeded ? <ConsentPrompt /> : <>{children}</>;
   return (
     <div className="card stack" style={{ maxWidth: 460, margin: '24px auto' }}>
       <h1 style={{ display: 'flex', gap: 10, alignItems: 'center' }}><Icon name="lock" size="lg" />Parent check</h1>

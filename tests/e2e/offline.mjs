@@ -29,7 +29,7 @@ async function apiIn(page, path, opts = {}) {
 }
 async function register(page, username, learners) {
   await page.goto(BASE + '/signin');
-  const r = await apiIn(page, '/auth/register', { body: { username, password: PW, securityQuestion: 0, securityAnswer: 'mango', keepSignedIn: true } });
+  const r = await apiIn(page, '/auth/register', { body: { username, password: PW, securityQuestion: 0, securityAnswer: 'mango', keepSignedIn: true, consent: true } });
   if (r.status !== 200) throw new Error('register ' + r.status + JSON.stringify(r.json));
   const ids = [];
   for (const [nickname, classLevel, ageBand] of learners) {
@@ -304,7 +304,7 @@ try {
   // a different family signs in on this device
   const bPage = await (await browser.newContext()).newPage();
   await bPage.goto(BASE + '/signin');
-  await apiIn(bPage, '/auth/register', { body: { username: userB, password: PW, securityQuestion: 0, securityAnswer: 'x1', keepSignedIn: true } });
+  await apiIn(bPage, '/auth/register', { body: { username: userB, password: PW, securityQuestion: 0, securityAnswer: 'x1', keepSignedIn: true, consent: true } });
   await bPage.context().close();
   await page.goto(BASE + '/signin');
   await page.getByLabel('Username').fill(userB);

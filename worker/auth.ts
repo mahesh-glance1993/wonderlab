@@ -5,6 +5,7 @@ import {
   createSession, clearCookie, revokeAllSessions, rateLimit, clientIp, err, audit, sendEmail, isVerified,
 } from './lib';
 import { SECURITY_QUESTIONS } from '../src/shared/levels';
+import { CONSENT_VERSION } from '../src/shared/legal';
 
 export const auth = new Hono<{ Bindings: Env; Variables: Vars }>();
 
@@ -21,7 +22,11 @@ export function passwordProblem(p: string) {
   if (p.length > 200) return 'That password is too long.';
   return null;
 }
-const publicAccount = (a: Account) => ({ id: a.id, username: a.username, email: a.email, emailVerified: !!a.email_verified, role: a.role, securityQuestion: SECURITY_QUESTIONS[a.sec_question] });
+const publicAccount = (a: Account) => ({
+  id: a.id, username: a.username, email: a.email, emailVerified: !!a.email_verified, role: a.role, securityQuestion: SECURITY_QUESTIONS[a.sec_question],
+  // parental consent to the current Privacy Policy + Terms (DPDP Act); true → the parent area asks once
+  consentNeeded: a.consent_version !== CONSENT_VERSION, consentAt: a.consent_at ?? null,
+});
 
 /** Generates 10 single-use recovery codes, stores hashes, returns the plain codes once. */
 async function issueRecoveryCodes(db: D1Database, accountId: string) {
@@ -49,7 +54,7 @@ async function sendVerification(c: C, a: { id: string; email: string; username: 
 
 auth.post('/register', async (c) => {
   if (!(await rateLimit(c, `reg:${clientIp(c)}`, 10, 3600))) return err(c, 429, 'rate', 'Too many attempts. Please wait and try again.');
-  const b = await c.req.json<{ username: string; password: string; email?: string; securityQuestion: number; securityAnswer: string; keepSignedIn?: boolean; deviceLabel?: string }>().catch(() => null);
+  const b = await c.req.json<{ username: string; password: string; email?: string; securityQuestion: number; securityAnswer: string; keepSignedIn?: boolean; deviceLabel?: string; consent?: boolean }>().catch(() => null);
   if (!b) return err(c, 400, 'bad', 'Invalid request.');
   const fields: Record<string, string> = {};
   const username = (b.username || '').trim();
@@ -60,6 +65,7 @@ auth.post('/register', async (c) => {
   if (email && !EMAIL_RE.test(email)) fields.email = 'Enter a valid email address.';
   if (!(b.securityQuestion >= 0 && b.securityQuestion < SECURITY_QUESTIONS.length)) fields.securityQuestion = 'Choose a question.';
   if (normAnswer(b.securityAnswer || '').length < 2) fields.securityAnswer = 'Type an answer.';
+  if (b.consent !== true) fields.consent = 'A parent or guardian (18+) must agree to the Privacy Policy and Terms.';
   if (Object.keys(fields).length) return err(c, 422, 'invalid', 'Please check the highlighted fields.', { fields });
   const taken = await c.env.DB.prepare('SELECT username, email FROM accounts WHERE username = ? OR (email IS NOT NULL AND email = ?)').bind(username, email).first<{ username: string; email: string }>();
   if (taken) {
@@ -69,14 +75,14 @@ auth.post('/register', async (c) => {
     return err(c, 422, 'invalid', 'Please check the highlighted fields.', { fields: f });
   }
   const id = uid(), t = now();
-  await c.env.DB.prepare('INSERT INTO accounts (id, username, email, email_verified, pass_hash, sec_question, sec_answer_hash, role, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?,?)')
-    .bind(id, username, email, 0, await hashSecret(b.password), b.securityQuestion, await hashSecret(normAnswer(b.securityAnswer)), 'parent', t, t).run();
+  await c.env.DB.prepare('INSERT INTO accounts (id, username, email, email_verified, pass_hash, sec_question, sec_answer_hash, role, consent_at, consent_version, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)')
+    .bind(id, username, email, 0, await hashSecret(b.password), b.securityQuestion, await hashSecret(normAnswer(b.securityAnswer)), 'parent', t, CONSENT_VERSION, t, t).run();
   const codes = await issueRecoveryCodes(c.env.DB, id);
   if (email) await sendVerification(c, { id, email, username });
   await createSession(c, id, b.keepSignedIn !== false, b.deviceLabel);
   // A brand-new account is verified for initial parent setup (creating profiles).
   await c.env.DB.prepare('UPDATE sessions SET verified_until = ? WHERE account_id = ?').bind(now() + VERIFY_WINDOW, id).run();
-  await audit(c.env.DB, id, 'register');
+  await audit(c.env.DB, id, 'register', { consentVersion: CONSENT_VERSION });
   const acct = await c.env.DB.prepare('SELECT * FROM accounts WHERE id = ?').bind(id).first<Account>();
   return c.json({ account: publicAccount(acct!), recoveryCodes: codes });
 });
@@ -311,11 +317,29 @@ account.post('/resend-verification', async (c) => {
   await sendVerification(c, { id: a.id, email: a.email, username: a.username });
   return c.json({ ok: true });
 });
+/** Parental consent for accounts created before consent was recorded, or after the policy version changed. */
+account.post('/consent', async (c) => {
+  const a = c.get('account')!;
+  const b = await c.req.json<{ consent?: boolean }>().catch(() => ({}) as { consent?: boolean });
+  if (b.consent !== true) return err(c, 422, 'invalid', 'A parent or guardian (18+) must agree to the Privacy Policy and Terms.', { fields: { consent: 'Please tick the box to agree.' } });
+  const t = now();
+  await c.env.DB.prepare('UPDATE accounts SET consent_at = ?, consent_version = ?, updated_at = ? WHERE id = ?').bind(t, CONSENT_VERSION, t, a.id).run();
+  await audit(c.env.DB, a.id, 'consent-given', { version: CONSENT_VERSION });
+  const fresh = await c.env.DB.prepare('SELECT * FROM accounts WHERE id = ?').bind(a.id).first<Account>();
+  return c.json({ account: publicAccount(fresh!) });
+});
 account.get('/export', async (c) => {
   const a = c.get('account')!;
   const db = c.env.DB;
   const profiles = (await db.prepare('SELECT * FROM profiles WHERE account_id = ?').bind(a.id).all()).results;
-  const out: Record<string, unknown> = { exportedAt: new Date().toISOString(), account: { username: a.username, email: a.email, role: a.role }, profiles: [] };
+  const out: Record<string, unknown> = {
+    exportedAt: new Date().toISOString(),
+    account: { username: a.username, email: a.email, emailVerified: !!a.email_verified, role: a.role, consentAt: a.consent_at ?? null, consentVersion: a.consent_version ?? null },
+    devices: (await db.prepare('SELECT device_label, persistent, created_at, last_seen, expires_at, revoked_at FROM sessions WHERE account_id = ?').bind(a.id).all()).results,
+    securityLog: (await db.prepare('SELECT action, detail, created_at FROM audit_log WHERE account_id = ? ORDER BY created_at').bind(a.id).all()).results,
+    reports: (await db.prepare('SELECT profile_id, class_level, lesson_id, question_id, description, status, created_at FROM reports WHERE account_id = ?').bind(a.id).all()).results,
+    profiles: [],
+  };
   for (const p of profiles as Record<string, unknown>[]) {
     const pid = p.id;
     const q = async (sql: string) => (await db.prepare(sql).bind(pid).all()).results;
@@ -325,12 +349,21 @@ account.get('/export', async (c) => {
       mastery: await q('SELECT * FROM mastery WHERE profile_id = ?'),
       lessons: await q('SELECT lesson_id, state, updated_at FROM lesson_state WHERE profile_id = ?'),
       rewards: await q('SELECT reward_id, earned_at FROM rewards WHERE profile_id = ?'),
+      activities: await q('SELECT activity_id, state, updated_at FROM activity_state WHERE profile_id = ?'), // includes My Notes
       artworks: await q('SELECT id, title, data, version, created_at, updated_at FROM artworks WHERE profile_id = ? AND deleted_at IS NULL'),
+      downloads: await q('SELECT pack_id, pack_version, downloaded_at FROM downloads WHERE profile_id = ?'),
     });
   }
   await audit(db, a.id, 'export');
   return c.json(out);
 });
+/**
+ * Deletes the account and every row that belongs to it — this is also how a parent withdraws consent. Covers every
+ * table in migrations/: per-learner data (attempts, mastery, lesson_state, rewards, activity_state incl. My Notes,
+ * artworks incl. soft-deleted ones, downloads), profiles, sessions, recovery_codes, auth_tokens, reports, audit_log,
+ * copies of emails in outbox, and rate-limit counters keyed by this account or username.
+ * content_items / content_versions hold curriculum, not family data.
+ */
 account.delete('/', async (c) => {
   const a = c.get('account')!;
   const b = await c.req.json<{ confirmUsername: string }>().catch(() => ({ confirmUsername: '' }));
@@ -344,6 +377,10 @@ account.delete('/', async (c) => {
   stmts.push(db.prepare('DELETE FROM recovery_codes WHERE account_id = ?').bind(a.id));
   stmts.push(db.prepare('DELETE FROM auth_tokens WHERE account_id = ?').bind(a.id));
   stmts.push(db.prepare('DELETE FROM reports WHERE account_id = ?').bind(a.id));
+  stmts.push(db.prepare('DELETE FROM audit_log WHERE account_id = ?').bind(a.id));
+  if (a.email) stmts.push(db.prepare('DELETE FROM outbox WHERE to_addr = ?').bind(a.email));
+  const u = a.username.toLowerCase();
+  stmts.push(db.prepare('DELETE FROM rate_limits WHERE key IN (?,?,?,?,?,?,?,?)').bind(`login-u:${u}`, `rcc-u:${u}`, `rwc-u:${u}`, `verify:${a.id}`, `forgot-a:${a.id}`, `rwt-a:${a.id}`, `rv:${a.id}`, `tts:${a.id}`));
   stmts.push(db.prepare('DELETE FROM accounts WHERE id = ?').bind(a.id));
   await db.batch(stmts);
   await audit(db, null, 'account-deleted');

@@ -32,6 +32,15 @@ class Speech(private val platform: Platform, private val api: Api, private val s
     val speaking: StateFlow<Boolean> = _speaking
     private var last: Triple<String, String, String?>? = null
 
+    /**
+     * The family's learner nicknames. Text containing one (e.g. "Hi Chinni!") is spoken by the device voice and never
+     * sent to /api/tts (Cloudflare Workers AI, request logs, a cache shared by all families) — same as the website.
+     */
+    var privateWords: List<String> = emptyList()
+        set(v) { field = v.map(::norm).filter { it.isNotBlank() } }
+    private fun norm(s: String) = " " + s.lowercase().split(Regex("[^\\p{L}\\p{M}\\p{N}]+")).filter { it.isNotEmpty() }.joinToString(" ") + " "
+    private fun hasPrivate(text: String): Boolean { val t = norm(text); return privateWords.any { t.contains(it) } }
+
     fun hasTelugu(): Boolean = tts.ready && tts.hasTelugu()
 
     /** Speaks text in `lang` ("en" | "te"). `fallbackEn` is read when Telugu has no voice on this device. */
@@ -42,7 +51,7 @@ class Speech(private val platform: Platform, private val api: Api, private val s
         val clean = text.replace(Regex("<[^>]+>"), " ").replace(Regex("\\s+"), " ").trim()
         job = scope.launch {
             val enText = if (lang == "en") clean else if (!hasTelugu()) fallbackEn else null
-            if (enText != null && prefs.natural && nowMillis() - naturalBrokenAt > 60_000) {
+            if (enText != null && prefs.natural && nowMillis() - naturalBrokenAt > 60_000 && !hasPrivate(enText)) {
                 if (playNatural(enText)) return@launch
             }
             val te = lang == "te" && hasTelugu()

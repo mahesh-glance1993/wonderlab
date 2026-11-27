@@ -52,6 +52,8 @@ fun WonderLabRoot(application: WonderLabApp) {
     val ctx = remember(nav) { AppContext(application, nav) }
     val profile = state.profile
     val prefs = state.prefs
+    // learner nicknames are never sent to the natural-voice service (core/audio/Speech.kt)
+    LaunchedEffect(state.profiles) { application.speech.privateWords = state.profiles.map { it.nickname } }
 
     // emailed links (reset password / verify email) arriving while the app is open
     val link by application.pendingLinks.collectAsState()

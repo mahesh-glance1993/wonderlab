@@ -18,6 +18,9 @@ data class Account(
     val emailVerified: Boolean = false,
     val role: String = "parent",
     val securityQuestion: String? = null,
+    /** true → the parent has not agreed to the current Privacy Policy + Terms; the parent area asks once */
+    val consentNeeded: Boolean = false,
+    val consentAt: Long? = null,
 )
 
 @Serializable

@@ -3,6 +3,7 @@
 import { Hono } from 'hono';
 import { type Env, type Vars, type C, now, uid, err, isVerified, audit } from './lib';
 import { AGE_BANDS, AVATARS, MAX_BULK, MAX_PROFILES, nicknameProblem, suggestAgeBand, type ClassLevel } from '../src/shared/levels';
+import { CONSENT_VERSION } from '../src/shared/legal';
 import { applyAttempt, emptyMastery, type MasteryState } from '../src/shared/mastery';
 
 type H = Hono<{ Bindings: Env; Variables: Vars }>;
@@ -37,6 +38,8 @@ profiles.post('/', async (c) => {
   const a = c.get('account')!;
   const count = await c.env.DB.prepare('SELECT COUNT(*) AS n FROM profiles WHERE account_id = ?').bind(a.id).first<{ n: number }>();
   if (!isVerified(c)) return err(c, 403, 'verify', 'A parent needs to confirm their password first.');
+  // no child data before a parent/guardian has agreed to the current Privacy Policy and Terms
+  if (a.consent_version !== CONSENT_VERSION) return err(c, 403, 'consent', 'A parent or guardian needs to agree to the Privacy Policy and Terms first.');
   if ((count?.n ?? 0) >= MAX_PROFILES) return err(c, 422, 'limit', limitMessage(0));
   const b = await c.req.json<{ nickname: string; avatar: string; classLevel: number; ageBand: string; prefs?: Record<string, unknown> }>().catch(() => null);
   const fields: Record<string, string> = {};
@@ -63,6 +66,8 @@ profiles.post('/', async (c) => {
 profiles.post('/bulk', async (c) => {
   const a = c.get('account')!, db = c.env.DB;
   if (!isVerified(c)) return err(c, 403, 'verify', 'A parent or teacher needs to confirm their password first.');
+  // no child data before a parent/guardian has agreed to the current Privacy Policy and Terms
+  if (a.consent_version !== CONSENT_VERSION) return err(c, 403, 'consent', 'A parent or guardian needs to agree to the Privacy Policy and Terms first.');
   const b = await c.req.json<{ nicknames: string[]; classLevel: number; ageBand?: string; language?: string }>().catch(() => null);
   if (!b || !Array.isArray(b.nicknames)) return err(c, 400, 'bad', 'Invalid request.');
   if (!(Number.isInteger(b.classLevel) && b.classLevel >= 0 && b.classLevel <= 12)) return err(c, 422, 'invalid', 'Choose a class.', { fields: { classLevel: 'Choose a class.' } });
@@ -161,7 +166,7 @@ learner.patch('/:pid/profile', async (c) => {
 learner.delete('/:pid/profile', async (c) => {
   if (!isVerified(c)) return err(c, 403, 'verify', 'A parent needs to confirm their password first.');
   const pid = c.get('profileId')!, db = c.env.DB;
-  await db.batch([...['attempts', 'mastery', 'lesson_state', 'rewards', 'activity_state', 'artworks', 'downloads'].map((t) => db.prepare(`DELETE FROM ${t} WHERE profile_id = ?`).bind(pid)), db.prepare('DELETE FROM profiles WHERE id = ?').bind(pid)]);
+  await db.batch([...['attempts', 'mastery', 'lesson_state', 'rewards', 'activity_state', 'artworks', 'downloads'].map((t) => db.prepare(`DELETE FROM ${t} WHERE profile_id = ?`).bind(pid)), db.prepare('DELETE FROM reports WHERE profile_id = ?').bind(pid), db.prepare('DELETE FROM profiles WHERE id = ?').bind(pid)]);
   await audit(db, c.get('account')!.id, 'profile-deleted');
   return c.json({ ok: true });
 });

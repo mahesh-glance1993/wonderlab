@@ -7,6 +7,7 @@ import { useApp } from '../../lib/app';
 import { Button, Field, PasswordInput, TextInput, toast } from '../../ui/kit';
 import { Icon } from '../../ui/Icon';
 import { SECURITY_QUESTIONS } from '../../shared/levels';
+import { ConsentCheckbox, LegalLinks } from '../legal/Consent';
 import './auth.css';
 
 function Shell({ title, sub, children }: { title: string; sub?: string; children: ReactNode }) {
@@ -19,6 +20,7 @@ function Shell({ title, sub, children }: { title: string; sub?: string; children
         {sub && <p className="muted">{sub}</p>}
         {children}
       </div>
+      <LegalLinks />
     </main>
   );
 }
@@ -75,14 +77,15 @@ function SignIn() {
 function SignUp() {
   const { refresh } = useApp();
   const nav = useNavigate();
-  const [f, setF] = useState({ username: '', password: '', confirm: '', email: '', securityQuestion: 0, securityAnswer: '', keep: true });
+  const [f, setF] = useState({ username: '', password: '', confirm: '', email: '', securityQuestion: 0, securityAnswer: '', keep: true, consent: false });
   const [codes, setCodes] = useState<string[] | null>(null);
   const [saved, setSaved] = useState(false);
   const s = useSubmit();
-  const set = (k: keyof typeof f) => (e: { target: { value: string } }) => setF({ ...f, [k]: k === 'securityQuestion' ? +e.target.value : e.target.value });
+  const set = (k: 'username' | 'password' | 'confirm' | 'email' | 'securityQuestion' | 'securityAnswer') => (e: { target: { value: string } }) => setF({ ...f, [k]: k === 'securityQuestion' ? +e.target.value : e.target.value });
   const submit = (e: FormEvent) => { e.preventDefault(); void s.run(async () => {
     if (f.password !== f.confirm) throw new ApiError(422, 'invalid', 'Passwords do not match.', { confirm: 'Passwords do not match.' });
-    const r = await api<{ recoveryCodes: string[] }>('/auth/register', { body: { username: f.username, password: f.password, email: f.email || undefined, securityQuestion: f.securityQuestion, securityAnswer: f.securityAnswer, keepSignedIn: f.keep, deviceLabel: deviceLabel() } });
+    if (!f.consent) throw new ApiError(422, 'invalid', 'A parent or guardian (18+) must agree to the Privacy Policy and Terms.', { consent: 'Please tick the box to agree.' });
+    const r = await api<{ recoveryCodes: string[] }>('/auth/register', { body: { username: f.username, password: f.password, email: f.email || undefined, securityQuestion: f.securityQuestion, securityAnswer: f.securityAnswer, keepSignedIn: f.keep, deviceLabel: deviceLabel(), consent: f.consent } });
     setCodes(r.recoveryCodes);
   }); };
   if (codes) {
@@ -113,6 +116,7 @@ function SignUp() {
           <Field label="Answer" error={s.fields.securityAnswer}>{(p) => <TextInput {...p} autoComplete="off" value={f.securityAnswer} onChange={set('securityAnswer')} />}</Field>
         </fieldset>
         <label className="check"><input type="checkbox" checked={f.keep} onChange={(e) => setF({ ...f, keep: e.target.checked })} />Keep me signed in on this device</label>
+        <ConsentCheckbox checked={f.consent} onChange={(v) => setF({ ...f, consent: v })} error={s.fields.consent} />
         {s.error && <div className="alert error" role="alert"><Icon name="alert" />{s.error}</div>}
         <Button variant="primary" type="submit" disabled={s.busy}>{s.busy ? 'Creating…' : 'Create account'}</Button>
         <p className="center">Already have an account? <Link to="/signin">Sign in</Link></p>
