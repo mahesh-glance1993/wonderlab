@@ -25,6 +25,7 @@ import androidx.compose.material.icons.rounded.Badge
 import androidx.compose.material.icons.rounded.CloudDone
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Face
+import androidx.compose.material.icons.rounded.Groups
 import androidx.compose.material.icons.rounded.Insights
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Security
@@ -60,6 +61,7 @@ data class ParentSection(val key: String, val title: String, val desc: String, v
 
 private val SECTIONS = listOf(
     ParentSection("learners", "Learners", "Profiles, comfort, sound and reading settings", Icons.Rounded.Face),
+    ParentSection("class", "Class overview", "Teachers: every learner's progress, needs help, CSV", Icons.Rounded.Groups),
     ParentSection("progress", "Progress", "Topics mastered and areas to practise", Icons.Rounded.Insights),
     ParentSection("account", "Account", "Email, password and security question", Icons.Rounded.Badge),
     ParentSection("security", "Sign-in & security", "Signed-in devices and recovery codes", Icons.Rounded.Security),
@@ -143,6 +145,7 @@ private fun SectionBody(key: String) {
     ) {
         Column(Modifier.widthIn(max = 1000.dp).fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             when (key) {
+                "class" -> ClassOverviewSection()
                 "progress" -> ParentProgressSection()
                 "account" -> AccountSection()
                 "security" -> SecuritySection()

@@ -7,7 +7,7 @@ import com.maheshglance.wonderlab.ui.arg
 import com.maheshglance.wonderlab.ui.learnerScreen
 
 /**
- * Parent routes: parent, parent/{section} (learners | progress | account | security | data), downloads, editor.
+ * Parent routes: parent, parent/{section} (learners | class | progress | account | security | data), downloads, editor.
  * `setup` (SetupScreen) and `progress` (feature.progress.ProgressScreen) are wired by the home graph.
  */
 fun NavGraphBuilder.parentGraph() {

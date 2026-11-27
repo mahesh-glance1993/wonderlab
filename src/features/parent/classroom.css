@@ -1,0 +1,25 @@
+/* Class overview (teachers), print report */
+.class-ov-filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.class-ov-table { overflow: auto; max-height: 70vh; padding: 0; }
+.class-ov-table thead th { position: sticky; top: 0; background: var(--surface); z-index: 1; }
+.class-ov-table th, .class-ov-table td { white-space: nowrap; }
+.class-ov-pct { display: inline-flex; align-items: center; gap: 8px; min-width: 120px; }
+.class-ov-pct .meter { width: 64px; height: 8px; }
+.linklike { background: none; border: 0; padding: 4px 0; min-height: 44px; font: inherit; font-weight: 800; color: var(--primary-ink, var(--text)); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; text-align: left; }
+.linklike:focus-visible { outline: 3px solid var(--focus, var(--primary)); outline-offset: 2px; border-radius: 4px; }
+
+.class-report { max-width: 1000px; margin: 0 auto; }
+.class-report h1 { margin: 16px 0 4px; }
+.class-report table.data { font-size: .92rem; }
+.class-report-help p { margin: 4px 0; }
+
+@media print {
+  @page { size: A4; margin: 12mm; }
+  .class-report { max-width: none; color: #000; }
+  .class-report table.data { font-size: 10pt; }
+  .class-report table.data th, .class-report table.data td { border-bottom: 1px solid #999; padding: 3px 6px; }
+  .class-report tr { break-inside: avoid; }
+  .class-report thead { display: table-header-group; }
+  .class-report .muted { color: #333; }
+  main.main { max-width: none; padding: 0; }
+}

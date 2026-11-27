@@ -2,7 +2,7 @@
 // belongs to the signed-in account (profile + account isolation enforced on the server).
 import { Hono } from 'hono';
 import { type Env, type Vars, type C, now, uid, err, isVerified, audit } from './lib';
-import { AGE_BANDS, AVATARS } from '../src/shared/levels';
+import { AGE_BANDS, AVATARS, MAX_BULK, MAX_PROFILES, nicknameProblem, suggestAgeBand, type ClassLevel } from '../src/shared/levels';
 import { applyAttempt, emptyMastery, type MasteryState } from '../src/shared/mastery';
 
 type H = Hono<{ Bindings: Env; Variables: Vars }>;
@@ -11,7 +11,9 @@ export const learner: H = new Hono();
 
 const SAFE_PREF_KEYS = ['language', 'theme', 'textSize', 'reduceMotion', 'mute', 'volume', 'narration', 'pressureMode', 'manualIntensity', 'calibration', 'lastActivity', 'timers', 'keepFullscreen', 'artPalettes', 'readingSpeed', 'voiceEn', 'voiceTe', 'naturalVoice', 'naturalSpeaker'];
 const PARENT_PREF_KEYS = ['breakMinutes', 'breakEnabled', 'board'];
-const MAX_PROFILES = 8;
+const limitMessage = (left: number) => left <= 0
+  ? `This account already has ${MAX_PROFILES} learner profiles, the most one account can hold. Remove a learner who has left to add another.`
+  : `Only ${left} more learner profile${left === 1 ? '' : 's'} can be added (up to ${MAX_PROFILES} per account).`;
 const MAX_PREFS_BYTES = 32 * 1024; // prefs are free-form values under allowed keys; keep rows small
 
 function cleanPrefs(input: Record<string, unknown>, allowParent: boolean) {
@@ -35,12 +37,12 @@ profiles.post('/', async (c) => {
   const a = c.get('account')!;
   const count = await c.env.DB.prepare('SELECT COUNT(*) AS n FROM profiles WHERE account_id = ?').bind(a.id).first<{ n: number }>();
   if (!isVerified(c)) return err(c, 403, 'verify', 'A parent needs to confirm their password first.');
-  if ((count?.n ?? 0) >= MAX_PROFILES) return err(c, 422, 'limit', `Up to ${MAX_PROFILES} learner profiles per family.`);
+  if ((count?.n ?? 0) >= MAX_PROFILES) return err(c, 422, 'limit', limitMessage(0));
   const b = await c.req.json<{ nickname: string; avatar: string; classLevel: number; ageBand: string; prefs?: Record<string, unknown> }>().catch(() => null);
   const fields: Record<string, string> = {};
   const nickname = (b?.nickname || '').trim();
-  if (!nickname || nickname.length > 20) fields.nickname = 'Use a short nickname (1–20 letters).';
-  if (/@|\d{6,}/.test(nickname)) fields.nickname = 'Please use a nickname, not an email or phone number.';
+  const nickProblem = nicknameProblem(nickname);
+  if (nickProblem) fields.nickname = nickProblem;
   if (!AVATARS.includes(b?.avatar as never)) fields.avatar = 'Choose an avatar.';
   if (!(Number.isInteger(b?.classLevel) && b!.classLevel >= 0 && b!.classLevel <= 12)) fields.classLevel = 'Choose a class.';
   if (!AGE_BANDS.some((x) => x.id === b?.ageBand)) fields.ageBand = 'Choose an age band.';
@@ -52,6 +54,71 @@ profiles.post('/', async (c) => {
   await audit(c.env.DB, a.id, 'profile-created');
   const p = await c.env.DB.prepare('SELECT * FROM profiles WHERE id = ?').bind(id).first();
   return c.json({ profile: rowToProfile(p!) });
+});
+
+/**
+ * Teachers: add several learners at once (first names / nicknames only), all in one class. All or nothing:
+ * any invalid name or going over the profile limit rejects the whole list, so nothing is half-added.
+ */
+profiles.post('/bulk', async (c) => {
+  const a = c.get('account')!, db = c.env.DB;
+  if (!isVerified(c)) return err(c, 403, 'verify', 'A parent or teacher needs to confirm their password first.');
+  const b = await c.req.json<{ nicknames: string[]; classLevel: number; ageBand?: string; language?: string }>().catch(() => null);
+  if (!b || !Array.isArray(b.nicknames)) return err(c, 400, 'bad', 'Invalid request.');
+  if (!(Number.isInteger(b.classLevel) && b.classLevel >= 0 && b.classLevel <= 12)) return err(c, 422, 'invalid', 'Choose a class.', { fields: { classLevel: 'Choose a class.' } });
+  const ageBand = b.ageBand ?? suggestAgeBand(b.classLevel as ClassLevel);
+  if (!AGE_BANDS.some((x) => x.id === ageBand)) return err(c, 422, 'invalid', 'Choose an age band.', { fields: { ageBand: 'Choose an age band.' } });
+  const names = b.nicknames.map((n) => String(n ?? '').trim().replace(/\s+/g, ' ')).filter(Boolean);
+  if (!names.length) return err(c, 422, 'invalid', 'Type at least one first name.', { fields: { nicknames: 'Type at least one first name.' } });
+  if (names.length > MAX_BULK) return err(c, 422, 'invalid', `Add up to ${MAX_BULK} learners at a time.`, { fields: { nicknames: `Add up to ${MAX_BULK} learners at a time.` } });
+  const bad = names.map((n) => ({ n, p: nicknameProblem(n) })).filter((x) => x.p);
+  if (bad.length) return err(c, 422, 'invalid', `Please fix: ${bad.slice(0, 5).map((x) => `“${x.n.slice(0, 30)}” — ${x.p}`).join(' ')}`, { fields: { nicknames: bad[0].p! } });
+  const count = (await db.prepare('SELECT COUNT(*) AS n FROM profiles WHERE account_id = ?').bind(a.id).first<{ n: number }>())?.n ?? 0;
+  if (count + names.length > MAX_PROFILES) return err(c, 422, 'limit', limitMessage(MAX_PROFILES - count));
+  const prefs = JSON.stringify(b.classLevel <= 5 && b.language === 'te' ? { language: 'te' } : {});
+  const t = now();
+  const rows = names.map((n, i) => ({ id: uid(), nickname: n, avatar: AVATARS[(count + i) % AVATARS.length] }));
+  await db.batch(rows.map((r, i) => db.prepare('INSERT INTO profiles (id, account_id, nickname, avatar, class_level, age_band, prefs, created_at, updated_at) VALUES (?,?,?,?,?,?,?,?,?)')
+    .bind(r.id, a.id, r.nickname, r.avatar, b.classLevel, ageBand, prefs, t + i * 0.001, t)));
+  await audit(db, a.id, 'profiles-bulk-created', String(rows.length));
+  const { results } = await db.prepare(`SELECT * FROM profiles WHERE account_id = ? AND id IN (${rows.map(() => '?').join(',')}) ORDER BY created_at`).bind(a.id, ...rows.map((r) => r.id)).all();
+  return c.json({ profiles: results.map(rowToProfile) });
+});
+
+/**
+ * Class overview (read-only): every learner in THIS account with their per-skill progress and when they were
+ * last active. Only the signed-in account's own profiles; parent/teacher check required, because learners on a
+ * shared class account must not see each other's progress. Names of skills/chapters come from the curriculum
+ * on the device, so no answers, responses or timings leave the server.
+ */
+profiles.get('/overview', async (c) => {
+  if (!isVerified(c)) return err(c, 403, 'verify', 'A parent or teacher needs to confirm their password first.');
+  const aid = c.get('account')!.id, db = c.env.DB;
+  const [p, m, last] = await Promise.all([
+    db.prepare('SELECT id, nickname, avatar, class_level, prefs FROM profiles WHERE account_id = ? ORDER BY created_at').bind(aid).all(),
+    db.prepare(`SELECT m.profile_id, m.objective_id, m.attempts, m.correct, json_array_length(m.distinct_correct) AS dc, m.mastered_at
+      FROM mastery m JOIN profiles p ON p.id = m.profile_id WHERE p.account_id = ?`).bind(aid).all(),
+    db.prepare(`SELECT pid, MAX(t) AS t FROM (
+        SELECT m.profile_id AS pid, MAX(m.updated_at) AS t FROM mastery m JOIN profiles p ON p.id = m.profile_id WHERE p.account_id = ?1 GROUP BY m.profile_id
+        UNION ALL SELECT l.profile_id, MAX(l.updated_at) FROM lesson_state l JOIN profiles p ON p.id = l.profile_id WHERE p.account_id = ?1 GROUP BY l.profile_id
+        UNION ALL SELECT s.profile_id, MAX(s.updated_at) FROM activity_state s JOIN profiles p ON p.id = s.profile_id WHERE p.account_id = ?1 GROUP BY s.profile_id
+      ) GROUP BY pid`).bind(aid).all(),
+  ]);
+  const byProfile = new Map<string, unknown[][]>();
+  for (const r of m.results as Record<string, unknown>[]) {
+    const list = byProfile.get(String(r.profile_id)) ?? [];
+    list.push([r.objective_id, Number(r.attempts), Number(r.correct), Number(r.dc ?? 0), (r.mastered_at as number | null) ?? null]);
+    byProfile.set(String(r.profile_id), list);
+  }
+  const lastActive = new Map((last.results as Record<string, unknown>[]).map((r) => [String(r.pid), Number(r.t) || null]));
+  const board = (prefs: unknown) => { try { const b = (JSON.parse(String(prefs || '{}')) as { board?: unknown }).board; return typeof b === 'string' ? b : null; } catch { return null; } };
+  return c.json({
+    generatedAt: now(),
+    profiles: (p.results as Record<string, unknown>[]).map((r) => ({
+      id: r.id, nickname: r.nickname, avatar: r.avatar, classLevel: r.class_level, board: board(r.prefs),
+      lastActive: lastActive.get(String(r.id)) ?? null, mastery: byProfile.get(String(r.id)) ?? [],
+    })),
+  });
 });
 
 // ---------- per-profile routes ----------
@@ -77,7 +144,7 @@ learner.patch('/:pid/profile', async (c) => {
   }
   if (b.nickname !== undefined || b.classLevel !== undefined || b.ageBand !== undefined) {
     if (!verified) return err(c, 403, 'verify', 'A parent needs to confirm their password to change this.');
-    if (b.nickname !== undefined) { const n = b.nickname.trim(); if (!n || n.length > 20) return err(c, 422, 'invalid', 'Use a short nickname.'); sets.push('nickname = ?'); vals.push(n); }
+    if (b.nickname !== undefined) { const n = String(b.nickname).trim(), problem = nicknameProblem(n); if (problem) return err(c, 422, 'invalid', problem); sets.push('nickname = ?'); vals.push(n); }
     if (b.classLevel !== undefined) { if (!(Number.isInteger(b.classLevel) && b.classLevel >= 0 && b.classLevel <= 12)) return err(c, 422, 'invalid', 'Choose a class.'); sets.push('class_level = ?'); vals.push(b.classLevel); }
     if (b.ageBand !== undefined) { if (!AGE_BANDS.some((x) => x.id === b.ageBand)) return err(c, 422, 'invalid', 'Choose an age band.'); sets.push('age_band = ?'); vals.push(b.ageBand); }
   }

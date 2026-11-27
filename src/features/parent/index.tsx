@@ -1,26 +1,34 @@
 // Parent settings — every action here sits behind the parent password check.
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { api, ApiError } from '../../lib/api';
 import { useApp, useL, type Profile, type Prefs } from '../../lib/app';
 import { clearProfileData, countPending } from '../../lib/sync';
 import { Page, Button, Field, TextInput, PasswordInput, Modal, Segmented, toast } from '../../ui/kit';
 import { Icon } from '../../ui/Icon';
-import { AVATAR_EMOJI, CLASSES, SECURITY_QUESTIONS } from '../../shared/levels';
+import { AVATAR_EMOJI, CLASSES, MAX_PROFILES, SECURITY_QUESTIONS } from '../../shared/levels';
 import type { MasteryState } from '../../shared/mastery';
 import { ParentGate } from './ParentGate';
 import { ProfileForm } from './Setup';
 import { useClassContent } from '../home/useClassContent';
 import { statusOf } from '../home/Curriculum';
 import { BOARDS, DEFAULT_BOARD } from '../home/subjects';
+import { BulkAddLearners, ClassOverviewTab, ClassReport } from './ClassOverview';
 
-type Tab = 'learners' | 'progress' | 'account' | 'security' | 'data';
+type Tab = 'learners' | 'class' | 'progress' | 'account' | 'security' | 'data';
+const TABS: Tab[] = ['learners', 'class', 'progress', 'account', 'security', 'data'];
 
 export default function ParentArea() {
   const { account, signOut, profile } = useApp();
   const nav = useNavigate();
-  const [tab, setTab] = useState<Tab>('learners');
+  const [sp, setSp] = useSearchParams();
+  const tab: Tab = TABS.find((t) => t === sp.get('tab')) ?? 'learners';
+  const setTab = (t: Tab) => setSp(t === 'learners' ? {} : { tab: t }, { replace: true });
   const [confirmOut, setConfirmOut] = useState(false);
+  const loc = useLocation();
+  if (loc.pathname.replace(/\/+$/, '') === '/parent/report') {
+    return <Page title="Class report" back="/parent?tab=class"><ParentGate><ClassReport /></ParentGate></Page>;
+  }
   return (
     <Page title="Parent settings" back={profile ? '/' : '/who'}>
       <ParentGate>
@@ -30,11 +38,12 @@ export default function ParentArea() {
           <Button icon="logout" onClick={async () => { const r = await signOut(); if (r === 'unsynced') setConfirmOut(true); else nav('/signin'); }}>Sign out</Button>
         </div>
         <Segmented label="Section" value={tab} onChange={setTab} options={[
-          { value: 'learners', label: 'Learners' }, { value: 'progress', label: 'Progress' }, { value: 'account', label: 'Account' },
+          { value: 'learners', label: 'Learners' }, { value: 'class', label: 'Class overview' }, { value: 'progress', label: 'Progress' }, { value: 'account', label: 'Account' },
           { value: 'security', label: 'Sign-in & security' }, { value: 'data', label: 'Your data' },
         ]} />
         <div style={{ marginTop: 16 }}>
           {tab === 'learners' && <Learners />}
+          {tab === 'class' && <ClassOverviewTab />}
           {tab === 'progress' && <ParentProgress />}
           {tab === 'account' && <AccountTab />}
           {tab === 'security' && <SecurityTab />}
@@ -59,9 +68,12 @@ function Learners() {
   const { profiles, refresh, account, selectProfile, profile: active } = useApp();
   const [edit, setEdit] = useState<Profile | null>(null);
   const [adding, setAdding] = useState(false);
+  const [bulk, setBulk] = useState(false);
   const [del, setDel] = useState<Profile | null>(null);
+  const full = profiles.length >= MAX_PROFILES;
   return (
     <div className="stack">
+      <p className="muted" style={{ margin: 0 }}>{profiles.length} of {MAX_PROFILES} learner profiles. Teachers and tuition centres: add one profile per student (first names or nicknames only) and follow everyone in <b>Class overview</b>.</p>
       {profiles.map((p) => (
         <div className="card flat stack" key={p.id}>
           <div className="row"><span style={{ fontSize: '2rem' }} aria-hidden="true">{AVATAR_EMOJI[p.avatar]}</span><b style={{ fontSize: '1.2rem' }}>{p.nickname}</b><span className="muted">{CLASSES[p.classLevel].label} · {p.ageBand} years</span><span className="spacer" />
@@ -69,7 +81,12 @@ function Learners() {
           <LearnerPrefs p={p} />
         </div>
       ))}
-      <Button icon="plus" onClick={() => setAdding(true)}>Add learner</Button>
+      {full && <div className="alert warn" role="status"><Icon name="info" />This account has {MAX_PROFILES} learner profiles, the most one account can hold. Remove a learner who has left to add another.</div>}
+      <div className="row">
+        <Button icon="plus" onClick={() => setAdding(true)} disabled={full}>Add learner</Button>
+        <Button icon="plus" onClick={() => setBulk(true)} disabled={full}>Add several learners</Button>
+      </div>
+      {bulk && <BulkAddLearners profiles={profiles} onClose={() => setBulk(false)} onAdded={async (n) => { await refresh(); setBulk(false); toast(`${n} learner${n === 1 ? '' : 's'} added`); }} />}
       {(edit || adding) && (
         <Modal title={edit ? `Edit ${edit.nickname}` : 'Add learner'} onClose={() => { setEdit(null); setAdding(false); }}>
           <ProfileForm initial={edit || undefined} submitLabel="Save" onSaved={async () => { await refresh(); setEdit(null); setAdding(false); toast('Saved'); }} />
@@ -138,7 +155,9 @@ function ParentProgress() {
   });
   return (
     <div className="stack">
-      <Segmented label="Learner" value={pid} onChange={setPid} options={profiles.map((x) => ({ value: x.id, label: `${AVATAR_EMOJI[x.avatar]} ${x.nickname}` }))} />
+      {profiles.length > 8
+        ? <Field label="Learner">{(f) => <select {...f} className="input" value={pid} onChange={(e) => setPid(e.target.value)}>{profiles.map((x) => <option key={x.id} value={x.id}>{x.nickname} · {CLASSES[x.classLevel].label}</option>)}</select>}</Field>
+        : <Segmented label="Learner" value={pid} onChange={setPid} options={profiles.map((x) => ({ value: x.id, label: `${AVATAR_EMOJI[x.avatar]} ${x.nickname}` }))} />}
       {!content && <p role="status">Loading…</p>}
       {content && (
         <div className="card" style={{ overflowX: 'auto' }}>

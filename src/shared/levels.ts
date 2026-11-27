@@ -83,6 +83,19 @@ export const AVATAR_EMOJI: Record<Avatar, string> = {
   owl: '🦉', lion: '🦁', panda: '🐼', rabbit: '🐰', fox: '🦊', frog: '🐸', monkey: '🐵', tiger: '🐯', koala: '🐨', turtle: '🐢', penguin: '🐧', octopus: '🐙',
 };
 
+/** Most learner profiles one account can hold — enough for a large class or tuition batch (one profile per student). */
+export const MAX_PROFILES = 60;
+/** Most learners added in one "add several learners" step. */
+export const MAX_BULK = 60;
+
+/** Learner nicknames: short, and never an email or phone number (data minimisation). Same rule on the server. */
+export function nicknameProblem(name: string): string | null {
+  const n = (name || '').trim();
+  if (!n || n.length > 20) return 'Use a short nickname (1–20 letters).';
+  if (/@|\d{6,}/.test(n)) return 'Please use a nickname, not an email or phone number.';
+  return null;
+}
+
 /** Security questions deliberately avoid a child's school, address, birthday and similar personal facts. */
 export const SECURITY_QUESTIONS = [
   'What was the name of your first pet?',

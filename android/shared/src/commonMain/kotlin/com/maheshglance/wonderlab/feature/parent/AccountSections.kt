@@ -112,7 +112,8 @@ fun ParentProgressSection() {
 
     Text("Progress", style = MaterialTheme.typography.headlineSmall, color = WL.colors.text)
     if (p == null) { Text("No learners yet.", color = WL.colors.muted); return }
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    if (s.profiles.size > 8) DropdownField("Learner", s.profiles.map { "${it.nickname} · ${levels.classLabel(it.classLevel)}" }, s.profiles.indexOfFirst { it.id == pid }, { pid = s.profiles[it].id })
+    else FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         s.profiles.forEach { x ->
             Row(
                 Modifier.clip(RoundedCornerShape(16.dp)).background(if (x.id == pid) WL.colors.primary else WL.colors.surface2)

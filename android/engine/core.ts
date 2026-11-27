@@ -9,6 +9,7 @@ import { resolveQuestion } from '../../src/features/lesson/logic';
 import { en } from '../../src/i18n/en';
 import { te } from '../../src/i18n/te';
 import { PACKS } from '../../src/shared/packs';
+import { classOverview as classOverviewFn, overviewRows, overviewFilters, overviewCsv, parseLearnerNames, MAX_PROFILES, MAX_BULK, type OverviewResponse, type LearnerSummary, type SortKey } from '../../src/features/parent/classroom';
 import nursery from '../../src/content/classes/nursery';
 import lkg from '../../src/content/classes/lkg';
 import ukg from '../../src/content/classes/ukg';
@@ -85,3 +86,16 @@ export const difficulty = (m: MasteryState | undefined) => difficultyFor(m);
 export const recommend = (level: number, mastery: Record<string, MasteryState>, nowSec?: number, lastObjectiveId?: string) =>
   recommendFn(content(level).units, mastery || {}, nowSec ?? Math.floor(Date.now() / 1000), lastObjectiveId);
 export const diagnostic = (level: ClassLevel) => diagnosticFor(level);
+
+// ---------------------------------------------------------------- teachers: class overview (same logic as the website)
+/** Summaries for every learner from GET /api/profiles/overview. */
+export const classOverview = (r: OverviewResponse) => classOverviewFn(r, (level) => content(level));
+/** Learner × subject rows, filtered and sorted. */
+export const classOverviewRows = (list: LearnerSummary[], level: number | null, subject: string | null, sort: SortKey) => overviewRows(list, { level, subject, sort });
+export const classOverviewFilters = (list: LearnerSummary[]) => overviewFilters(list);
+/** CSV text for the rows; `dates` maps learner id → local "YYYY-MM-DD". */
+export const classOverviewCsv = (list: LearnerSummary[], level: number | null, subject: string | null, sort: SortKey, dates: Record<string, string>) =>
+  overviewCsv(overviewRows(list, { level, subject, sort }), dates || {});
+/** Checks a pasted list of first names for "add several learners". */
+export const parseNames = (text: string, existing: string[]) => parseLearnerNames(text, existing || []);
+export const profileLimits = () => ({ maxProfiles: MAX_PROFILES, maxBulk: MAX_BULK });

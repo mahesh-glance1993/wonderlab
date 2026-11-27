@@ -80,10 +80,20 @@ fun LearnersSection() {
     val context = LocalPlatform.current
     val scope = rememberCoroutineScope()
 
+    var bulk by remember { mutableStateOf(false) }
+    val full = s.profiles.size >= MAX_PROFILES
+
     Text("Learners", style = MaterialTheme.typography.headlineSmall, color = WL.colors.text)
+    Text("${s.profiles.size} of $MAX_PROFILES learner profiles. Teachers and tuition centres: add one profile per student (first names or nicknames only) and follow everyone in Class overview.",
+        style = MaterialTheme.typography.bodyMedium, color = WL.colors.muted)
     if (s.profiles.isEmpty()) AlertBox("No learners yet. Add one to start.", AlertKind.Info)
     s.profiles.forEach { p -> LearnerCard(p, levels, onEdit = { editing = p }, onRemove = { removing = p }) }
-    WLButton("Add learner", { adding = true }, icon = Icons.Rounded.Add, kind = BtnKind.Primary)
+    if (full) AlertBox("This account has $MAX_PROFILES learner profiles, the most one account can hold. Remove a learner who has left to add another.", AlertKind.Warn)
+    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        WLButton("Add learner", { adding = true }, icon = Icons.Rounded.Add, kind = BtnKind.Primary, enabled = !full)
+        WLButton("Add several learners", { bulk = true }, icon = Icons.Rounded.Add, enabled = !full)
+    }
+    if (bulk) BulkAddDialog(onClose = { bulk = false }) { n -> bulk = false; toast(context, "$n learner${if (n == 1) "" else "s"} added") }
 
     if (adding || editing != null) ProfileDialog(editing, onClose = { adding = false; editing = null }) { p ->
         toast(context, if (editing == null) "${p.nickname} added" else "Saved")
