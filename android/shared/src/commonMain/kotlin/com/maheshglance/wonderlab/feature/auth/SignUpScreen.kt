@@ -30,6 +30,7 @@ import com.maheshglance.wonderlab.core.design.LocalWindow
 import com.maheshglance.wonderlab.core.design.Meter
 import com.maheshglance.wonderlab.core.design.WL
 import com.maheshglance.wonderlab.core.design.WLButton
+import com.maheshglance.wonderlab.feature.parent.ConsentCheckbox
 import com.maheshglance.wonderlab.ui.LocalApp
 import com.maheshglance.wonderlab.ui.Routes
 import kotlinx.coroutines.launch
@@ -67,6 +68,7 @@ fun SignUpScreen() {
     var question by remember { mutableIntStateOf(0) }
     var answer by remember { mutableStateOf("") }
     var keep by remember { mutableStateOf(true) }
+    var consent by remember { mutableStateOf(false) }
     var step by remember { mutableIntStateOf(1) }
     var codes by remember { mutableStateOf<List<String>?>(null) }
     var saved by remember { mutableStateOf(false) }
@@ -90,12 +92,14 @@ fun SignUpScreen() {
                 val p = step1Problems().toMutableMap()
                 if (email.isNotBlank() && !EMAIL_RE.matches(email.trim())) p["email"] = "Enter a valid email address."
                 if (answer.trim().length < 2) p["securityAnswer"] = "Type an answer."
+                if (!consent) p["consent"] = "Please tick the box to agree."
                 if (p.isNotEmpty()) throw FormProblem("Please check the highlighted fields.", p)
                 val r = app.api.post("/auth/register", buildJsonObject {
                     put("username", username.trim()); put("password", password)
                     email.trim().takeIf { it.isNotEmpty() }?.let { put("email", it) }
                     put("securityQuestion", question); put("securityAnswer", answer)
                     put("keepSignedIn", keep); put("deviceLabel", deviceLabel(app.platform))
+                    put("consent", consent)
                 })
                 password = ""; confirm = ""; answer = ""
                 codes = r["recoveryCodes"]?.jsonArray?.map { (it as JsonPrimitive).content } ?: emptyList()
@@ -146,6 +150,7 @@ fun SignUpScreen() {
                 Checkbox(keep, { keep = it })
                 Text("Keep me signed in on this device", style = MaterialTheme.typography.bodyMedium)
             }
+            ConsentCheckbox(consent, { consent = it }, form.field("consent"))
         }
     }
 

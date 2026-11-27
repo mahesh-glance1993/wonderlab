@@ -5,7 +5,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { api, ApiError } from './api';
 import { idb } from './idb';
-import { setAudioPrefs, speak as speakRaw, type Lang } from './audio';
+import { setAudioPrefs, setPrivateWords, speak as speakRaw, type Lang } from './audio';
 import { refreshSfxVolume } from './sfx';
 import {
   setSyncScope, queueAttempt, queueLessonState, queueActivityState, queueReward, saveSnapshot, loadSnapshot, clearAccountData, clearAllPrivateData,
@@ -20,7 +20,7 @@ import { te } from '../i18n/te';
 import { presentationFor, type AgeBand, type Avatar, type ClassLevel, type Presentation } from '../shared/levels';
 import { applyAttempt, emptyMastery, type MasteryState } from '../shared/mastery';
 
-export interface AccountInfo { id: string; username: string; email: string | null; emailVerified: boolean; role: 'parent' | 'educator' | 'admin'; securityQuestion: string }
+export interface AccountInfo { id: string; username: string; email: string | null; emailVerified: boolean; role: 'parent' | 'educator' | 'admin'; securityQuestion: string; consentNeeded?: boolean; consentAt?: number | null }
 export interface Prefs {
   language: Lang; theme: 'light' | 'dark' | 'system'; textSize: 1 | 1.15 | 1.3; reduceMotion: boolean; mute: boolean; volume: number; narration: boolean;
   breakEnabled: boolean; breakMinutes: number; pressureMode: 'auto' | 'manual'; manualIntensity: number; calibration?: { min: number; max: number };
@@ -247,6 +247,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setAudioPrefs({ mute: prefs.mute, volume: prefs.volume, rate: speed === 'slower' ? 0.7 : speed === 'slow' ? 0.8 : 0.92, repeat: !!presentation?.readAloud || tier === 'early' || tier === 'primary', voiceEn: prefs.voiceEn, voiceTe: prefs.voiceTe, natural: prefs.naturalVoice !== false, speaker: prefs.naturalSpeaker || 'luna' });
     refreshSfxVolume();
   }, [prefs, lang, presentation]);
+  // learner nicknames are never sent to the natural-voice service (lib/audio.ts)
+  useEffect(() => { setPrivateWords(profiles.map((p) => p.nickname)); }, [profiles]);
 
   // load learner state (server, else offline snapshot) and merge local queue
   useEffect(() => {

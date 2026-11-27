@@ -1,0 +1,9 @@
+.legal { max-width: 760px; margin: 0 auto; line-height: 1.6; }
+.legal h2 { margin-top: 28px; scroll-margin-top: 80px; }
+.legal ul { padding-left: 1.3em; }
+.legal li { margin-bottom: 6px; }
+.legal-toc ol { margin: 0; padding-left: 1.3em; }
+.legal-links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 32px; }
+.legal-footer { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin: 0; }
+.consent-check a { font-weight: 700; }
+.consent-check .te { display: block; margin-top: 2px; }

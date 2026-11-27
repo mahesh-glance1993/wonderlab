@@ -85,6 +85,13 @@ export { loadVoices };
 export const hasVoice = (lang: Lang) => !!voiceFor(lang);
 const hasVoiceSync = (lang: Lang) => ('speechSynthesis' in window) && !!voiceFor(lang);
 
+// Children's nicknames never leave the device for narration: text containing one is spoken by the device voice,
+// not sent to /api/tts (that request goes to Cloudflare Workers AI, request logs and a cache shared by all families).
+const norm = (s: string) => ` ${s.toLowerCase().split(/[^\p{L}\p{M}\p{N}]+/u).filter(Boolean).join(' ')} `;
+let privateWords: string[] = [];
+export function setPrivateWords(words: string[]) { privateWords = words.map(norm).filter((w) => w.trim()); }
+export const hasPrivateWords = (text: string) => { const t = norm(text); return privateWords.some((w) => t.includes(w)); };
+
 /** Plays server-generated natural speech. Resolves false (so the caller falls back) if it can't start. */
 function playNatural(text: string): Promise<boolean> {
   return new Promise((resolve) => {
@@ -135,7 +142,7 @@ export async function speak(text: string, lang: Lang = 'en', clipId?: string, fa
   }
   // Natural (neural) English voice from the server, cached; device voice is the fallback.
   const enText = lang === 'en' ? text : (!hasVoiceSync('te') ? fallbackEn : undefined);
-  if (enText && prefs.natural && navigator.onLine && Date.now() - naturalBroken > 60_000) {
+  if (enText && prefs.natural && navigator.onLine && Date.now() - naturalBroken > 60_000 && !hasPrivateWords(enText)) {
     const ok = await playNatural(enText);
     if (ok) return true;
   }

@@ -46,8 +46,10 @@ async function main() {
   ok(blocked.status === 403, 'CSRF: mutating request without app header is blocked');
   const weak = await A.req('/auth/register', { body: { username: userA, password: 'short', securityQuestion: 0, securityAnswer: 'x' } });
   ok(weak.status === 422 && weak.data.error.fields.password, 'Registration rejects weak password');
-  const reg = await A.req('/auth/register', { body: { username: userA, password: 'Garden2024', email: emailA, securityQuestion: 4, securityAnswer: 'Mango', keepSignedIn: true, deviceLabel: 'e2e' } });
-  ok(reg.status === 200 && reg.data.recoveryCodes?.length === 10, 'Parent account created with 10 recovery codes');
+  const noConsent = await A.req('/auth/register', { body: { username: userA, password: 'Garden2024', securityQuestion: 4, securityAnswer: 'Mango' } });
+  ok(noConsent.status === 422 && noConsent.data.error.fields.consent, 'Registration requires parental consent');
+  const reg = await A.req('/auth/register', { body: { username: userA, password: 'Garden2024', email: emailA, securityQuestion: 4, securityAnswer: 'Mango', keepSignedIn: true, deviceLabel: 'e2e', consent: true } });
+  ok(reg.status === 200 && reg.data.recoveryCodes?.length === 10 && reg.data.account.consentNeeded === false, 'Parent account created with 10 recovery codes and recorded consent');
   ok(A.lastCookieAttrs?.includes('httponly') && A.lastCookieAttrs?.some((a) => a.startsWith('max-age=')), 'Session cookie is HttpOnly and persistent ("keep me signed in")');
   const codes = reg.data.recoveryCodes;
   const p1 = await A.req('/profiles', { body: { nickname: 'Chinni', avatar: 'rabbit', classLevel: 0, ageBand: '3-4' } });
@@ -90,7 +92,7 @@ async function main() {
 
   // ---------- isolation & authorization ----------
   const B = new Client('parentB');
-  await B.req('/auth/register', { body: { username: `other_${rnd}`, password: 'River2024x', securityQuestion: 0, securityAnswer: 'tom', keepSignedIn: false } });
+  await B.req('/auth/register', { body: { username: `other_${rnd}`, password: 'River2024x', securityQuestion: 0, securityAnswer: 'tom', keepSignedIn: false, consent: true } });
   ok(B.lastCookieAttrs && !B.lastCookieAttrs.some((a) => a.startsWith('max-age=')), 'Shared-device sign-in uses a session cookie (no long-lived cookie)');
   for (const [path, method] of [[`/p/${pid1}/state`, 'GET'], [`/p/${pid1}/artworks`, 'GET'], [`/p/${pid1}/artworks/${artId}`, 'GET'], [`/p/${pid1}/attempts`, 'POST'], [`/p/${pid1}/profile`, 'PATCH']]) {
     const r = await B.req(path, { method, body: method === 'GET' ? undefined : { attempts: [], prefs: {} } });

@@ -59,16 +59,20 @@ fun rememberParentVerified(s: AppState): Boolean {
 
 /**
  * Sensitive parent areas require re-entering the parent password (valid for 10 minutes), like the website's
- * ParentGate. `inline` renders a compact card in place (for a single action inside a page).
+ * ParentGate. `inline` renders a compact card in place (for a single action inside a page). Accounts that have not
+ * agreed to the current Privacy Policy and Terms are then asked once (parental consent, DPDP Act).
  */
 @Composable
 fun ParentGate(reason: String = "This area is for parents.", inline: Boolean = false, content: @Composable () -> Unit) {
     val s by appState()
-    if (rememberParentVerified(s)) { content(); return }
-    if (inline) { GateCard(reason); return }
+    val verified = rememberParentVerified(s)
+    val consent = verified && s.account?.consentNeeded == true
+    if (verified && !consent) { content(); return }
+    if (inline) { if (consent) ConsentCard() else GateCard(reason); return }
     Box(Modifier.fillMaxSize().imePadding(), contentAlignment = Alignment.Center) {
         Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-            GateCard(reason, Modifier.widthIn(max = 460.dp).fillMaxWidth())
+            if (consent) ConsentCard(Modifier.widthIn(max = 560.dp).fillMaxWidth())
+            else GateCard(reason, Modifier.widthIn(max = 460.dp).fillMaxWidth())
         }
     }
 }

@@ -50,6 +50,7 @@ try {
   await page.getByLabel('Password', { exact: true }).fill('Garden2024');
   await page.getByLabel('Confirm password').fill('Garden2024');
   await page.getByLabel('Answer').fill('mango');
+  await page.getByRole('checkbox', { name: /I am the parent\/guardian/ }).check();
   await shot('01-signup');
   await page.getByRole('button', { name: 'Create account' }).click();
   await page.getByText('Save your recovery codes').waitFor({ timeout: 15000 });
